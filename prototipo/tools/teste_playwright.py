@@ -17,7 +17,7 @@ async def main():
             elif 'fonts.g' in u: await r.fulfill(body='',content_type='text/css')
             else: await r.continue_()
         await pg.route('**/*',route)
-        await pg.goto('file://'+BASE+'/simulador-nr10.html')
+        await pg.goto('file://'+BASE+'/simulador-nr10.html#mapa')
         await pg.wait_for_timeout(2000)
         await pg.screenshot(path=SH+'n_mapa.png')
         await pg.click('.mv-node[data-ch="10.13"]'); await pg.wait_for_timeout(300)

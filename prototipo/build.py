@@ -1,6 +1,6 @@
 import sys
 css=open('style.css').read()
-js='\n'.join(open(f).read() for f in ['refs.js','refs2.js','engine.js','qbank.js','mapa.js','m1.js','m7.js','m2.js','m4.js','m5.js','m3.js','m6.js','m8.js','missao.js','treino.js','main.js'])
+js='\n'.join(open(f).read() for f in ['refs.js','refs2.js','engine.js','qbank.js','mapa.js','m1.js','m7.js','m2.js','m4.js','m5.js','m3.js','m6.js','m8.js','missao.js','historia.js','treino.js','main.js'])
 # uso: python3 build.py            -> HTML que carrega three.js r128 do cdnjs (versão publicada)
 #      python3 build.py --offline  -> HTML autocontido, com vendor/three.min.js embutido (roda sem internet)
 OFFLINE = '--offline' in sys.argv
