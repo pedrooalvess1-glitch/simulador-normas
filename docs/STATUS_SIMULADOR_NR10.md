@@ -28,7 +28,7 @@
 | `prototipo/dist/simulador-nr10-offline.html` | App autocontido (~975 KB). Abre com duplo clique, sem internet. |
 | Artifact no claude.ai | `https://claude.ai/artifact/DB8sPFyo8WbQEGVVdmfjxD` mostra a versão atual do protótipo. Existe um segundo link (`…/YJ357CT4K7ahbnstJkS3H6`) com uma versão desatualizada: não usar; apagar só com a confirmação do usuário. |
 | Trilha 2 (Godot, projeto principal) | Em planejamento. `engine/`, `packs/nr10/` e `art/` só têm a estrutura de pastas. Planejamento em `00_INDICE` (entrada) e nos documentos-base `PLANO_V3` e `ARQUITETURA`; os documentos 01–25 da `00_INDICE` §5 ainda não existem. |
-| *Branches* no GitHub | Além da `main`, há quatro *branches* já mescladas (`rev3`, `rev4-docs-ci`, `rev5-handoff`, `docs/estado-atual`), a apagar pelo navegador no passo 34 do guia. |
+| *Branches* no GitHub | Além da `main`, só há *branches* já mescladas: a sessão na nuvem não consegue apagá-las. São apagadas pelo navegador no passo 34 do guia. |
 
 ### 2.1 Ambiente do usuário
 
