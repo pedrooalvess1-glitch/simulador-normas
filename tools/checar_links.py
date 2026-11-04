@@ -16,6 +16,7 @@ Só lê arquivos; não altera nada. Requisito: Python 3.9+.
 """
 from __future__ import annotations
 
+import os
 import re
 import sys
 import unicodedata
@@ -28,15 +29,26 @@ LINK = re.compile(r"(?<!!)\[[^\]]*\]\(\s*<?([^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)")
 IMAGEM = re.compile(r"!\[[^\]]*\]\(\s*<?([^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)")
 REFERENCIA = re.compile(r"^\s{0,3}\[[^\]]+\]:\s*<?(\S+?)>?(?:\s+.*)?$", re.M)
 CODIGO = re.compile(r"```.*?```|`[^`\n]*`", re.S)
+BLOCO = re.compile(r"^```.*?^```", re.S | re.M)  # só blocos cercados: o código inline de um título entra na âncora
 TITULO = re.compile(r"^#{1,6}\s+(.*?)\s*#*\s*$", re.M)
 
 
 def ancora(titulo: str) -> str:
-    """Âncora no formato do GitHub: minúsculas, sem pontuação, espaços viram hífen (acentos ficam)."""
-    t = unicodedata.normalize("NFC", titulo.strip().lower())
-    t = re.sub(r"[`*_~]", "", t)
+    """Âncora no formato do GitHub (github-slugger) sobre o texto renderizado do título.
+
+    1. O texto renderizado perde a marcação: crases (o conteúdo do código fica), * e ~, e o _ de ênfase
+       (_x_); o _ dentro de palavra (00_INDICE) é literal e fica.
+    2. Link [texto](url) vira só o texto.
+    3. Minúsculas; ficam letras (com acento), números, _, espaço e hífen; cada espaço vira um hífen.
+    """
+    t = unicodedata.normalize("NFC", titulo.strip())
     t = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", t)
-    t = "".join(c for c in t if c.isalnum() or c in " -")
+    partes = re.split(r"(`[^`]*`)", t)  # dentro do código inline, _ e * são literais
+    t = "".join(
+        pt.strip("`") if pt.startswith("`") else re.sub(r"(?<!\w)_+|_+(?!\w)", "", re.sub(r"[*~]", "", pt))
+        for pt in partes
+    )
+    t = "".join(c for c in t.lower() if c.isalnum() or c in " -_")
     return t.replace(" ", "-")
 
 
@@ -44,7 +56,7 @@ def ancoras_de(arquivo: Path, cache: dict[Path, set[str]]) -> set[str]:
     if arquivo not in cache:
         vistas: dict[str, int] = {}
         resultado = set()
-        for titulo in TITULO.findall(CODIGO.sub("", arquivo.read_text(encoding="utf-8"))):
+        for titulo in TITULO.findall(BLOCO.sub("", arquivo.read_text(encoding="utf-8"))):
             base = ancora(titulo)
             n = vistas.get(base, 0)
             resultado.add(base if n == 0 else f"{base}-{n}")
@@ -86,9 +98,9 @@ def main() -> int:
     total = len(arquivos_md())
     if erros:
         print(f"{len(erros)} link(s) interno(s) quebrado(s) em {total} arquivos .md:")
+        anotar = bool(os.environ.get("GITHUB_ACTIONS"))  # no CI, vira anotação no PR
         for e in erros:
-            print(f"  - {e}")
-            print(f"::error::{e}", file=sys.stderr)
+            print(f"::error::{e}" if anotar else f"  - {e}")
         return 1
     print(f"Links internos OK em {total} arquivos .md.")
     return 0

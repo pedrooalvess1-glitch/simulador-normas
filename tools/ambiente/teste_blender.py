@@ -16,7 +16,16 @@ cubo = bpy.context.active_object
 cubo.name = "cubo"
 bpy.ops.object.origin_set(type="ORIGIN_CURSOR")  # origem no chão (z = 0), como pede o CLAUDE.md §6
 
-cor = (0.9, 0.35, 0.05, 1)
+def srgb_para_linear(hexa: str) -> tuple:
+    """A paleta é escrita em hex sRGB (o que se vê na tela). O Blender e o glTF guardam cor linear,
+    e o importador do Godot converte de volta para sRGB. Sem esta conversão a cor chega clara demais."""
+    def canal(c: float) -> float:
+        return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+    return tuple(canal(int(hexa[i:i + 2], 16) / 255) for i in (0, 2, 4)) + (1.0,)
+
+
+COR_HEX = "e65a0d"  # laranja de teste
+cor = srgb_para_linear(COR_HEX)
 mat = bpy.data.materials.new("laranja_chapado")
 mat.use_nodes = True
 bsdf = mat.node_tree.nodes["Principled BSDF"]
