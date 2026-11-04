@@ -6,20 +6,9 @@
 >
 > Legenda: **[FONTE]** = dito em fonte citada na pesquisa · **[PRÁTICA]** = prática comum, não verificada em fonte específica · **[INFERÊNCIA]** = decisão ou recomendação do projeto · **[INTERPRETAÇÃO]** = leitura do simulador sobre o texto da norma · **[VERIFICAR]** = detalhe de ferramenta ou fato externo a confirmar antes de virar código · **[VERIFICAR NA PORTARIA]** = número ou texto da NR-10 ainda não conferido no PDF oficial.
 >
-> **Conferência de itens:** na rev3 (03/11/2026), todos os números de item citados nos documentos foram conferidos contra o PDF da Portaria (`docs/referencias/portaria-mte-no-737-nova-nr-10.pdf`) com `tools/conferir_itens_portaria.py`. Todos os números da redação de 2026 existem no PDF; o relatório fica em `docs/CONFERENCIA_ITENS.md`.
+> **Conferência de itens:** os números de item citados nos documentos são conferidos contra o PDF da Portaria (`docs/referencias/portaria-mte-no-737-nova-nr-10.pdf`) com `tools/conferir_itens_portaria.py`, também no CI; o relatório fica em `docs/CONFERENCIA_ITENS.md`.
 >
-> **Modelo de operação (rev3):** o agente de IA opera o projeto inteiro (computador, ferramentas e GitHub). O usuário só traz fotos de objetos, testa e usa o simulador, concede permissões e responde às perguntas essenciais (§1.2).
-
----
-
-## Histórico de revisões
-
-| Revisão | Data | Mudança |
-|---|---|---|
-| rev1 | 03/11/2026 | Versão inicial (edição 2026 padrão + edição 2004 alternativa). |
-| rev2 | 03/11/2026 | **Edição única: Portaria MTE 737/2026.** Nova §1.1 com a decisão e os motivos; R7, §4, §5.2, §5.3, §7.1, §9, §10 e §11 sem o modelo de duas edições. Pendências que só existiam por causa da redação de 2004 marcadas "resolvida: fora de escopo (edição única)". Estrutura de pastas (§4) e lista de documentos (§5.0) alinhadas ao guia `01_PASSO_A_PASSO_INICIO_CLAUDE_CODE.md` rev2. §8.1 alinhada à seção "Quem opera cada passo" do guia. Novas pendências 12–21. Legenda com [INTERPRETAÇÃO] e [VERIFICAR NA PORTARIA]. |
-| rev3 | 03/11/2026 | **Autonomia do agente e duas trilhas.** Novo requisito R8 (interferência mínima do usuário) e nova §1.2 (modelo de operação: o agente opera computador, Blender, Godot e GitHub; papel do usuário em 4 tarefas). Nova §1.3 (duas trilhas: estudo para a prova no protótipo offline × projeto Godot). §3.1: VS Code e Blender deixam de exigir aprendizado do usuário. §4: pastas `prototipo/` e `art/`. §8 reescrita para o agente com permissão total (modo Auto ou Bypass, merge automático com CI verde). §9 com a Trilha 1. §10: pendências 12–19 resolvidas pela conferência no PDF; 20–21 parcialmente. §11: prompt da primeira sessão local. |
-| rev4 | 04/11/2026 | Primeiro *push* (PR #1). CI mínimo. Protótipo v4 com o módulo **História** (§1.3, §9). Artifact republicado. |
+> **Modelo de operação:** o agente de IA opera o projeto inteiro (computador, ferramentas e GitHub). O usuário só traz fotos de objetos, testa e usa o simulador, concede permissões e responde às perguntas essenciais (§1.2).
 
 ---
 
@@ -34,23 +23,23 @@
 | R5 | **Campanha primeiro**, Modo Livre depois | Roadmap em duas fases (§9). Os esquemas de missão servem aos dois modos desde o início. |
 | R6 | **Extensível a outras normas e ambientes** (industrial, comercial, residencial, concessionária) | Separação rígida motor × pacote (§4). |
 | R7 | **Uso permanente**, não só para a prova | **Edição única:** o simulador implementa só a NR-10 na redação da **Portaria MTE 737/2026** (§1.1). Não há seletor de edição, edição padrão nem mapeamento entre redações. |
-| R8 | **Interferência mínima do usuário** (rev3) | O usuário não aprende Blender, Godot nem VS Code. O agente opera as ferramentas e o repositório (§1.2). Toda pergunta ao usuário precisa ser essencial: uma decisão que só ele pode tomar ou que não dá para desfazer. |
+| R8 | **Interferência mínima do usuário** | O usuário não aprende Blender, Godot nem VS Code. O agente opera as ferramentas e o repositório (§1.2). Toda pergunta ao usuário precisa ser essencial: uma decisão que só ele pode tomar ou que não dá para desfazer. |
 
-### 1.1 Decisão: edição única da norma (rev2)
+### 1.1 Decisão: edição única da norma
 
 - **Decisão:** o projeto usa uma única redação da NR-10, a da **Portaria MTE 737/2026**.
 - **Motivos** (registrados como decididos):
   1. Suportar duas edições multiplica a complexidade do motor (versionamento de regras, precedência entre edições, testes duplicados).
   2. Os próximos concursos cobram a redação atualizada.
 - **Consequências:**
-  1. Sai o conceito de "edição": seletor, edição padrão, precedência entre edições, mapeamento 2004 ↔ 2026, missões e conteúdos duplicados por edição.
+  1. Não existe o conceito de "edição": sem seletor, edição padrão, precedência entre edições ou conteúdo duplicado por edição.
   2. O motor continua **orientado a dados** (princípio 1, §2). Isso mantém aberta a porta para **outras normas** como pacotes separados (R6). Não significa várias edições da mesma norma. Regra: **um pacote = o texto de uma norma, numa redação**.
   3. "Versão do pacote" (princípio 5) é o número de release dos dados do pacote (ex.: `nr10 0.3.0`), não uma edição da norma [INFERÊNCIA: esclarecimento de termo, para que a remoção das edições não seja confundida com a remoção do versionamento dos dados].
-  4. Todo requisito, número de item, redação ou tabela que veio do texto de 2004 é conferido contra o texto de 2026 e confirmado, corrigido ou marcado [VERIFICAR NA PORTARIA].
+  4. Todo requisito, número de item, redação ou tabela entra só depois de conferido no PDF de 2026; o que não foi conferido leva [VERIFICAR NA PORTARIA].
   5. Fonte de verdade do conteúdo: o PDF da Portaria MTE 737/2026 em `docs/referencias/` (passo 23 do guia).
 - Registro formal: `docs/DECISOES.md`, decisão 3 (passo 45 do guia).
 
-### 1.2 Modelo de operação: o agente opera, o usuário decide o essencial (rev3)
+### 1.2 Modelo de operação: o agente opera, o usuário decide o essencial
 
 **Decisão do usuário (03/11/2026):** os agentes de IA do Claude têm permissão total para operar o computador de desenvolvimento e as ferramentas, e atualizam o repositório no GitHub. A interferência do usuário fica no essencial; o resto o agente assume.
 
@@ -71,19 +60,19 @@
 - O modo escolhido fica salvo por pasta. Um padrão pode ir em `permissions.defaultMode` do arquivo de configuração.
 
 **Salvaguardas que não custam tempo do usuário** [INFERÊNCIA]:
-1. **Escopo de pastas:** o agente só mexe em `C:\projetos\simulador-normas` e em `C:\ferramentas` (Godot, Blender). Outras pastas (Documentos, OneDrive etc.) ficam de fora sem pedido explícito. A documentação diz que não há uma trava de pasta no Desktop, então essa regra fica no `CLAUDE.md`.
+1. **Escopo de pastas:** o agente só mexe em `C:\projetos\simulador-normas`, em `C:\ferramentas` e na pasta do Godot (`C:\Users\Pedro Alves\Desktop\POTENCIAIS_CONCURSOS\SOFTWARE-NR10\GODOT`). Outras pastas (Documentos, OneDrive etc.) ficam de fora sem pedido explícito. A documentação diz que não há uma trava de pasta no Desktop, então essa regra fica no `CLAUDE.md`.
 2. **Git como rede de segurança:** todo trabalho vai em *branch* + *pull request*; nada de `push --force` na `main` nem reescrita de histórico; qualquer erro é revertível.
 3. **CI como porteiro:** o *merge* automático só acontece com o CI verde (proteção da `main` exigindo os *checks*, sem exigir revisão humana).
 4. **Repositório público:** nunca comitar tokens, `.env`, fotos pessoais ou dados pessoais.
 5. **Disco e memória:** o computador de teste tem ~9 GB livres e 7,5 GB de RAM; o agente limpa *builds* antigos e evita baixar ferramentas pesadas.
 
-### 1.3 Duas trilhas até a prova (rev3)
+### 1.3 Duas trilhas até a prova
 
-A data provável da prova objetiva passou para **13/12/2026** (Aditivo 2 do edital, 30/10/2026) [FONTE: site da banca]. O software Godot não fica pronto até lá. Por isso:
+A data provável da prova objetiva é **13/12/2026** (Aditivo 2 do edital, 30/10/2026) [FONTE: site da banca]. O software Godot não fica pronto até lá. Por isso:
 
 | Trilha | Para quê | Onde | Prioridade até a prova |
 |---|---|---|---|
-| **1 — Estudo** | O usuário estuda a NR-10 enquanto o projeto é construído | Protótipo three.js em `prototipo/` (HTML offline; Artifact do claude.ai a republicar). Na rev3 ganhou a fase **Treino** (simulado no estilo de banca, revisão espaçada, gerador de questões e cartões); na v4, o módulo **História** (desenho estático da cabine com objetos clicáveis ligados aos itens) | **Alta.** Cada melhoria entra em dias, não em semanas |
+| **1 — Estudo** | O usuário estuda a NR-10 enquanto o projeto é construído | Protótipo three.js em `prototipo/` (HTML offline em `prototipo/dist/` e Artifact do claude.ai), com o módulo **História** (desenho estático da cabine com objetos clicáveis ligados aos itens), as fases da norma, a Missão e a fase **Treino** (simulado no estilo de banca, revisão espaçada, gerador de questões e cartões) | **Alta.** Cada melhoria entra em dias, não em semanas |
 | **2 — Projeto** | Infraestrutura permanente (motor + pacotes de norma) | Godot 4.7.2 (`engine/`, `packs/`) | Avança em paralelo, sem tirar tempo de estudo do usuário |
 
 Regra de uso do plano Claude Pro [INFERÊNCIA]: quando o limite de uso apertar, a Trilha 1 tem preferência até 13/12/2026.
@@ -119,16 +108,16 @@ Regra de uso do plano Claude Pro [INFERÊNCIA]: quando o limite de uso apertar, 
 | Versionamento e CI | Git + GitHub (repositório + Actions + Releases + Issues) | Plano gratuito | Código, documentos, builds, relatórios de bug |
 | Instalador Windows | Inno Setup | Gratuito | Instalação e atalho |
 
-**Versões instaladas** (guia, passos 9–18) [FONTE: ambiente do usuário]: Godot `4.7.2.stable` (export templates só Windows x86_64), Git 2.56.0, VS Code 1.140.0, Blender 4.5.10 LTS.
+**Versões instaladas** (guia, passos 9–18) [FONTE: ambiente do usuário]: Godot `4.7.2.stable` em `C:\Users\Pedro Alves\Desktop\POTENCIAIS_CONCURSOS\SOFTWARE-NR10\GODOT` (export templates só Windows x86_64), Git 2.56.0, VS Code 1.140.0, Blender 4.5.10 LTS.
 
-**Quem usa cada ferramenta (rev3):** o agente usa Godot (linha de comando, `--headless`), Blender (Python, `--background`) e Git; o usuário não precisa abrir nenhum dos três. O VS Code fica opcional, só se o usuário quiser olhar algum arquivo.
+**Quem usa cada ferramenta:** o agente usa Godot (linha de comando, `--headless`), Blender (Python, `--background`) e Git; o usuário não precisa abrir nenhum dos três. O VS Code fica opcional, só se o usuário quiser olhar algum arquivo.
 
 **Por que Godot e não as alternativas** (o mecanismo de cada decisão):
 - **Unity e Unreal** saem pela regra R1: as condições de licença para uso não-jogo e acima de certos faturamentos institucionais podem exigir planos pagos [FONTE], e o Unreal usa ativos binários, que um agente de código não consegue ler nem editar.
 - **Web pura (TypeScript + three.js) empacotada em Electron/Tauri** é gratuita e leve, mas obriga a escrever à mão tudo o que um motor já entrega (gerência de cenas, interface, entrada, save, câmera, colisão). Para um desenvolvedor solo trabalhando com agente, o Godot reduz o volume de código e, por gravar cenas em texto (`.tscn`, `.tres`), continua legível para o agente [PRÁTICA].
 - **Bônus do renderizador Compatibility:** é o mesmo que o Godot usa na **exportação web**. Logo, uma versão de navegador fica possível sem retrabalho, útil para demonstração ou estudo rápido [PRÁTICA; VERIFICAR limitações da exportação web do 4.7].
 
-O protótipo atual em three.js passa a ser **fonte de conteúdo** (textos da norma em `REF`, tabelas, questões, sequências), não código a ser portado. Na rev2, esse conteúdo foi alinhado à edição única. Na rev3, o protótipo voltou a ser desenvolvido como ferramenta de estudo (Trilha 1, §1.3) e fica em `prototipo/`, na raiz do repositório.
+O protótipo em three.js tem dois papéis: é a ferramenta de estudo da Trilha 1 (§1.3), desenvolvida em `prototipo/`, e é **fonte de conteúdo** para o Godot (textos da norma em `REF`, tabelas, questões, sequências), não código a ser portado.
 
 ### 3.2 GPU integrada: como garantir desempenho
 
@@ -138,8 +127,8 @@ O protótipo atual em three.js passa a ser **fonte de conteúdo** (textos da nor
 
 Configuração padrão do projeto:
 1. Renderizador `gl_compatibility`.
-2. **Sem texturas de imagem.** Os materiais usam **cor chapada** ou uma **paleta única** (uma imagem 256 × 256 com faixas de cor, compartilhada por todos os modelos, no estilo Kenney). Placas de sinalização e etiquetas usam `Label3D` sobre placa de cor chapada (rev3).
-3. Uma luz direcional + luz ambiente. **Sem sombras em tempo real** em nenhum perfil (rev3, conforme o passo 17 do guia).
+2. **Sem texturas de imagem.** Os materiais usam **cor chapada** ou uma **paleta única** (uma imagem 256 × 256 com faixas de cor, compartilhada por todos os modelos, no estilo Kenney). Placas de sinalização e etiquetas usam `Label3D` sobre placa de cor chapada.
+3. Uma luz direcional + luz ambiente. **Sem sombras em tempo real** em nenhum perfil (medição do passo 17 do guia).
 4. Sem SSAO, SSR, glow, bloom, volumetria ou partículas em massa. O raio-x do debrief usa linhas e poucas partículas instanciadas.
 5. Antialiasing: FXAA ou nenhum. Escala de resolução 3D ajustável (75–100 %).
 6. Texto 3D com `Label3D` (não com texturas de texto).
@@ -147,8 +136,6 @@ Configuração padrão do projeto:
 8. Ocultar o que está fora do ambiente atual: cada ambiente é carregado como cena separada e descarregado ao sair.
 
 Perfis de qualidade no menu: **Leve** (padrão, alvo GPU integrada), **Médio** e **Alto** (só antialiasing melhor e escala de resolução 100 %; nenhum deles liga sombras nem texturas). Se houver placa dedicada no computador de teste, o Windows permite escolher "Alto desempenho" por aplicativo em Configurações → Sistema → Tela → Gráficos [FONTE]; isso é opcional e não é requisito.
-
-> **Resolvido na rev3** [INFERÊNCIA, assumida pelo agente conforme R8]: vale a decisão medida no passo 17 do guia (sem sombras em tempo real e sem texturas) para todos os perfis. Ela é a mais coerente com R2 (treinamento, não produto visual) e R3 (GPU integrada).
 
 **Verificação no próprio jogo:** na inicialização, gravar em log `RenderingServer.get_video_adapter_name()`, o renderizador em uso e o FPS médio do primeiro minuto. Um atalho (F3) mostra um painel com FPS, *draw calls*, memória de vídeo estimada e nome da GPU [PRÁTICA; nomes de API a VERIFICAR no 4.7].
 
@@ -169,15 +156,15 @@ Esses limites entram no CI como teste de regressão sempre que possível (contag
 
 ## 4. Arquitetura em duas partes
 
-Pastas criadas no passo 21 do guia (com `.gitkeep`): `docs/`, `docs/referencias/`, `engine/`, `packs/nr10/`, `tools/`, `.github/`. As subpastas de `engine/` e `packs/nr10/` são criadas junto com o projeto Godot (passo 65). Na rev3, `prototipo/` (antes planejado como `docs/referencias/prototipo-threejs/`) sobe para a raiz, porque deixou de ser só referência: é a ferramenta de estudo em evolução.
+As subpastas de `engine/` e `packs/nr10/` são criadas junto com o projeto Godot (passo 65). `prototipo/` fica na raiz porque é código ativo (Trilha 1), não referência.
 
 ```
 repo/
   docs/                    ← todos os .md de planejamento (versionados)
     referencias/           ← PDF da Portaria MTE 737/2026 (fonte de verdade), relatórios de pesquisa
-  prototipo/               ← (rev3) simulador three.js ativo: Trilha 1, estudo para a prova
+  prototipo/               ← simulador three.js ativo: Trilha 1, estudo para a prova
     dist/                  ← HTML offline gerado pelo build (versionado para baixar de qualquer lugar)
-  art/                     ← (rev3) pipeline de arte operado pelo agente
+  art/                     ← pipeline de arte operado pelo agente
     blender/               ← scripts .py que geram cada modelo
     glb/                   ← modelos exportados
     previews/              ← prévias .png para o usuário aprovar
@@ -213,19 +200,24 @@ repo/
 Todos ficam em `docs/` no repositório. Formato padrão de cada um (modelo em `docs/_MODELO_DOCUMENTO.md`, passo 43):
 **Objetivo · Escopo e limites · Dependências · Contratos/esquemas · Decisões (com motivo) · Exemplos · Casos de teste · Perguntas abertas · Critérios de pronto.**
 
-### 5.0 Documentos que já existem em `docs/` (guia, passo 22)
+### 5.0 Documentos que já existem
 
 | Arquivo | Papel | Situação |
 |---|---|---|
-| `00_INDICE_E_DECISOES_INFRAESTRUTURA.md` | Este arquivo: entrada, requisitos, decisões de infraestrutura | rev3 |
-| `01_PASSO_A_PASSO_INICIO_CLAUDE_CODE.md` | Guia operacional; "quem opera cada passo" | rev3 (agente com permissão total) |
-| `PLANO_V3_SIMULADOR_NR10.md` | Base de conteúdo e didática para os documentos 01, 11, 14 e 15 | rev3 |
-| `ARQUITETURA_SOFTWARE_SIMULADOR_NR10.md` | Base para os documentos 02, 05 e 16 (exemplos em JS, a reescrever em GDScript) | rev3 |
-| `STATUS_SIMULADOR_NR10.md` | Situação do projeto, inventário do protótipo, auditoria de cobertura | rev3 |
+| `CLAUDE.md` / `AGENTS.md` (raiz) | Regras permanentes do agente (o segundo aponta para o primeiro) | Vigente |
+| `00_INDICE_E_DECISOES_INFRAESTRUTURA.md` | Este arquivo: entrada, requisitos, decisões de infraestrutura | Vigente |
+| `01_PASSO_A_PASSO_INICIO_CLAUDE_CODE.md` | Guia operacional: passos e quem opera cada um | Vigente |
+| `STATUS_SIMULADOR_NR10.md` | Estado do projeto, inventário do protótipo, lacunas de cobertura | Vigente |
+| `PROXIMA_SESSAO.md` | Backlog em ordem e como abrir a próxima sessão | Vigente |
+| `PLANO_V3_SIMULADOR_NR10.md` | Base de conteúdo e didática para os documentos 01, 11, 14 e 15 | Base |
+| `ARQUITETURA_SOFTWARE_SIMULADOR_NR10.md` | Base para os documentos 02, 05 e 16 (exemplos em JS, a reescrever em GDScript) | Base |
+| `DECISOES.md` | Decisões vigentes, com motivo | Vigente |
+| `PENDENCIAS_DE_VERIFICACAO.md` | Fatos já conferidos no PDF e pendências abertas | Vigente |
+| `CONFERENCIA_ITENS.md` | Saída do script de conferência contra o PDF (gerada) | Gerado |
 
-Escritos na rev3 (03/11/2026; entram no GitHub com o passo 25 do guia): `CLAUDE.md` e `AGENTS.md` (raiz; o segundo aponta para o primeiro), `docs/DECISOES.md`, `docs/PENDENCIAS_DE_VERIFICACAO.md`, `docs/CONFERENCIA_ITENS.md` (saída do script de conferência) e `docs/historico/RELATORIO_ATUALIZACAO_EDICAO_UNICA.md`. Na rev4 entrou o CI mínimo (`.github/workflows/ci.yml`, passo 42). Ainda faltam, da Etapa E do guia: `CONVENCOES.md` (38), `GLOSSARIO_DO_PROJETO.md` (39), `_MODELO_DOCUMENTO.md` (43) e modelos de issue e de PR (40–41).
+CI: `.github/workflows/ci.yml`. Ainda faltam, da Etapa E do guia: `CONVENCOES.md` (38), `GLOSSARIO_DO_PROJETO.md` (39), `_MODELO_DOCUMENTO.md` (43) e modelos de issue e de PR (40–41).
 
-> **Prefixo `01` (resolvido na rev3)** [INFERÊNCIA]: o guia (`01_PASSO_A_PASSO_…`) e o futuro `01_VISAO_E_PEDAGOGIA` mantêm os nomes; os documentos sempre se citam pelo nome completo, nunca só pelo número. Renomear o guia agora quebraria referências sem ganho.
+> **Prefixo `01`** [INFERÊNCIA]: o guia (`01_PASSO_A_PASSO_…`) e o futuro `01_VISAO_E_PEDAGOGIA` mantêm os nomes; os documentos sempre se citam pelo nome completo, nunca só pelo número. Renomear o guia agora quebraria referências sem ganho.
 
 ### 5.1 Projeto
 | # | Arquivo | Conteúdo |
@@ -333,20 +325,20 @@ Cada missão segue as fases F1–F8 (briefing → planejamento → almoxarifado 
 
 ### 7.3 Papéis definidos na norma [FONTE]
 - **Qualificado** (10.8.1), **PLH** (10.8.2; aprova procedimentos, 10.7.1.1; responde pelo projeto, 10.4.8, e pelo PIE, 10.15.6), **capacitado** (10.8.3), **autorizado** (10.10.2, inclui quem supervisiona), **supervisor / condutor dos trabalhos** indicado pela organização (10.7.6).
-- "Responsável técnico" e "responsável pela instalação" não aparecem como termos no PDF (só "responsabilidade técnica de PLH", no 10.4.8.1) [FONTE: conferência rev3]. O simulador mapeia para PLH e para a organização [INTERPRETAÇÃO].
+- "Responsável técnico" e "responsável pela instalação" não aparecem como termos no PDF (só "responsabilidade técnica de PLH", no 10.4.8.1) [FONTE: conferência no PDF]. O simulador mapeia para PLH e para a organização [INTERPRETAÇÃO].
 
 ---
 
 ## 8. Fluxo de trabalho
 
-### 8.1 Agente de código: Claude (rev3: com permissão total)
+### 8.1 Agente de código: Claude, com permissão total
 - **Claude Code numa sessão Local** do Claude Desktop (aba *Code*), na pasta `C:\projetos\simulador-normas`, modo **Auto** (ou **Bypass permissions**, se o Auto não estiver disponível ou bloquear algo necessário). Ver §1.2. É essa sessão que roda Godot, Blender e Git no computador do usuário.
-- **Sessões na nuvem** (como a que produziu a rev3) servem para documentos, para o protótipo da Trilha 1 e para atualizar o GitHub pela conexão do GitHub, sem depender do computador ligado.
+- **Sessões na nuvem** (chat do claude.ai ligado ao GitHub) servem para documentos, para o protótipo da Trilha 1 e para atualizar o GitHub pela conexão do GitHub, sem depender do computador ligado.
 - **Codex** continua como alternativa equivalente em conceito, mas exige assinatura da OpenAI [VERIFICAR plano e limites atuais]; só faz sentido como revisor secundário.
 - O projeto fica **agnóstico ao agente**: `AGENTS.md` aponta para o `CLAUDE.md`, que é a fonte única das regras permanentes.
 - O Gemini, que você já usa para pré-processamento, pode resumir normas e catálogos antes de virarem dados — o papel de síntese e decisão continua no Claude.
 
-### 8.2 Ciclo de uma iteração (rev3)
+### 8.2 Ciclo de uma iteração
 1. **Planejar:** o agente escolhe o próximo item do roadmap (§9), com prioridade para a Trilha 1 até a prova.
 2. **Implementar:** o agente cria uma *branch*, implementa, roda os testes (sintaxe, unidade, esquema, Playwright no protótipo, gdUnit4 no Godot) e abre um *pull request* com a descrição do que mudou.
 3. **Integrar:** com o CI verde, o próprio agente faz o *merge* (squash) na `main`. Sem CI verde, não há *merge*.
@@ -360,8 +352,8 @@ O que **só você** verifica: clareza didática, se o conteúdo bate com o que a
 GitHub Actions: o repositório é **público** (guia, passo 3), e repositórios públicos têm minutos de Actions sem cota no plano gratuito [VERIFICAR valores atuais].
 
 ### 8.3 Onde e como os `.md` são escritos
-- **Onde:** na pasta `docs/` do repositório. Desde a rev3, o remoto no GitHub é a fonte da verdade; a cópia local é sincronizada pelo agente no começo de cada sessão Local (`git fetch` + `git reset --hard origin/main`, depois de conferir que não há trabalho local só dele).
-- **Como:** uma sessão por documento, na ordem da §5.4 (passos 47–63 do guia). O agente escreve, decide o que não é essencial (registrando como [INFERÊNCIA]) e só pergunta o que for essencial (R8). Documentos são **vivos**: mudanças entram por *pull request*, com o motivo em `docs/DECISOES.md`.
+- **Onde:** na pasta `docs/` do repositório. O remoto no GitHub é a fonte da verdade; a cópia local é sincronizada pelo agente no começo de cada sessão Local (`git fetch` + `git reset --hard origin/main`, depois de conferir que não há trabalho local só dele).
+- **Como:** uma sessão por documento, na ordem da §5.4 (passos 47–63 do guia). O agente escreve, decide o que não é essencial (registrando como [INFERÊNCIA]) e só pergunta o que for essencial (R8). Documentos são **vivos** e descrevem só o estado atual: mudanças entram por *pull request*, com o motivo em `docs/DECISOES.md`; o histórico fica no Git, não no texto.
 
 ---
 
@@ -369,9 +361,8 @@ GitHub Actions: o repositório é **público** (guia, passo 3), e repositórios 
 
 | Fase | Marco | Entrega |
 |---|---|---|
-| T1 | Treino v3 (feito em 03/11/2026) | Fase "Treino" no protótipo: simulado no estilo de banca, revisão espaçada, gerador de questões (11 tipos), 42 cartões de fatos, painel de desempenho |
-| T1 | História v4 (feito em 03/11/2026) | OS contada sobre o desenho da cabine primária: 27 objetos ligados a itens, 14 passos, 10.13.1/10.13.2 aplicados na cena, índice item × cena |
-| T1 | Treino v4 (até a prova) | Explicação de cada distrator; questões no formato de 5 alternativas; mais cartões dos itens nunca exercitados (PLANO §13); 10.2.4.1 e artigos da Portaria exercitados |
+| T1 | Simulador de estudo (pronto) | História, fases I–IV, Missão e Treino (simulado, revisão espaçada, gerador, cartões, painel) |
+| T1 | Treino para banca (até a prova) | Backlog de `docs/PROXIMA_SESSAO.md` §3: distratores explicados, 5 alternativas, itens nunca exercitados, glossário, novas histórias |
 | 0 | Planejamento | Documentos 01, 14, 04, 05, 11, 15, 07, 09, 08, 13, 02, 03, 06, 18, 16, 12, 17, 20, 21 |
 | 0 | Repositório | Estrutura, CI mínimo, `AGENTS.md`, modelos de issue |
 | 1 | Fatia vertical | Motor mínimo + Capítulo 0 (residência) jogável do início ao debrief, em Godot, no perfil Leve |
@@ -386,41 +377,10 @@ GitHub Actions: o repositório é **público** (guia, passo 3), e repositórios 
 
 ## 10. Pendências de verificação
 
-Nada desta lista vira código como fato antes de ser confirmado. Esta lista é a base do `docs/PENDENCIAS_DE_VERIFICACAO.md` (passo 44).
-
-| # | Pendência | Status (rev3) |
-|---|---|---|
-| 1 | Requisitos mínimos do renderizador Compatibility do Godot 4.7 (versão de OpenGL e drivers de GPUs integradas antigas). | Parcialmente respondida: no computador de teste, roda via ANGLE/D3D11 na Radeon R5 (passo 17). Falta a referência oficial. |
-| 22 | *(nova, rev3)* Se o modo **Auto** do Claude Code aparece no Desktop para o plano do usuário. | Aberta [VERIFICAR] (o agente confere na primeira sessão Local) |
-| 2 | Limitações da exportação web no Godot 4.7. | Aberta |
-| 3 | Nomes exatos das APIs de diagnóstico de GPU e memória de vídeo no 4.7. | Aberta |
-| 4 | Viabilidade de renderizar capturas de tela no contêiner de nuvem sem GPU (para o agente conferir cenas). | Aberta (a sessão de código é Local; ver §8.1) |
-| 5 | Cotas atuais do GitHub Actions para repositório privado. | Resolvida: fora de escopo (repositório público, passo 3) |
-| 6 | Plano e custo atuais do Codex, se for usado. | Aberta (só se o Codex for usado) |
-| 7 | Mapeamento sistemático item a item entre as edições 2004 e 2026. | **Resolvida: fora de escopo (edição única)** |
-| 8 | Itens da redação 2026 que vieram de pesquisa web (marcados com `*` no PLANO), a conferir no PDF. | **Resolvida (rev3):** conferidos no PDF; o único que não batia (extintor, "10.12.4") é a pendência 13. |
-| 9 | Se o item 10.14.1 do texto de 2004 foi revogado pela Portaria SEPRT 915/2019. | **Resolvida: fora de escopo (edição única)** |
-| 10 | Textos oficiais de NR-12, NR-33 e NR-35 (necessários para a Fase 3). | Aberta |
-| 11 | Procedimentos de visita a subestações de concessionárias (CHESF, Neoenergia, CEMIG, COPEL). | Aberta |
-| 12 | Reconferir no PDF todos os números de item citados nos documentos de `docs/`. | **Resolvida (rev3):** 133 itens no PDF; todos os números de 2026 citados existem (`docs/CONFERENCIA_ITENS.md`). Rodar o script de novo a cada documento novo. |
-| 13 | Item da NR-10/2026 sobre extintor e combate a incêndio. | **Resolvida (rev3):** o PDF não tem item sobre extintor; a referência é só a NR-23. |
-| 14 | Onde a NR-10/2026 trata a suspensão do trabalho e o direito de recusa. | **Resolvida (rev3):** "direito de recusa" aparece só como conteúdo do Treinamento Básico (Anexo III, item 9, alínea k). Não há item de suspensão; o mais próximo é o 10.7.4.2 (anormalidade na avaliação prévia: não iniciar e comunicar). |
-| 15 | Se a NR-10/2026 mantém a convenção de cores de posição de manobra (verde "D" / vermelho "L"). | **Resolvida (rev3):** não mantém (nenhuma ocorrência de verde/vermelho no PDF). No simulador é [PRÁTICA]. |
-| 16 | Se o termo "ordem de serviço" aparece na NR-10/2026. | **Resolvida (rev3):** não aparece. "Ordem de Serviço" é só a unidade de jogo [PRÁTICA]; o documento normativo é o procedimento (10.7.1) ou a PT (10.7.2). |
-| 17 | Item 10.2.4.1 fora da `REF`. | **Resolvida (rev3):** texto literal incluído em `refs2.js` (com os Art. 1º, 2º e 4º da Portaria). Falta exercitá-lo numa tarefa. |
-| 18 | Item da NR-10/2026 sobre trabalho em altura e cinto. | **Resolvida (rev3):** não há; a referência é só a NR-35. |
-| 19 | Se a NR-10/2026 tem capítulo próprio de emergência. | **Resolvida (rev3):** não tem. Emergência aparece em 10.7.3 h, 10.15.6.1 e nos conteúdos de primeiros socorros e resgate do Anexo III. |
-| 20 | "DR 30 mA". | **Parcial (rev3):** confirmado que a NR-10/2026 só diz "alta sensibilidade" (10.6.4 e Anexo III). O valor 30 mA vem de norma técnica (ABNT NBR 5410) [VERIFICAR a norma]. |
-| 21 | Cor da etiqueta da luva isolante por classe. | **Parcial (rev3):** a NR-10/2026 não trata de cores de luva; o Anexo IV (Quadro III, notas) cita a ASTM D120 para luvas isolantes. Confirmar a tabela de cores nessa norma [VERIFICAR]. |
+Fatos já conferidos no PDF e pendências abertas ficam num só lugar: `docs/PENDENCIAS_DE_VERIFICACAO.md`. Nada da lista aberta vira código como fato antes de ser confirmado.
 
 ---
 
-## 11. Como abrir a próxima sessão (rev3)
+## 11. Como abrir a próxima sessão
 
-O agente lê o repositório; não é preciso anexar nada. O remoto no GitHub é a fonte da verdade.
-
-**Primeira sessão Local (passos 29–34 do guia).** Você (U3): abra o Claude Desktop → aba *Code* → ambiente Local → pasta `C:\projetos\simulador-normas` → modo **Auto** (ou Bypass). Cole:
-
-"Claudinho, leia o `CLAUDE.md` e o `docs/01_PASSO_A_PASSO_INICIO_CLAUDE_CODE.md` (rev3). Sincronize a pasta local com o GitHub, rode os testes do protótipo, confira se o Godot responde em linha de comando e siga a partir do próximo passo pendente do guia. Só me pergunte o que for essencial."
-
-**Sessões seguintes:** "Claudinho, continue o projeto pelo `CLAUDE.md`. Prioridade: Trilha 1 até a prova." Se quiser algo específico, diga só o objetivo (ex.: "faça o modelo 3D desta foto", "o simulado errou a questão X").
+Ver `docs/PROXIMA_SESSAO.md` §5.

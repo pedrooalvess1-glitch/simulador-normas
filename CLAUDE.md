@@ -1,7 +1,7 @@
 # CLAUDE.md — regras permanentes do projeto `simulador-normas`
 
 > Lido no início de toda sessão de agente (Claude Code local ou na nuvem). `AGENTS.md` aponta para este arquivo.
-> Estado atual e próximos passos: `docs/STATUS_SIMULADOR_NR10.md` e `docs/01_PASSO_A_PASSO_INICIO_CLAUDE_CODE.md`.
+> Estado atual: `docs/STATUS_SIMULADOR_NR10.md`. Próximos passos e regra de autonomia: `docs/PROXIMA_SESSAO.md`. Passos da Trilha 2: `docs/01_PASSO_A_PASSO_INICIO_CLAUDE_CODE.md`.
 
 ## 1. O projeto em 10 linhas
 1. Simulador 3D didático e gamificado de normas regulamentadoras; o primeiro pacote é a **NR-10**.
@@ -19,9 +19,10 @@
 - **O usuário faz só quatro coisas:** U1 manda fotos de objetos e aprova a prévia do modelo 3D; U2 usa e testa o simulador e conta o que estranhou; U3 concede permissões (abre a sessão, escolhe o modo, faz login do GitHub); U4 responde perguntas essenciais.
 - **O agente faz todo o resto**, com permissão total: documentos, código, testes, Blender por script, Godot por linha de comando, Git, PR, *merge*, CI, Releases e issues (a partir dos relatos do U2).
 - **Pergunte só o essencial** (decisão que só o usuário pode tomar, ou irreversível). O resto: decida, registre como [INFERÊNCIA] em `docs/DECISOES.md` e siga.
+- **Trabalho contínuo:** a um "continue", siga o backlog de `docs/PROXIMA_SESSAO.md` §3 sem pedir aprovação a cada passo; pare só nos pontos P1–P4 de `PROXIMA_SESSAO` §1.
 
 ## 3. Regras fixas
-1. Trabalhe **só** em `C:\projetos\simulador-normas` e `C:\ferramentas` (no computador do usuário). Outras pastas, só com pedido explícito.
+1. Trabalhe **só** em `C:\projetos\simulador-normas`, `C:\ferramentas` e `C:\Users\Pedro Alves\Desktop\POTENCIAIS_CONCURSOS\SOFTWARE-NR10\GODOT` (no computador do usuário). Outras pastas, só com pedido explícito.
 2. Todo trabalho em *branch* + PR; *merge* (squash) **só com CI verde**. Nunca `push --force` na `main` nem reescrita de histórico.
 3. Sessão Local: comece com `git fetch origin` e sincronize com `origin/main` (o GitHub é a fonte da verdade). Antes de `reset --hard`, confira se não há trabalho local que só exista ali.
 4. Repositório **público**: nunca comitar tokens, `.env`, credenciais, fotos do usuário (`art/fotos/` fica fora do Git) ou dados pessoais.
@@ -29,6 +30,7 @@
 6. Rótulos: **[FONTE]**, **[PRÁTICA]**, **[INFERÊNCIA]**, **[INTERPRETAÇÃO]**, **[VERIFICAR]**, **[VERIFICAR NA PORTARIA]**.
 7. Até 13/12/2026, quando o limite de uso apertar, a Trilha 1 tem prioridade.
 8. Limpe *builds* e arquivos temporários que não vão para o Git (disco curto no notebook).
+9. Os `.md` descrevem **só o estado atual** e os próximos passos: sem tabela de revisões, sem "versão anterior", sem comparação com o passado. Atualize o texto no lugar; o histórico fica no Git.
 
 ## 4. Estrutura
 ```
@@ -50,7 +52,8 @@ python3 tools/teste_playwright.py                                # teste headles
 # Conferência de itens contra o PDF
 python3 tools/conferir_itens_portaria.py --pdf docs/referencias/portaria-mte-no-737-nova-nr-10.pdf --docs docs --refs prototipo --saida docs/CONFERENCIA_ITENS.md
 # Godot (Trilha 2)
-"C:\ferramentas\godot\Godot_v4.7.2-stable_win64_console.exe" --headless --version
+"C:\Users\Pedro Alves\Desktop\POTENCIAIS_CONCURSOS\SOFTWARE-NR10\GODOT\Godot_v4.7.2-stable_win64_console.exe" --headless --version   # sessão Local
+# Na nuvem/CI: executável Linux do Godot 4.7.2 baixado de github.com/godotengine/godot/releases
 # Blender (modelos 3D)
 blender --background --python art/blender/<objeto>.py           # caminho do executável: registrar aqui no passo 34
 ```
@@ -63,7 +66,7 @@ Não comitar `prototipo/bundle.js`, `prototipo/simulador-nr10*.html` (fora de `d
 4. Mostra a prévia ao usuário (U1: "parece / não parece") e só então integra ao catálogo.
 
 ## 7. Laço de trabalho
-ler `STATUS` e o guia → escolher o próximo passo → *branch* → implementar → testar → PR → CI verde → *merge* → atualizar `STATUS`/`DECISOES` → avisar o usuário em uma ou duas frases.
+ler `STATUS` e `PROXIMA_SESSAO` → pegar o próximo item do backlog → *branch* → implementar → testar → PR → CI verde → *merge* → atualizar `STATUS`/`PROXIMA_SESSAO`/`DECISOES` → próximo item. Ao fim da sessão, avisar o usuário em poucas linhas e mandar o HTML offline novo.
 
 ## 8. Como falar com o usuário
 Português do Brasil; termos técnicos em inglês quando forem do jargão. Respostas numeradas, ponto a ponto, explicando o mecanismo de cada decisão ("use X porque é melhor" não serve). Passos bem separados, sem escrita compacta. Ele conhece LLMs; não explique IA. Ele chama o assistente de "Claudinho".
