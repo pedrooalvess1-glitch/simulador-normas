@@ -69,3 +69,13 @@
 ### Decisão 11 — Fotos de referência fora do Git *[INFERÊNCIA]*
 - **Escolha:** `art/fotos/` no `.gitignore`; vão para o Git só o script do Blender, o `.glb` e a prévia `.png`.
 - **Motivo:** repositório público; fotos podem mostrar pessoas, locais ou documentos.
+
+### Decisão 12 — Módulo História em SVG estático
+- **Contexto:** o usuário pediu (03/11/2026) que o simulador associe os itens da NR-10 ao ambiente com um desenho de uma história e itens interativos, **sem animação**, para funcionar offline.
+- **Escolha:** cena SVG desenhada em código (sem imagens externas), com estados que mudam a cada ação; cada objeto tem uma lista de itens (`HS`), e os passos da OS (`ST`) são dados, não código de cena. Vira o módulo de abertura do app.
+- **Motivo:** SVG é leve, nítido no celular, cabe no HTML offline e não exige GPU. Ligar o item a um objeto e a um lugar ataca a dor original (correlações sem ler linha por linha).
+
+### Decisão 13 — CI mínimo antes dos modelos de documento *[INFERÊNCIA]*
+- **Contexto:** a regra "merge só com CI verde" não tinha CI para cumprir.
+- **Escolha:** `.github/workflows/ci.yml` roda o *build* do protótipo, `node --check` e a conferência dos itens contra o PDF (falha se um número citado não existir na Portaria).
+- **Motivo:** protege o que mais importa até a prova: o app abrir e o texto da norma ser fiel.

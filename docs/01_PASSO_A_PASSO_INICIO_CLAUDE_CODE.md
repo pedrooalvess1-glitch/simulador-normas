@@ -13,6 +13,7 @@
 | rev1 | 03/11/2026 | Versão inicial (previa duas edições da norma: 2004 e 2026). |
 | rev2 | 03/11/2026 | **Edição única** (Portaria MTE 737/2026). Seção "Quem opera cada passo". Passos 1–22 concluídos. |
 | rev3 | 03/11/2026 | **Agente com permissão total** (decisão do usuário): modo Auto/Bypass no lugar do Manual; o agente faz *merge* com CI verde; o usuário só faz U1–U4. Passo 23 concluído (PDF em `docs/referencias/`); passos 24–25 preparados (commit pronto com protótipo em `prototipo/`, aguardando o vínculo do GitHub). Passos 35–36 e 44–45 adiantados. Novas etapas **T** (Trilha 1, estudo para a prova) e **I** (fotos → modelos 3D). |
+| rev4 | 04/11/2026 | Passos 24–25 concluídos (GitHub vinculado; PR #1 com *merge*). Passo 42 adiantado (CI mínimo). Novo T1b (módulo História, v4); T2b concluído (Artifact v4). |
 
 ---
 
@@ -70,8 +71,8 @@ Todo o resto: documentos, código, testes, modelos 3D (Blender por script), Godo
 
 - [x] **19–22.** Repositório criado e clonado em `C:\projetos\simulador-normas`; pastas com `.gitkeep`; documentos copiados para `docs/`.
 - [x] **23.** PDF da Portaria em `docs/referencias/portaria-mte-no-737-nova-nr-10.pdf` (673.795 bytes; conferido em 03/11/2026: 133 itens numerados).
-- [ ] **24.** 🤖 Protótipo **ativo** em `prototipo/` (rev3: sobe da pasta de referências para a raiz, porque é a ferramenta de estudo da Trilha 1). *Preparado no commit `rev3`.*
-- [ ] **25.** 🤖 Primeiro *push* (documentos rev3, PDF, protótipo, `CLAUDE.md`, `AGENTS.md`, `tools/`). *Commit pronto em 03/11/2026; falta só o acesso de escrita: 👤 vincular a conta do GitHub à conversa do Claude (U3), ou o agente faz o push no passo 31 da sessão Local.*
+- [x] **24.** 🤖 Protótipo **ativo** em `prototipo/` (rev3: sobe da pasta de referências para a raiz, porque é a ferramenta de estudo da Trilha 1).
+- [x] **25.** 🤖 Primeiro *push* (documentos rev3, PDF, protótipo, `CLAUDE.md`, `AGENTS.md`, `tools/`). *Feito em 04/11/2026: GitHub vinculado ao Claude (U3), PR #1 com merge na `main` (`535094d`).*
 - [ ] **26.** 🤖 Proteger a `main` exigindo os *checks* do CI (sem exigir revisão humana), via `gh api` [VERIFICAR a regra no plano gratuito].
 - [ ] **27.** 🤖 Criar os rótulos `bug`, `conteudo-norma`, `desempenho`, `didatica`, `docs`, `ideia`, `trilha-1`, `trilha-2`, `arte` via `gh label create`.
 - [ ] **28.** 🤖 Quadro no GitHub Projects (*A fazer · Em andamento · Em revisão · Feito*), se o token tiver o escopo `project`; senão, dispensado (o `STATUS` e as issues bastam).
@@ -80,7 +81,7 @@ Todo o resto: documentos, código, testes, modelos 3D (Blender por script), Godo
 
 - [ ] **29.** 👤 **U3:** Claude Desktop → aba *Code* → ambiente **Local** → pasta `C:\projetos\simulador-normas` → modo **Auto** (ou Bypass). Feche programas pesados antes (RAM).
 - [ ] **30.** 👤 **U3:** quando o agente pedir, faça o login do GitHub no navegador (Git Credential Manager ou `gh auth login`). É uma vez só.
-- [ ] **31.** 🤖 Sincronizar a pasta local com `origin/main` (a cópia local ainda tem os `.md` da rev1 fora do Git: `git fetch origin` e `git reset --hard origin/main`; o PDF local é idêntico ao do commit `rev3`). Se o passo 25 ainda não tiver sido feito, aplicar o `simulador-normas-rev3.bundle` (`git fetch <bundle> rev3:rev3`, `git reset --hard rev3`) e fazer o *push*.
+- [ ] **31.** 🤖 Sincronizar a pasta local com `origin/main` (a cópia local ainda tem os `.md` da rev1 fora do Git: `git fetch origin` e `git reset --hard origin/main`; o PDF local é idêntico ao do commit `rev3`). (O passo 25 já foi feito; o `simulador-normas-rev3.bundle` não é mais necessário.)
 - [ ] **32.** 🤖 Teste de escrita: *branch* `teste-agente`, uma linha no README, PR, CI, *merge* e apagar a *branch*. Se o PR falhar, instalar o GitHub CLI (`winget install --id GitHub.cli`).
 - [ ] **33.** 🤖 Teste do Godot: `C:\ferramentas\godot\Godot_v4.7.2-stable_win64_console.exe --headless --version` → `4.7.2.stable`.
 - [ ] **34.** 🤖 Teste do Blender: localizar o executável e rodar `blender --background --version` [VERIFICAR o caminho de instalação]; registrar o caminho no `CLAUDE.md`.
@@ -93,7 +94,7 @@ Todo o resto: documentos, código, testes, modelos 3D (Blender por script), Godo
 - [ ] **39.** 🤖 `docs/GLOSSARIO_DO_PROJETO.md` (motor, pacote, missão, fase F1–F8, verbo, gate, consequência, severidade, debrief, fatia vertical, trilha).
 - [ ] **40.** 🤖 Modelos de issue (`bug`, `conteudo-norma`, `desempenho`). O agente os preenche a partir do que você contar na conversa.
 - [ ] **41.** 🤖 Modelo de pull request.
-- [ ] **42.** 🤖 CI de documentos (`.github/workflows/docs.yml`): links quebrados + `tools/conferir_itens_portaria.py`.
+- [x] **42.** 🤖 CI (rev4: `.github/workflows/ci.yml`): build do protótipo, `node --check` e `tools/conferir_itens_portaria.py`. Falta: links quebrados.
 - [ ] **43.** 🤖 `docs/_MODELO_DOCUMENTO.md`.
 - [x] **44.** 🤖 `docs/PENDENCIAS_DE_VERIFICACAO.md` (rev3).
 - [x] **45.** 🤖 `docs/DECISOES.md` (rev3, decisões 1–11).
@@ -127,7 +128,8 @@ Prompt-base (o agente usa sozinho):
 
 - [x] **T1.** 🤖 Fase **Treino** no protótipo (03/11/2026): simulado no estilo de banca (10 a 40 questões, cronômetro no ritmo da prova), revisão espaçada (5 caixas), gerador de questões (11 tipos de cenário sorteado), 42 cartões de fatos, painel de desempenho com contagem regressiva.
 - [x] **T2.** 🤖 HTML offline (`prototipo/dist/simulador-nr10-offline.html`, também entregue na conversa).
-- [ ] **T2b.** 🤖 Republicar o Artifact "Simulador NR-10" do claude.ai com a v3, para abrir no celular (o Artifact atual ainda é a v2, com os chips "≠ 2004"; ignore-o até lá).
+- [x] **T1b.** 🤖 Módulo **História** (v4, 03/11/2026): desenho estático da cabine primária com 27 objetos clicáveis ligados aos itens; uma OS em 14 passos (questões, achar objetos, caça a não conformidades, 10.13.1 e 10.13.2 aplicados na cena); explorar a cena; índice item × cena. Abre por padrão.
+- [x] **T2b.** 🤖 Republicar o Artifact "Simulador NR-10" do claude.ai com a v4, para abrir no celular (feito em 04/11/2026).
 - [ ] **T3.** 👤 **U2:** usar todo dia. Rotina sugerida [INFERÊNCIA]: 1) aba **Revisão** até zerar; 2) 15 min de **Gerador** nos temas mais fracos do painel; 3) um **Simulado** de 20 questões a cada dois dias, no ritmo da prova; 4) **Cartões** no celular nos intervalos.
 - [ ] **T4.** 🤖 Treino v4: explicação de cada distrator; mais questões no formato de 5 alternativas; cartões dos itens nunca exercitados; correções do que você relatar.
 

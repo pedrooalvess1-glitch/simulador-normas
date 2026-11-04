@@ -19,6 +19,7 @@
 | rev1 | 03/11/2026 | Versão inicial (edição 2026 padrão + edição 2004 alternativa). |
 | rev2 | 03/11/2026 | **Edição única: Portaria MTE 737/2026.** Nova §1.1 com a decisão e os motivos; R7, §4, §5.2, §5.3, §7.1, §9, §10 e §11 sem o modelo de duas edições. Pendências que só existiam por causa da redação de 2004 marcadas "resolvida: fora de escopo (edição única)". Estrutura de pastas (§4) e lista de documentos (§5.0) alinhadas ao guia `01_PASSO_A_PASSO_INICIO_CLAUDE_CODE.md` rev2. §8.1 alinhada à seção "Quem opera cada passo" do guia. Novas pendências 12–21. Legenda com [INTERPRETAÇÃO] e [VERIFICAR NA PORTARIA]. |
 | rev3 | 03/11/2026 | **Autonomia do agente e duas trilhas.** Novo requisito R8 (interferência mínima do usuário) e nova §1.2 (modelo de operação: o agente opera computador, Blender, Godot e GitHub; papel do usuário em 4 tarefas). Nova §1.3 (duas trilhas: estudo para a prova no protótipo offline × projeto Godot). §3.1: VS Code e Blender deixam de exigir aprendizado do usuário. §4: pastas `prototipo/` e `art/`. §8 reescrita para o agente com permissão total (modo Auto ou Bypass, merge automático com CI verde). §9 com a Trilha 1. §10: pendências 12–19 resolvidas pela conferência no PDF; 20–21 parcialmente. §11: prompt da primeira sessão local. |
+| rev4 | 04/11/2026 | Primeiro *push* (PR #1). CI mínimo. Protótipo v4 com o módulo **História** (§1.3, §9). Artifact republicado. |
 
 ---
 
@@ -82,7 +83,7 @@ A data provável da prova objetiva passou para **13/12/2026** (Aditivo 2 do edit
 
 | Trilha | Para quê | Onde | Prioridade até a prova |
 |---|---|---|---|
-| **1 — Estudo** | O usuário estuda a NR-10 enquanto o projeto é construído | Protótipo three.js em `prototipo/` (HTML offline; Artifact do claude.ai a republicar). Na rev3 ganhou a fase **Treino**: simulado no estilo de banca, revisão espaçada, gerador de questões e cartões | **Alta.** Cada melhoria entra em dias, não em semanas |
+| **1 — Estudo** | O usuário estuda a NR-10 enquanto o projeto é construído | Protótipo three.js em `prototipo/` (HTML offline; Artifact do claude.ai a republicar). Na rev3 ganhou a fase **Treino** (simulado no estilo de banca, revisão espaçada, gerador de questões e cartões); na v4, o módulo **História** (desenho estático da cabine com objetos clicáveis ligados aos itens) | **Alta.** Cada melhoria entra em dias, não em semanas |
 | **2 — Projeto** | Infraestrutura permanente (motor + pacotes de norma) | Godot 4.7.2 (`engine/`, `packs/`) | Avança em paralelo, sem tirar tempo de estudo do usuário |
 
 Regra de uso do plano Claude Pro [INFERÊNCIA]: quando o limite de uso apertar, a Trilha 1 tem preferência até 13/12/2026.
@@ -222,7 +223,7 @@ Todos ficam em `docs/` no repositório. Formato padrão de cada um (modelo em `d
 | `ARQUITETURA_SOFTWARE_SIMULADOR_NR10.md` | Base para os documentos 02, 05 e 16 (exemplos em JS, a reescrever em GDScript) | rev3 |
 | `STATUS_SIMULADOR_NR10.md` | Situação do projeto, inventário do protótipo, auditoria de cobertura | rev3 |
 
-Escritos na rev3 (03/11/2026; entram no GitHub com o passo 25 do guia): `CLAUDE.md` e `AGENTS.md` (raiz; o segundo aponta para o primeiro), `docs/DECISOES.md`, `docs/PENDENCIAS_DE_VERIFICACAO.md`, `docs/CONFERENCIA_ITENS.md` (saída do script de conferência) e `docs/historico/RELATORIO_ATUALIZACAO_EDICAO_UNICA.md`. Ainda faltam, da Etapa E do guia: `CONVENCOES.md` (38), `GLOSSARIO_DO_PROJETO.md` (39), `_MODELO_DOCUMENTO.md` (43), modelos de issue e de PR (40–41) e o CI de documentos (42).
+Escritos na rev3 (03/11/2026; entram no GitHub com o passo 25 do guia): `CLAUDE.md` e `AGENTS.md` (raiz; o segundo aponta para o primeiro), `docs/DECISOES.md`, `docs/PENDENCIAS_DE_VERIFICACAO.md`, `docs/CONFERENCIA_ITENS.md` (saída do script de conferência) e `docs/historico/RELATORIO_ATUALIZACAO_EDICAO_UNICA.md`. Na rev4 entrou o CI mínimo (`.github/workflows/ci.yml`, passo 42). Ainda faltam, da Etapa E do guia: `CONVENCOES.md` (38), `GLOSSARIO_DO_PROJETO.md` (39), `_MODELO_DOCUMENTO.md` (43) e modelos de issue e de PR (40–41).
 
 > **Prefixo `01` (resolvido na rev3)** [INFERÊNCIA]: o guia (`01_PASSO_A_PASSO_…`) e o futuro `01_VISAO_E_PEDAGOGIA` mantêm os nomes; os documentos sempre se citam pelo nome completo, nunca só pelo número. Renomear o guia agora quebraria referências sem ganho.
 
@@ -369,6 +370,7 @@ GitHub Actions: o repositório é **público** (guia, passo 3), e repositórios 
 | Fase | Marco | Entrega |
 |---|---|---|
 | T1 | Treino v3 (feito em 03/11/2026) | Fase "Treino" no protótipo: simulado no estilo de banca, revisão espaçada, gerador de questões (11 tipos), 42 cartões de fatos, painel de desempenho |
+| T1 | História v4 (feito em 03/11/2026) | OS contada sobre o desenho da cabine primária: 27 objetos ligados a itens, 14 passos, 10.13.1/10.13.2 aplicados na cena, índice item × cena |
 | T1 | Treino v4 (até a prova) | Explicação de cada distrator; questões no formato de 5 alternativas; mais cartões dos itens nunca exercitados (PLANO §13); 10.2.4.1 e artigos da Portaria exercitados |
 | 0 | Planejamento | Documentos 01, 14, 04, 05, 11, 15, 07, 09, 08, 13, 02, 03, 06, 18, 16, 12, 17, 20, 21 |
 | 0 | Repositório | Estrutura, CI mínimo, `AGENTS.md`, modelos de issue |
