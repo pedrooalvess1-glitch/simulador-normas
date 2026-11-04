@@ -10,6 +10,7 @@ var _t := 0.0
 var _fps_sum := 0.0
 var _fps_n := 0
 var _logged_minute := false
+var _frames := 0
 
 
 func _ready() -> void:
@@ -121,9 +122,7 @@ func _process(delta: float) -> void:
 		print("fps_avg_60s=%d | %s" % [avg, diagnostics_line()])
 
 
-var _frames := 0
-
-## Captura de cena: `godot --path . -- --shot=res_ou_caminho.png` salva o quadro 30 e sai.
+## Captura de cena: `godot --path . -- --shot=<arquivo.png>` salva o quadro 30 e sai.
 func _maybe_shot() -> void:
 	_frames += 1
 	for arg in OS.get_cmdline_user_args():

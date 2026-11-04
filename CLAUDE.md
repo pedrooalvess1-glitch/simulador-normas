@@ -35,7 +35,7 @@
 7. Rótulos: **[FONTE]**, **[PRÁTICA]** (só cenário, nunca cobrado), **[INFERÊNCIA]** (decisão de projeto), **[INTERPRETAÇÃO]** (leitura da norma), **[VERIFICAR]**, **[VERIFICAR NA PORTARIA]**.
 8. Os `.md` descrevem **só o estado atual** e os próximos passos, com o mínimo de texto: cada assunto num só lugar, sem tabela de revisões nem comparação com o passado. O histórico fica no Git.
 9. Limpe *builds* e arquivos temporários; no notebook, apague os executáveis de teste que saírem de uso.
-10. Limites da sessão na nuvem: sem API GraphQL do GitHub, sem mudar configurações do repositório e sem apagar *branches*. PR pela API REST (`gh api repos/pedrooalvess1-glitch/simulador-normas/pulls --input pr.json`); o resto pelo navegador embutido, já logado no GitHub. Os nomes dos *jobs* do CI são *checks* obrigatórios da regra da `main` (decisão 29): renomear um *job* exige atualizar a regra no navegador no mesmo PR, ou nenhum PR consegue mais ser mesclado.
+10. Limites da sessão na nuvem: sem API GraphQL do GitHub, sem mudar configurações do repositório e sem apagar *branches* (o GitHub apaga a *branch* do PR no *merge*, decisão 31). PR pela API REST (`gh api repos/pedrooalvess1-glitch/simulador-normas/pulls --input pr.json`); o resto pelo navegador embutido, já logado no GitHub. Os nomes dos *jobs* do CI são *checks* obrigatórios da regra da `main` (decisão 29): renomear um *job* exige atualizar a regra no navegador no mesmo PR, ou nenhum PR consegue mais ser mesclado.
 
 ## 4. Estrutura
 ```
@@ -62,7 +62,7 @@ python3 tools/validacao/gerar.py
 GODOT=$(tools/ambiente/instalar_godot.sh | tail -1)            # + --templates windows,linux para exportar
 "$GODOT" --headless --path <projeto> --export-release "Windows Desktop" build/app.exe
 BPY=$(tools/ambiente/instalar_bpy.sh | tail -1)                # Blender 4.5.10 LTS como módulo (Python 3.11)
-"$BPY" art/blender/<objeto>.py                                  # teste do pipeline: tools/ambiente/teste_blender.py
+"$BPY" art/blender/<objeto>.py                                  # teste do pipeline: tools/ambiente/teste_blender.py <saida.glb> <saida.png> (confere origem, cor e textura; sai com 1 se falhar)
 tools/ambiente/instalar_gdunit4.sh <projeto>                    # addon gdUnit4 v6.2.3 em addons/gdUnit4
 "$GODOT" --headless --path <projeto> --import                  # antes do primeiro teste ou exportação
 GODOT_BIN="$GODOT" <projeto>/addons/gdUnit4/runtest.sh --headless --ignoreHeadlessMode -a res://tests   # sai com 100 se um teste falhar

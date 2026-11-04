@@ -1,9 +1,13 @@
 """Teste do pipeline de arte sem GPU: cubo low-poly de cor chapada → .glb + prévia .png.
 
 Uso: <python do venv bpy> tools/ambiente/teste_blender.py <saida.glb> <saida.png>
-Prova que o bpy exporta glTF e renderiza a prévia (motor Workbench, CPU) na sessão na nuvem.
+Prova que o bpy exporta glTF e renderiza a prévia (motor Workbench, CPU) na sessão na nuvem, e confere
+no próprio .glb as regras do CLAUDE.md §6: origem no chão, cor sRGB convertida para linear, sem textura.
+Sai com código 1 se alguma falhar.
 """
+import json
 import math
+import struct
 import sys
 
 import bpy
@@ -50,4 +54,32 @@ cena.render.filepath = saida_png
 bpy.ops.render.render(write_still=True)
 
 triangulos = sum(len(p.vertices) - 2 for p in cubo.data.polygons)
-print(f"bpy {bpy.app.version_string} · {triangulos} triângulos · {saida_glb} · {saida_png}")
+
+
+def ler_glb(caminho: str) -> dict:
+    """Lê o bloco JSON do .glb: é exatamente o que o importador do Godot lê (eixo Y para cima)."""
+    with open(caminho, "rb") as f:
+        dados = f.read()
+    magia, _, _ = struct.unpack_from("<4sII", dados, 0)
+    tamanho, tipo = struct.unpack_from("<I4s", dados, 12)
+    assert magia == b"glTF" and tipo == b"JSON", "arquivo não é GLB"
+    return json.loads(dados[20:20 + tamanho])
+
+
+gltf = ler_glb(saida_glb)
+posicao = gltf["accessors"][gltf["meshes"][0]["primitives"][0]["attributes"]["POSITION"]]
+cor_glb = gltf["materials"][0]["pbrMetallicRoughness"]["baseColorFactor"]
+falhas = []
+if abs(posicao["min"][1]) > 1e-5:  # Z do Blender vira Y do glTF/Godot
+    falhas.append(f"origem fora do chão: menor Y = {posicao['min'][1]} (esperado 0)")
+if any(abs(a - b) > 1e-4 for a, b in zip(cor_glb, cor)):
+    falhas.append(f"cor no glTF {cor_glb} difere da cor linear {cor} de #{COR_HEX}")
+if "textures" in gltf or "images" in gltf:
+    falhas.append("o .glb leva textura (o estilo é cor chapada)")
+if triangulos != 12:
+    falhas.append(f"{triangulos} triângulos (esperado 12)")
+for falha in falhas:
+    print(f"FALHA: {falha}", file=sys.stderr)
+print(f"bpy {bpy.app.version_string} · {triangulos} triângulos · menor Y {posicao['min'][1]:.4f} · "
+      f"cor {[round(c, 4) for c in cor_glb[:3]]} · {saida_glb} · {saida_png}")
+sys.exit(1 if falhas else 0)

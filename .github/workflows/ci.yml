@@ -9,13 +9,21 @@ on:
 permissions:
   contents: read
 
+# Um push novo no mesmo PR cancela a execução anterior, que já ficou velha.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+# Versões fixadas: ações na série node24 (a node20 está descontinuada no GitHub) e runner Ubuntu 24.04
+# (o rótulo ubuntu-latest muda de sistema sozinho). Os nomes dos jobs são checks obrigatórios (decisão 29).
+
 jobs:
   links:
     name: Links internos dos .md
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Testes do verificador de links
         run: python3 tools/test_checar_links.py
       - name: Links internos entre os .md existem
@@ -23,12 +31,12 @@ jobs:
 
   godot:
     name: Godot (versão, SHA-512 e gdUnit4)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Cache do Godot (chave = SHA-512 fixada)
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ${{ runner.temp }}/godot
           key: godot-${{ hashFiles('tools/ambiente/versoes.env') }}
@@ -45,21 +53,21 @@ jobs:
 
   prototipo:
     name: Protótipo + conferência no PDF
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: Dependência da conferência (leitura do PDF)
-        run: pip install pypdf
+        run: pip install pypdf==6.17.0  # mesma versão usada na sessão na nuvem
 
       - name: Build do protótipo e checagem de sintaxe
         working-directory: prototipo
