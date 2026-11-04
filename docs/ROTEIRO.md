@@ -79,7 +79,7 @@ Para cada documento da `00_INDICE` §5: ler `CLAUDE.md`, a `00_INDICE`, `DECISOE
 ### Etapa D — ambiente de execução
 Feito na nuvem (versões e somas em `tools/ambiente/versoes.env`, comandos no `CLAUDE.md` §5): Godot 4.7.2 *headless* com *export templates* Windows/Linux e SHA-512 no CI; `bpy` 4.5.10 LTS exportando `.glb` e prévia sem GPU; gdUnit4 v6.2.3 rodando *headless*; `.exe` Windows trivial exportado; captura de cena por renderização de software (llvmpipe). Falta o que depende do notebook:
 - [ ] **29.** 🤖 `médio` Pedir acesso (👤 U3 aprova uma vez): `C:\projetos` e a pasta do Godot pela ponte; controle da tela para o executável de teste, o Godot e o navegador. Criar `C:\projetos\simulador-normas-testes`.
-- [ ] **33.** 🤖 `médio` Teste no notebook: copiar o `.exe` trivial (cena de fumaça com painel de FPS, *draw calls*, VRAM e GPU) para a pasta de testes, abrir pelo controle da tela, ler o FPS e apagar.
+- [ ] **33.** 🤖 `médio` Teste no notebook: exportar e copiar o `.exe` da cena de fumaça (`tools/ambiente/fumaca/`, com painel de FPS, *draw calls*, VRAM e GPU) para a pasta de testes, abrir pelo controle da tela, ler o FPS e apagar.
 
 ### Etapa G — esqueleto Godot e fatia vertical
 - [ ] **65–68.** 🤖 `médio` Projeto Godot (Compatibility, 4.7.2), gdUnit4, CI de testes, CI de exportação do `.exe` Windows.
