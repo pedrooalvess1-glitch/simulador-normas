@@ -1,6 +1,7 @@
 extends GdUnitTestSuite
 ## Prova que o gdUnit4 roda headless no Godot 4.7.2 e transforma em teste as decisões de render
-## (decisões 4 e 27, CLAUDE.md §1.8): Compatibility, MSAA de no máximo 2×, luz sem sombra, cor sem textura.
+## (decisões 4 e 27, CLAUDE.md §1.8): Compatibility, MSAA de no máximo 2× no padrão (perfil Leve), luz sem sombra,
+## cor sem textura.
 
 
 func test_project_uses_compatibility_renderer() -> void:
@@ -8,7 +9,7 @@ func test_project_uses_compatibility_renderer() -> void:
 
 
 func test_msaa_at_most_2x() -> void:
-	# 0 = desligado, 1 = 2×; o Compatibility não tem FXAA/SMAA/TAA (decisão 27)
+	# Configuração do projeto = perfil Leve. 0 = desligado, 1 = 2× (decisão 27)
 	assert_int(ProjectSettings.get_setting("rendering/anti_aliasing/quality/msaa_3d", 0)).is_less_equal(Viewport.MSAA_2X)
 
 

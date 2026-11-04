@@ -18,7 +18,7 @@
 |---|---|---|
 | R1 | **Todas as ferramentas gratuitas** | Godot (MIT), Blender (GPL), Git/GitHub (plano gratuito), gdUnit4 (MIT), Inno Setup. Nada com licença paga ou assinatura obrigatória dentro do software ou da sua cadeia de build. |
 | R2 | **Ferramenta de treinamento**, não produto visual polido | Estilo **low-poly com cores chapadas**. O esforço vai para regras, interação e feedback. |
-| R3 | **Rodar bem em GPU integrada com 2 GB** (memória compartilhada) | Renderizador **Compatibility** do Godot (OpenGL 3.3), sem texturas pesadas, orçamento de desempenho fixo (§3.3). |
+| R3 | **Rodar bem em GPU integrada com 2 GB** (memória compartilhada) | Renderizador **Compatibility** do Godot (OpenGL 3.3), sem texturas de imagem (decisão 4), orçamento de desempenho fixo (§3.3). |
 | R4 | **O conteúdo é o mais importante** | Norma como dados, fidelidade ao texto, rastreabilidade item → interação → feedback. |
 | R5 | **Campanha primeiro**, Modo Livre depois | Roadmap em duas fases (§8). Os esquemas de missão servem aos dois modos desde o início. |
 | R6 | **Extensível a outras normas e ambientes** (industrial, comercial, residencial, concessionária) | Separação rígida motor × pacote (§4). |
@@ -108,10 +108,10 @@ O protótipo em three.js tem dois papéis: é a ferramenta de estudo da Trilha 1
 
 Configuração padrão do projeto:
 1. Renderizador `gl_compatibility`.
-2. **Sem texturas de imagem.** Os materiais usam **cor chapada** ou uma **paleta única** (uma imagem 256 × 256 com faixas de cor, compartilhada por todos os modelos, no estilo Kenney). Placas de sinalização e etiquetas usam `Label3D` sobre placa de cor chapada.
+2. **Sem texturas de imagem** (decisão 4). Cada material tem uma **cor chapada** tirada da paleta do projeto (lista de cores em hex, `CLAUDE.md` §6). Placas de sinalização e etiquetas usam `Label3D` sobre placa de cor chapada.
 3. Uma luz direcional + luz ambiente. **Sem sombras em tempo real** em nenhum perfil (medição do passo 17).
 4. Sem SSAO, SSR, glow, bloom, volumetria ou partículas em massa. O raio-x do debrief usa linhas e poucas partículas instanciadas.
-5. Antialiasing: MSAA 3D 2× ou nenhum. O Compatibility não tem FXAA, SMAA nem TAA (só Forward+ e Mobile) [FONTE: documentação oficial, "3D antialiasing"; confirmado no 4.7.2]. Escala de resolução 3D ajustável (75–100 %).
+5. Antialiasing: MSAA 3D; no perfil Leve, 2× ou nenhum (decisão 27). O Compatibility não tem FXAA, SMAA nem TAA (só Forward+ e Mobile) [FONTE: documentação oficial, "3D antialiasing"; confirmado no 4.7.2]. Escala de resolução 3D ajustável (75–100 %).
 6. Texto 3D com `Label3D` (não com texturas de texto).
 7. Objetos repetidos (isoladores, cones, painéis, brita) com `MultiMeshInstance3D`.
 8. Ocultar o que está fora do ambiente atual: cada ambiente é carregado como cena separada e descarregado ao sair.
@@ -129,7 +129,7 @@ Perfis de qualidade no menu: **Leve** (padrão, alvo GPU integrada), **Médio** 
 | FPS em GPU integrada de referência | ≥ 30 estável (meta 60) |
 | Triângulos visíveis | ≤ 150 mil |
 | Draw calls | ≤ 200 |
-| Memória de texturas | ≤ 64 MB |
+| Memória de texturas (só fontes e interface: os modelos não têm textura) | ≤ 64 MB |
 | Tempo de carga de um ambiente | ≤ 5 s |
 | Tamanho do instalador | ≤ 200 MB |
 
@@ -223,7 +223,7 @@ Todos ficam em `docs/` no repositório. Formato padrão de cada um (modelo em `d
 | 13 | `13_INTERFACE_E_DOCUMENTOS` | HUD, prancheta (procedimento/PT), sinóptico, tela do detector, debrief |
 | 16 | `16_DADOS_SAVES_LOG_REPLAY` | Formato de save, log de ações, replay determinístico |
 | 17 | `17_TESTES_VALIDACAO_CI` | gdUnit4, esquemas, cobertura da norma, testes de desempenho, CI |
-| 18 | `18_PIPELINE_DE_ARTE_LEVE` | Blender → glTF, paleta única, nomes, limites de polígonos, licenças |
+| 18 | `18_PIPELINE_DE_ARTE_LEVE` | Blender → glTF, paleta de cores, nomes, limites de polígonos, licenças |
 | 19 | `19_COMO_CRIAR_UM_NOVO_PACOTE` | Roteiro para o pacote de outra norma (ex.: NR-12, NR-33, NR-35); cada pacote usa só o texto da própria norma (R9) |
 | 22 | `22_ACESSIBILIDADE_E_IDIOMAS` | Tamanho de fonte, contraste, daltonismo (estado nunca só por cor), legendas, textos externos para tradução |
 | 23 | `23_AUDIO_E_FEEDBACK` | Sons de alerta (detector, arco, alarme), retorno sonoro de ações, volume e mudo; áudio leve |
