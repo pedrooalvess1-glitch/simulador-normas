@@ -1,76 +1,76 @@
-# Próxima sessão: continuar o simulador NR-10 offline
+# Próxima sessão: o que fazer e como trabalhar
 
-> Arquivo de passagem gerado em 04/11/2026 ao fim da sessão que fez a rev3, a rev4 e o primeiro *push*.
-> Como usar: abra uma sessão nova do Claude Code com o repositório `pedrooalvess1-glitch/simulador-normas` selecionado e cole o bloco do §6 como primeira mensagem. O `CLAUDE.md` é carregado sozinho.
+> Lido no início de toda sessão, junto com `CLAUDE.md` e `docs/STATUS_SIMULADOR_NR10.md`.
+> Descreve só o que vem a seguir. O que já existe está no `STATUS`; o histórico, no Git.
 
 ---
 
-## 1. Onde o projeto está
+## 1. Regra de autonomia (vale para toda sessão)
 
-| Item | Estado em 04/11/2026 |
-|---|---|
-| Repositório | `pedrooalvess1-glitch/simulador-normas` (público, MIT). `main` em dia (PRs #1, #2 e #3). O GitHub é a fonte da verdade. |
-| GitHub ↔ Claude | Vinculado (app "Claude" instalado no repositório). A sessão na nuvem consegue *push*, abrir PR (API REST; a GraphQL é bloqueada) e fazer *merge*. |
-| CI | `.github/workflows/ci.yml`: build do protótipo, `node --check`, `dist/` igual ao build e itens contra o PDF (`--estrito`). *Merge* só com CI verde. |
-| Simulador offline | **v4**, em `prototipo/dist/simulador-nr10-offline.html` (~975 KB, abre com duplo clique, sem internet). |
-| Artifact no claude.ai | v4 publicada num link novo (`https://claude.ai/artifact/DB8sPFyo8WbQEGVVdmfjxD`). O link antigo (`…/YJ357CT4K7ahbnstJkS3H6`) ainda mostra a v2: ignorar ou apagar com a confirmação do usuário. |
-| Prova | Engenheiro Elétrico, Prefeitura de Floresta/PE (banca FACET), data provável **13/12/2026**. Até lá, a Trilha 1 (este simulador) tem prioridade. |
+O usuário **não** aprova passo a passo. Quando ele diz "continue" (ou qualquer pedido de trabalho), o agente executa o backlog da §3 na ordem, um PR por item, até acabar o limite da sessão ou chegar a um **ponto de parada**.
 
-## 2. O que a v4 tem (resumo)
+**Pontos de parada (só estes interrompem o trabalho):**
 
-1. **História** (abre por padrão, `historia.js`): desenho SVG estático da cabine primária 13,8 kV com 27 objetos clicáveis ligados a itens; OS em 14 passos (questões, achar objetos, caça a 4 não conformidades, 10.13.1 e 10.13.2 aplicados na cena); explorar a cena; índice item × cena.
-2. **Mapa, fases I–IV e Missão** (cenas 3D three.js r128): enquadramento, zonas, projeto, coletiva, organização, pessoas, individual, desenergizado, energizado, documentação, Missão OS 0457.
-3. **Treino** (`treino.js` + `qbank.js`): simulado de 10–40 questões com cronômetro, revisão espaçada (Leitner, 5 caixas), gerador de 11 tipos de cenário, 42 cartões, painel com contagem regressiva. Banco: 114 questões.
+| # | Situação | O que o agente faz |
+|---|---|---|
+| P1 | Decisão que só o usuário pode tomar: conteúdo que a banca cobra, gosto didático, prioridade entre itens do backlog que mude o que ele estuda | Pergunta em uma frase, com a opção recomendada, e segue com o próximo item que não depende da resposta |
+| P2 | Ação que não dá para desfazer: apagar Artifact, *branch* ou arquivo que não seja dele; reescrever histórico; publicar fora do repositório | Prepara tudo, descreve a ação e espera o "sim" |
+| P3 | Precisa do usuário fisicamente (U1 foto ou "parece / não parece"; U3 permissão, login, liberar pasta; U2 teste no notebook) | Pede só isso e segue com outro item |
+| P4 | CI vermelho que não consegue consertar após 3 tentativas, ou texto da norma que não bate com o PDF | Para o item, explica a causa e passa ao seguinte |
 
-Detalhe completo: `docs/STATUS_SIMULADOR_NR10.md` §4–§8.
+Fora desses casos, o agente decide, registra como [INFERÊNCIA] em `docs/DECISOES.md` quando for uma decisão de projeto, e segue. Ao fim, avisa em poucas linhas o que entrou na `main` e manda o HTML offline novo.
 
-## 3. Backlog da versão offline (ordem sugerida)
+---
 
-Prioridade = o que mais ajuda a acertar questão de banca até 13/12.
+## 2. Onde cada tipo de trabalho roda
 
-1. **Treino v4 · distratores:** em toda questão, explicar por que cada alternativa errada está errada, citando o item. (Hoje só a certa é explicada.)
-2. **Treino v4 · 5 alternativas:** levar o banco ao formato de banca (A–E). Muitas questões têm 2 a 4.
-3. **Itens nunca exercitados:** criar questões ou cartões para `10.4.5, 10.4.11, 10.7.10, 10.8.3.1, 10.8.4.1, 10.8.4.1.1, 10.10.1, 10.12.2, 10.12.5, 10.12.7` e uma matriz item → tarefa (STATUS §7, lacuna 1).
-4. **Glossário (Anexo I):** 41 termos ausentes da base + ATPV, EBT e ELIM do Anexo IV. Texto literal do PDF, nunca de memória.
-5. **História 2 e 3:** novas OS em outros ambientes, reaproveitando o formato `HS`/`ST`: BT/SEC (QDC de prédio), canteiro de obra (instalação temporária, 10.2.1) e, se der tempo, SEP/linha.
-6. **Anexo III e Anexo IV Quadro III:** conteúdos mínimos dos treinamentos e notas de rodapé exercitados (hoje só resumidos).
-7. **Exportar/importar progresso** (JSON) para não perder o Treino ao trocar de navegador (hoje só `localStorage`).
+| Trabalho | Sessão | Por quê |
+|---|---|---|
+| Protótipo (Trilha 1), documentos, CI, PR, *merge*, Artifact | **Nuvem** (chat do claude.ai com o repositório anexado) | Tem Linux com Python, Node e Playwright, acesso de escrita ao GitHub e publica o Artifact. Não depende do notebook ligado. |
+| Godot em modo *headless* (importar projeto, rodar testes gdUnit4, exportar) | **Nuvem** ou **CI** | O executável Linux do Godot 4.7.2 é baixável do GitHub da Godot pela rede da sessão; o mesmo vale para o GitHub Actions. |
+| Godot com janela, desempenho real na Radeon R5, Blender, qualquer `.exe` | **Local** (Claude Desktop → aba Code → pasta `C:\projetos\simulador-normas`) | Só a sessão Local roda comandos no Windows. A sessão na nuvem vê o computador só por arquivos (ler e copiar), sem terminal. |
+
+Caminho do Godot no computador: `C:\Users\Pedro Alves\Desktop\POTENCIAIS_CONCURSOS\SOFTWARE-NR10\GODOT`.
+
+---
+
+## 3. Backlog (ordem = o que mais ajuda a acertar questão de banca até 13/12/2026)
+
+1. **Treino · distratores:** em toda questão, explicar por que cada alternativa errada está errada, citando o item.
+2. **Treino · 5 alternativas:** levar o banco ao formato de banca (A–E).
+3. **Itens nunca exercitados:** questões ou cartões para `10.2.4.1, 10.4.5, 10.4.11, 10.7.10, 10.8.3.1, 10.8.4.1, 10.8.4.1.1, 10.10.1, 10.12.2, 10.12.5, 10.12.7` e uma matriz item → tarefa (`STATUS` §7).
+4. **Glossário (Anexo I):** os 41 termos ausentes da base + ATPV, EBT e ELIM do Anexo IV. Texto literal do PDF, nunca de memória.
+5. **Histórias 2 e 3:** novas OS em outros ambientes, reaproveitando o formato `HS`/`ST`: BT/SEC (QDC de prédio), canteiro de obra (instalação temporária, 10.2.1) e, se der tempo, SEP/linha.
+6. **Anexo III e Anexo IV Quadro III:** conteúdos mínimos dos treinamentos e notas de rodapé exercitados.
+7. **Exportar/importar progresso** (JSON), para não perder o Treino ao trocar de navegador.
 8. **Navegação:** a aba "Mapa" sai da linha de fases em telas ≤ ~1400 px.
+9. **Limpeza:** remover o código morto listado no `STATUS` §4.4.
 
-Cada item: *branch* → implementar → `python3 build.py --offline && cp simulador-nr10-offline.html dist/` → teste → PR → CI verde → *merge* → republicar o Artifact (mesmo link) → atualizar `STATUS`.
+Cada item: *branch* → implementar → `python3 build.py --offline && cp simulador-nr10-offline.html dist/` → Playwright → conferência no PDF → PR → CI verde → *merge* → republicar o Artifact (mesmo link) → atualizar `STATUS` e este arquivo → mandar o HTML offline ao usuário.
+
+Trilha 2 (Godot) só avança quando a Trilha 1 não tiver item pendente no limite de uso da sessão, ou se o usuário pedir. Passos pendentes dela: `docs/01_PASSO_A_PASSO_INICIO_CLAUDE_CODE.md`.
+
+---
 
 ## 4. Regras que não podem falhar
 
-1. Texto da NR-10 **só do PDF** (`docs/referencias/portaria-mte-no-737-nova-nr-10.pdf`), literal e com o número do item. Rodar o script de conferência depois de mexer em `REF` ou em `docs/`.
+1. Texto da NR-10 **só do PDF** (`docs/referencias/portaria-mte-no-737-nova-nr-10.pdf`), literal e com o número do item. Rodar a conferência depois de mexer em `REF` ou em `docs/`.
 2. Edição única: só a Portaria MTE 737/2026.
 3. Rótulos [FONTE], [PRÁTICA], [INFERÊNCIA], [INTERPRETAÇÃO], [VERIFICAR].
-4. `dist/simulador-nr10-offline.html` tem de ser idêntico ao build, senão o CI reprova.
+4. `prototipo/dist/simulador-nr10-offline.html` igual ao build, senão o CI reprova.
 5. Não comitar `prototipo/bundle.js` nem `prototipo/simulador-nr10*.html` fora de `dist/`.
-6. Resposta ao usuário: PT-BR, numerada, ponto a ponto, explicando o mecanismo de cada decisão (`CLAUDE.md` §8).
+6. PR pela API REST (`gh api repos/pedrooalvess1-glitch/simulador-normas/pulls --input pr.json`); a GraphQL é bloqueada na sessão da nuvem.
+7. Os `.md` descrevem só o estado atual e os próximos passos: nada de "rev", "versão anterior" ou "o que mudou" no texto.
+8. Resposta ao usuário: PT-BR, numerada, ponto a ponto, explicando o mecanismo de cada decisão (`CLAUDE.md` §8).
 
-## 5. Comandos
+---
 
-```bash
-cd prototipo
-python3 build.py && node --check bundle.js                       # sintaxe + fragmento do Artifact
-python3 build.py --offline && cp simulador-nr10-offline.html dist/
-python3 tools/teste_playwright.py                                # teste headless (timeout ≥ 9 min)
-cd ..
-python3 tools/conferir_itens_portaria.py --pdf docs/referencias/portaria-mte-no-737-nova-nr-10.pdf \
-  --docs docs --refs prototipo --saida docs/CONFERENCIA_ITENS.md --estrito
-# PR pela API REST:  gh api repos/pedrooalvess1-glitch/simulador-normas/pulls --input pr.json
-```
+## 5. Como abrir a sessão
 
-Armadilhas já vistas: comentário `//` dentro de linha concatenada engole o resto (use `/* */`); `const` usado antes da declaração entre arquivos (cuidado com a ordem do `build.py`); retângulos de clique sobrepostos na cena SVG travam o teste Playwright.
-
-## 6. Prompt para colar na nova sessão
+Basta anexar o repositório `pedrooalvess1-glitch/simulador-normas` e escrever:
 
 ```
-Claudinho, vamos continuar o projeto simulador-normas (Trilha 1: simulador NR-10 offline).
-1. Leia docs/PROXIMA_SESSAO.md e docs/STATUS_SIMULADOR_NR10.md.
-2. Sincronize com origin/main e confira que o CI da main está verde.
-3. Siga o backlog do §3 do PROXIMA_SESSAO.md, começando pelo item 1, um PR por item, com CI verde antes do merge.
-4. A cada PR com mudança no app, atualize prototipo/dist/, republique o Artifact v4 (mesmo link) e me mande o HTML offline novo.
-5. Ao fim, atualize STATUS e este arquivo de passagem.
-Responda em PT-BR, numerado e ponto a ponto. Você tem permissão total no repositório (CLAUDE.md §2).
+Claudinho, continue o simulador-normas.
 ```
+
+Para mudar o foco, diga só o objetivo, por exemplo: "continue, mas comece pelo glossário" ou "o simulado errou a questão X".

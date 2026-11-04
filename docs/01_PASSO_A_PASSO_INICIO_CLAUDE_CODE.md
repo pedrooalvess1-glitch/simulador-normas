@@ -1,19 +1,8 @@
 # Passo a passo do projeto com o Claude Code
 
 > Complementa o `00_INDICE_E_DECISOES_INFRAESTRUTURA.md`.
-> **rev3: o agente opera o projeto inteiro.** Você só faz quatro coisas (U1–U4, abaixo). Os passos marcados com 🤖 são do agente; os marcados com 👤 são seus.
+> **O agente opera o projeto inteiro.** Você só faz quatro coisas (U1–U4, abaixo). Os passos marcados com 🤖 são do agente; os marcados com 👤 são seus.
 > **[VERIFICAR]** = o detalhe da ferramenta pode ter mudado; o agente confere na documentação oficial.
-
----
-
-## Histórico de revisões
-
-| Revisão | Data | Mudança |
-|---|---|---|
-| rev1 | 03/11/2026 | Versão inicial (previa duas edições da norma: 2004 e 2026). |
-| rev2 | 03/11/2026 | **Edição única** (Portaria MTE 737/2026). Seção "Quem opera cada passo". Passos 1–22 concluídos. |
-| rev3 | 03/11/2026 | **Agente com permissão total** (decisão do usuário): modo Auto/Bypass no lugar do Manual; o agente faz *merge* com CI verde; o usuário só faz U1–U4. Passo 23 concluído (PDF em `docs/referencias/`); passos 24–25 preparados (commit pronto com protótipo em `prototipo/`, aguardando o vínculo do GitHub). Passos 35–36 e 44–45 adiantados. Novas etapas **T** (Trilha 1, estudo para a prova) e **I** (fotos → modelos 3D). |
-| rev4 | 04/11/2026 | Passos 24–25 concluídos (GitHub vinculado; PR #1 com *merge*). Passo 42 adiantado (CI mínimo). Novo T1b (módulo História, v4); T2b concluído (Artifact v4). |
 
 ---
 
@@ -23,7 +12,7 @@ O simulador implementa **somente** a NR-10 na redação da **Portaria MTE 737/20
 
 ---
 
-## Quem opera cada passo (rev3)
+## Quem opera cada passo
 
 ### Seu papel (só isto)
 
@@ -42,14 +31,14 @@ Todo o resto: documentos, código, testes, modelos 3D (Blender por script), Godo
 | Sessão | Para quê | Modo de permissão |
 |---|---|---|
 | **Local** (Claude Desktop → aba *Code* → pasta `C:\projetos\simulador-normas`) | Tudo que precisa do seu computador: Godot, Blender, Git local, `.exe` | **Auto** (recomendado) ou **Bypass permissions** [FONTE: docs do Claude Code, "desktop"] |
-| **Nuvem** (chat ligado ao GitHub) | Documentos, protótipo da Trilha 1, atualizações no GitHub sem o computador ligado | Gerenciado pela própria sessão |
+| **Nuvem** (chat do claude.ai com o repositório anexado) | Documentos, protótipo da Trilha 1, Godot *headless* (Linux), GitHub, Artifact, sem o computador ligado | Gerenciado pela própria sessão |
 
 - **Auto:** sem pedidos de aprovação; um classificador confere comandos e rede antes de rodar. Se não aparecer no seletor, use Bypass [VERIFICAR disponibilidade no seu plano].
 - **Bypass permissions:** sem nenhum pedido. No Pro, ligue "Allow bypass permissions mode" em Settings › Code. A documentação recomenda usá-lo só em ambiente isolado; aqui a proteção vem das regras abaixo e do Git.
 
-### Regras fixas do agente (substituem as da rev2)
+### Regras fixas do agente
 
-1. Trabalha **só** em `C:\projetos\simulador-normas` e `C:\ferramentas`. Outras pastas, só com pedido seu.
+1. Trabalha **só** em `C:\projetos\simulador-normas`, `C:\ferramentas` e na pasta do Godot (`C:\Users\Pedro Alves\Desktop\POTENCIAIS_CONCURSOS\SOFTWARE-NR10\GODOT`). Outras pastas, só com pedido seu.
 2. Todo trabalho em *branch* + *pull request*; *merge* (squash) **só com CI verde**. Nunca `push --force` na `main`, nunca reescrever histórico.
 3. No começo de cada sessão Local: `git fetch` e sincroniza com `origin/main` (o GitHub é a fonte da verdade).
 4. Nunca comitar tokens, `.env`, fotos suas ou dados pessoais (repositório público).
@@ -65,14 +54,14 @@ Todo o resto: documentos, código, testes, modelos 3D (Blender por script), Godo
 
 ## Etapa B — Ferramentas no computador (passos 9–18) ✅ concluída
 
-- [x] **9–18.** Git 2.56.0 (identidade `Pedro Alves`), VS Code 1.140.0 com `godot-tools`, Godot `4.7.2.stable` em `C:\ferramentas\godot\` (export templates só Windows x86_64), Blender 4.5.10 LTS. Passo 17: Compatibility via ANGLE/D3D11 na R5, ~496 FPS sem sombra e ~75 FPS com sombra (cena trivial) → **sem sombras em tempo real e sem texturas**.
+- [x] **9–18.** Git 2.56.0 (identidade `Pedro Alves`), VS Code 1.140.0 com `godot-tools`, Godot `4.7.2.stable` em `C:\Users\Pedro Alves\Desktop\POTENCIAIS_CONCURSOS\SOFTWARE-NR10\GODOT` (export templates só Windows x86_64), Blender 4.5.10 LTS. Passo 17: Compatibility via ANGLE/D3D11 na R5, ~496 FPS sem sombra e ~75 FPS com sombra (cena trivial) → **sem sombras em tempo real e sem texturas**.
 
 ## Etapa C — Repositório (passos 19–28)
 
 - [x] **19–22.** Repositório criado e clonado em `C:\projetos\simulador-normas`; pastas com `.gitkeep`; documentos copiados para `docs/`.
 - [x] **23.** PDF da Portaria em `docs/referencias/portaria-mte-no-737-nova-nr-10.pdf` (673.795 bytes; conferido em 03/11/2026: 133 itens numerados).
-- [x] **24.** 🤖 Protótipo **ativo** em `prototipo/` (rev3: sobe da pasta de referências para a raiz, porque é a ferramenta de estudo da Trilha 1).
-- [x] **25.** 🤖 Primeiro *push* (documentos rev3, PDF, protótipo, `CLAUDE.md`, `AGENTS.md`, `tools/`). *Feito em 04/11/2026: GitHub vinculado ao Claude (U3), PR #1 com merge na `main` (`535094d`).*
+- [x] **24.** 🤖 Protótipo **ativo** em `prototipo/` (ferramenta de estudo da Trilha 1).
+- [x] **25.** 🤖 GitHub vinculado ao Claude; projeto inteiro na `main`.
 - [ ] **26.** 🤖 Proteger a `main` exigindo os *checks* do CI (sem exigir revisão humana), via `gh api` [VERIFICAR a regra no plano gratuito].
 - [ ] **27.** 🤖 Criar os rótulos `bug`, `conteudo-norma`, `desempenho`, `didatica`, `docs`, `ideia`, `trilha-1`, `trilha-2`, `arte` via `gh label create`.
 - [ ] **28.** 🤖 Quadro no GitHub Projects (*A fazer · Em andamento · Em revisão · Feito*), se o token tiver o escopo `project`; senão, dispensado (o `STATUS` e as issues bastam).
@@ -81,23 +70,23 @@ Todo o resto: documentos, código, testes, modelos 3D (Blender por script), Godo
 
 - [ ] **29.** 👤 **U3:** Claude Desktop → aba *Code* → ambiente **Local** → pasta `C:\projetos\simulador-normas` → modo **Auto** (ou Bypass). Feche programas pesados antes (RAM).
 - [ ] **30.** 👤 **U3:** quando o agente pedir, faça o login do GitHub no navegador (Git Credential Manager ou `gh auth login`). É uma vez só.
-- [ ] **31.** 🤖 Sincronizar a pasta local com `origin/main` (a cópia local ainda tem os `.md` da rev1 fora do Git: `git fetch origin` e `git reset --hard origin/main`; o PDF local é idêntico ao do commit `rev3`). (O passo 25 já foi feito; o `simulador-normas-rev3.bundle` não é mais necessário.)
+- [ ] **31.** 🤖 Sincronizar a pasta local com `origin/main` (`git fetch origin` e `git reset --hard origin/main`, depois de conferir que não há trabalho local que só exista ali).
 - [ ] **32.** 🤖 Teste de escrita: *branch* `teste-agente`, uma linha no README, PR, CI, *merge* e apagar a *branch*. Se o PR falhar, instalar o GitHub CLI (`winget install --id GitHub.cli`).
-- [ ] **33.** 🤖 Teste do Godot: `C:\ferramentas\godot\Godot_v4.7.2-stable_win64_console.exe --headless --version` → `4.7.2.stable`.
+- [ ] **33.** 🤖 Teste do Godot: `"C:\Users\Pedro Alves\Desktop\POTENCIAIS_CONCURSOS\SOFTWARE-NR10\GODOT\Godot_v4.7.2-stable_win64_console.exe" --headless --version` → `4.7.2.stable`.
 - [ ] **34.** 🤖 Teste do Blender: localizar o executável e rodar `blender --background --version` [VERIFICAR o caminho de instalação]; registrar o caminho no `CLAUDE.md`.
 
 ## Etapa E — Infraestrutura do repositório (passos 35–46)
 
-- [x] **35–36.** 🤖 `CLAUDE.md` (regras permanentes) e `AGENTS.md` (aponta para o `CLAUDE.md`), escritos na rev3 (entram no GitHub com o passo 25).
+- [x] **35–36.** 🤖 `CLAUDE.md` (regras permanentes) e `AGENTS.md` (aponta para o `CLAUDE.md`).
 - [x] **37.** Revisão dos dois arquivos: feita pelo agente; você só lê se quiser.
 - [ ] **38.** 🤖 `docs/CONVENCOES.md` (nomes, idioma: código em inglês, textos ao jogador em português; mensagens de commit; versões).
 - [ ] **39.** 🤖 `docs/GLOSSARIO_DO_PROJETO.md` (motor, pacote, missão, fase F1–F8, verbo, gate, consequência, severidade, debrief, fatia vertical, trilha).
 - [ ] **40.** 🤖 Modelos de issue (`bug`, `conteudo-norma`, `desempenho`). O agente os preenche a partir do que você contar na conversa.
 - [ ] **41.** 🤖 Modelo de pull request.
-- [x] **42.** 🤖 CI (rev4: `.github/workflows/ci.yml`): build do protótipo, `node --check` e `tools/conferir_itens_portaria.py`. Falta: links quebrados.
+- [x] **42.** 🤖 CI (`.github/workflows/ci.yml`): build do protótipo, `node --check`, `dist/` igual ao build e `tools/conferir_itens_portaria.py`. Falta: links quebrados.
 - [ ] **43.** 🤖 `docs/_MODELO_DOCUMENTO.md`.
-- [x] **44.** 🤖 `docs/PENDENCIAS_DE_VERIFICACAO.md` (rev3).
-- [x] **45.** 🤖 `docs/DECISOES.md` (rev3, decisões 1–11).
+- [x] **44.** 🤖 `docs/PENDENCIAS_DE_VERIFICACAO.md`.
+- [x] **45.** 🤖 `docs/DECISOES.md`.
 - [ ] **46.** 🤖 *Merge* do PR da Etapa E com CI verde.
 
 ## Etapa F — Documentos de planejamento (passos 47–64)
@@ -124,16 +113,16 @@ Prompt-base (o agente usa sozinho):
 
 ---
 
-## Etapa T — Trilha 1: estudo para a prova no protótipo (rev3)
+## Etapa T — Trilha 1: estudo para a prova no protótipo
 
-- [x] **T1.** 🤖 Fase **Treino** no protótipo (03/11/2026): simulado no estilo de banca (10 a 40 questões, cronômetro no ritmo da prova), revisão espaçada (5 caixas), gerador de questões (11 tipos de cenário sorteado), 42 cartões de fatos, painel de desempenho com contagem regressiva.
-- [x] **T2.** 🤖 HTML offline (`prototipo/dist/simulador-nr10-offline.html`, também entregue na conversa).
-- [x] **T1b.** 🤖 Módulo **História** (v4, 03/11/2026): desenho estático da cabine primária com 27 objetos clicáveis ligados aos itens; uma OS em 14 passos (questões, achar objetos, caça a não conformidades, 10.13.1 e 10.13.2 aplicados na cena); explorar a cena; índice item × cena. Abre por padrão.
-- [x] **T2b.** 🤖 Republicar o Artifact "Simulador NR-10" do claude.ai com a v4, para abrir no celular (feito em 04/11/2026).
+- [x] **T1.** 🤖 Fase **Treino** no protótipo: simulado no estilo de banca (10 a 40 questões, cronômetro no ritmo da prova), revisão espaçada (5 caixas), gerador de questões (11 tipos de cenário sorteado), 42 cartões de fatos, painel de desempenho com contagem regressiva.
+- [x] **T2.** 🤖 HTML offline (`prototipo/dist/simulador-nr10-offline.html`).
+- [x] **T1b.** 🤖 Módulo **História**: desenho estático da cabine primária com 27 objetos clicáveis ligados aos itens; uma OS em 14 passos (questões, achar objetos, caça a não conformidades, 10.13.1 e 10.13.2 aplicados na cena); explorar a cena; índice item × cena. Abre por padrão.
+- [x] **T2b.** 🤖 Artifact "Simulador NR-10" no claude.ai, para abrir no celular.
 - [ ] **T3.** 👤 **U2:** usar todo dia. Rotina sugerida [INFERÊNCIA]: 1) aba **Revisão** até zerar; 2) 15 min de **Gerador** nos temas mais fracos do painel; 3) um **Simulado** de 20 questões a cada dois dias, no ritmo da prova; 4) **Cartões** no celular nos intervalos.
-- [ ] **T4.** 🤖 Treino v4: explicação de cada distrator; mais questões no formato de 5 alternativas; cartões dos itens nunca exercitados; correções do que você relatar.
+- [ ] **T4.** 🤖 Backlog da Trilha 1 em `docs/PROXIMA_SESSAO.md` §3 (distratores, 5 alternativas, itens nunca exercitados, glossário, novas histórias) e correções do que você relatar.
 
-## Etapa I — Fotos → modelos 3D (rev3)
+## Etapa I — Fotos → modelos 3D
 
 - [ ] **I1.** 👤 **U1:** mande a foto na conversa (ou ponha em `art/fotos/`, que fica fora do Git). Ajuda: objeto inteiro, uma foto de frente e uma de lado, fundo limpo e, se der, uma medida conhecida (ex.: "o painel tem 2,2 m de altura"). Evite pessoas, placas de veículo e documentos na foto.
 - [ ] **I2.** 🤖 Script Python do Blender em `art/blender/<objeto>.py` (low-poly, cores chapadas da paleta, sem textura), rodado com `blender --background --python`; exporta `art/glb/<objeto>.glb` e renderiza `art/previews/<objeto>.png`.
@@ -145,7 +134,7 @@ Prompt-base (o agente usa sozinho):
 ## Dicas para as sessões
 
 1. **Uma sessão, um objetivo.** Sessões curtas gastam menos do limite do plano.
-2. Você não precisa dizer o passo: o agente lê este guia e o `STATUS` e continua do próximo pendente.
+2. Você não precisa dizer o passo nem aprová-lo: o agente lê este guia, o `STATUS` e o `PROXIMA_SESSAO` e continua do próximo pendente, parando só nos pontos de parada (`PROXIMA_SESSAO` §1).
 3. **Até a prova, a Trilha 1 tem prioridade** quando o limite de uso apertar.
 4. Discordância com a norma vira issue `conteudo-norma`, com a fonte (Portaria MTE 737/2026).
 5. Antes de sessões Locais pesadas (Godot, Blender), feche navegador e outros programas: o notebook tem 7,5 GB de RAM e pouco disco livre.

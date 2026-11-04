@@ -4,7 +4,7 @@ Simulador didático de normas regulamentadoras. Primeiro pacote: **NR-10**, na r
 
 ## Estudar agora (Trilha 1)
 Baixe e abra com duplo clique: [`prototipo/dist/simulador-nr10-offline.html`](prototipo/dist/simulador-nr10-offline.html).
-A fase **Treino** tem simulado no estilo de banca, revisão espaçada dos erros, gerador de questões e cartões de fatos.
+Abre no módulo **História** (uma ordem de serviço sobre o desenho de uma cabine primária). A fase **Treino** tem simulado no estilo de banca, revisão espaçada dos erros, gerador de questões e cartões de fatos.
 
 ## Projeto (Trilha 2)
 Motor genérico em Godot 4.7.2 (`engine/`) + pacotes de conteúdo (`packs/`). Planejamento em [`docs/00_INDICE_E_DECISOES_INFRAESTRUTURA.md`](docs/00_INDICE_E_DECISOES_INFRAESTRUTURA.md).

@@ -6,19 +6,9 @@
 >
 > **Escopo normativo: edição única.** Só a NR-10 na redação da **Portaria MTE 737/2026** (`00_INDICE` §1.1). Todo número de item deste plano é dessa redação.
 >
-> **Conferência de itens (rev3):** todos os números citados foram conferidos no PDF da Portaria (`docs/referencias/`) com `tools/conferir_itens_portaria.py`; todos os de 2026 existem. As pendências da rev2 (13–19) foram resolvidas no PDF; o número entre parênteses (ex.: "pendência 15") remete à `00_INDICE` §10.
+> **Conferência de itens:** os números citados são conferidos no PDF da Portaria (`docs/referencias/`) com `tools/conferir_itens_portaria.py` (relatório em `docs/CONFERENCIA_ITENS.md`). Fatos já conferidos e pendências abertas: `docs/PENDENCIAS_DE_VERIFICACAO.md`.
 >
 > Legenda: **[FONTE]** · **[PRÁTICA]** · **[INFERÊNCIA]** · **[INTERPRETAÇÃO]** · **[VERIFICAR]** · **[VERIFICAR NA PORTARIA]** (definições na `00_INDICE`).
-
----
-
-## Histórico de revisões
-
-| Revisão | Data | Mudança |
-|---|---|---|
-| rev1 | 03/11/2026 | Versão inicial: pacotes `RULES['2004']` e `RULES['2026']`, alternância global com padrão 2004. |
-| rev2 | 03/11/2026 | **Edição única (Portaria MTE 737/2026).** D2 e D7 reescritas; colunas "2004" removidas das §3, §7 e §8; §9 reduzida ao que vale para 2026; números conferidos contra a `REF`, com correções (comunicação 10.7.9 → 10.12.4.1; PIE 10.2.4 → 10.15.6; "desligada com possibilidade de energização" 10.5.4 → 10.5.2; desenergização 10.5.1 → 10.13.1; extintor "10.12.4" → [VERIFICAR NA PORTARIA]); asteriscos resolvidos; §10 e §12 marcadas como arquitetura do protótipo three.js; §14 (prompt de sessão) substituída por ponteiro para o guia. |
-| rev3 | 03/11/2026 | Conferência no PDF: pendências 13–19 resolvidas (extintor e altura: sem item na NR-10/2026; direito de recusa: Anexo III, Treinamento Básico, item 9 k; cores D/L e "ordem de serviço": ausentes do texto → [PRÁTICA]; emergência: sem capítulo próprio). §11 registra que simulado, revisão espaçada e modo prova já existem no protótipo (fase Treino, Trilha 1). |
 
 ---
 
@@ -46,7 +36,7 @@ Cada decisão traz o motivo.
 
 **D2. A norma como motor de regras.**
 - Cada item relevante vira um objeto de regra com: pré-condição, *gate* (o que bloqueia), consequência do desvio e severidade.
-- Há **um** pacote de regras, `RULES`, com o texto da Portaria MTE 737/2026 (rev2; antes eram dois pacotes, 2004 e 2026).
+- Há **um** pacote de regras, `RULES`, com o texto da Portaria MTE 737/2026.
 - Por quê: separa conteúdo normativo de cena. Outra norma (NR-12, NR-35…) entra como outro pacote, sem reescrever o motor nem as missões (`00_INDICE` R6).
 
 **D3. Modelo elétrico topológico (§5).**
@@ -70,24 +60,23 @@ Cada decisão traz o motivo.
   - **Leve:** só desconta.
 - Medalha única: "OS cumprida sem desvio". **Sem ranking e sem badges**: a literatura citada na pesquisa (Hanus & Fox, 2015) mostrou queda de motivação em curso gamificado com pontos e ranking.
 
-**D7. Edição única: Portaria MTE 737/2026** (rev2; substitui "alternância global 2004/2026, com padrão 2004").
+**D7. Edição única: Portaria MTE 737/2026.**
 - Motivos (registrados como decididos):
   1. Suportar duas edições multiplica a complexidade do motor (versionamento de regras, precedência, testes duplicados).
   2. Os próximos concursos cobram a redação atualizada.
-- Consequência: o que a alternância trocava passa a ter um valor só, o da Portaria 737/2026:
+- Consequência: cada um destes conteúdos tem um valor só, o da Portaria 737/2026:
   - sequência de desenergização: 10.13.1, alíneas a–g; reenergização: 10.13.2, alíneas a–g;
   - faixas de tensão: glossário (Anexo I), com MT; 13,8 kV é MT;
   - documentos: procedimento de trabalho (rotineiro, 10.7.1) ou PT (não rotineiro, 10.7.2), ambos a partir de análise de risco (10.7.3);
   - grave e iminente risco: lista do 10.16.1;
   - treinamentos: Quadro I (10.9.2), periódico bienal (10.9.10) e eventual (10.9.11);
-  - cores de posição de manobra (verde "D", vermelho "L"): vinham do 10.3.9 b de 2004 e **não estão** na Portaria 737/2026 (conferido no PDF, rev3); no simulador são [PRÁTICA].
-- Na rev1, o padrão 2004 existia por causa da prova de 22/11/2026, que cobra o texto vigente. Com a edição única, o simulador não ensina o texto de 2004 [INFERÊNCIA: consequência direta da decisão].
+  - cores de posição de manobra (verde "D", vermelho "L"): **não estão** na Portaria 737/2026 (conferido no PDF); no simulador são [PRÁTICA].
 
 **D8. Ordem das missões por dados de acidente + peso de prova; ambientação em Pernambuco.**
 - Dados ABRACOPEL 2025 [FONTE: pesquisa]:
   - choque elétrico: 917 acidentes e 646 mortes;
   - redes de distribuição: 379 ocorrências e 242 mortes;
-  - trabalhadores da construção: 208 mortes (eram 64 em 2023);
+  - trabalhadores da construção: 208 mortes;
   - Nordeste: 316 acidentes de choque e 236 mortes.
 - Ambientação: Pernambuco (concessionária Neoenergia PE, centro de operação COD).
 
@@ -95,21 +84,19 @@ Cada decisão traz o motivo.
 
 ## 3. Core loop: as 8 fases de uma Ordem de Serviço
 
-Toda missão percorre estas fases. Nem toda missão exige todas com o mesmo peso. Itens da Portaria MTE 737/2026, conferidos no PDF (os asteriscos da rev1 foram resolvidos assim).
+Toda missão percorre estas fases. Nem toda missão exige todas com o mesmo peso. Itens da Portaria MTE 737/2026, conferidos no PDF.
 
 | Fase | O que o jogador faz (verbos) | Gate: não avança sem | Itens |
 |---|---|---|---|
 | F1 Briefing | Lê a solicitação. Classifica tensão (faixa do glossário), SEP/SEC, rotina/não rotina, trabalho energizado ou não. | Enquadramento correto | 10.1, 10.2, Anexo I (faixas, SEP, atividades rotineiras) |
 | F2 Planejamento | Monta a análise de risco (cartas de risco; o formulário "APR" é [PRÁTICA]), escolhe procedimento ou PT, escala a equipe pelas fichas, pede o desligamento ao COD/concessionária. | Procedimento (rotineiro) ou PT aprovada por trabalhador autorizado (não rotineiro), precedidos de análise de risco | 10.3, 10.7.1, 10.7.1.1, 10.7.2, 10.7.2.1, 10.7.3 |
-| F3 Almoxarifado | Escolhe EPI, EPC e ferramentas. Inspeciona: teste de inflação da luva, autoteste do detector, validade dos ensaios, classe da luva pela cor da etiqueta ([PRÁTICA], pendência 21). | Kit mínimo com ensaios válidos | 10.11, Anexo IV, 10.12.6, 10.12.6.1, 10.14.4, 10.14.4.1 |
+| F3 Almoxarifado | Escolhe EPI, EPC e ferramentas. Inspeciona: teste de inflação da luva, autoteste do detector, validade dos ensaios, classe da luva pela cor da etiqueta ([PRÁTICA]; ver `PENDENCIAS_DE_VERIFICACAO.md`). | Kit mínimo com ensaios válidos | 10.11, Anexo IV, 10.12.6, 10.12.6.1, 10.14.4, 10.14.4.1 |
 | F4 Chegada / caça ao risco | Identifica riscos no ambiente (rede próxima, chuva, pessoa não advertida, adorno, porta aberta, escada de alumínio). Delimita e sinaliza. | Riscos críticos tratados | 10.7.3, 10.7.7, 10.7.7.1, 10.7.8, 10.13.1 g, 10.14.1.2 |
 | F5 DDS e autorização | Faz a avaliação prévia, confere crachás e ASO, designa o supervisor. | Equipe autorizada, supervisor designado | 10.7.4, 10.7.4.1, 10.7.4.2, 10.7.5, 10.7.6, 10.8–10.10 (10.10.2.1, 10.10.4) |
 | F6 Desenergização no mundo | Executa os verbos físicos na ordem do pacote de regras. | Sequência do 10.13.1 | 10.13.1 a–g, 10.13.3 |
-| F7 Execução + evento | Responde ao evento surpresa: suspender, comunicar, recusar, refazer o teste. | Resposta correta ao evento | 10.7.4.2, 10.12.4, 10.12.4.1, 10.16.1; direito de recusa: conteúdo do Treinamento Básico (Anexo III, item 9 k); não há item próprio de suspensão (pendência 14, resolvida) |
+| F7 Execução + evento | Responde ao evento surpresa: suspender, comunicar, recusar, refazer o teste. | Resposta correta ao evento | 10.7.4.2, 10.12.4, 10.12.4.1, 10.16.1; direito de recusa: conteúdo do Treinamento Básico (Anexo III, item 9 k); não há item próprio de suspensão |
 | F8 Reenergização + encerramento | Reenergiza na ordem, encerra e arquiva a PT, registra no PIE quando aplicável. | Sequência + registro | 10.13.2 a–g, 10.7.2.3, 10.15 |
 | Debrief | Replay com raio-x, linha do tempo das ações, itens da norma acionados, erros enviados à fila de revisão. | — | — |
-
-Itens acrescentados na rev2 (10.7.1.1, 10.7.2.1, 10.7.3, 10.7.4, 10.7.4.1, 10.7.5, 10.7.6, 10.7.7, 10.7.8, 10.12.6, 10.12.6.1, 10.12.4, 10.13.3, 10.14.1.2, 10.14.4.1, 10.7.2.3) cobrem atividades que já estavam na coluna "verbos" e antes só tinham referência na coluna de 2004.
 
 ---
 
@@ -232,7 +219,7 @@ Os itens marcados com 🔤 são termos do glossário e devem abrir a **definiç�
 | Prancheta com procedimento, PT e análise de risco ("OS" e "APR" são [PRÁTICA]: os termos não aparecem na NR-10/2026) | Documento físico no local | ler, preencher, assinar, encerrar | 10.7.1, 10.7.1.1, 10.7.2, 10.7.2.1, 10.7.2.3, 10.7.3 |
 | Crachá de autorização + ASO | Crachá com escopo da autorização | conferir | 10.10.4; 10.10.2.1; 10.7.5 |
 | Rádio | Portátil, no cinto ou no caminhão | chamar COD, receber liberação | 10.12.4.1 |
-| Extintor de CO₂ | Cilindro vermelho com difusor | usar | NR-23 (a NR-10/2026 não tem item sobre extintor; o "10.12.4" da rev1 é o item de comunicação) |
+| Extintor de CO₂ | Cilindro vermelho com difusor | usar | NR-23 (a NR-10/2026 não tem item sobre extintor) |
 
 ### 7.2 Itens específicos por ambiente
 - **Residência (M0):** padrão de entrada com caixa de medição lacrada; ramal de ligação (multiplexado preto); medidor; QDC com quadro de circuitos na porta; DR "IΔn 30 mA" com botão T; DPS com janela verde/vermelha; disjuntores ("I" para cima = ligado); haste de aterramento em caixa de inspeção; BEP 🔤(equipotencialização); escada de fibra (amarela/laranja; **alumínio é armadilha**).
@@ -266,7 +253,7 @@ A sessão do documento 14 deve expandir esta matriz para **todos os 133 itens + 
 | EPI e vestimenta | 10.11, Anexo IV | F3 · almoxarifado; M4 · categoria de arco |
 | Desenergização | 10.13.1 a–g | Todas · F6 · verbos físicos na ordem do pacote |
 | Reenergização | 10.13.2 a–g | Todas · F8 |
-| Alteração da sequência por PLH | 10.13.4 | M3 · evento: o PLH justifica formalmente uma alteração (rev1 dizia "conferir"; conferido contra a `REF`) |
+| Alteração da sequência por PLH | 10.13.4 | M3 · evento: o PLH justifica formalmente uma alteração |
 | Trabalho energizado | 10.14 | M7, M4 |
 | Comunicação com o centro de operação | 10.12.4, 10.12.4.1 | M2, M7 · rádio como gate |
 | Sinalização | 10.7.7, 10.7.7.1, 10.13.1 f–g | F4 · delimitar; porta do painel fechada e sinalizada |
@@ -276,42 +263,28 @@ A sessão do documento 14 deve expandir esta matriz para **todos os 133 itens + 
 
 ---
 
-## 9. Correções factuais (rev2: edição única)
+## 9. Fatos de conteúdo que o simulador precisa respeitar
 
-### 9.1 O que vale para a Portaria 737/2026
+### 9.1 Zonas e distâncias
 
 1. **Tabela de zonas (Anexo II):** a redação de 2026 traz as fronteiras ≥/< e a observação de que, em sistemas trifásicos, vale a tensão entre fases [FONTE: `REF` `AII`].
 2. **Distâncias que NÃO são da NR-10** (o debrief deve rotular como "prática", nunca como norma):
    - 1,5 m de afastamento da rede (orientação de concessionária);
    - 0,64 m em linha viva a 13,8 kV (número de fornecedor).
-3. **Correções de numeração feitas na rev2** (números da rev1 que eram da redação de 2004 e, na `REF`, têm outro conteúdo):
 
-| Onde | Rev1 | Na `REF` (2026) | Rev2 |
-|---|---|---|---|
-| M2, §7.1 (rádio) | 10.7.9 "comunicação permanente" | 10.7.9 = infraestrutura compartilhada | 10.12.4.1 |
-| M8 | 10.2.4 (PIE) | 10.2.4 = extrabaixa tensão | 10.15.6 |
-| M5 | 10.5.4 "desligado mas passível de energização" | 10.5.4 = hierarquia das medidas | 10.5.2 |
-| M0, M3 | 10.5.1 / 10.5.2 (sequências) | 10.5.1 = eliminação do perigo | 10.13.1 / 10.13.2 |
-| §7.1 (extintor) | 10.12.4* | 10.12.4 = comunicação | NR-23 (sem item na NR-10/2026) |
-| §7.1 (cinto) | 10.4.2 | 10.4.2 = seccionamento de ação simultânea | NR-35 (sem item na NR-10/2026) |
-
-### 9.2 Correções da rev1 que ficaram fora de escopo
-
-As correções 1, 2, 3, 4, 5 e 7 da rev1 tratavam do texto de 2004 (`DIFF.pt`, `DIFF.gir`, `DIFF.cores`, numeração dos anexos de 2004, reciclagem do 10.8.8.2 e faixas de 2004). **Resolvidas: fora de escopo (edição única).** O `DIFF` foi esvaziado no protótipo (rev2 do zip). O que delas ainda importa para 2026 virou pendência: cores de manobra (15) e direito de recusa (14).
-
-### 9.3 Fontes oficiais
-- Texto de 2026: `gov.br/.../normas-regulamentadoras-vigentes/nr-10-atualizada-2026-1.pdf` (cópia em `docs/referencias/`).
-- Manual de Auxílio na Interpretação e Aplicação da NR-10 (MTE): foi escrito para a redação de 2004. Usar só para conceitos, nunca para numeração ou texto [INFERÊNCIA].
+### 9.2 Fontes oficiais
+- Texto da Portaria MTE 737/2026: `gov.br/.../normas-regulamentadoras-vigentes/nr-10-atualizada-2026-1.pdf` (cópia em `docs/referencias/`).
+- Manual de Auxílio na Interpretação e Aplicação da NR-10 (MTE): não acompanha a numeração da Portaria 737/2026. Usar só para conceitos, nunca para numeração ou texto [INFERÊNCIA].
 
 ---
 
-## 10. Arquitetura técnica do protótipo three.js (legado)
+## 10. Campanha sobre o protótipo three.js (plano não executado)
 
-> Esta seção descreve o **protótipo three.js**, hoje só fonte de conteúdo. A arquitetura-alvo é **Godot 4.7.2** (`00_INDICE` §3–§4) e será consolidada no documento 02. A rev2 só retirou daqui o modelo de duas edições.
+> Esta seção descreve como a campanha seria montada **sobre o protótipo three.js**. O protótipo hoje é a ferramenta de estudo da Trilha 1 (fases, História, Missão e Treino; ver `STATUS`); a campanha de verdade será feita em **Godot 4.7.2** (`00_INDICE` §3–§4, documento 02). Esta seção fica como especificação de conteúdo e de dados.
 
 ### 10.1 O que se mantém (STATUS §4)
 - three.js r128 UMD, `build.py` (online/offline), API do motor (`box/cyl/...`, `hot()`, `fb()`, `quiz/classify/pickList`, `Store`, `miss()`).
-- Os 12 módulos existentes, agora acessados pela aba **Biblioteca**.
+- Os módulos existentes, acessados pela aba **Biblioteca**.
 
 ### 10.2 Arquivos novos
 | Arquivo | Responsabilidade |
@@ -361,7 +334,7 @@ MISSIONS.m3 = { id:'m3', titulo:'OS — manutenção do TR-01', cena:'cabine', t
 - Câmera orbital (já existe) + atalhos "ir até" por ponto de interesse.
 
 ### 10.5 Persistência e teste
-- `localStorage['nr10sim.v3']`, com migração a partir de `v1` (`done`, `miss`, `pr`).
+- `localStorage['nr10sim.v1']` (a mesma chave do protótipo, com `done`, `miss`, `pr`).
 - Grava também: missões concluídas, caixas da SRS e o último log.
 - Desempenho: r128, `InstancedMesh` para itens repetidos (isoladores, cones, painéis), low-poly, `dispose()` ao trocar de cena, meta de ≤ 150 draw calls por cena.
 - API de teste `window.__sim`:
@@ -384,14 +357,14 @@ MISSIONS.m3 = { id:'m3', titulo:'OS — manutenção do TR-01', cena:'cabine', t
    - replay com raio-x;
    - itens acionados;
    - 3 perguntas de reflexão ("o que você teria visto se não tivesse testado a fase B?").
-5. **SRS entre missões:** 5 cartões de fatos de prova (Rr/Rc, sequências, faixas, horas de treinamento, procedimento × PT), puxados da fila de erros. *(rev3: já existe no protótipo, fase Treino: revisão espaçada em 5 caixas e 42 cartões.)*
+5. **SRS entre missões:** 5 cartões de fatos de prova (Rr/Rc, sequências, faixas, horas de treinamento, procedimento × PT), puxados da fila de erros. *(Já existe no protótipo: fase Treino, revisão espaçada em 5 caixas e 42 cartões.)*
 6. **Biblioteca** (módulos existentes + Mapa) acessível a qualquer momento. Chips de item abrem a gaveta com o texto literal.
-7. **Modo prova** (estilo banca, cronometrado). Usa as mesmas `REF`. *(rev3: já existe no protótipo, fase Treino › Simulado.)*
+7. **Modo prova** (estilo banca, cronometrado). Usa as mesmas `REF`. *(Já existe no protótipo: fase Treino › Simulado.)*
 8. **Não exibir HUD carregado:** a pesquisa citada (Makransky et al., 2019) indica que mais imersão pode trazer mais carga cognitiva e menos aprendizado. Interface enxuta durante a ação; o detalhe fica no debrief.
 
 ---
 
-## 12. Plano de implementação do protótipo (sprints, legado)
+## 12. Sprints da campanha sobre o protótipo (plano não executado)
 
 > Sprints do protótipo three.js. Na arquitetura Godot, a sequência de entrega é a do `00_INDICE` §9 e do documento 21.
 
@@ -413,19 +386,11 @@ MISSIONS.m3 = { id:'m3', titulo:'OS — manutenção do TR-01', cena:'cabine', t
 
 Numeração da Portaria MTE 737/2026.
 
-- `10.2.4.1`: texto literal incluído na base (rev3); falta exercitá-lo numa tarefa.
+- `10.2.4.1`: texto literal na base; falta exercitá-lo numa tarefa.
 - Itens nunca exercitados: 10.4.5, 10.4.11, 10.7.10, 10.8.3.1, 10.8.4.1, 10.8.4.1.1, 10.10.1, 10.12.2, 10.12.5, 10.12.7. Cada um deve ganhar uma linha na matriz da §8.
 - 41 termos do glossário fora da base: a maioria vira objeto (§7).
-- Art. 1º, 2º e 4º da Portaria (tipificação e revogações).
 - Anexo III literal; notas do Quadro III do Anexo IV.
 - Textos condensados a reconferir: 10.7.7, 10.8.4, 10.9.2, 10.15.4, AII, AIV, art5.
 - Arestas `k:'t'` do Mapa ainda são interpretação do simulador.
-- *(rev3)* Textos da `REF` que o script de conferência aponta como não literais: 10.1.1 (cortado no fim), 10.8.4, 10.9.2, 10.15.4, 10.15.7 (`docs/CONFERENCIA_ITENS.md`, seção 4).
+- Textos da `REF` que o script de conferência aponta como não literais: 10.1.1 (cortado no fim), 10.8.4, 10.9.2, 10.15.4, 10.15.7 (`docs/CONFERENCIA_ITENS.md`, seção 4).
 
----
-
-## 14. Prompt para a nova sessão (substituído na rev2)
-
-O prompt da rev1 pedia para implementar S1 e S2 **no protótipo three.js**, com **padrão 2004** e alternância 2004/2026. Ele contradizia duas decisões já tomadas: Godot como motor (`00_INDICE` §3.1) e edição única (`00_INDICE` §1.1). Por isso foi removido.
-
-As sessões agora seguem o guia `01_PASSO_A_PASSO_INICIO_CLAUDE_CODE.md` (Etapa F, prompt-base) e o prompt sugerido na `00_INDICE` §11.

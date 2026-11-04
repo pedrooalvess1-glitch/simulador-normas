@@ -1,6 +1,6 @@
 # Simulador NR-10: especificação de arquitetura de software
 
-> Gerado em 03/11/2026. Complementa o `PLANO_V3_SIMULADOR_NR10.md`.
+> Complementa o `PLANO_V3_SIMULADOR_NR10.md`.
 > - O **plano** responde **o quê e por quê**: didática, missões, norma.
 > - Este documento responde **como o código se organiza**: camadas, contratos, máquinas de estado, fluxo de dados, testes e decisões de arquitetura (ADRs).
 >
@@ -9,16 +9,6 @@
 > **Escopo normativo: edição única.** Um pacote de regras, com a NR-10 na redação da **Portaria MTE 737/2026** (`00_INDICE` §1.1; ADR 8).
 >
 > Ordem de leitura: PLANO → este arquivo → STATUS (§4 API, §9 armadilhas) → código.
-
----
-
-## Histórico de revisões
-
-| Revisão | Data | Mudança |
-|---|---|---|
-| rev1 | 03/11/2026 | Versão inicial (pacotes `RULES['2004']`/`RULES['2026']`, evento `version:changed`, save e testes por redação). |
-| rev2 | 03/11/2026 | **Edição única (Portaria MTE 737/2026).** Edição removida do esquema de dados (§4.3, §4.4), do motor de regras (§4.4), do barramento (§3: sai `version:changed`), do save (§8), da API de teste e dos testes (§10, §13, §14). Precedência simplificada para "um pacote = o texto de uma norma, numa redação". Motivo do ADR 4 atualizado; novo ADR 8. Campo `cores` retirado das regras (vinha só do texto de 2004). Nota de situação (protótipo × Godot) no cabeçalho. |
-| rev3 | 03/11/2026 | Conferência no PDF: a convenção de cores não existe na Portaria 737/2026 (fica [PRÁTICA]). §9 registra os arquivos novos do protótipo (`qbank.js`, `treino.js`). §12 atualizada. |
 
 ---
 
@@ -40,7 +30,7 @@
 ┌──────────────────────────────────────────────────────────────┐
 │ L5  APLICAÇÃO   main.js · roteamento (#campanha, #biblioteca)│
 ├──────────────────────────────────────────────────────────────┤
-│ L4  APRESENTAÇÃO hud.js · debrief.js · módulos v2 (Biblioteca)│
+│ L4  APRESENTAÇÃO hud.js · debrief.js · módulos (Biblioteca)  │
 ├──────────────────────────────────────────────────────────────┤
 │ L3  JOGO        mission.js (executor F1–F8) · srs.js · score │
 ├──────────────────────────────────────────────────────────────┤
@@ -80,7 +70,7 @@ bus.on(tipo, fn); bus.off(tipo, fn); bus.emit(tipo, payload);
 | `event:fire` | mission.js | `{id, efeito}` | elec, hud |
 | `mission:end` | mission.js | `{resultado:'ok'│'fatal'│'abandono', log}` | debrief, store, srs |
 
-Rev2: o evento `version:changed` (troca 2004/2026) saiu. Não há o que trocar: o pacote é carregado uma vez, na inicialização.
+O pacote de regras é carregado uma vez, na inicialização; não há evento de troca de pacote.
 
 ---
 
@@ -139,7 +129,7 @@ ITEMS[id] = { id, nome, build:()=>THREE.Group, slot:'vestido'|'cinto'|'maleta'|'
   estadoInicial:{...}, verbos:{ verbo:{ alvos:['tipoAlvo'], requer:[itemIds], efeito:(ctx)=>{} } },
   refs:[...], glos?:'g-travamento', visual:{ dicas:'...' } };   // refs: chaves de REF (Portaria 737/2026)
 ```
-Rev2: `refs` deixou de ser um mapa por redação (`{'2004':[…],'2026':[…]}`) e virou uma lista simples.
+`refs` é uma lista simples de chaves de `REF`.
 
 **Alvos tipados:** `fase`, `dispositivo`, `pontoTerra`, `parteViva`, `area`, `pessoa`, `documento`. A cena marca cada objeto 3D clicável com `userData.alvo = {tipo, id}`.
 
@@ -156,11 +146,11 @@ RULES = {                                             // um pacote: NR-10, Porta
   gates:{ F2:(estado)=>bool, ... } };
 validateRules(RULES)  // na carga: todo ref existe em REF; toda seq usa verbos válidos
 ```
-Rev2:
-- `RULES[ver]` virou `RULES`. Não há chave de edição nem precedência: o motor carrega um pacote e pronto.
-- `gir` deixou de aceitar `null` (o `null` era o caso de 2004, sem lista de GIR).
-- O campo `cores:{ligado:'vermelho', desligado:'verde'}|null` saiu. Ele vinha do 10.3.9 b de 2004. A convenção de lâmpadas passa a ser dado visual do catálogo de itens/ambiente [PRÁTICA]; a conferência no PDF (rev3) confirmou que ela não está na Portaria 737/2026.
-- O campo `pacote` explicita o que antes ficava implícito na chave `ver`: qual norma e qual texto o pacote carrega, e a versão dos dados [INFERÊNCIA: necessário para o princípio 5 da `00_INDICE` (missão = versão do pacote + versão do motor + semente)].
+Observações:
+- `RULES` não tem chave de edição nem precedência: o motor carrega um pacote e pronto.
+- `gir` é sempre uma lista (10.16.1).
+- A convenção de cores das lâmpadas de posição não está na Portaria 737/2026; é dado visual do catálogo de itens/ambiente [PRÁTICA].
+- O campo `pacote` diz qual norma e qual texto o pacote carrega, e a versão dos dados [INFERÊNCIA: necessário para o princípio 5 da `00_INDICE` (missão = versão do pacote + versão do motor + semente)].
 
 ---
 
@@ -224,14 +214,12 @@ SCENES[id] = { build(world, G)->{ alvos:Map(id→Object3D), pois:[{id,pos,cam}] 
 ## 8. Persistência (`store.js`)
 
 ```js
-localStorage['nr10sim.v3'] = { aprendiz:0.6,
+localStorage['nr10sim.v1'] = { aprendiz:0.6,
   campanha:{ m3:{melhor:'ok', tentativas:3} },
   srs:{ ref:{caixa:1..5, prox:timestamp} }, miss:{ref:n},
-  biblioteca:{ done, pr },              // migrado de nr10sim.v1
+  biblioteca:{ done, pr },
   ultimoLog:[...] };                    // limitar a ~500 ações
 ```
-Rev2: saíram o campo `ver` (redação selecionada) e o nível por redação dentro de `campanha`. Um save da rev1 com `campanha.m3['2026']` migra pegando esse ramo; o ramo `'2004'` é descartado [INFERÊNCIA: regra de migração; o protótipo atual não grava `campanha`, então hoje não há o que migrar].
-
 Regras:
 - Todas as leituras e escritas ficam em `try/catch` (o Artifact pode bloquear o storage).
 - Sem storage, o app funciona do mesmo jeito, só sem guardar o progresso.
@@ -254,7 +242,7 @@ tools/  build.py  audit_cobertura.py  teste_playwright.py  test_elec.js (node)
 vendor/ three.min.js (r128)
 ```
 - `build.py` lê uma lista `ORDER` explícita (L0 → L5) e concatena.
-- *(rev3, protótipo atual)* `qbank.js` (depois de `engine.js`): banco de questões `QB`, revisão espaçada `SRS` e estatísticas `STATS`; os módulos registram suas questões com `QB.add`/`QB.cls`. `treino.js` (antes de `main.js`): fase "Treino" com simulado, revisão, gerador e cartões. Estado por aluno em `Store.data` (`srs`, `st`, `sims`, `dias`, `prova`).
+- *(Protótipo atual)* `qbank.js` (depois de `engine.js`): banco de questões `QB`, revisão espaçada `SRS` e estatísticas `STATS`; os módulos registram suas questões com `QB.add`/`QB.cls`. `treino.js` (antes de `main.js`): fase "Treino" com simulado, revisão, gerador e cartões. Estado por aluno em `Store.data` (`srs`, `st`, `sims`, `dias`, `prova`).
 - Adicionar `node tools/test_elec.js` ao build. Ele roda sem DOM, porque L0 e L2 não tocam no DOM.
 
 ---
@@ -272,7 +260,6 @@ vendor/ three.min.js (r128)
 ```js
 window.__sim = { load(missao, seed), act, state(no), phase(), log(), solve() };
 ```
-Rev2: `load` perdeu o parâmetro `ver`. Os testes de cenário rodam uma vez por missão, não uma vez por redação.
 
 ---
 
@@ -283,11 +270,11 @@ Rev2: `load` perdeu o parâmetro `ver`. Os testes de cenário rodam uma vez por 
 | 1 | Manter three.js r128 UMD + concatenação (protótipo) | Migrar para ESM/Vite | O Artifact e o offline exigem um arquivo único; a migração custa caro e não traz ganho didático |
 | 2 | `act()` como único ponto de mutação | Handlers espalhados nas cenas | Testabilidade, replay e log da SRS de graça |
 | 3 | Solver BFS por chaves abertas/fechadas, sem fluxo de potência | Fluxo de carga/impedâncias | O didático é "há caminho até uma fonte?". Correntes de curto e de arco ficam tabeladas (Anexo IV), não calculadas |
-| 4 | Regras como dados + predicados pequenos | Lógica de norma dentro das missões | Separa norma de cena; outra norma entra como outro pacote sem reescrever missões nem motor (`00_INDICE` R6). *Rev2: o motivo antigo, "alternar 2004/2026 sem duplicar missões", deixou de existir.* |
+| 4 | Regras como dados + predicados pequenos | Lógica de norma dentro das missões | Separa norma de cena; outra norma entra como outro pacote sem reescrever missões nem motor (`00_INDICE` R6). |
 | 5 | Barramento de eventos simples | Framework reativo | Zero dependências; poucos tipos de evento |
 | 6 | PRNG com semente no log | `Math.random` | Replay determinístico e testes estáveis |
 | 7 | Biblioteca mantida intacta e isolada em `lib/` | Reescrever os módulos | A campanha reusa `quiz`/`classify` dentro do debrief |
-| 8 | *(rev2)* **Edição única:** um pacote com a NR-10 da Portaria MTE 737/2026 | Dois pacotes (2004 e 2026) com seletor global, precedência e testes por redação | (1) Duas edições multiplicam a complexidade do motor (versionamento de regras, precedência, testes duplicados). (2) Os próximos concursos cobram a redação atualizada. |
+| 8 | **Edição única:** um pacote com a NR-10 da Portaria MTE 737/2026 | Dois pacotes (2004 e 2026) com seletor global, precedência e testes por redação | (1) Duas edições multiplicam a complexidade do motor (versionamento de regras, precedência, testes duplicados). (2) Os próximos concursos cobram a redação atualizada. |
 
 ---
 
@@ -295,9 +282,9 @@ Rev2: `load` perdeu o parâmetro `ver`. Os testes de cenário rodam uma vez por 
 
 | Risco | Mitigação |
 |---|---|
-| HTML offline grande (hoje ~884 KB) | Geometria procedural, sem modelos ou texturas externas; meta < 1,5 MB |
+| HTML offline grande (hoje ~975 KB) | Geometria procedural, sem modelos ou texturas externas; meta < 1,5 MB |
 | Desempenho no celular | `InstancedMesh`, ≤ 150 draw calls, sombras desligadas no celular, `dispose` ao trocar de cena |
-| Regras com número de item errado | `validateRules` + números conferidos no PDF da Portaria 737/2026 antes de entrar (rev3: conferidos com `tools/conferir_itens_portaria.py`) |
+| Regras com número de item errado | `validateRules` + números conferidos no PDF da Portaria 737/2026 antes de entrar (`tools/conferir_itens_portaria.py`, também no CI) |
 | Escopo grande antes da prova | Sprints S1–S2 do plano primeiro; a Biblioteca continua utilizável o tempo todo |
 | Raio-x criar falsa confiança | Raio-x **só** no debrief e no modo aprendiz (com fading); nunca durante o modo jogo |
 
@@ -321,4 +308,4 @@ Rev2: `load` perdeu o parâmetro `ver`. Os testes de cenário rodam uma vez por 
 - [ ] `node --check bundle.js` e `node tools/test_elec.js` sem erro.
 - [ ] Playwright verde, em claro/escuro e em 390 px.
 - [ ] Nenhum texto rotulado como norma sem conferência literal no PDF da Portaria 737/2026.
-- [ ] HTML offline, zip dos fontes e STATUS atualizados.
+- [ ] `prototipo/dist/` igual ao build e `STATUS` atualizado.
