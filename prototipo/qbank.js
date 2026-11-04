@@ -27,5 +27,41 @@ const STATS={
   chap(q){const r=(q.r||[])[0];if(!r)return 'geral';if(/^art/.test(r))return 'Portaria';return typeof chapOf==='function'?chapOf(r):r;}};
 
 /* As questões dos módulos passam a alimentar a revisão e o painel, sem mudar os módulos. */
-(function(){const base=quiz;quiz=function(el,api,qs,o){o=Object.assign({},o||{});const prev=o.onAnswer;
+(function(){const base=quiz;quiz=function(el,api,qs,o){o=Object.assign({},o||{});
+  qs=(qs||[]).map(q=>typeof bancaQ==='function'?bancaQ(q):q);   /* formato de banca: 5 alternativas e o porquê das erradas (banca.js) */
+  const prev=o.onAnswer;
   o.onAnswer=(q,ok)=>{const id=QB.idOf(q);SRS.record(id,ok);STATS.rec(q,ok);if(prev)prev(q,ok);};return base(el,api,qs,o);};})();
+
+/* ===== Progresso: exportar e importar (JSON) =====
+   O progresso fica no localStorage do navegador ('nr10sim.v1'); este painel leva para outro computador ou navegador.
+   No Artifact do claude.ai o download é bloqueado: por isso o JSON também aparece no campo de texto, para copiar. */
+const PROG={
+  json(){return JSON.stringify(Object.assign({app:'simulador-nr10',versao:1,exportado:new Date().toISOString()},{dados:Store.data}));},
+  ler(txt){let o;try{o=JSON.parse(txt);}catch(e){return {erro:'O texto não é um JSON válido.'};}
+    const d=o&&o.app==='simulador-nr10'?o.dados:o;   /* aceita também o objeto cru do localStorage */
+    if(!d||typeof d!=='object'||!d.done||typeof d.done!=='object')return {erro:'O arquivo não parece ser um progresso do simulador (falta o campo "done").'};
+    return {dados:d};},
+  resumo(d){const nd=Object.values(d.done||{}).reduce((s,m)=>s+Object.keys(m).length,0),nr=Object.keys(d.srs||{}).length,ns=(d.sims||[]).length;
+    return `${nd} tarefa(s) concluída(s) · ${nr} questão(ões) na revisão espaçada · ${ns} simulado(s)`;},
+  abrir(){const j=this.json();
+    openDrawer('Progresso',`<p class="lead">O progresso fica guardado só neste navegador. Exporte para levar a outro computador, navegador ou celular, e importe lá.</p>
+      <div class="card info"><div class="ct">Agora neste navegador</div><div class="cb">${this.resumo(Store.data)}</div></div>
+      <div class="h3">Exportar</div><div class="row-actions"><button type="button" class="btn primary" data-pg="baixar">Baixar arquivo .json</button><button type="button" class="btn" data-pg="copiar">Copiar o texto</button></div>
+      <textarea class="search prog-txt" id="pgOut" readonly aria-label="Progresso em JSON">${esc(j)}</textarea>
+      <div class="h3">Importar</div><p class="lead">Escolha o arquivo exportado ou cole o texto. O progresso atual deste navegador é substituído.</p>
+      <input type="file" id="pgFile" accept=".json,application/json" aria-label="Arquivo de progresso">
+      <textarea class="search prog-txt" id="pgIn" placeholder="…ou cole aqui o texto exportado" aria-label="Texto do progresso a importar"></textarea>
+      <div class="row-actions"><button type="button" class="btn" data-pg="importar">Conferir e importar</button></div><div id="pgMsg"></div>`);
+    const B=$('#drB'),msg=(k,t,b)=>{$('#pgMsg').innerHTML=cardHTML({k,t,b});};
+    B.querySelector('[data-pg=baixar]').onclick=()=>{try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([j],{type:'application/json'}));
+        a.download='progresso-nr10-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();
+        msg('ok','Arquivo gerado','Se o download não começar (no claude.ai ele é bloqueado), use "Copiar o texto" e guarde num arquivo .json.');}
+      catch(e){msg('err','Download indisponível','Use "Copiar o texto".');}};
+    B.querySelector('[data-pg=copiar]').onclick=()=>{const t=$('#pgOut');t.select();let ok=false;
+      try{if(navigator.clipboard){navigator.clipboard.writeText(j).then(()=>msg('ok','Copiado','Cole num arquivo de texto e salve com a extensão .json.'),()=>msg('info','Texto selecionado','Use Ctrl+C para copiar.'));return;}ok=document.execCommand('copy');}catch(e){}
+      msg(ok?'ok':'info',ok?'Copiado':'Texto selecionado',ok?'Cole num arquivo de texto e salve com a extensão .json.':'Use Ctrl+C para copiar.');};
+    $('#pgFile').onchange=e=>{const f=e.target.files&&e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$('#pgIn').value=String(r.result||'');msg('info','Arquivo carregado','Clique em "Conferir e importar".');};r.readAsText(f);};
+    let pend=null;const bi=B.querySelector('[data-pg=importar]');
+    bi.onclick=()=>{if(pend){Store.data=pend;Store.save();msg('ok','Progresso importado','Recarregando o simulador…');setTimeout(()=>location.reload(),600);return;}
+      const r=this.ler($('#pgIn').value.trim());if(r.erro){msg('err','Não deu para importar',r.erro);return;}
+      pend=r.dados;bi.textContent='Confirmar: substituir o progresso atual';bi.classList.add('primary');msg('info','Conferido',this.resumo(pend));};}};

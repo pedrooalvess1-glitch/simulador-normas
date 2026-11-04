@@ -134,8 +134,3 @@ const REF = {
 'AIV-III':{k:'Anexo IV · Quadro III',t:'EPI por categoria',x:'Cat. 1: vestimenta AR mínimo 4 cal/cm² (camisa e calça de mangas compridas ou macacão), protetor facial AR ou capuz AR, capacete, óculos, protetor auricular, luvas de couro espessas, AR ou isolantes com cobertura, calçado de couro. Cat. 2: mínimo 8 cal/cm², capuz completo AR ou protetor facial AR combinado com balaclava AR, demais itens da Cat. 1. Cat. 3: mínimo 25 cal/cm², traje completo AR (macacão ou conjunto de duas peças) e capuz carrasco completo AR, capacete, óculos, protetor auricular, luvas, calçado de couro. Cat. 4: mínimo 40 cal/cm², mesmos itens da Cat. 3. Calçados de couro ou equivalentes, resistentes ao calor e sem componentes metálicos expostos.'}
 };
 
-/* ==== Edição única: Portaria MTE 737/2026 ====
-   O comparativo com a redação de 2004 (DIFF) foi removido na revisão "edição única" (03/11/2026).
-   O objeto fica vazio para não quebrar engine.js (openDiff) e mapa.js. */
-const DIFF = {
-};

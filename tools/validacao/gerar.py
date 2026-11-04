@@ -5,9 +5,9 @@ para o usuário conferir e validar.
 Fontes:
   - prototipo/dist/simulador-nr10-offline.html, aberto num Chromium headless (Playwright):
     banco de questões (QB), base REF, cartões e amostras do gerador do Treino;
-  - prototipo/historia.js e prototipo/missao.js, lidos por tools/validacao/extrair.js (Node):
-    passos interativos (achar objeto, caça a não conformidades, sequências, marcar e ordenar)
-    e os 27 objetos da cena da História;
+  - as histórias (window.__stories, no mesmo navegador): passos interativos (achar objeto, caça a não
+    conformidades, sequências) e os objetos de cada cena;
+  - prototipo/missao.js, lido por tools/validacao/extrair.js (Node): passos de marcar e de ordenar da Missão;
   - os documentos de docs/: trechos rotulados [INTERPRETAÇÃO].
 Situação de cada entrada: tools/validacao/status.json ({"V-xxxxxx": {"situacao": "...", "nota": "..."}}).
 Cada ID é um hash do conteúdo: se o texto mudar, o ID muda e a entrada volta a "a validar".
@@ -62,10 +62,12 @@ def coletar_navegador():
           const gen = {}; const T = window.__treino;
           Object.keys(T.GEN).forEach(k => { const vistos = {}; const lista = [];
             for (let i = 0; i < 400 && lista.length < n; i++) { const q = T.GEN[k].f();
-              if (!vistos[q.q]) { vistos[q.q] = 1; lista.push({q: q.q, o: q.o, a: q.a, x: q.x, r: q.r}); } }
+              if (!vistos[q.q]) { vistos[q.q] = 1; lista.push({q: q.q, o: q.o, a: q.a, x: q.x, r: q.r, w: q.w || {}}); } }
             gen[k] = {nome: T.GEN[k].n, amostras: lista}; });
-          return {qb: QB.list.map(q => ({id: q.id, mod: q.mod, q: q.q, o: q.o, a: q.a, x: q.x, r: q.r || []})),
-                  ref: Object.keys(REF), nomes, gen, fc: T.FC};
+          const fn = (k, v) => typeof v === 'function' ? {__fn: v.toString()} : v;
+          const hist = JSON.parse(JSON.stringify((window.__stories || []).map(s => ({id: s.id, name: s.name, ST: s.ST, HS: s.HS})), fn));
+          return {qb: QB.list.map(q => ({id: q.id, mod: q.mod, q: q.q, o: q.o, a: q.a, x: q.x, r: q.r || [], w: q.w || {}})),
+                  ref: Object.keys(REF), nomes, gen, fc: T.FC, hist};
         }""", AMOSTRAS_POR_GERADOR)
         nav.close()
     return dados
@@ -104,11 +106,20 @@ class Registro:
                                          'nota': st.get('nota', '')})
 
 
-def alternativas(o, a):
-    return ['  - ' + ('**✔** ' if k == a else '') + chr(65 + k) + ') ' + limpo(t) for k, t in enumerate(o)]
+def alternativas(o, a, w=None):
+    # w: {texto da alternativa: 'por que está errada|itens'} (camada de banca, prototipo/banca.js)
+    w = w or {}
+    linhas = []
+    for k, t in enumerate(o):
+        linha = '  - ' + ('**✔** ' if k == a else '') + chr(65 + k) + ') ' + limpo(t)
+        if k != a and w.get(t):
+            motivo, _, itens = str(w[t]).partition('|')
+            linha += ' — *por que não:* ' + limpo(motivo) + (f' ({itens.replace(",", ", ")})' if itens else '')
+        linhas.append(linha)
+    return linhas
 
 
-def montar(d, hist, mis):
+def montar(d, mis):
     R = Registro(d['ref'])
     nomes = d['nomes']
 
@@ -118,33 +129,34 @@ def montar(d, hist, mis):
     for q in d['qb']:
         mod = nomes.get(q['mod'], q['mod'])
         R.entrada(f"{mod}", ['- **Pergunta:** ' + limpo(q['q']), '- **Alternativas** (✔ = resposta do simulador):']
-                  + alternativas(q['o'], q['a']) + ['- **Explicação:** ' + (limpo(q['x']) or '—')], q['r'], ('qb', q['mod']))
+                  + alternativas(q['o'], q['a'], q.get('w')) + ['- **Explicação:** ' + (limpo(q['x']) or '—')], q['r'], ('qb', q['mod']))
 
-    HS = hist['HS']
-    R.secao('2. História: passos interativos (OS 0731)',
-            'Passos em que o aluno clica nos objetos da cena. As questões de escolha da História estão na seção 1.')
-    for s in hist['ST']:
-        ty = s.get('ty')
-        if ty == 'find':
-            alvo = ', '.join(HS.get(k, {}).get('t', k) for k in s['alvo'])
-            ok = s.get('ok', {})
-            R.entrada(f"{s['f']} · achar o objeto",
-                      ['- **Situação:** ' + limpo(s['n']), '- **Tarefa:** ' + limpo(s.get('p')),
-                       '- **Resposta do simulador:** ' + alvo,
-                       '- **Explicação:** ' + limpo(ok.get('t')) + '. ' + limpo(ok.get('b'))], ok.get('r'), ('find',))
-        elif ty == 'hunt':
-            for k, v in s['alvos'].items():
-                R.entrada(f"{s['f']} · não conformidade",
-                          ['- **Objeto:** ' + HS.get(k, {}).get('t', k), '- **Não conformidade:** ' + limpo(v['t']),
-                           '- **Explicação:** ' + limpo(v['b'])], v.get('r'), ('hunt',))
-        elif ty == 'seq':
-            passos = ['  ' + str(n + 1) + '. (' + a['k'] + ') ' + limpo(a['t']) + (': ' + limpo(a['b']) if a.get('b') else '')
-                      for n, a in enumerate(s['acts'])]
-            R.entrada(f"{s['f']} · sequência do {s['ref']}", ['- **Sequência do simulador:**'] + passos, [s['ref']], ('seq',))
-            fonte = (s.get('esp') or {}).get('__fn', '')
-            for t, b, r in re.findall(r"\{t:'((?:[^'\\]|\\.)*)',b:'((?:[^'\\]|\\.)*)'(?:,r:\[([^\]]*)\])?", fonte):
-                R.entrada(f"{s['f']} · erro de ordem", ['- **Erro:** ' + limpo(t), '- **Explicação:** ' + limpo(b)],
-                          re.findall(r"'([^']+)'", r), ('esp',))
+    R.secao('2. Histórias: passos interativos',
+            'Passos em que o aluno clica nos objetos da cena, em cada uma das histórias. As questões de escolha das histórias estão na seção 1.')
+    for h in d['hist']:
+        HS = h['HS']
+        for s in h['ST']:
+            ty = s.get('ty')
+            if ty == 'find':
+                alvo = ', '.join(HS.get(k, {}).get('t', k) for k in s['alvo'])
+                ok = s.get('ok', {})
+                R.entrada(f"{h['name']} · {s['f']} · achar o objeto",
+                          ['- **Situação:** ' + limpo(s['n']), '- **Tarefa:** ' + limpo(s.get('p')),
+                           '- **Resposta do simulador:** ' + alvo,
+                           '- **Explicação:** ' + limpo(ok.get('t')) + '. ' + limpo(ok.get('b'))], ok.get('r'), ('find',))
+            elif ty == 'hunt':
+                for k, v in s['alvos'].items():
+                    R.entrada(f"{h['name']} · {s['f']} · não conformidade",
+                              ['- **Objeto:** ' + HS.get(k, {}).get('t', k), '- **Não conformidade:** ' + limpo(v['t']),
+                               '- **Explicação:** ' + limpo(v['b'])], v.get('r'), ('hunt',))
+            elif ty == 'seq':
+                passos = ['  ' + str(n + 1) + '. (' + a['k'] + ') ' + limpo(a['t']) + (': ' + limpo(a['b']) if a.get('b') else '')
+                          for n, a in enumerate(s['acts'])]
+                R.entrada(f"{h['name']} · {s['f']} · sequência do {s['ref']}", ['- **Sequência do simulador:**'] + passos, [s['ref']], ('seq',))
+                fonte = (s.get('esp') or {}).get('__fn', '')
+                for t, b, r in re.findall(r"\{t:'((?:[^'\\]|\\.)*)',b:'((?:[^'\\]|\\.)*)'(?:,r:\[([^\]]*)\])?", fonte):
+                    R.entrada(f"{h['name']} · {s['f']} · erro de ordem", ['- **Erro:** ' + limpo(t), '- **Explicação:** ' + limpo(b)],
+                              re.findall(r"'([^']+)'", r), ('esp',))
 
     R.secao('3. Missão: passos de marcar e de ordenar (OS 0457)',
             'As decisões de escolha única da Missão estão na seção 1.')
@@ -158,9 +170,10 @@ def montar(d, hist, mis):
             R.entrada(f"Missão · {s['t']}", ['- **Pergunta:** ' + limpo(s['q']), '- **Ordem do simulador:**'] + itens
                       + ['- **Explicação:** ' + limpo(s.get('x'))], s.get('r'), ('o',))
 
-    R.secao('4. História: objetos da cena', 'O que cada objeto é e quais itens se aplicam a ele ("Explorar a cena").')
-    for k, v in HS.items():
-        R.entrada(f"Objeto · {limpo(v['t'])}", ['- **Texto do simulador:** ' + limpo(v['b'])], v.get('r'), ('hs', k))
+    R.secao('4. Histórias: objetos das cenas', 'O que cada objeto é e quais itens se aplicam a ele ("Explorar a cena").')
+    for h in d['hist']:
+        for k, v in h['HS'].items():
+            R.entrada(f"{h['name']} · objeto · {limpo(v['t'])}", ['- **Texto do simulador:** ' + limpo(v['b'])], v.get('r'), ('hs', h['id'], k))
 
     R.secao('5. Cartões de fatos do Treino', 'Frente e verso, como aparecem no Treino.')
     for c in d['fc']:
@@ -172,7 +185,7 @@ def montar(d, hist, mis):
     for k, g in d['gen'].items():
         for q in g['amostras']:
             R.entrada(f"Gerador · {g['nome']}", ['- **Pergunta:** ' + limpo(q['q']), '- **Alternativas** (✔ = resposta do simulador):']
-                      + alternativas(q['o'], q['a']) + ['- **Explicação:** ' + limpo(q['x'])], q['r'], ('gen', k))
+                      + alternativas(q['o'], q['a'], q.get('w')) + ['- **Explicação:** ' + limpo(q['x'])], q['r'], ('gen', k))
 
     R.secao('7. Interpretações nos documentos de planejamento',
             'Trechos de `docs/` e do `CLAUDE.md` rotulados [INTERPRETAÇÃO]: leituras do agente sobre a NR-10 que viram regra do projeto.')
@@ -236,4 +249,4 @@ def escrever(R):
 
 if __name__ == '__main__':
     d = coletar_navegador()
-    escrever(montar(d, extrair_st('historia.js'), extrair_st('missao.js')))
+    escrever(montar(d, extrair_st('missao.js')))

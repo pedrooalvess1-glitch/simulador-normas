@@ -10,7 +10,12 @@
   const fmtV=v=>v>=1000?(v/1000).toLocaleString('pt-BR')+' kV':v.toLocaleString('pt-BR')+' V';
   const pct=(a,b)=>b?Math.round(100*a/b):0;
   /* monta uma questão com a alternativa correta embaralhada entre as demais */
-  function mk(q,right,wrong,x,r,gen){const o=shuffle([right].concat(wrong.filter(w=>w!==right)).slice(0,5));return {q,o,a:o.indexOf(right),x,r,gen};}
+  function mk(q,right,wrong,x,r,gen,w){const o=shuffle([right].concat(wrong.filter(t=>t!==right)).slice(0,5));return {q,o,a:o.indexOf(right),x,r,gen,w:w||{}};}
+  /* explicações por alternativa (formato de banca): texto|itens */
+  const C3W='O Quadro I (CA) não tem nenhuma linha de Categoria 3; ela só aparece no Quadro II (CC).|AIV-I';
+  const HW={'8 h':'8 h é o Específico e pontual, para estrangeiros ou não residentes em serviço pontual (10.9.8).|10.9.8','16 h':'16 h é um complementar isolado (MT/AT-SEC ou Área Classificada) ou o periódico bienal; nenhum deles substitui o Básico do autorizado.|10.9.2,10.9.4',
+    '40 h':'40 h é só o Básico (ou só o Específico de compartilhamento).|10.9.2','56 h':'56 h é o Básico mais um complementar de 16 h.|10.9.2','72 h':'72 h é o Básico mais dois complementares de 16 h.|10.9.2',
+    '80 h':'80 h é o Básico mais o Complementar do SEP.|10.9.2,10.9.5','96 h':'96 h é o Básico, o Complementar do SEP e um complementar de 16 h.|10.9.2','120 h':'120 h não corresponde a uma soma de treinamentos do Quadro I exigida para um só trabalhador.|10.9.2'};
   /* embaralha as alternativas de uma questão do banco, mantendo a correta */
   function shuf(q){const idx=shuffle(q.o.map((_,i)=>i));return Object.assign({},q,{o:idx.map(i=>q.o[i]),a:idx.indexOf(q.a)});}
 
@@ -51,13 +56,16 @@
     faixa:{n:'Faixas de tensão',f(){const ac=Math.random()<.7;
       const V=ac?pick([24,50,110,127,220,380,440,690,1000,2300,4160,13800,23000,34500,36200,69000,138000,230000,500000]):pick([24,48,120,125,600,750,1000,1500,1800,3000,3300]);
       const f=faixa(V,ac);return mk(`Tensão de ${fmtV(V)} em ${ac?'corrente alternada':'corrente contínua'}, entre fases. Em que faixa ela está pelo glossário da NR-10?`,
-        f,['EBT','BT','MT','AT'],`${f}: tensão ${FAIXA_TXT[f]}. Repare nas fronteiras: o limite superior de cada faixa é "igual ou inferior".`,[GREF[f]],'faixa');}},
+        f,['EBT','BT','MT','AT','Depende do tipo de instalação, não só da tensão'],`${f}: tensão ${FAIXA_TXT[f]}. Repare nas fronteiras: o limite superior de cada faixa é "igual ou inferior".`,[GREF[f]],'faixa',
+        Object.assign({'Depende do tipo de instalação, não só da tensão':'As faixas do glossário dependem só do valor da tensão, em CA ou CC, entre fases ou entre fase e terra.|'+GREF[f]},
+          ...['EBT','BT','MT','AT'].map(k=>({[k]:`${k} é a tensão ${FAIXA_TXT[k]}.|${GREF[k]}`}))));}},
     zonas:{n:'Zonas (Anexo II)',f(){const rows=ZTAB.filter(r=>r[1]<=150);const i=rnd(rows.length),z=rows[i];
       const useEx=z[5]&&Math.random()<.65;const kV=useEx?parseFloat(z[5].replace(',','.'))/(z[5].includes('kV')?1:1000):(z[0]||0.38);
       const lab=useEx?z[5]:(z[0]?fmtV(z[0]*1000):'380 V');const s=r=>`Rr = ${fmt(r[2])} m · Rc = ${fmt(r[3])} m`;
       const w=[rows[i-1],rows[i+1],rows[i+2],rows[i-2]].filter(Boolean).map(s);
+      const ww={};[rows[i-1],rows[i+1],rows[i+2],rows[i-2]].filter(Boolean).forEach(r=>{ww[s(r)]=`São os raios da linha ${r[4]} do Anexo II, outra faixa de tensão.|AII`;});
       return mk(`Instalação de ${lab} (tensão nominal entre fases). Quais são os raios da zona de risco e da zona controlada pelo Anexo II?`,
-        s(z),w,`Linha ${z[4]} do Anexo II. Fronteira: o limite inferior entra na faixa (≥) e o superior não (<).`,['AII'],'zonas');}},
+        s(z),w,`Linha ${z[4]} do Anexo II. Fronteira: o limite inferior entra na faixa (≥) e o superior não (<).`,['AII'],'zonas',ww);}},
     trein:{n:'Treinamentos (Quadro I)',f(){const P=[
         ['Eletricista autorizado de uma indústria (SEC) que só trabalha em baixa tensão',40,'Básico 40 h.',['10.9.4']],
         ['Eletricista autorizado de uma indústria (SEC) que opera a cabine primária de 13,8 kV',56,'Básico 40 h + Complementar de Média e Alta Tensão - SEC 16 h.',['10.9.4','10.9.6']],
@@ -67,7 +75,7 @@
         ['Eletricista autorizado de uma refinaria (SEC) que atua em média tensão e em área classificada',72,'Básico 40 h + Complementar MT/AT - SEC 16 h + Complementar de Área Classificada 16 h.',['10.9.4','10.9.6','10.9.7']],
         ['Eletricista autorizado de uma distribuidora (SEP) que também atua em área classificada',96,'Básico 40 h + Complementar do SEP 40 h + Complementar de Área Classificada 16 h.',['10.9.4','10.9.5','10.9.7']]];
       const p=pick(P);const opts=[8,16,40,56,72,80,96,120].map(h=>h+' h');
-      return mk(`${p[0]}. Qual é a carga horária mínima total dos treinamentos iniciais?`,p[1]+' h',shuffle(opts),`${p[2]} Cargas do Quadro I do 10.9.2.`,['10.9.2'].concat(p[3]),'trein');}},
+      return mk(`${p[0]}. Qual é a carga horária mínima total dos treinamentos iniciais?`,p[1]+' h',shuffle(opts),`${p[2]} Cargas do Quadro I do 10.9.2.`,['10.9.2'].concat(p[3]),'trein',HW);}},
     arco:{n:'Categoria de arco (CA)',f(){const t=pick(AIV);let [eq,kA,s,mm,cat,bt]=t;const mode=Math.random();
       const FORA='Fora do Anexo IV: fazer estudo de energia incidente';let right='Categoria '+cat,x,r=['AIV-I','10.11.2.1'];
       if(mode<.22){const k=rnd(3);if(k===0)kA=Math.round(kA*1.3);else if(k===1)s=+(s*2).toFixed(2);else mm=mm-150;right=FORA;
@@ -76,36 +84,59 @@
         x=`Linha do Quadro I: Categoria ${cat}. Pela nota do quadro, equipamento de 600 V ou menos protegido por fusível ou disjuntor limitador de até 200 A pode descer um número, nunca abaixo da Categoria 1.`;}
       else{if(Math.random()<.4){kA=Math.max(5,Math.round(kA*.8));mm=mm+150;}x=`Dentro da linha do Quadro I (até ${t[1]} kA, até ${fmt(t[2])} s, a partir de ${t[3]} mm): Categoria ${cat}. Valores menores de corrente e tempo, ou distância maior, continuam dentro da linha.`;}
       const lim=mode>=.22&&mode<.40&&bt&&cat>1?' O circuito é protegido por disjuntor limitador de corrente de 200 A. Qual é a menor categoria admitida?':' Qual é a categoria de EPI?';
+      const ww={'Categoria 3':C3W};const fora=right===FORA,red=!fora&&right!=='Categoria '+cat;
+      [1,2,4].forEach(k=>{const t='Categoria '+k;if(t===right)return;ww[t]=fora?'Algum parâmetro saiu da linha do Quadro I, e isso impede o Anexo IV.|10.11.2.2':
+        red&&k===cat?'É a categoria da linha, mas a nota do Quadro I permite reduzir um número com limitador de corrente de até 200 A.|AIV-I':
+        k<cat-(red?1:0)?'Abaixo da categoria do Anexo IV: categoria menor só com estudo de energia incidente.|10.11.2.3':'Acima da categoria que a linha do Quadro I dá para estes parâmetros.|AIV-I';});
+      if(!fora)ww[FORA]='Corrente, tempo e distância cabem na linha do equipamento: o Anexo IV se aplica.|10.11.2.1';
       return mk(`${eq}: corrente de falha disponível de ${kA} kA, tempo de eliminação de ${fmt(s)} s, distância de trabalho de ${mm} mm.${lim}`,
-        right,['Categoria 1','Categoria 2','Categoria 3','Categoria 4',FORA],x,r,'arco');}},
+        right,['Categoria 1','Categoria 2','Categoria 3','Categoria 4',FORA],x,r,'arco',ww);}},
     arcoCC:{n:'Categoria de arco (CC)',f(){const V=pick([220,250,400,480,600]);const bands=[[.5,1.4,2],[1.5,2.9,2],[3,6.9,3],[7,9.9,4]];const b=pick(bands);
       const I=+(b[0]+Math.random()*(b[1]-b[0])).toFixed(1);
       return mk(`Banco de baterias de ${V} V CC, corrente de curto-circuito disponível de ${fmt(I,1)} kA, arco de até 2 s a 455 mm. Qual é a categoria de EPI pelo Quadro II do Anexo IV?`,
-        'Categoria '+b[2],['Categoria 1','Categoria 2','Categoria 3','Categoria 4'],`Quadro II (CC, acima de 150 V e até 600 V): abaixo de 3 kA → Cat. 2; de 3 a menos de 7 kA → Cat. 3; de 7 a menos de 10 kA → Cat. 4.`,['AIV-II'],'arcoCC');}},
+        'Categoria '+b[2],['Categoria 1','Categoria 2','Categoria 3','Categoria 4','Fora do Anexo IV: estudo de energia incidente'],`Quadro II (CC, acima de 150 V e até 600 V): abaixo de 3 kA → Cat. 2; de 3 a menos de 7 kA → Cat. 3; de 7 a menos de 10 kA → Cat. 4.`,['AIV-II'],'arcoCC',
+        {'Categoria 1':'O Quadro II (CC) começa na Categoria 2.|AIV-II','Categoria 2':'Categoria 2 é para corrente abaixo de 3 kA.|AIV-II','Categoria 3':'Categoria 3 é de 3 a menos de 7 kA.|AIV-II',
+         'Categoria 4':'Categoria 4 é de 7 a menos de 10 kA.|AIV-II','Fora do Anexo IV: estudo de energia incidente':`${V} V está entre 150 e 600 V, e ${fmt(I,1)} kA está abaixo de 10 kA: cabe no Quadro II.|AIV-II`});}},
     vest:{n:'Vestimenta (cal/cm²)',f(){const c=1+rnd(4);return mk(`Qual é a resistência mínima ao arco (ATPV ou EBT) da vestimenta da Categoria ${c} de EPI?`,
-        CAT_CAL[c]+' cal/cm²',['4 cal/cm²','8 cal/cm²','12 cal/cm²','25 cal/cm²','40 cal/cm²'],'Quadro III do Anexo IV: Cat. 1 = 4; Cat. 2 = 8; Cat. 3 = 25; Cat. 4 = 40 cal/cm².',['AIV-III'],'vest');}},
+        CAT_CAL[c]+' cal/cm²',['4 cal/cm²','8 cal/cm²','12 cal/cm²','25 cal/cm²','40 cal/cm²'],'Quadro III do Anexo IV: Cat. 1 = 4; Cat. 2 = 8; Cat. 3 = 25; Cat. 4 = 40 cal/cm².',['AIV-III'],'vest',
+        Object.assign({'12 cal/cm²':'12 cal/cm² não é mínimo de nenhuma categoria do Quadro III.|AIV-III'},...[1,2,3,4].map(k=>({[CAT_CAL[k]+' cal/cm²']:`É o mínimo da Categoria ${k}.|AIV-III`}))));}},
     seq:{n:'Sequências (10.13)',f(){const des=Math.random()<.55;const S=des?SEQ_D:SEQ_R;const ref=des?'10.13.1':'10.13.2';const nome=des?'desenergização':'reenergização';const k=rnd(3);
-      if(k===0){const i=rnd(S.length-1);return mk(`Na sequência de ${nome} do ${ref}, qual etapa vem logo depois de “${S[i]}”?`,S[i+1],shuffle(S.filter((_,j)=>j!==i&&j!==i+1)).slice(0,4),`Alínea ${'abcdefg'[i]} → alínea ${'abcdefg'[i+1]} do ${ref}.`,[ref],'seq');}
-      if(k===1){const i=rnd(S.length);return mk(`Qual é a alínea “${'abcdefg'[i]}” da sequência de ${nome} do ${ref}?`,S[i],shuffle(S.filter((_,j)=>j!==i)).slice(0,4),`${ref}, alínea ${'abcdefg'[i]}.`,[ref],'seq');}
-      const first=Math.random()<.5;const i=first?0:S.length-1;return mk(`Qual é a ${first?'primeira':'última'} etapa da sequência de ${nome} do ${ref}?`,S[i],shuffle(S.filter((_,j)=>j!==i)).slice(0,4),`${ref}, alínea ${'abcdefg'[i]}.`,[ref],'seq');}},
+      const sw=()=>Object.assign({},...S.map((t,j)=>({[t]:`É a alínea ${'abcdefg'[j]} do ${ref}.|${ref}`})));
+      if(k===0){const i=rnd(S.length-1);return mk(`Na sequência de ${nome} do ${ref}, qual etapa vem logo depois de “${S[i]}”?`,S[i+1],shuffle(S.filter((_,j)=>j!==i&&j!==i+1)).slice(0,4),`Alínea ${'abcdefg'[i]} → alínea ${'abcdefg'[i+1]} do ${ref}.`,[ref],'seq',sw());}
+      if(k===1){const i=rnd(S.length);return mk(`Qual é a alínea “${'abcdefg'[i]}” da sequência de ${nome} do ${ref}?`,S[i],shuffle(S.filter((_,j)=>j!==i)).slice(0,4),`${ref}, alínea ${'abcdefg'[i]}.`,[ref],'seq',sw());}
+      const first=Math.random()<.5;const i=first?0:S.length-1;return mk(`Qual é a ${first?'primeira':'última'} etapa da sequência de ${nome} do ${ref}?`,S[i],shuffle(S.filter((_,j)=>j!==i)).slice(0,4),`${ref}, alínea ${'abcdefg'[i]}.`,[ref],'seq',sw());}},
     pie:{n:'PIE (10.15.6)',f(){const kw=pick([120,300,750,1500,2500]);const P=[
         ['Distribuidora de energia elétrica',1],['Usina solar conectada à rede da distribuidora (geração)',1],
         ['Indústria com cabine primária de 13,8 kV operada pelos próprios eletricistas',1],
         [`Supermercado com ${kw} kW instalados, alimentado em 380 V, sem atividade em média tensão`,0],
         ['Condomínio residencial alimentado em 220/127 V, com um eletricista próprio',0]];const p=pick(P);
       const S='Sim: integra o SEP ou realiza atividades em média ou alta tensão',C='Sim: por causa da carga instalada',N='Não: não integra o SEP nem realiza atividades em média ou alta tensão';
-      return mk(`${p[0]}. A organização é obrigada a manter o PIE?`,p[1]?S:N,[S,C,N],`O 10.15.6 exige o PIE de quem integra o SEP ou realiza atividades em instalações com média e alta tensão. Carga instalada não é critério.${p[1]?'':' Quem tem autorizados mantém a documentação do 10.15.4 mesmo sem PIE.'}`,['10.15.6'],'pie');}},
+      const A='Sim: toda organização com trabalhadores autorizados mantém PIE',D='Não: só concessionárias de distribuição mantêm PIE';
+      const pw={[C]:'Carga instalada não é critério do 10.15.6.|10.15.6',[A]:'Ter autorizados obriga a documentação do 10.15.4; organizá-la como PIE depende de integrar o SEP ou atuar em MT/AT.|10.15.4,10.15.6',
+        [D]:'O 10.15.6 alcança quem integra o SEP (geração e transmissão também) ou realiza atividades em MT/AT, não só distribuidoras.|10.15.6,g-sep',
+        [S]:'Esta organização não integra o SEP nem realiza atividades em MT/AT.|10.15.6',[N]:'Esta organização integra o SEP ou realiza atividades em MT/AT.|10.15.6'};
+      return mk(`${p[0]}. A organização é obrigada a manter o PIE?`,p[1]?S:N,[S,C,N,A,D],`O 10.15.6 exige o PIE de quem integra o SEP ou realiza atividades em instalações com média e alta tensão. Carga instalada não é critério.${p[1]?'':' Quem tem autorizados mantém a documentação do 10.15.4 mesmo sem PIE.'}`,['10.15.6'],'pie',pw);}},
     indiv:{n:'Trabalho individual (10.14.2)',f(){const P=[['Troca de isolador numa rede de distribuição de 13,8 kV energizada',1],['Manobra numa subestação de 69 kV da distribuidora (SEP)',1],
         ['Ajuste dentro de um cubículo de 13,8 kV energizado de uma indústria (SEC)',1],['Medição num QGBT de 380 V energizado de uma indústria (SEC)',0],
         ['Medição num painel de 440 V energizado de um hospital (SEC)',0],['Troca de lâmpada num circuito de 220 V desligado e bloqueado de um escritório',0]];const p=pick(P);
-      const V='Não pode ser feito individualmente',R='Pode, se o trabalhador for PLH',D='O 10.14.2 não proíbe; a análise de risco decide';
-      return mk(`${p[0]}. Um trabalhador pode fazer o serviço sozinho?`,p[1]?V:D,[V,R,D],'O 10.14.2 veda o trabalho individual em serviços em instalações energizadas em média e alta tensão e em todos os serviços executados no SEP. Fora disso, a decisão sai da análise de risco.',['10.14.2','10.7.3'],'indiv');}},
-    eventual:{n:'Treinamento eventual',f(){const d=pick([45,60,89,90,91,100,120,180]);const S='Sim, treinamento eventual',N='Não',P='Só se o periódico bienal estiver vencido';
-      return mk(`Eletricista autorizado volta ao trabalho depois de ${d} dias de afastamento. O periódico bienal está em dia. Ele precisa de treinamento eventual?`,d>90?S:N,[S,N,P],
-        `O 10.9.11 a exige treinamento eventual após afastamento ou inatividade por período superior a 90 dias, independentemente do periódico. ${d} dias ${d>90?'passa':'não passa'} do limite.`,['10.9.11'],'eventual');}},
+      const V='Não pode ser feito individualmente',R='Pode, se o trabalhador for PLH',D='O 10.14.2 não proíbe; a análise de risco decide',
+        PT='Pode, se a permissão de trabalho autorizar',E='Pode, desde que use a vestimenta de arco adequada';
+      const iw={[V]:'O 10.14.2 só veda o trabalho individual em serviços energizados em MT/AT e em serviços no SEP; aqui não é nenhum dos dois.|10.14.2',
+        [D]:'É serviço energizado em MT/AT ou serviço no SEP: o 10.14.2 veda o trabalho individual.|10.14.2',[R]:'A habilitação não muda o 10.14.2; fora dele, quem decide é a análise de risco.|10.14.2,10.7.3',
+        [PT]:'A PT não afasta o 10.14.2; fora dele, a decisão vem da análise de risco.|10.14.2,10.7.3',[E]:'EPI não muda o 10.14.2; fora dele, a decisão vem da análise de risco.|10.14.2,10.5.4'};
+      return mk(`${p[0]}. Um trabalhador pode fazer o serviço sozinho?`,p[1]?V:D,[V,R,D,PT,E],'O 10.14.2 veda o trabalho individual em serviços em instalações energizadas em média e alta tensão e em todos os serviços executados no SEP. Fora disso, a decisão sai da análise de risco.',['10.14.2','10.7.3'],'indiv',iw);}},
+    eventual:{n:'Treinamento eventual',f(){const d=pick([45,60,89,90,91,100,120,180]);const S='Sim, treinamento eventual',N='Não',P='Só se o periódico bienal estiver vencido',Q='Sim, sempre, depois de qualquer afastamento',O='Só se a organização quiser: o eventual é opcional';
+      const ew={[S]:`${d} dias não passa de 90: o 10.9.11 a não se aplica.|10.9.11`,[N]:`${d} dias passa de 90: o 10.9.11 a exige o eventual.|10.9.11`,
+        [P]:'O eventual vale independentemente de já ter feito o periódico.|10.9.11',[Q]:'O 10.9.11 a fala em afastamento ou inatividade por período superior a 90 dias, não em qualquer afastamento.|10.9.11',
+        [O]:'O 10.9.11 diz que a organização deve realizar o eventual nas situações listadas.|10.9.11'};
+      return mk(`Eletricista autorizado volta ao trabalho depois de ${d} dias de afastamento. O periódico bienal está em dia. Ele precisa de treinamento eventual?`,d>90?S:N,[S,N,P,Q,O],
+        `O 10.9.11 a exige treinamento eventual após afastamento ou inatividade por período superior a 90 dias, independentemente do periódico. ${d} dias ${d>90?'passa':'não passa'} do limite.`,['10.9.11'],'eventual',ew);}},
     pt:{n:'Validade da PT',f(){const P=[['no turno seguinte, com a mesma equipe e sem mudança nas condições',0],['no turno seguinte, com toda a equipe trocada',1],['no turno seguinte, depois que as condições estabelecidas na PT mudaram',1]];const p=pick(P);
-      const RV='Pode ser revalidada pelo responsável pela autorização da PT',NV='Precisa de nova permissão de trabalho',CV='Continua válida até o fim do serviço, sem revalidação';
-      return mk(`Um serviço não rotineiro com PT vai continuar ${p[0]}. O que a NR-10 prevê?`,p[1]?NV:RV,[RV,NV,CV],'Pelo 10.7.2.2, a PT vale pela duração da atividade, restrita ao turno, e pode ser revalidada quando não houver mudança nas condições estabelecidas nem em toda a equipe.',['10.7.2.2'],'pt');}}};
+      const RV='Pode ser revalidada pelo responsável pela autorização da PT',NV='Precisa de nova permissão de trabalho',CV='Continua válida até o fim do serviço, sem revalidação',
+        EV='Pode ser revalidada pelo próprio executante, por escrito',HV='Vale 24 horas a partir da emissão, sem revalidação';
+      const tw={[RV]:'Houve mudança nas condições ou em toda a equipe: não cabe revalidação.|10.7.2.2',[NV]:'Sem mudança nas condições nem na equipe, a PT pode ser revalidada.|10.7.2.2',
+        [CV]:'A PT é restrita ao turno de trabalho.|10.7.2.2',[EV]:'Quem revalida é o responsável pela autorização da permissão.|10.7.2.2',[HV]:'A PT é restrita ao turno de trabalho, não a 24 horas.|10.7.2.2'};
+      return mk(`Um serviço não rotineiro com PT vai continuar ${p[0]}. O que a NR-10 prevê?`,p[1]?NV:RV,[RV,NV,CV,EV,HV],'Pelo 10.7.2.2, a PT vale pela duração da atividade, restrita ao turno, e pode ser revalidada quando não houver mudança nas condições estabelecidas nem em toda a equipe.',['10.7.2.2'],'pt',tw);}}};
   const GKEYS=Object.keys(GEN);
 
   /* ---------- cartões de fatos (frente → verso), conferidos no PDF ---------- */
@@ -160,7 +191,7 @@
     el.innerHTML=`<div class="q"><div class="qn">${label||''}</div><div class="qq">${q.q}</div>${q.o.map((t,j)=>`<button type="button" class="opt" data-j="${j}"><span class="ol">${L[j]}</span><span>${t}</span></button>`).join('')}<div class="qfb"></div></div>`;
     $$('.opt',el).forEach(b=>b.onclick=()=>{if(done)return;done=true;const j=+b.dataset.j,ok=j===q.a;record(q,ok);
       $$('.opt',el).forEach(x=>{x.disabled=true;const jj=+x.dataset.j;if(jj===q.a)x.classList.add('right');else if(jj===j)x.classList.add('wrong');});
-      el.querySelector('.qfb').innerHTML=cardHTML({k:ok?'ok':'err',t:ok?'Correto':'Resposta: '+L[q.a],b:q.x,r:q.r,gir:q.gir})+`<div class="row-actions" style="margin-top:8px"><button type="button" class="btn primary" data-a="next">Próxima</button></div>`;
+      el.querySelector('.qfb').innerHTML=cardHTML({k:ok?'ok':'err',t:ok?'Correto':'Resposta: '+L[q.a],b:q.x,r:q.r,gir:q.gir,extra:whyHTML(q,j)})+`<div class="row-actions" style="margin-top:8px"><button type="button" class="btn primary" data-a="next">Próxima</button></div>`;
       el.querySelector('[data-a=next]').onclick=()=>onNext(ok);refresh();});}
   function refresh(){if(G.mod&&G.mod.id==='treino')drawDash();}
 
@@ -197,7 +228,7 @@
     el.innerHTML=`<div class="score">${ok} de ${S.qs.length} · ${pct(ok,S.qs.length)}%</div><p class="lead">Tempo: ${Math.floor(sec/60)} min ${sec%60} s. Na prova, cada questão específica vale 2,8 pontos.</p>
       <div class="cl">${Object.entries(per).sort((a,b)=>a[1][0]/a[1][1]-b[1][0]/b[1][1]).map(([c,[a,t]])=>`<div class="cl-row ${a===t?'good':a/t<.6?'bad':''}"><div class="t">${chName(c)}</div><div class="num">${a}/${t}</div></div>`).join('')}</div>
       <div class="row-actions"><button type="button" class="btn primary" data-a="new">Novo simulado</button>${wrong.length?`<button type="button" class="btn" data-a="redo">Refazer as ${wrong.length} erradas</button>`:''}</div>
-      ${wrong.length?`<div class="h3">Correção</div>`:''}<div class="tr-rev">${wrong.map(([q,k])=>`<div class="tr-item"><div class="qq">${k+1}. ${q.q}</div><div class="lead">Sua resposta: ${S.ans[k]!=null?L[S.ans[k]]+') '+q.o[S.ans[k]]:'em branco'}</div>${cardHTML({k:'ok',t:'Correta: '+L[q.a]+') '+q.o[q.a],b:q.x,r:q.r,gir:q.gir})}</div>`).join('')}</div>`;
+      ${wrong.length?`<div class="h3">Correção</div>`:''}<div class="tr-rev">${wrong.map(([q,k])=>`<div class="tr-item"><div class="qq">${k+1}. ${q.q}</div><div class="lead">Sua resposta: ${S.ans[k]!=null?L[S.ans[k]]+') '+q.o[S.ans[k]]:'em branco'}</div>${cardHTML({k:'ok',t:'Correta: '+L[q.a]+') '+q.o[q.a],b:q.x,r:q.r,gir:q.gir,extra:whyHTML(q,S.ans[k])})}</div>`).join('')}</div>`;
     el.querySelector('[data-a=new]').onclick=()=>simSetup(el);const rd=el.querySelector('[data-a=redo]');
     if(rd)rd.onclick=()=>simRun(el,{qs:wrong.map(([q])=>shuf(q)),ans:{},i:0,t0:Date.now(),lim:0});refresh();}
 

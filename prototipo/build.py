@@ -1,6 +1,6 @@
 import sys
 css=open('style.css').read()
-js='\n'.join(open(f).read() for f in ['refs.js','refs2.js','engine.js','qbank.js','mapa.js','m1.js','m7.js','m2.js','m4.js','m5.js','m3.js','m6.js','m8.js','missao.js','historia.js','treino.js','main.js'])
+js='\n'.join(open(f).read() for f in ['refs.js','refs2.js','engine.js','qbank.js','mapa.js','m1.js','m7.js','m2.js','m4.js','m5.js','m3.js','m6.js','m8.js','missao.js','historia.js','historias.js','banca.js','treino.js','main.js'])
 # uso: python3 build.py            -> HTML que carrega three.js r128 do cdnjs (versão publicada)
 #      python3 build.py --offline  -> HTML autocontido, com vendor/three.min.js embutido (roda sem internet)
 OFFLINE = '--offline' in sys.argv
@@ -17,7 +17,7 @@ html=f'''<title>Simulador NR-10</title>
  <header class="top">
   <div class="brand"><b>NR-10 <span>·</span> Simulador</b><small>Portaria MTE nº 737/2026 · nova redação, em vigor a partir de junho de 2027</small></div>
   <nav class="phases" id="phases" aria-label="Fases do simulador"></nav>
-  <div class="tools"><button class="btn" id="btnNorma" type="button">Consultar norma</button></div>
+  <div class="tools"><button class="btn" id="btnProg" type="button" title="Exportar ou importar o progresso">Progresso</button><button class="btn" id="btnNorma" type="button">Consultar norma</button></div>
   <nav class="mods" id="mods" aria-label="Módulos da fase"></nav>
  </header>
  <main class="stage">
