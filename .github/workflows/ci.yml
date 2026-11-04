@@ -1,4 +1,4 @@
-# CI. Porteiro do merge: o protótipo tem de compilar e o texto da norma tem de bater com o PDF.
+# CI. Porteiro do merge: links válidos, Godot fixado e testável, protótipo compilando e texto da norma batendo com o PDF.
 name: CI
 
 on:
@@ -16,17 +16,32 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+      - name: Testes do verificador de links
+        run: python3 tools/test_checar_links.py
       - name: Links internos entre os .md existem
         run: python3 tools/checar_links.py
 
   godot:
-    name: Godot fixado (versão e SHA-512)
+    name: Godot (versão, SHA-512 e gdUnit4)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Cache do Godot (chave = SHA-512 fixada)
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/godot
+          key: godot-${{ hashFiles('tools/ambiente/versoes.env') }}
       - name: Baixa o Godot da Release oficial, confere a soma e a versão headless
-        run: tools/ambiente/instalar_godot.sh "$RUNNER_TEMP/godot"
+        run: |
+          G="$(tools/ambiente/instalar_godot.sh "$RUNNER_TEMP/godot" | tail -1)"  # falha do script falha o passo
+          echo "GODOT=$G" >> "$GITHUB_ENV"
+      - name: Testes gdUnit4 da cena de fumaça (prova o addon fixado no runner)
+        working-directory: tools/ambiente/fumaca
+        run: |
+          ../instalar_gdunit4.sh .
+          "$GODOT" --headless --path . --import
+          GODOT_BIN="$GODOT" addons/gdUnit4/runtest.sh --headless --ignoreHeadlessMode -a res://tests
 
   prototipo:
     name: Protótipo + conferência no PDF

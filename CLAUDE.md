@@ -45,7 +45,7 @@ prototipo/       Trilha 1 (congelada), documentada no próprio README
 art/             blender/ (scripts .py) · glb/ · previews/ · fotos/ (local, ignorada)
 engine/          Trilha 2: motor genérico Godot (não conhece a NR-10)
 packs/nr10/      Trilha 2: pacote de conteúdo da NR-10
-tools/           conferir_itens_portaria.py · checar_links.py · validacao/ (gerador do registro de validação)
+tools/           conferir_itens_portaria.py · checar_links.py (+ teste) · validacao/ (registro de validação) · ambiente/ (versões fixadas, instaladores, cena de fumaça)
 .github/         CI · modelos de issue (bug, conteudo-norma, desempenho) e de PR
 ```
 
@@ -54,7 +54,7 @@ tools/           conferir_itens_portaria.py · checar_links.py · validacao/ (ge
 # Conferência de itens contra o PDF (também no CI)
 python3 tools/conferir_itens_portaria.py --pdf docs/referencias/portaria-mte-no-737-nova-nr-10.pdf --docs docs --refs prototipo --saida docs/CONFERENCIA_ITENS.md --estrito
 # Links internos entre os .md (também no CI)
-python3 tools/checar_links.py
+python3 tools/checar_links.py        # testes do próprio verificador: tools/test_checar_links.py
 # Registro de validação do conteúdo (Node + Playwright com Chromium)
 python3 tools/validacao/gerar.py
 # Protótipo: ver prototipo/README.md
@@ -64,7 +64,8 @@ GODOT=$(tools/ambiente/instalar_godot.sh | tail -1)            # + --templates w
 BPY=$(tools/ambiente/instalar_bpy.sh | tail -1)                # Blender 4.5.10 LTS como módulo (Python 3.11)
 "$BPY" art/blender/<objeto>.py                                  # teste do pipeline: tools/ambiente/teste_blender.py
 tools/ambiente/instalar_gdunit4.sh <projeto>                    # addon gdUnit4 v6.2.3 em addons/gdUnit4
-GODOT_BIN="$GODOT" <projeto>/addons/gdUnit4/runtest.sh --headless --ignoreHeadlessMode -a res://tests
+"$GODOT" --headless --path <projeto> --import                  # antes do primeiro teste ou exportação
+GODOT_BIN="$GODOT" <projeto>/addons/gdUnit4/runtest.sh --headless --ignoreHeadlessMode -a res://tests   # sai com 100 se um teste falhar
 # Captura de cena sem GPU (renderização de software, Mesa llvmpipe)
 LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a "$GODOT" --path <projeto> --rendering-driver opengl3 -- <argumentos da cena>
 ```
@@ -72,7 +73,7 @@ Versões fixadas: **Godot 4.7.2** (`4.7.2.stable.official.ed1daf0bf`), **Blender
 
 ## 6. Pipeline foto → modelo 3D
 1. Foto chega na conversa (guardada em `art/fotos/`, fora do Git).
-2. Script `art/blender/<objeto>.py`: low-poly, cores da paleta, sem textura, escala real em metros, origem no chão.
+2. Script `art/blender/<objeto>.py`: low-poly, cores da paleta (hex sRGB convertido para linear, como em `tools/ambiente/teste_blender.py`; sem isso a cor chega clara demais no Godot), sem textura, escala real em metros, origem no chão (o eixo Z do Blender vira o Y do Godot).
 3. Exporta `art/glb/<objeto>.glb`; renderiza `art/previews/<objeto>.png` (fundo neutro, 3/4 + frente).
 4. Mostra a prévia ao usuário (U1) e só então integra ao catálogo.
 
