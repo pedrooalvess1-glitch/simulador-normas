@@ -35,7 +35,7 @@
 7. Rótulos: **[FONTE]**, **[PRÁTICA]** (só cenário, nunca cobrado), **[INFERÊNCIA]** (decisão de projeto), **[INTERPRETAÇÃO]** (leitura da norma), **[VERIFICAR]**, **[VERIFICAR NA PORTARIA]**.
 8. Os `.md` descrevem **só o estado atual** e os próximos passos, com o mínimo de texto: cada assunto num só lugar, sem tabela de revisões nem comparação com o passado. O histórico fica no Git.
 9. Limpe *builds* e arquivos temporários; no notebook, apague os executáveis de teste que saírem de uso.
-10. Limites da sessão na nuvem: sem API GraphQL do GitHub, sem mudar configurações do repositório e sem apagar *branches*. PR pela API REST (`gh api repos/pedrooalvess1-glitch/simulador-normas/pulls --input pr.json`); o resto pelo navegador do usuário (passo 34).
+10. Limites da sessão na nuvem: sem API GraphQL do GitHub, sem mudar configurações do repositório e sem apagar *branches*. PR pela API REST (`gh api repos/pedrooalvess1-glitch/simulador-normas/pulls --input pr.json`); o resto pelo navegador embutido, já logado no GitHub. Os nomes dos *jobs* do CI são *checks* obrigatórios da regra da `main` (decisão 29): renomear um *job* exige atualizar a regra no navegador no mesmo PR, ou nenhum PR consegue mais ser mesclado.
 
 ## 4. Estrutura
 ```

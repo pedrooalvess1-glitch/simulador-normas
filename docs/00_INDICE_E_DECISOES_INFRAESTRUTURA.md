@@ -104,7 +104,7 @@ O protótipo em three.js tem dois papéis: é a ferramenta de estudo da Trilha 1
 
 **Mecanismo:** GPU integrada não tem VRAM própria. Ela divide a RAM do sistema e tem banda de memória e poder de preenchimento (*fill rate*) muito menores que uma placa dedicada. O que derruba o desempenho nesse caso é, em ordem: (1) texturas grandes (memória e banda), (2) sombras em tempo real (cada luz com sombra renderiza a cena de novo), (3) pós-processamento em tela cheia (cada efeito relê o quadro inteiro), (4) número de *draw calls* (custo de CPU e de driver). Contagem de polígonos é o problema menos grave para cenas de centenas de objetos low-poly.
 
-**Medição real (roteiro, passo 17)** [FONTE: teste do usuário]: no computador de teste, o Godot usa a Radeon R5 via **ANGLE sobre Direct3D 11** (o driver AMD de 2020 tem OpenGL fraco). Cena trivial: ~496 FPS sem sombra e ~75 FPS com sombra direcional (V-Sync desligado). Decisão derivada: **sem sombras em tempo real e sem texturas**.
+**Medição real (roteiro, passo 17)** [FONTE: teste do usuário]: no computador de teste, o Godot usa a Radeon R5 via **ANGLE sobre Direct3D 11** (o driver AMD de 2020 tem OpenGL fraco). Cena trivial: ~496 FPS sem sombra e ~75 FPS com sombra direcional (V-Sync desligado). Decisão derivada: **sem sombras em tempo real e sem texturas**. Passo 33 (`.exe` exportado na nuvem, ~200 peças, 15 *draw calls*): **249–283 FPS**, cerca de 8 vezes o mínimo do orçamento (§3.3).
 
 Configuração padrão do projeto:
 1. Renderizador `gl_compatibility`.
@@ -320,6 +320,6 @@ Cada missão segue as fases F1–F8 (briefing → planejamento → almoxarifado 
 | 2 | Modo Livre | Gerador, planejador de solvabilidade, modelo do aluno adaptativo |
 | 3 | Outras normas | Primeiro pacote novo (ex.: NR-12 ou NR-35) usando o documento 19 |
 
-**Ordem da fase 0:** repositório → planejamento → ambiente de execução. As ferramentas só são instaladas e configuradas depois do planejamento, para que a configuração siga os documentos e não o contrário (decisão do usuário).
+**Ordem da fase 0:** repositório e ambiente de execução concluídos (o ambiente foi antecipado a pedido do usuário, decisão 25: só versões fixadas e testadas); falta o planejamento. O projeto Godot só é criado e configurado depois dele, para que a configuração siga os documentos e não o contrário (decisão 20).
 
 **Fatia vertical primeiro:** antes de construir muitas missões, uma única missão completa atravessa todas as camadas (dados → regras → energia → interação → interface → debrief → save → testes → build). Isso expõe cedo os erros de arquitetura, quando ainda são baratos de corrigir.

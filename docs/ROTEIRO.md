@@ -41,12 +41,9 @@ Fora desses casos, o agente decide, registra a decisão em `docs/DECISOES.md` qu
 
 ## 3. Passos pendentes, na ordem de execução
 
-**E (infraestrutura do repositório) → F (documentos) → D (ambiente de execução; a parte na nuvem foi antecipada a pedido do usuário, decisão 25) → G (esqueleto Godot e fatia vertical) → H (ciclo de correção).** As ferramentas só são instaladas depois do planejamento, para que a configuração siga os documentos (decisão 20). Passos seguidos do mesmo nível formam um bloco de sessão. A Etapa I acontece quando chegar uma foto. A Trilha 1 está congelada (melhorias registradas no `prototipo/README.md` §4).
+**F (documentos) → G (esqueleto Godot e fatia vertical) → H (ciclo de correção).** O projeto Godot só é criado depois do planejamento, para que a configuração siga os documentos (decisão 20); as ferramentas já estão fixadas (decisão 25). Passos seguidos do mesmo nível formam um bloco de sessão. A Etapa I acontece quando chegar uma foto. A Trilha 1 está congelada (melhorias registradas no `prototipo/README.md` §4).
 
-Concluídas: **A** (contas: GitHub com 2FA, repositório público MIT, Claude Pro), **B** (ferramentas no notebook, `STATUS` §3; o passo 17 mediu o Compatibility na R5 e originou a decisão 4), **C** (repositório, PDF da Portaria em `docs/referencias/`, protótipo, CI) e **E**, exceto o passo 34 (modelo de documento, convenções, glossário do projeto, modelos de issue e de PR, checagem de links no CI, rótulos).
-
-### Etapa E — infraestrutura do repositório
-- [ ] **34.** 🤖 `médio` GitHub pelo navegador embutido (👤 U3 faz o login uma vez): apagar as *branches* já mescladas e proteger a `main` exigindo os *checks* do CI (sem revisão humana).
+Concluídas: **A** (contas: GitHub com 2FA, repositório público MIT, Claude Pro), **B** (ferramentas no notebook, `STATUS` §3; o passo 17 mediu o Compatibility na R5 e originou a decisão 4), **C** (repositório, PDF da Portaria em `docs/referencias/`, protótipo, CI), **E** (modelo de documento, convenções, glossário do projeto, modelos de issue e de PR, checagem de links no CI, rótulos, *branches* mescladas apagadas, `main` protegida) e **D** (ferramentas fixadas na nuvem e no CI, `.exe` testado no notebook; `STATUS` §3).
 
 ### Etapa F — documentos de planejamento (um PR por documento)
 Para cada documento da `00_INDICE` §5: ler `CLAUDE.md`, a `00_INDICE`, `DECISOES` e os documentos já escritos; escrever no formato do `_MODELO_DOCUMENTO`; conteúdo só da NR-10 (R9); toda inferência sobre a norma marcada e registrada para validação (`00_INDICE` §1.4); rodar a conferência no PDF; PR e *merge* com CI verde. Um documento só fica pronto quando suas perguntas abertas foram respondidas pelo usuário ou registradas como pendência explícita.
@@ -75,11 +72,6 @@ Para cada documento da `00_INDICE` §5: ler `CLAUDE.md`, a `00_INDICE`, `DECISOE
 | 20 | 19 Novo pacote | `médio` | Fase 3; só depende do 04 e do 14 |
 | 21 | 10 Modo Livre | `extra` | Fase 2: gerador e planejador de solvabilidade |
 | 22 | **64.** Revisão cruzada de `docs/` | `extra` | Contradições, lacunas, dependências circulares; o `PLANO_V3` e a `ARQUITETURA` são absorvidos pelos documentos 01, 02, 05, 11, 14, 15 e 16 e retirados do repositório |
-
-### Etapa D — ambiente de execução
-Feito na nuvem (versões e somas em `tools/ambiente/versoes.env`, comandos no `CLAUDE.md` §5): Godot 4.7.2 *headless* com *export templates* Windows/Linux e SHA-512 no CI; `bpy` 4.5.10 LTS exportando `.glb` e prévia sem GPU; gdUnit4 v6.2.3 rodando *headless*; `.exe` Windows trivial exportado; captura de cena por renderização de software (llvmpipe). Falta o que depende do notebook:
-- [ ] **29.** 🤖 `médio` Pedir acesso (👤 U3 aprova uma vez): `C:\projetos` e a pasta do Godot pela ponte; controle da tela para o executável de teste, o Godot e o navegador. Criar `C:\projetos\simulador-normas-testes`.
-- [ ] **33.** 🤖 `médio` Teste no notebook: exportar e copiar o `.exe` da cena de fumaça (`tools/ambiente/fumaca/`, com painel de FPS, *draw calls*, VRAM e GPU) para a pasta de testes, abrir pelo controle da tela, ler o FPS e apagar.
 
 ### Etapa G — esqueleto Godot e fatia vertical
 - [ ] **65–68.** 🤖 `médio` Projeto Godot (Compatibility, 4.7.2), gdUnit4, CI de testes, CI de exportação do `.exe` Windows.
