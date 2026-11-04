@@ -73,8 +73,8 @@ def itens_do_pdf(texto: str) -> dict[str, str]:
 def citacoes(docs: Path) -> dict[str, list[str]]:
     achados: dict[str, list[str]] = {}
     for md in sorted(docs.rglob("*.md")):
-        if "referencias" in md.relative_to(docs).parts:
-            continue
+        if "referencias" in md.relative_to(docs).parts or md.name == "CONFERENCIA_ITENS.md":
+            continue                      # o próprio relatório não conta como citação
         for n, linha in enumerate(md.read_text(encoding="utf-8").splitlines(), 1):
             for item in ITEM_CITADO.findall(linha):
                 achados.setdefault(item, []).append(f"{md.relative_to(docs)}:{n}")
@@ -115,7 +115,12 @@ def main() -> None:
     ap.add_argument("--docs", required=True, type=Path)
     ap.add_argument("--refs", type=Path, help="pasta com refs.js e refs2.js do protótipo (opcional)")
     ap.add_argument("--saida", type=Path, help="arquivo .md de saída (padrão: imprime na tela)")
+    ap.add_argument("--estrito", action="store_true",
+                    help="sai com código 1 se um item citado ou da base REF não existir no PDF (uso no CI)")
+    ap.add_argument("--permitir", default="10.3.9,10.8.8.2",
+                    help="itens citados de propósito fora do PDF (redação de 2004 em contexto histórico)")
     a = ap.parse_args()
+    erros: list[str] = []
 
     pdf = itens_do_pdf(texto_do_pdf(a.pdf))
     cit = citacoes(a.docs)
@@ -147,6 +152,7 @@ def main() -> None:
             for i in sorted(ref, key=chave):
                 if i not in pdf:
                     r.append(f"| {i} | — | ausente do PDF |")
+                    erros.append(f"REF {i} não existe no PDF")
                     continue
                 x, y = normaliza(ref[i]), normaliza(pdf[i])
                 sim = difflib.SequenceMatcher(None, x, y[: len(x) + 40]).ratio()
@@ -154,6 +160,7 @@ def main() -> None:
                     r.append(f"| {i} | {sim:.2f} | {'conferir palavra por palavra' if sim >= 0.6 else 'tema provavelmente diferente'} |")
             faltam_ref = sorted((i for i in pdf if i not in ref), key=chave)
             r += [f"\nItens do PDF fora da base REF: {', '.join(faltam_ref) or '—'}"]
+            erros += [f"item {i} do PDF fora da base REF" for i in faltam_ref]
 
     saida = "\n".join(r) + "\n"
     if a.saida:
@@ -161,6 +168,14 @@ def main() -> None:
         print(f"Relatório gravado em {a.saida}")
     else:
         sys.stdout.write(saida)
+
+    permitidos = {x.strip() for x in a.permitir.split(",") if x.strip()}
+    erros = [f"item {i} citado em {cit[i][0]} não existe no PDF" for i in faltam if i not in permitidos] + erros
+    if a.estrito:
+        for e in erros:
+            print(f"ERRO: {e}", file=sys.stderr)
+        print(f"Conferência estrita: {len(erros)} erro(s).")
+        sys.exit(1 if erros else 0)
 
 
 if __name__ == "__main__":

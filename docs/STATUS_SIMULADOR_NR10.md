@@ -15,6 +15,7 @@
 | rev1 | 02/11/2026 | Versão inicial: status do protótipo v2 (three.js), auditoria de cobertura e prompt de continuação. |
 | rev2 | 03/11/2026 | **Edição única (Portaria MTE 737/2026).** Nova §2.1 com a situação do projeto (guia, passos 1–24). §1, §3.2, §4.2, §5, §5.1, §6, §7 e §8 sem o modelo de duas edições. O protótipo passou a "v2 · edição única" (`simulador-nr10-codigo-fonte-edicao-unica.zip`). §10 com o resultado dos testes desta revisão. §11 (prompt) substituída por ponteiro para o guia. A cópia deste arquivo dentro do zip virou ponteiro para `docs/STATUS_SIMULADOR_NR10.md`. |
 | rev3 | 03/11/2026 | Agente com permissão total (U1–U4). Prova provável em 13/12/2026. PDF conferido (133 itens). Protótipo **v3**: fase Treino (simulado, revisão espaçada, gerador, cartões, painel) e base `REF` com 10.2.4.1 e Art. 1º, 2º e 4º. Commit `rev3` preparado para o primeiro *push*. §1 reduzida (repositório público). Nova §2.2. |
+| rev4 | 04/11/2026 | Protótipo **v4**: módulo **História** (§5.3). Primeiro *push* feito: PR #1 com *merge* na `main` (`535094d`). CI mínimo em `.github/workflows/ci.yml`. Artifact do claude.ai republicado com a v4. |
 
 ---
 
@@ -43,17 +44,18 @@
 
 | Entregável | Descrição |
 |---|---|
-| Repositório `pedrooalvess1-glitch/simulador-normas` | Público, MIT. Remoto ainda só com o `Initial commit`. O commit `rev3` (documentos rev3, PDF, protótipo v3, `CLAUDE.md`, `AGENTS.md`, `tools/`) está pronto e entra com o passo 25. Depois disso, o GitHub é a fonte da verdade. |
-| `prototipo/` | Protótipo **v3** (three.js r128): 13 módulos, incluindo a fase **Treino**. |
-| `prototipo/dist/simulador-nr10-offline.html` | App autocontido (~920 KB). Abre com duplo clique, sem internet. |
-| Artifact no claude.ai | Ainda a v2 (com chips "≠ 2004"). Republicar com a v3 é o passo T2b do guia. |
+| Repositório `pedrooalvess1-glitch/simulador-normas` | Público, MIT. Desde 04/11/2026 a `main` tem todo o projeto (PR #1, `535094d`) e o GitHub é a fonte da verdade. Todo trabalho entra por *branch* + PR, com o CI (`.github/workflows/ci.yml`) como porteiro. |
+| `prototipo/` | Protótipo **v4** (three.js r128): 14 módulos, incluindo a fase **Treino** e o módulo **História**. |
+| `prototipo/dist/simulador-nr10-offline.html` | App autocontido (~975 KB). Abre com duplo clique, sem internet. |
+| Artifact no claude.ai | Republicado com a v4 em 04/11/2026 (passo T2b): abre no celular. |
 | `simulador-nr10-codigo-fonte*.zip` | Versões antigas do protótipo. Substituídas pelo repositório; só histórico. |
 
 Versões do protótipo:
 - **v1**: 7 "camadas" independentes.
 - **v2**: reorganizada pela arquitetura da norma (§3), com Mapa, primers, registro de erros, Documentação/GIR, Missão integrada.
 - **v2 · edição única**: v2 sem chips "≠ 2004", sem `DIFF`, sem modo 2004.
-- **v3 (atual, 03/11/2026)**: fase **Treino** (§5.2) e base `REF` completa nos itens numerados (133 de 133).
+- **v3 (03/11/2026)**: fase **Treino** (§5.2) e base `REF` completa nos itens numerados (133 de 133).
+- **v4 (atual, 03–04/11/2026)**: módulo **História** (§5.3): uma ordem de serviço contada sobre o desenho da cabine, com cada objeto ligado aos itens da NR-10. Passa a ser o módulo de abertura.
 
 ### 2.1 Situação do projeto (03/11/2026)
 
@@ -65,18 +67,18 @@ Passos do guia `01_PASSO_A_PASSO_INICIO_CLAUDE_CODE.md` (rev2):
 | B — Ferramentas | 9–18 | Concluída: Git 2.56.0, VS Code 1.140.0 com `godot-tools`, Godot 4.7.2 standard (export templates só Windows x86_64), Blender 4.5.10 LTS. Passo 17: Compatibility via ANGLE/D3D11 na R5, ~496 FPS sem sombra e ~75 FPS com sombra (cena trivial). |
 | C — Repositório | 19–22 | Concluídos: repositório criado e clonado em `C:\projetos\simulador-normas`; pastas com `.gitkeep`; documentos de planejamento copiados para `docs/`. |
 | C — Repositório | 23 | Concluído: `docs/referencias/portaria-mte-no-737-nova-nr-10.pdf` (673.795 bytes), conferido em 03/11/2026. |
-| C — Repositório | 24–25 | Preparados: commit `rev3` com o protótipo em `prototipo/`. Falta o *push*: vincular o GitHub à conversa (U3) ou fazer no passo 31 da sessão Local. |
+| C — Repositório | 24–25 | Concluídos em 04/11/2026: GitHub vinculado ao Claude (U3); PR #1 com *merge* na `main`. |
 | C — Repositório | 26–28 | Pendentes (agente, via `gh`). A cópia local em `C:\projetos\simulador-normas` ainda tem os `.md` da rev1 fora do Git: o passo 31 sincroniza com o GitHub. |
 | D | 29–30 | 👤 Abrir a sessão Local (modo Auto ou Bypass) e fazer login do GitHub uma vez. |
-| E | 35–36, 44–45 | Escritos na rev3 (entram com o passo 25): `CLAUDE.md`, `AGENTS.md`, `docs/PENDENCIAS_DE_VERIFICACAO.md`, `docs/DECISOES.md`. |
+| E | 35–36, 44–45 | Concluídos (no GitHub desde o PR #1): `CLAUDE.md`, `AGENTS.md`, `docs/PENDENCIAS_DE_VERIFICACAO.md`, `docs/DECISOES.md`. |
 | D a H | demais | Pendentes; todos do agente, exceto os testes no notebook (69, 76, 79). |
-| T | T1–T2 | Concluídos: fase Treino e HTML offline. T2b (Artifact v3) pendente. |
+| T | T1–T2 | Concluídos: fase Treino, módulo História (v4), HTML offline e T2b (Artifact v4). |
 
 Conferência no PDF (rev3): `tools/conferir_itens_portaria.py` achou 133 itens numerados; todos os números de 2026 citados nos documentos existem; as pendências 12–19 da `00_INDICE` §10 foram resolvidas. Relatório em `docs/CONFERENCIA_ITENS.md`.
 
 ### 2.2 Próximos passos (em ordem)
 
-1. 👤 Vincular a conta do GitHub à conversa do Claude (o agente faz o passo 25 na hora) **ou** abrir a sessão Local e fazer o login do GitHub (passos 29–30).
+1. 👤 Usar a v4 (História + Treino) e relatar o que estranhou (U2).
 2. 🤖 Passos 31–34: sincronizar, testar Git, Godot e Blender.
 3. 🤖 Treino v4 (Trilha 1): explicação dos distratores, mais questões de 5 alternativas, cartões dos itens nunca exercitados.
 4. 🤖 Etapa E restante (38–43, 46) e Etapa F (documentos 01, 14, 04…).
@@ -102,6 +104,7 @@ Conferência no PDF (rev3): `tools/conferir_itens_portaria.py` achou 133 itens n
 | II Controle | Como o risco é controlado, na ordem da hierarquia? | `projeto` → `coletiva` → `organizacao` → `pessoas` → `individual` | 10.3, 10.4, 10.5, 10.6, 10.7, 10.8–10.10, 10.11, Anexos III e IV |
 | III Execução | Como se trabalha? | `desenergizado` → `energizado` | 10.12, 10.13, 10.14 |
 | IV Prova | Como se comprova e o que paralisa? | `documentacao` | 10.15, 10.16 |
+| História *(v4)* | Como os itens aparecem numa atividade real? | `historia` | transversal |
 | Missão | Tudo junto | `missao` | transversal |
 
 Princípios pedagógicos adotados:
@@ -122,7 +125,7 @@ Rev2: saiu o princípio "diferenças 2004 × 2027 sempre visíveis (chips '≠ 2
 ### 4.1 Build
 - Fontes separados, concatenados por `build.py` num HTML único.
 - Ordem de concatenação do JS (importa para `const` globais):
-  `refs.js, refs2.js, engine.js, qbank.js, mapa.js, m1.js, m7.js, m2.js, m4.js, m5.js, m3.js, m6.js, m8.js, missao.js, treino.js, main.js`.
+  `refs.js, refs2.js, engine.js, qbank.js, mapa.js, m1.js, m7.js, m2.js, m4.js, m5.js, m3.js, m6.js, m8.js, missao.js, historia.js, treino.js, main.js`.
   A ordem visual dos módulos é definida em `main.js` (`ORDER`), não pela concatenação.
 - `python3 build.py` → `simulador-nr10.html` (fragmento sem `<html>/<head>`, three.js via cdnjs r128; é o formato exigido pelo Artifact do claude.ai, que adiciona o esqueleto).
 - `python3 build.py --offline` → `simulador-nr10-offline.html` (documento completo com `<meta charset="utf-8">` e `vendor/three.min.js` embutido).
@@ -149,6 +152,7 @@ Rev2: saiu o princípio "diferenças 2004 × 2027 sempre visíveis (chips '≠ 2
 | `main.js` | `ORDER`, migração de progresso, `boot()`, delegação de cliques, hash. |
 | `qbank.js` | *(v3)* `QB` (banco de questões registrado pelos módulos), `SRS` (Leitner, 5 caixas), `STATS` (acerto por capítulo) e o invólucro de `quiz()` que alimenta os dois. |
 | `treino.js` | *(v3)* Fase Treino: simulado, revisão, gerador (11 tipos), 42 cartões, painel. Dados normativos conferidos no PDF. |
+| `historia.js` | *(v4)* Módulo História: dicionário `HS` (27 objetos → itens), estado `S0` do desenho, 14 passos `ST` (tipos `q`, `find`, `hunt`, `seq`), cena SVG em `scene()`. Registra as 8 questões `q` no `QB`. |
 | `primers.py` | Textos dos primers (fonte usada para gerar o código; não entra no build). |
 | `tools/teste_playwright.py` | Teste headless (ver §10). |
 | `STATUS_SIMULADOR_NR10.md` | Na edição única, ponteiro para `docs/STATUS_SIMULADOR_NR10.md` (antes era cópia idêntica deste arquivo). |
@@ -175,11 +179,11 @@ Rev2: saiu o princípio "diferenças 2004 × 2027 sempre visíveis (chips '≠ 2
 - Erros: `miss(refs)` incrementa `Store.data.miss[ref]` (chamado por quiz, classify, pickList, missão).
 - Estado persistido em `localStorage['nr10sim.v1']`: `done[mod][task]`, `miss[ref]`, `pr[mod]` (primer visto).
 - Fases: `PHASES`, `modsOf()`, `renderNav()` (linha 1 = fases com contagem; linha 2 = módulos da fase; na fase II, setas → indicando a hierarquia).
-- Hash: `#mapa`, `#enq`, … abre o módulo.
+- Hash: `#mapa`, `#enq`, `#historia`, … abre o módulo. Sem hash, o app abre na História (v4).
 
 ---
 
-## 5. Inventário de módulos (v2 · edição única)
+## 5. Inventário de módulos (v4 · edição única)
 
 | id | Fase | Cena 3D | Tarefas | Itens-base |
 |---|---|---|---|---|
@@ -195,9 +199,10 @@ Rev2: saiu o princípio "diferenças 2004 × 2027 sempre visíveis (chips '≠ 2
 | `energizado` | III | Mesma cena das esferas | Regras (9) · Bancada | 10.5.2, 10.14.1–10.14.4, 10.12.1 |
 | `documentacao` | IV | Arquivo técnico: estante PIE com 9 pastas, mesa (doc digital), auditor-fiscal | Quem guarda o quê (9) · Precisa de PIE? (7) · GIR (8) | 10.15.3–10.15.7, 10.16.1 |
 | `treino` | Treino *(v3)* | Painel de estudo (sem 3D) | Simulado (10–40 questões, cronômetro) · Revisão espaçada · Gerador (11 tipos) · Cartões (42) — todas livres, não contam no progresso | 10.9.2, 10.13.1, 10.13.2, Anexo II, Anexo IV |
+| `historia` | História *(v4)* | Desenho SVG estático da cabine primária 13,8 kV (sem 3D, sem animação), com 27 objetos clicáveis; o desenho muda de estado a cada ação | História (OS em 14 passos, F1–F8: enquadramento, PT, equipe, supervisão, ferramental, vestimenta, caça a 4 não conformidades, avaliação prévia, 10.13.1 nos objetos, gerador com QTA, troca de turno, 10.13.2, encerramento, fiscalização) · Explorar a cena (livre) · Itens × cena (livre) | 10.7.2, 10.13.1, 10.13.2, 10.14.5, 10.12.6.1, Anexo IV |
 | `missao` | Missão | Reusa a subestação | OS 0457: 12 decisões (enquadramento, documento, APR, equipe, supervisão, EPI, avaliação prévia, ordenar 10.13.1, backfeed pelo gerador, troca de turno/PT, ordenar 10.13.2, encerramento) → diagnóstico por módulo | 10.7.2, 10.7.4, 10.13.1, 10.13.2, 10.15.6 |
 
-Total: 13 módulos. O banco do Treino reúne 106 questões dos módulos (quizzes + listas de classificação convertidas + decisões da Missão).
+Total: 14 módulos. O banco do Treino reúne 114 questões dos módulos (106 dos quizzes, listas de classificação convertidas e decisões da Missão, mais 8 da História).
 
 ### 5.2 Fase Treino (v3, 03/11/2026)
 
@@ -210,6 +215,19 @@ Total: 13 módulos. O banco do Treino reúne 106 questões dos módulos (quizzes
 | Painel | Contagem regressiva (data editável), respondidas, acerto, revisões do dia, dias de estudo, simulados, acerto por capítulo, caixas, itens com mais erros | Mostra onde estudar |
 
 As questões dos módulos também alimentam a revisão e o painel (invólucro de `quiz()` em `qbank.js`).
+
+### 5.3 Módulo História (v4, 03/11/2026)
+
+Pedido do usuário (03/11/2026): associar os itens da NR-10 ao ambiente com **um desenho de uma história e itens interativos, sem animação**, para funcionar offline.
+
+| Parte | O que faz | Como aprende |
+|---|---|---|
+| Cena | Desenho SVG da cabine primária 13,8 kV de uma fábrica: porta, quadro de documentos, cubículo de entrada, VPIS, 89-1, 52-1, TR-01, barra de terra, QGBT, gerador com QTA, carrinho de ferramental, equipe e terceiros. O desenho muda a cada ação (lâminas abertas, cadeado, etiqueta, aterramento, cones) | O item fica preso a um objeto e a um lugar, não a uma lista |
+| A · História | OS em 14 passos (F1 briefing → fiscalização). Tipos: `q` (questão), `find` (achar o objeto certo), `hunt` (achar 4 não conformidades), `seq` (aplicar as alíneas do 10.13.1 e do 10.13.2 clicando nos objetos, com a explicação física do erro) | Cada resposta cita o item; erros vão para o registro por item e para a revisão |
+| B · Explorar a cena | Clicar em qualquer objeto mostra o que ele é e os itens que se aplicam | Consulta livre |
+| C · Itens × cena | Índice inverso: item → objetos da cena | Mostra onde cada item "mora" na instalação |
+
+O progresso fica em `Store.data.hist`. Textos normativos só via `REF` (gaveta); as explicações são do simulador e vão rotuladas ([PRÁTICA] quando não vêm da norma).
 
 **O que mudou no protótipo na edição única (03/11/2026):**
 1. `refs.js`: `DIFF` esvaziado; campo `d` removido de 7 entradas de `REF` (10.13.1, 10.13.2, 10.14.2, 10.15.6, 10.16.1, g-mt, g-at); `art5` sem a frase "a redação de 2004 segue em vigor até lá" (o resto da nota do simulador foi mantido e rotulado).

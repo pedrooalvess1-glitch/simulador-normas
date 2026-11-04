@@ -1,0 +1,51 @@
+# CI mínimo (rev4). Porteiro do merge: o app tem de compilar e o texto da norma tem de bater com o PDF.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  prototipo:
+    name: Protótipo + conferência no PDF
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Dependência da conferência (leitura do PDF)
+        run: pip install pypdf
+
+      - name: Build do protótipo e checagem de sintaxe
+        working-directory: prototipo
+        run: |
+          python3 build.py
+          node --check bundle.js
+          python3 build.py --offline
+          test -s simulador-nr10-offline.html
+
+      - name: HTML offline versionado está atualizado
+        working-directory: prototipo
+        run: |
+          if ! cmp -s simulador-nr10-offline.html dist/simulador-nr10-offline.html; then
+            echo "::error::prototipo/dist/simulador-nr10-offline.html está desatualizado. Rode 'python3 build.py --offline' e copie para dist/."
+            exit 1
+          fi
+
+      - name: Itens citados e base REF existem no PDF da Portaria
+        run: >
+          python3 tools/conferir_itens_portaria.py
+          --pdf docs/referencias/portaria-mte-no-737-nova-nr-10.pdf
+          --docs docs --refs prototipo --estrito
