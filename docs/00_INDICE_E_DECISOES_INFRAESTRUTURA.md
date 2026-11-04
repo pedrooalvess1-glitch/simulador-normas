@@ -8,9 +8,7 @@
 >
 > **Conferência de itens:** os números de item citados nos documentos são conferidos contra o PDF da Portaria (`docs/referencias/portaria-mte-no-737-nova-nr-10.pdf`) com `tools/conferir_itens_portaria.py`, também no CI; o relatório fica em `docs/CONFERENCIA_ITENS.md`.
 >
-> **Modelo de operação:** o Claude Code opera o projeto inteiro (repositório, ferramentas e o computador do usuário). O usuário só traz fotos de objetos, usa o simulador, concede acessos e responde às perguntas essenciais (§1.2).
->
-> **Fase atual:** planejamento do projeto principal (Godot). Nenhuma ferramenta é instalada ou configurada antes de o planejamento terminar (§9).
+> **Fase atual:** planejamento do projeto principal (Godot). Nenhuma ferramenta é instalada ou configurada antes de o planejamento terminar (§8).
 
 ---
 
@@ -22,7 +20,7 @@
 | R2 | **Ferramenta de treinamento**, não produto visual polido | Estilo **low-poly com cores chapadas**. O esforço vai para regras, interação e feedback. |
 | R3 | **Rodar bem em GPU integrada com 2 GB** (memória compartilhada) | Renderizador **Compatibility** do Godot (OpenGL 3.3), sem texturas pesadas, orçamento de desempenho fixo (§3.3). |
 | R4 | **O conteúdo é o mais importante** | Norma como dados, fidelidade ao texto, rastreabilidade item → interação → feedback. |
-| R5 | **Campanha primeiro**, Modo Livre depois | Roadmap em duas fases (§9). Os esquemas de missão servem aos dois modos desde o início. |
+| R5 | **Campanha primeiro**, Modo Livre depois | Roadmap em duas fases (§8). Os esquemas de missão servem aos dois modos desde o início. |
 | R6 | **Extensível a outras normas e ambientes** (industrial, comercial, residencial, concessionária) | Separação rígida motor × pacote (§4). |
 | R7 | **Uso permanente**, não só para a prova | **Edição única:** o simulador implementa só a NR-10 na redação da **Portaria MTE 737/2026** (§1.1). Não há seletor de edição, edição padrão nem mapeamento entre redações. |
 | R8 | **Interferência mínima do usuário** | O usuário não aprende Blender, Godot nem qualquer outra ferramenta. O agente opera as ferramentas, o repositório e o computador do usuário (§1.2). Toda pergunta ao usuário precisa ser essencial: uma decisão que só ele pode tomar ou que não dá para desfazer. |
@@ -39,60 +37,29 @@
   2. O motor continua **orientado a dados** (princípio 1, §2). Isso mantém aberta a porta para **outras normas** como pacotes separados (R6). Não significa várias edições da mesma norma. Regra: **um pacote = o texto de uma norma, numa redação**.
   3. "Versão do pacote" (princípio 5) é o número de release dos dados do pacote (ex.: `nr10 0.3.0`), não uma edição da norma [INFERÊNCIA: esclarecimento de termo, para que a remoção das edições não seja confundida com a remoção do versionamento dos dados].
   4. Todo requisito, número de item, redação ou tabela entra só depois de conferido no PDF de 2026; o que não foi conferido leva [VERIFICAR NA PORTARIA].
-  5. Fonte de verdade do conteúdo: o PDF da Portaria MTE 737/2026 em `docs/referencias/` (passo 23 do guia).
-- Registro formal: `docs/DECISOES.md`, decisão 3 (passo 45 do guia).
+  5. Fonte de verdade do conteúdo: o PDF da Portaria MTE 737/2026 em `docs/referencias/` (passo 23 do roteiro).
 
-### 1.2 Modelo de operação: o agente opera, o usuário decide o essencial
+### 1.2 Modelo de operação
 
-**Decisão do usuário:** o Claude Code tem permissão total para operar o repositório, as ferramentas (Godot, Blender) e o computador do usuário. Todo o projeto é conduzido no Claude Code; não há outro agente. A interferência do usuário fica no essencial.
-
-**O que o usuário faz (só isto):**
-
-| # | Tarefa | Como |
-|---|---|---|
-| U1 | **Trazer fotos de objetos** para virar modelo 3D | Manda a foto na conversa. Responde "parece / não parece" à prévia que o agente gera. |
-| U2 | **Usar o simulador** | Usa para estudar e conta na conversa o que achou estranho ou confuso (conteúdo e didática). Abrir o executável e medir desempenho no notebook é tarefa do agente. |
-| U3 | **Conceder acesso** | Quando o agente avisar que vai usar o computador: deixar o notebook ligado com o app Claude Desktop aberto e aprovar os pedidos de acesso (pasta, aplicativo, página do GitHub). |
-| U4 | **Responder perguntas essenciais** | Só as que mudam o resultado e que só ele pode responder (conteúdo da prova, gosto didático, algo irreversível). |
-
-**O que o agente faz:** todo o resto. Escreve e revisa os documentos; cria o projeto Godot, o código e os testes; gera os modelos 3D no Blender por script e renderiza uma prévia `.png` para o U1; faz commits, abre e faz *merge* dos *pull requests*; configura o CI; publica Releases; testa o executável no notebook; transforma os relatos do U2 em issues e as corrige.
-
-**Onde o agente trabalha** [INFERÊNCIA: arranjo que tira o trabalho pesado do notebook]:
-
-| Ambiente | O que roda | Por quê |
-|---|---|---|
-| **Sessão na nuvem** (Claude Code no claude.ai, com o repositório anexado) — ambiente principal | Documentos, código, Git e PRs; Godot 4.7.2 para Linux em modo *headless* (importar, testar, exportar o `.exe` de Windows com os *export templates*); Blender como módulo Python (`bpy`); Python, Node e Playwright | Não depende do notebook ligado, não gasta a RAM (7,5 GB) nem o disco curto dele. O Godot para Linux e os *export templates* são baixáveis do GitHub da Godot pela rede da sessão; o `bpy` vem do PyPI [VERIFICAR na Etapa D do guia]. |
-| **GitHub Actions** (CI) | As mesmas verificações a cada PR; testes e exportação do Godot; Releases | Porteiro do *merge*; roda sem a sessão aberta. |
-| **Computador do usuário**, a partir da sessão na nuvem | Arquivos, pela ponte do app Claude Desktop (pasta liberada uma vez); tela, pelo controle de aplicativos (*computer use*): abrir o `.exe`, ler o painel F3, conferir a cena na Radeon R5; navegador logado no GitHub para o que a API não permite | É o alvo de desempenho real (R3). O resto não precisa dele. |
-| **Sessão Local** (Claude Desktop → aba *Code*) | Terminal no Windows | Só como reserva, se algum passo exigir um terminal no Windows. |
-
-**Limites conhecidos da sessão na nuvem** [FONTE: testes no repositório, 04/11/2026]: o *proxy* não permite a API GraphQL do GitHub, mudanças nas configurações do repositório (proteção da `main`, apagar *branch* mesclada automaticamente) nem apagar *branches*. Esses passos são feitos pelo agente no navegador do usuário, já logado no GitHub (Etapa D do guia).
-
-**Salvaguardas que não custam tempo do usuário** [INFERÊNCIA]:
-1. **Escopo no computador do usuário:** pastas `C:\projetos\simulador-normas-testes` (executáveis de teste, criada na Etapa D), `C:\projetos\simulador-normas` (clone antigo, usado só se a sessão Local for necessária), `C:\ferramentas` e `C:\Users\Pedro Alves\Desktop\POTENCIAIS_CONCURSOS\SOFTWARE-NR10\GODOT`; na tela, só os aplicativos do projeto (executável de teste, Godot, navegador no GitHub). Outras pastas e aplicativos, só com pedido explícito.
-2. **Git como rede de segurança:** todo trabalho vai em *branch* + *pull request*; nada de `push --force` na `main` nem reescrita de histórico; qualquer erro é revertível.
-3. **CI como porteiro:** o *merge* só acontece com o CI verde.
-4. **Repositório público:** nunca comitar tokens, `.env`, fotos pessoais ou dados pessoais.
-5. **Disco e memória:** o trabalho pesado roda na nuvem; no notebook ficam só os executáveis de teste, que o agente apaga quando saem de uso.
+**Decisão do usuário:** todo o projeto é conduzido no Claude Code, com permissão total para operar o repositório, as ferramentas e o notebook do usuário. O usuário só faz as tarefas U1–U4. Papéis, ambientes de trabalho e salvaguardas ficam num só lugar: `CLAUDE.md` §2–§3.
 
 ### 1.3 Duas trilhas
 
-| Trilha | Para quê | Onde | Situação |
-|---|---|---|---|
-| **1 — Estudo** | O usuário estuda a NR-10 enquanto o projeto principal é construído | Protótipo three.js em `prototipo/` (HTML offline em `prototipo/dist/` e Artifact do claude.ai): módulo **História**, fases da norma, Missão e fase **Treino** | **Congelada** por decisão do usuário: o HTML offline segue disponível para estudo e só muda a pedido dele. As melhorias já identificadas ficam registradas em `docs/PROXIMA_SESSAO.md`. |
-| **2 — Projeto principal** | Infraestrutura permanente (motor + pacotes de norma) | Godot 4.7.2 (`engine/`, `packs/`) | **Foco atual**, na fase de planejamento (Etapas E e F do guia). |
+1. **Trilha 1 — protótipo de estudo** (`prototipo/`, three.js): **congelada** por decisão do usuário; o HTML offline segue disponível e só muda a pedido dele (`prototipo/README.md`).
+2. **Trilha 2 — projeto principal** (Godot 4.7.2, `engine/` e `packs/`): **foco atual**, em planejamento.
 
 ### 1.4 Decisão: conteúdo só da NR-10
 
 **Decisão do usuário:** todo o conteúdo de base do simulador vem da NR-10 (Portaria MTE 737/2026). O simulador existe para o **entendimento da norma**; se a NR-10 não traz uma informação, ela não é buscada nem conferida em outra norma.
 
-Regras que decorrem disso [INTERPRETAÇÃO do agente sobre a decisão; o usuário pode ajustar]:
+Regras que decorrem disso [INTERPRETAÇÃO do agente sobre a decisão; a validar]:
 1. **O que se ensina, cobra e corrige** (questão, *gate*, consequência pontuada, cartão, debrief) precisa de um item da NR-10 por trás, citado pelo número.
 2. **Remissões:** quando a NR-10 remete a outra norma (NR-1, NR-3, NR-6, NR-7, NR-17, NR-23, NR-26, ABNT NBR 5410, NBR 14039, normas ASTM e IEC do Anexo IV), o simulador mostra **só a remissão**, com o texto da própria NR-10. O conteúdo da outra norma não entra.
 3. **Aplicabilidade particular fica fora do escopo:** valores e especificações de outras normas (ex.: corrente de 30 mA do DR, cores de etiqueta de luva por classe), práticas e procedimentos de concessionária, distâncias de orientação de fornecedor.
 4. **Cenário pode ter realismo:** a aparência de equipamentos e ambientes pode seguir a prática de campo, rotulada [PRÁTICA], desde que nunca vire pergunta, *gate*, consequência ou correção.
-5. **Explicar o mecanismo físico** de um requisito da NR-10 (por que aterrar sem constatar é curto franco, por que o transformador realimenta a rede) continua permitido: é explicação do item, não conteúdo de outra norma. Vai rotulado [INTERPRETAÇÃO].
+5. **Explicar o mecanismo físico** de um requisito da NR-10 (por que aterrar sem constatar é curto franco, por que o transformador realimenta a rede) é permitido como explicação do item, rotulado [INTERPRETAÇÃO].
 6. **Outros pacotes no futuro** (R6) seguem a mesma regra: cada pacote usa só o texto da sua norma.
+7. **Postura conservadora (decisão do usuário):** toda resposta, explicação ou ligação item ↔ objeto escrita pelo agente é inferência até o usuário validar. Na dúvida, o trecho é marcado e entra como "a validar" no registro `docs/VALIDACAO_DO_CONTEUDO.md` (gerado por `tools/validacao/gerar.py`), para revisão dos conceitos.
 
 ---
 
@@ -124,28 +91,25 @@ Regras que decorrem disso [INTERPRETAÇÃO do agente sobre a decisão; o usuári
 | Versionamento e CI | Git + GitHub (repositório + Actions + Releases + Issues) | Plano gratuito | Código, documentos, builds, relatórios de bug |
 | Instalador Windows | Inno Setup | Gratuito | Instalação e atalho |
 
-**Onde cada ferramenta roda:**
-- **Nuvem e CI (ambiente de trabalho):** Godot `4.7.2.stable` para Linux, *headless*, com os *export templates* (exporta o `.exe` de Windows); Blender como módulo Python `bpy` (a versão disponível no PyPI para o Python da sessão é da série 5.x; a versão fixada é decidida na Etapa D) [VERIFICAR]; gdUnit4 [VERIFICAR como instalar na sessão da nuvem: o *proxy* bloqueia páginas de repositórios de terceiros no GitHub].
-- **Computador do usuário (alvo de desempenho)** [FONTE: ambiente do usuário]: Godot `4.7.2.stable` para Windows em `C:\Users\Pedro Alves\Desktop\POTENCIAIS_CONCURSOS\SOFTWARE-NR10\GODOT` (export templates só Windows x86_64), Blender 4.5.10 LTS, Git 2.56.0, VS Code 1.140.0. Ficam como reserva; o agente usa o computador para rodar o executável exportado e medir o desempenho real.
-- Quem usa: só o agente. O usuário não abre nenhuma dessas ferramentas.
+Onde cada ferramenta roda e o que está instalado: `CLAUDE.md` §2 e `STATUS` §3.
 
 **Por que Godot e não as alternativas** (o mecanismo de cada decisão):
 - **Unity e Unreal** saem pela regra R1: as condições de licença para uso não-jogo e acima de certos faturamentos institucionais podem exigir planos pagos [FONTE], e o Unreal usa ativos binários, que um agente de código não consegue ler nem editar.
 - **Web pura (TypeScript + three.js) empacotada em Electron/Tauri** é gratuita e leve, mas obriga a escrever à mão tudo o que um motor já entrega (gerência de cenas, interface, entrada, save, câmera, colisão). Para um desenvolvedor solo trabalhando com agente, o Godot reduz o volume de código e, por gravar cenas em texto (`.tscn`, `.tres`), continua legível para o agente [PRÁTICA].
 - **Bônus do renderizador Compatibility:** é o mesmo que o Godot usa na **exportação web**. Logo, uma versão de navegador fica possível sem retrabalho, útil para demonstração ou estudo rápido [PRÁTICA; VERIFICAR limitações da exportação web do 4.7].
 
-O protótipo em three.js tem dois papéis: é a ferramenta de estudo da Trilha 1 (§1.3), desenvolvida em `prototipo/`, e é **fonte de conteúdo** para o Godot (textos da norma em `REF`, tabelas, questões, sequências), não código a ser portado.
+O protótipo em three.js tem dois papéis: é a ferramenta de estudo da Trilha 1 (§1.3, congelada) e é **fonte de conteúdo** para o Godot (textos da norma em `REF`, tabelas, questões, sequências), não código a ser portado.
 
 ### 3.2 GPU integrada: como garantir desempenho
 
 **Mecanismo:** GPU integrada não tem VRAM própria. Ela divide a RAM do sistema e tem banda de memória e poder de preenchimento (*fill rate*) muito menores que uma placa dedicada. O que derruba o desempenho nesse caso é, em ordem: (1) texturas grandes (memória e banda), (2) sombras em tempo real (cada luz com sombra renderiza a cena de novo), (3) pós-processamento em tela cheia (cada efeito relê o quadro inteiro), (4) número de *draw calls* (custo de CPU e de driver). Contagem de polígonos é o problema menos grave para cenas de centenas de objetos low-poly.
 
-**Medição real (guia, passo 17)** [FONTE: teste do usuário]: no computador de teste, o Godot usa a Radeon R5 via **ANGLE sobre Direct3D 11** (o driver AMD de 2020 tem OpenGL fraco). Cena trivial: ~496 FPS sem sombra e ~75 FPS com sombra direcional (V-Sync desligado). Decisão derivada no guia: **sem sombras em tempo real e sem texturas**.
+**Medição real (roteiro, passo 17)** [FONTE: teste do usuário]: no computador de teste, o Godot usa a Radeon R5 via **ANGLE sobre Direct3D 11** (o driver AMD de 2020 tem OpenGL fraco). Cena trivial: ~496 FPS sem sombra e ~75 FPS com sombra direcional (V-Sync desligado). Decisão derivada: **sem sombras em tempo real e sem texturas**.
 
 Configuração padrão do projeto:
 1. Renderizador `gl_compatibility`.
 2. **Sem texturas de imagem.** Os materiais usam **cor chapada** ou uma **paleta única** (uma imagem 256 × 256 com faixas de cor, compartilhada por todos os modelos, no estilo Kenney). Placas de sinalização e etiquetas usam `Label3D` sobre placa de cor chapada.
-3. Uma luz direcional + luz ambiente. **Sem sombras em tempo real** em nenhum perfil (medição do passo 17 do guia).
+3. Uma luz direcional + luz ambiente. **Sem sombras em tempo real** em nenhum perfil (medição do passo 17).
 4. Sem SSAO, SSR, glow, bloom, volumetria ou partículas em massa. O raio-x do debrief usa linhas e poucas partículas instanciadas.
 5. Antialiasing: FXAA ou nenhum. Escala de resolução 3D ajustável (75–100 %).
 6. Texto 3D com `Label3D` (não com texturas de texto).
@@ -173,13 +137,13 @@ Esses limites entram no CI como teste de regressão sempre que possível (contag
 
 ## 4. Arquitetura em duas partes
 
-As subpastas de `engine/` e `packs/nr10/` são criadas junto com o projeto Godot (passo 65). `prototipo/` fica na raiz porque é código ativo (Trilha 1), não referência.
+As subpastas de `engine/` e `packs/nr10/` são criadas junto com o projeto Godot (passo 65). `prototipo/` fica na raiz porque é código (Trilha 1, congelada), não referência.
 
 ```
 repo/
   docs/                    ← todos os .md de planejamento (versionados)
     referencias/           ← PDF da Portaria MTE 737/2026 (fonte de verdade), relatórios de pesquisa
-  prototipo/               ← simulador three.js ativo: Trilha 1, estudo para a prova
+  prototipo/               ← simulador three.js de estudo (Trilha 1, congelada)
     dist/                  ← HTML offline gerado pelo build (versionado para baixar de qualquer lugar)
   art/                     ← pipeline de arte operado pelo agente
     blender/               ← scripts .py que geram cada modelo
@@ -201,9 +165,9 @@ repo/
       campaign/  missões roteirizadas
       templates/ (fase 2) modelos de missão para o Modo Livre
       tests/     testes do pacote
-  tools/                   ← validação de esquema, auditoria de cobertura, exportação
+  tools/                   ← conferência no PDF, registro de validação, validação de esquema, exportação
   .github/                 ← workflows de CI, modelos de issue e de pull request
-  CLAUDE.md                ← instruções permanentes para o agente de código (passos 35–36)
+  CLAUDE.md                ← regras permanentes do agente de código
 ```
 
 - O motor só conhece **fatos, verificações, procedimentos, consequências e fontes de energia**. Tudo o que é normativo vem do pacote.
@@ -219,22 +183,17 @@ Todos ficam em `docs/` no repositório. Formato padrão de cada um (modelo a cri
 
 ### 5.0 Documentos que já existem
 
-| Arquivo | Papel | Situação |
-|---|---|---|
-| `CLAUDE.md` (raiz) | Regras permanentes do agente | Vigente |
-| `00_INDICE_E_DECISOES_INFRAESTRUTURA.md` | Este arquivo: entrada, requisitos, decisões de infraestrutura | Vigente |
-| `01_PASSO_A_PASSO_INICIO_CLAUDE_CODE.md` | Guia operacional: passos e quem opera cada um | Vigente |
-| `STATUS_SIMULADOR_NR10.md` | Estado do projeto, inventário do protótipo, lacunas de cobertura | Vigente |
-| `PROXIMA_SESSAO.md` | Regra de autonomia, backlog em ordem e como abrir a próxima sessão | Vigente |
-| `PLANO_V3_SIMULADOR_NR10.md` | Base de conteúdo e didática para os documentos 01, 11, 14 e 15 | Base (absorvido por eles e retirado no passo 64) |
-| `ARQUITETURA_SOFTWARE_SIMULADOR_NR10.md` | Base para os documentos 02, 05 e 16 (exemplos em JS, a reescrever em GDScript) | Base (absorvido por eles e retirado no passo 64) |
-| `DECISOES.md` | Decisões vigentes, com motivo | Vigente |
-| `PENDENCIAS_DE_VERIFICACAO.md` | Fatos já conferidos no PDF e pendências abertas | Vigente |
-| `CONFERENCIA_ITENS.md` | Saída do script de conferência contra o PDF (gerada) | Gerado |
-
-CI: `.github/workflows/ci.yml`. Ainda faltam, da Etapa E do guia: `CONVENCOES.md` (38), `GLOSSARIO_DO_PROJETO.md` (39), `_MODELO_DOCUMENTO.md` (43) e modelos de issue e de PR (40–41).
-
-> **Prefixo `01`** [INFERÊNCIA]: o guia (`01_PASSO_A_PASSO_…`) e o futuro `01_VISAO_E_PEDAGOGIA` mantêm os nomes; os documentos sempre se citam pelo nome completo, nunca só pelo número. Renomear o guia agora quebraria referências sem ganho.
+| Arquivo | Papel |
+|---|---|
+| `CLAUDE.md` (raiz) | Regras permanentes, papéis e ambientes de trabalho |
+| `00_INDICE_E_DECISOES_INFRAESTRUTURA.md` | Este arquivo: requisitos, decisões de infraestrutura, mapa dos documentos, campanha, roadmap |
+| `ROTEIRO.md` | Passos do projeto, ordem de execução e regra de autonomia |
+| `STATUS_SIMULADOR_NR10.md` | Estado atual |
+| `DECISOES.md` | Índice das decisões vigentes |
+| `PLANO_V3_SIMULADOR_NR10.md` | Base de conteúdo e didática para os documentos 01, 11, 14 e 15 (absorvido e retirado no passo 64) |
+| `ARQUITETURA_SOFTWARE_SIMULADOR_NR10.md` | Base para os documentos 02, 05 e 16, com exemplos em JS (absorvido e retirado no passo 64) |
+| `CONFERENCIA_ITENS.md` | Gerado: itens citados × PDF |
+| `VALIDACAO_DO_CONTEUDO.md` | Gerado: tudo o que o software pergunta e responde, para validação do usuário |
 
 ### 5.1 Projeto
 | # | Arquivo | Conteúdo |
@@ -299,9 +258,7 @@ CI: `.github/workflows/ci.yml`. Ainda faltam, da Etapa E do guia: `CONVENCOES.md
 | 20 | 10 Modo Livre | Fase 2 |
 | 21 | 19 Novo pacote | Fase 3 |
 
-O fluxo de trabalho com o agente não tem documento próprio: está no `CLAUDE.md`, no §8 deste arquivo e no `docs/PROXIMA_SESSAO.md`.
-
-Essa ordem é a mesma dos passos 47–63 do guia; o passo 64 faz a revisão cruzada. Regra: cada documento só é considerado pronto quando suas **perguntas abertas** foram respondidas por você ou registradas como pendência explícita.
+O fluxo de trabalho com o agente não tem documento próprio: está no `CLAUDE.md` e no `ROTEIRO`. Regra: cada documento só é considerado pronto quando suas **perguntas abertas** foram respondidas por você ou registradas como pendência explícita.
 
 ---
 
@@ -348,40 +305,32 @@ Cada missão segue as fases F1–F8 (briefing → planejamento → almoxarifado 
 
 ---
 
-## 8. Fluxo de trabalho
+### 7.4 Outros fatos conferidos no PDF [FONTE]
 
-### 8.1 Agente de código: Claude Code, com permissão total
-- Todo o projeto é conduzido no **Claude Code**. Não há outro agente nem outra ferramenta de IA no fluxo.
-- Ambiente principal: a **sessão na nuvem** com o repositório anexado; o computador do usuário é usado a partir dela (§1.2).
-- As regras permanentes ficam no `CLAUDE.md` (raiz), carregado em toda sessão.
-- A um pedido de trabalho ("continue"), o agente segue o backlog de `docs/PROXIMA_SESSAO.md` e só para nos pontos de parada definidos lá.
-
-### 8.2 Ciclo de uma iteração
-1. **Planejar:** o agente pega o próximo item do backlog (`docs/PROXIMA_SESSAO.md` §3).
-2. **Implementar:** o agente cria uma *branch*, implementa, roda os testes (sintaxe, unidade, esquema, conferência no PDF; gdUnit4 no Godot) e abre um *pull request* com a descrição do que mudou.
-3. **Integrar:** com o CI verde, o próprio agente faz o *merge* (squash) na `main`. Sem CI verde, não há *merge*.
-4. **Entregar:** na Trilha 2, o agente publica a Release com o `.exe` e avisa na conversa.
-5. **Testar no notebook (agente):** o agente copia o `.exe` para a pasta de testes do computador do usuário, abre pelo controle da tela, lê o painel F3 (FPS, *draw calls*, memória) e confere a cena.
-6. **Usar (usuário, U2):** você usa e conta na conversa o que estranhou.
-7. **Corrigir:** o agente transforma cada relato numa issue, corrige e volta ao passo 2.
-8. **Liberar:** ao fechar um marco do §9, o agente publica uma Release numerada (ex.: `v0.3.0`) e atualiza `docs/DECISOES.md` e o roadmap.
-
-O que **só você** verifica: clareza didática, se o conteúdo bate com o que a banca cobra, sensação de uso. O que o **agente** verifica: sintaxe, testes, validade dos dados, conferência dos itens contra o PDF, orçamento de polígonos e texturas, desempenho real no notebook.
-
-GitHub Actions: o repositório é **público** (guia, passo 3), e repositórios públicos têm minutos de Actions sem cota no plano gratuito [VERIFICAR valores atuais].
-
-### 8.3 Onde e como os `.md` são escritos
-- **Onde:** na pasta `docs/` do repositório. O remoto no GitHub é a fonte da verdade; a sessão na nuvem trabalha sobre um clone dele.
-- **Como:** uma sessão por documento, na ordem da §5.4 (passos 47–63 do guia). O agente escreve, decide o que não é essencial (registrando como [INFERÊNCIA]) e só pergunta o que for essencial (R8). Documentos são **vivos** e descrevem só o estado atual: mudanças entram por *pull request*, com o motivo em `docs/DECISOES.md`; o histórico fica no Git, não no texto.
+| Assunto | O que o PDF diz |
+|---|---|
+| Remissões a outras normas | NR-1 (10.1.1, 10.3.1, 10.5.3, 10.9.1, 10.15.1, 10.15.6.1), NR-3 (10.16.1), NR-6 (10.11.1, 10.11.2, 10.11.2.3, Anexo IV), NR-7 (10.7.5), NR-17 (10.4.10), NR-23 (10.6.6), NR-26 (10.7.7); ABNT NBR 5410, NBR 14039, NBR IEC 62271-200 e "ABNT - Atmosferas explosivas" (conteúdos do Anexo III); ABNT NBR IEC 61482-2 (definições do Anexo IV); ASTM F1506, F1959, F2178, D120 e F696 (notas do Quadro III do Anexo IV). Não há remissão à NR-12, NR-18, NR-33 nem NR-35. |
+| Dispositivo DR | "DDR de alta sensibilidade" (10.6.4), sem valor de corrente. Os 30 mA são da NBR 5410 e ficam fora do conteúdo (§1.4). Na alínea d (habitação) o 10.6.4 fala em "pontos de utilização"; na alínea e (não residencial), em "pontos de tomada", e ela só vale para instalações existentes um ano após a vigência (Art. 3º). |
+| Luvas isolantes | Ensaio dielétrico de luvas e mangas (10.14.4 b), no menor intervalo entre regulamento, fabricante e PLH (10.14.4.1). Classes e cores de etiqueta ficam fora do conteúdo. |
+| Treinamentos (Quadro I, 10.9.2) | Básico 40 h; SEP 40 h; MT/AT-SEC 16 h; Área classificada 16 h; Específico e pontual 8 h; Compartilhamento 40 h. Periódico bienal com 16 h; eventual (afastamento > 90 dias, modificações, mudança de procedimento, acidente grave). |
+| Capacitação (10.8.4) | SEP 40 + 16 + 40 h; SEC 40 + 16 + 24 h; compartilhamento 24 h. O texto publicado tem alíneas duplicadas (a, b, c, a, d). |
+| Anexo IV | "Painéis" (panelboards) e "quadros de distribuição de 600 V" (switchboards) são linhas diferentes (Cat. 2 × Cat. 4). O limitador de corrente permite reduzir uma categoria, nunca abaixo da 1. |
+| Extintor e incêndio | Não há item sobre extintor; o 10.6.6 exige proteção coletiva contra explosão e incêndio e remete à NR-23. |
+| Trabalho em altura | Não há item nem remissão. |
+| Direito de recusa e suspensão | "Direito de recusa" é só conteúdo do Treinamento Básico (Anexo III, item 9, alínea k). Não há item de suspensão; o mais próximo é o 10.7.4.2 (anormalidade na avaliação prévia: não iniciar e comunicar). |
+| Emergência | Sem capítulo próprio: 10.7.3 h, 10.15.6.1 e conteúdos de primeiros socorros e resgate do Anexo III. |
+| Área classificada | Equipamentos certificados conforme o estudo de classificação de áreas (10.6.6.1.1); serviços só com PT, análise de risco e procedimento (10.6.6.1.2). |
+| Termos ausentes do PDF | "Ordem de serviço" (no simulador, só a unidade de jogo [PRÁTICA]) e cores de posição de manobra verde "D" / vermelho "L" (só cenário). |
+| Vigência | Um ano após a publicação (Art. 5º; DOU de 01/06/2026). |
 
 ---
 
-## 9. Roadmap resumido (detalhe no documento 21)
+## 8. Roadmap resumido (detalhe no documento 21)
 
 | Fase | Marco | Entrega |
 |---|---|---|
 | T1 | Simulador de estudo (pronto; congelado) | História, fases I–IV, Missão e Treino (simulado, revisão espaçada, gerador, cartões, painel) |
-| 0 | Repositório | Estrutura, CI mínimo, `CLAUDE.md`, convenções, glossário do projeto, modelo de documento, modelos de issue e de PR (Etapa E do guia) |
+| 0 | Repositório | Estrutura, CI mínimo, `CLAUDE.md`, convenções, glossário do projeto, modelo de documento, modelos de issue e de PR (Etapa E do roteiro) |
 | 0 | Planejamento | Documentos 01, 14, 04, 05, 11, 15, 07, 09, 08, 13, 02, 03, 06, 18, 16, 12, 17, 21 e revisão cruzada (Etapa F) |
 | 0 | Ambiente de execução | Godot *headless* e exportação na nuvem e no CI, Blender (`bpy`), gdUnit4, primeiro teste no notebook pelo controle da tela (Etapa D) |
 | 1 | Fatia vertical | Motor mínimo + Capítulo 0 (residência) jogável do início ao debrief, em Godot, no perfil Leve |
@@ -393,15 +342,3 @@ GitHub Actions: o repositório é **público** (guia, passo 3), e repositórios 
 **Ordem da fase 0:** repositório → planejamento → ambiente de execução. As ferramentas só são instaladas e configuradas depois do planejamento, para que a configuração siga os documentos e não o contrário (decisão do usuário).
 
 **Fatia vertical primeiro:** antes de construir muitas missões, uma única missão completa atravessa todas as camadas (dados → regras → energia → interação → interface → debrief → save → testes → build). Isso expõe cedo os erros de arquitetura, quando ainda são baratos de corrigir.
-
----
-
-## 10. Pendências de verificação
-
-Fatos já conferidos no PDF e pendências abertas ficam num só lugar: `docs/PENDENCIAS_DE_VERIFICACAO.md`. Nada da lista aberta vira código como fato antes de ser confirmado.
-
----
-
-## 11. Como abrir a próxima sessão
-
-Ver `docs/PROXIMA_SESSAO.md` §5.

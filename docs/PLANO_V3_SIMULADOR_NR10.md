@@ -1,12 +1,8 @@
 # Simulador NR-10 — Plano: arquitetura revisada ("Ordem de Serviço jogável")
 
-> É o documento de **direção de conteúdo e didática** do projeto. Na arquitetura atual (`00_INDICE` §3–§4: Godot 4.7.2), ele é a base para os documentos 01, 11, 14 e 15.
-> **Do `STATUS_SIMULADOR_NR10.md` valem:** §1 (contexto), §4 (build e API do protótipo), §6 (bases de dados), §7 (auditoria de fidelidade), §9 (armadilhas técnicas) e §10 (testes).
-> Todos os documentos ficam em `docs/` do repositório; o PDF da Portaria MTE 737/2026 fica em `docs/referencias/`.
+> Documento-base de **conteúdo e didática**, a ser absorvido pelos documentos 01, 11, 14 e 15 (passo 64 do `ROTEIRO`). Estrutura da campanha: `00_INDICE` §6; protótipo: `prototipo/README.md`.
 >
-> **Escopo normativo: edição única.** Só a NR-10 na redação da **Portaria MTE 737/2026** (`00_INDICE` §1.1). Todo número de item deste plano é dessa redação.
->
-> **Conferência de itens:** os números citados são conferidos no PDF da Portaria (`docs/referencias/`) com `tools/conferir_itens_portaria.py` (relatório em `docs/CONFERENCIA_ITENS.md`). Fatos já conferidos e pendências abertas: `docs/PENDENCIAS_DE_VERIFICACAO.md`.
+> **Escopo normativo:** só a NR-10 da Portaria MTE 737/2026; números de item conferidos no PDF pelo CI.
 >
 > **Escopo do conteúdo (R9, `00_INDICE` §1.4):** só a NR-10 é ensinada, cobrada e corrigida. Os elementos [PRÁTICA] deste plano valem só como **cenário** (aparência, realismo) e nunca viram *gate*, questão, consequência pontuada ou correção. Ao escrever os documentos 11, 14 e 15, cada *gate* precisa de um item da NR-10.
 >
@@ -24,7 +20,7 @@
 6. A pontuação é por **severidade** (fatal, grave, leve). Erro fatal encerra a missão com replay. Não há badges nem ranking.
 7. **Edição única** (D7): não há alternância de redação; o conteúdo é o da Portaria MTE 737/2026.
 8. A ordem das missões segue o peso de prova e o risco elétrico dos cenários (D8).
-9. O conteúdo dos módulos do protótipo forma a **Biblioteca** (referência, Mapa da norma, treino de fatos) e alimentam o debrief e a revisão espaçada.
+9. Uma **Biblioteca** (referência, Mapa da norma, treino de fatos, a partir do conteúdo do protótipo) alimenta o debrief e a revisão espaçada.
 
 ---
 
@@ -115,7 +111,7 @@ Prioridade: **A** = primeiro; **B** = depois.
 | M6 | Posto de combustível (área classificada) | Trocar uma luminária na zona 1. | Ferramenta comum; equipamento sem certificação para área classificada; ausência de PT. | Proteção coletiva em área classificada (10.6.6.1); equipamento certificado conforme o estudo de classificação de áreas (10.6.6.1.1); PT, análise de risco e procedimento (10.6.6.1.2); documentação de área classificada (10.15.5); projeto (10.4.11); treinamento Complementar de Área Classificada, 16 h (10.9.7, Quadro I) | B |
 | M9 | "Obra do zero" (projeto) | Projetar a instalação de um restaurante. | Decisões de projeto têm efeito depois: sem ponto de aterramento temporário previsto, a M3 fica mais difícil; sem dispositivo bloqueável, não há onde pôr o cadeado. | Projeto (10.4): dispositivo que permita impedimento de reenergização (10.4.2), espaço seguro (10.4.3), previsão de aterramento temporário (10.4.6), memorial (10.4.9), DDR previsto em projeto (10.6.4); reusa o `projeto` (m2) | B |
 
-**Ordem recomendada de implementação** (no protótipo): motor → **M3** (reaproveita a cena e é a de maior peso de prova) → **M0** (tutorial barato) → **M2** → M1 → M4 → M7 → M8 → M5 → M6 → M9. Na arquitetura Godot, a fatia vertical começa pelo Capítulo 0 (residência), conforme o `00_INDICE` §9.
+As missões são candidatas dentro dos capítulos da `00_INDICE` §6; a fatia vertical começa pelo Capítulo 0 (M0, residência).
 
 ---
 
@@ -193,7 +189,7 @@ Prioridade: **A** = primeiro; **B** = depois.
 ## 7. Catálogo de itens por ambiente (para modelagem 3D)
 
 Formato: item — pistas visuais — verbos — refs (Portaria MTE 737/2026, conferidas contra a `REF`).
-Os itens marcados com 🔤 são termos do glossário e devem abrir a **definição literal** do glossário ao serem inspecionados. Isso fecha a lacuna dos 41 termos ausentes (STATUS §7) de forma natural: o glossário vira objeto.
+Os itens marcados com 🔤 são termos do glossário e devem abrir a **definição literal** do glossário ao serem inspecionados. Isso fecha a lacuna dos 41 termos ausentes da base `REF` (`prototipo/README.md` §3) de forma natural: o glossário vira objeto.
 
 ### 7.1 Itens comuns a todos os ambientes
 | Item | Pistas visuais | Verbos | Refs |
@@ -273,76 +269,7 @@ A sessão do documento 14 deve expandir esta matriz para **todos os 133 itens + 
 
 ---
 
-## 10. Campanha sobre o protótipo three.js (plano não executado)
-
-> Esta seção descreve como a campanha seria montada **sobre o protótipo three.js**. O protótipo hoje é a ferramenta de estudo da Trilha 1 (fases, História, Missão e Treino; ver `STATUS`); a campanha de verdade será feita em **Godot 4.7.2** (`00_INDICE` §3–§4, documento 02). Esta seção fica como especificação de conteúdo e de dados.
-
-### 10.1 O que se mantém (STATUS §4)
-- three.js r128 UMD, `build.py` (online/offline), API do motor (`box/cyl/...`, `hot()`, `fb()`, `quiz/classify/pickList`, `Store`, `miss()`).
-- Os módulos existentes, acessados pela aba **Biblioteca**.
-
-### 10.2 Arquivos novos
-| Arquivo | Responsabilidade |
-|---|---|
-| `elec.js` | Grafo, solver BFS, fontes, consequências físicas (§5) |
-| `rules.js` | `RULES` (Portaria 737/2026): sequências, faixas, documentos, treinamentos, GIR, severidades |
-| `items.js` | Catálogo `ITEMS`: construtor 3D, verbos, refs, termo do glossário |
-| `scenes/*.js` | Ambientes: `casa`, `canteiro`, `rede`, `cabine` (refatora a cena do m6), `ccm`, `fv`, `posto` |
-| `mission.js` | Executor: fases F1–F8, gates, eventos, pontuação, **log de ações** |
-| `hud.js` | Inventário, prancheta (procedimento/PT), rádio COD, sinóptico, tela do detector, modo aprendiz |
-| `debrief.js` | Linha do tempo, replay com raio-x, itens acionados, 3 perguntas de reflexão |
-| `srs.js` | Revisão espaçada (Leitner, 5 caixas) sobre as chaves de `REF`, alimentada por `miss[]` e pelo log |
-| `missions/m0.js … m9.js` | Missões declarativas |
-
-Nova ordem de concatenação: `refs.js, refs2.js, engine.js, elec.js, rules.js, items.js, scenes/*.js, hud.js, mission.js, debrief.js, srs.js, mapa.js, m1…m8.js, missao.js, missions/*.js, main.js`.
-
-### 10.3 Esquemas de dados
-```js
-// Item do catálogo
-ITEMS.detectorMT = { id:'detectorMT', nome:'Detector de tensão por aproximação (MT)',
-  build: () => grp(...), slot:'maleta',           // onde fica no inventário
-  state: { autotestado:false, t0:null, faixa:'MT', metodo:'aprox' },
-  verbs: { autotestar:{alvo:null}, medir:{alvo:'fase', requer:['bastao']} },
-  refs: ['10.13.1', '10.12.6.1'], glos:null };    // um pacote: Portaria 737/2026
-
-// Regra (pacote único)
-RULES.seqDesenerg = ['seccionar','constatar','bloquear','constatar2','aterrar','protegerZC_arco','sinalizarImpedimento','delimitarArea'];  // 10.13.1 a–g (d = constatar2 + aterrar)
-RULES.doc = { rotina:'procedimento', naoRotina:'PT', ref:['10.7.1','10.7.2'] };   // conferido contra a REF
-RULES.consequencias = [{ quando:'aterrar && no.V>0', sev:'fatal', mec:'curto franco / arco', refs:[...] }, ...];
-
-// Missão
-MISSIONS.m3 = { id:'m3', titulo:'OS — manutenção do TR-01', cena:'cabine', tensao:13.8,
-  grafo: {...},                                     // topologia inicial para elec.js
-  fases: { F1:{...}, F2:{ equipe:[fichas], apr:[cartas], doc:'auto' }, F3:{ kitMin:[...] },
-           F4:{ riscos:['portaAberta','visitante'] }, F6:'auto', F8:'auto' },
-  eventos: [{ em:'F7', id:'geradorCliente', efeito:g => g.fonte('GER').on(), respostas:{ suspender:'ok', continuar:'fatal' }, refs:[...] }],
-  debrief: { reflexao:[...3 perguntas] } };
-
-// Log de ações (base do replay, do debrief e da SRS)
-{ t, fase, verbo, item, alvo, ok, sev, refs:[...], estadoGrafo:hash }
-```
-
-### 10.4 Interação
-- Raycast com contorno ao passar o mouse.
-- Item selecionado + alvo → **menu radial** só com os verbos válidos para o par. Verbos inválidos também aparecem, desabilitados com uma dica, porque escolher errado faz parte do aprendizado.
-- Toque no celular: toque = selecionar; segundo toque = menu.
-- Câmera orbital (já existe) + atalhos "ir até" por ponto de interesse.
-
-### 10.5 Persistência e teste
-- `localStorage['nr10sim.v1']` (a mesma chave do protótipo, com `done`, `miss`, `pr`).
-- Grava também: missões concluídas, caixas da SRS e o último log.
-- Desempenho: r128, `InstancedMesh` para itens repetidos (isoladores, cones, painéis), low-poly, `dispose()` ao trocar de cena, meta de ≤ 150 draw calls por cena.
-- API de teste `window.__sim`:
-  ```js
-  __sim.load('m3', seed);
-  __sim.act('bloquear', 'cadeado', '52-1');
-  __sim.state('barraTR01');
-  ```
-- Playwright: caminho ideal de cada missão + 1 erro fatal por missão + tema escuro + 390 px. Manter as armadilhas da §9 do STATUS (r128 sem `Texture.userData`, `[hidden]`, materiais novos por mesh, charset, timeout ≥ 9 min).
-
----
-
-## 11. Regras de didática e gamificação
+## 10. Regras de didática e gamificação
 
 1. **Severidade, não pontos:** fatal encerra com replay; grave obriga a corrigir; leve desconta. Única medalha: "OS cumprida sem desvio".
 2. **Toda escolha tem um "porquê"**, inclusive os distratores.
@@ -356,36 +283,3 @@ MISSIONS.m3 = { id:'m3', titulo:'OS — manutenção do TR-01', cena:'cabine', t
 6. **Biblioteca** (módulos existentes + Mapa) acessível a qualquer momento. Chips de item abrem a gaveta com o texto literal.
 7. **Modo prova** (estilo banca, cronometrado). Usa as mesmas `REF`. *(Já existe no protótipo: fase Treino › Simulado.)*
 8. **Não exibir HUD carregado:** a pesquisa citada (Makransky et al., 2019) indica que mais imersão pode trazer mais carga cognitiva e menos aprendizado. Interface enxuta durante a ação; o detalhe fica no debrief.
-
----
-
-## 12. Sprints da campanha sobre o protótipo (plano não executado)
-
-> Sprints do protótipo three.js. Na arquitetura Godot, a sequência de entrega é a do `00_INDICE` §9 e do documento 21.
-
-| Sprint | Entrega | Critério de aceite |
-|---|---|---|
-| S1 — Motor | `elec.js`, `rules.js` (Portaria 737/2026), `items.js` (itens comuns da §7.1), `mission.js`, `hud.js`, `debrief.js` mínimo | Testes unitários do solver: backfeed pelo trafo, carga residual, indução em trecho isolado não aterrado |
-| S2 — M3 jogável | Cena da cabine refatorada para o grafo; OS 0457 vira missão F1–F8 | Caminho ideal; 3 erros fatais distintos (aterrar energizado, reenergizar com aterramento, confiar no VPIS) produzem replay correto |
-| S3 — M0 + M2 | Casa e rede aérea | Religador e backfeed testados; detector sem autoteste gera leitura enganosa |
-| S4 — M1 + M4 | Canteiro e sala industrial com ergonomia | Zonas com extensão condutora; categoria de arco do Anexo IV; NR-17 exercitada no mundo |
-| S5 — M7 + M8 + SRS | Linha viva, fiscalização, revisão espaçada | Chuva suspende a M7; a SRS puxa da fila de erros |
-| S6 — M5, M6, M9 | FV, posto, projeto | Efeito de projeto da M9 aparece na M3 |
-| S7 — Fidelidade | Matriz completa (133 itens + 57 termos + anexos + artigos), textos literais, correções da §9 | Script de auditoria sem item "só citado" nos temas da §8 |
-
-**Realismo de prazo** [INFERÊNCIA]: S1 e S2 já cobrem o núcleo de maior peso (sequências, zonas, procedimento/PT, EPI). Se o tempo apertar antes de uma prova, a Biblioteca e a SRS são o estudo da reta final; a campanha continua depois (`00_INDICE` R7: uso permanente).
-
----
-
-## 13. Pendências de fidelidade em aberto
-
-Numeração da Portaria MTE 737/2026.
-
-- `10.2.4.1`: texto literal na base; falta exercitá-lo numa tarefa.
-- Itens nunca exercitados: 10.4.5, 10.4.11, 10.7.10, 10.8.3.1, 10.8.4.1, 10.8.4.1.1, 10.10.1, 10.12.2, 10.12.5, 10.12.7. Cada um deve ganhar uma linha na matriz da §8.
-- 41 termos do glossário fora da base: a maioria vira objeto (§7).
-- Anexo III literal; notas do Quadro III do Anexo IV.
-- Textos condensados a reconferir: 10.7.7, 10.8.4, 10.9.2, 10.15.4, AII, AIV, art5.
-- Arestas `k:'t'` do Mapa ainda são interpretação do simulador.
-- Textos da `REF` que o script de conferência aponta como não literais: 10.1.1 (cortado no fim), 10.8.4, 10.9.2, 10.15.4, 10.15.7 (`docs/CONFERENCIA_ITENS.md`, seção 4).
-

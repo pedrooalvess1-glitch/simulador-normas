@@ -1,14 +1,6 @@
 # Simulador NR-10: especificação de arquitetura de software
 
-> Complementa o `PLANO_V3_SIMULADOR_NR10.md`.
-> - O **plano** responde **o quê e por quê**: didática, missões, norma.
-> - Este documento responde **como o código se organiza**: camadas, contratos, máquinas de estado, fluxo de dados, testes e decisões de arquitetura (ADRs).
->
-> **Situação na arquitetura atual:** os contratos abaixo foram escritos para o protótipo three.js (código de exemplo em JS). Na arquitetura-alvo (Godot 4.7.2, `00_INDICE` §3–§4), eles são a base dos documentos 02, 05 e 16 e serão reescritos em GDScript (eventos viram *signals*).
->
-> **Escopo normativo: edição única.** Um pacote de regras, com a NR-10 na redação da **Portaria MTE 737/2026** (`00_INDICE` §1.1; ADR 8).
->
-> Ordem de leitura: PLANO → este arquivo → STATUS (§4 API, §9 armadilhas) → código.
+> Documento-base de **organização do código** (camadas, contratos, máquinas de estado, testes, decisões de arquitetura), a ser absorvido pelos documentos 02, 05 e 16 (passo 64 do `ROTEIRO`). O conteúdo e a didática estão no `PLANO_V3`. Os exemplos estão em JS e serão reescritos em GDScript (eventos viram *signals*).
 
 ---
 
@@ -19,8 +11,7 @@
 3. **Um único caminho para mudar o mundo:** `act(verbo, item, alvo)`. A interface, os testes e o replay usam a mesma função. Por isso o jogo é testável e reproduzível.
 4. **Separação em camadas:** a camada de cima pode chamar a de baixo; a de baixo **nunca** chama a de cima. Quando a de baixo precisa avisar algo, usa eventos.
 5. **Determinismo:** os eventos aleatórios usam um PRNG com semente gravada no log, para que o replay seja idêntico à partida.
-6. **Sem dependências novas** (protótipo): three.js r128 UMD, JS puro (ES2017), `build.py` concatenando. Nada de bundler nem ESM, porque o Artifact e o HTML offline precisam de um arquivo único.
-7. **Um pacote = o texto de uma norma, numa redação.** Não existe seleção de edição nem regra de precedência entre edições. Outra norma (NR-12, NR-35…) é outro pacote. A versão do pacote (número de release dos dados) continua existindo e entra na identidade da missão (`00_INDICE` §2, princípio 5).
+6. **Um pacote = o texto de uma norma, numa redação.** Não existe seleção de edição nem regra de precedência entre edições. Outra norma é outro pacote. A versão do pacote (número de release dos dados) continua existindo e entra na identidade da missão (`00_INDICE` §2, princípio 5).
 
 ---
 
@@ -207,7 +198,6 @@ SCENES[id] = { build(world, G)->{ alvos:Map(id→Object3D), pois:[{id,pos,cam}] 
 ```
 - A cena **não** decide nada. Ela registra os alvos e reage a `xray` e a `aprendiz`.
 - `xray`: partículas ao longo dos condutores (`InstancedMesh`), cor pelo nível de tensão, sentido a partir da fonte.
-- Reuso: `cabine` sai da cena do `m6`; `ccm` reaproveita a sala de painéis do `m4`.
 
 ---
 
@@ -220,34 +210,11 @@ localStorage['nr10sim.v1'] = { aprendiz:0.6,
   biblioteca:{ done, pr },
   ultimoLog:[...] };                    // limitar a ~500 ações
 ```
-Regras:
-- Todas as leituras e escritas ficam em `try/catch` (o Artifact pode bloquear o storage).
-- Sem storage, o app funciona do mesmo jeito, só sem guardar o progresso.
+Sem armazenamento disponível, o app funciona do mesmo jeito, só sem guardar o progresso.
 
 ---
 
-## 9. Estrutura de pastas e build
-
-```
-src/
-  base/   bus.js store.js rng.js
-  data/   refs.js refs2.js rules.js items.js missions/m0.js … m9.js
-  core/   engine.js elec.js act.js
-  scenes/ casa.js canteiro.js rede.js cabine.js ccm.js fv.js posto.js
-  game/   mission.js srs.js score.js
-  ui/     hud.js debrief.js
-  lib/    mapa.js m1…m8.js missao.js      (Biblioteca)
-  main.js style.css
-tools/  build.py  audit_cobertura.py  teste_playwright.py  test_elec.js (node)
-vendor/ three.min.js (r128)
-```
-- `build.py` lê uma lista `ORDER` explícita (L0 → L5) e concatena.
-- *(Protótipo atual)* `qbank.js` (depois de `engine.js`): banco de questões `QB`, revisão espaçada `SRS` e estatísticas `STATS`; os módulos registram suas questões com `QB.add`/`QB.cls`. `treino.js` (antes de `main.js`): fase "Treino" com simulado, revisão, gerador e cartões. Estado por aluno em `Store.data` (`srs`, `st`, `sims`, `dias`, `prova`).
-- Adicionar `node tools/test_elec.js` ao build. Ele roda sem DOM, porque L0 e L2 não tocam no DOM.
-
----
-
-## 10. Estratégia de testes
+## 9. Estratégia de testes
 
 | Nível | Ferramenta | O que cobre |
 |---|---|---|
@@ -263,34 +230,28 @@ window.__sim = { load(missao, seed), act, state(no), phase(), log(), solve() };
 
 ---
 
-## 11. Registro de decisões de arquitetura (ADRs)
+## 10. Registro de decisões de arquitetura (ADRs)
 
 | ADR | Decisão | Alternativa descartada | Motivo |
 |---|---|---|---|
-| 1 | Manter three.js r128 UMD + concatenação (protótipo) | Migrar para ESM/Vite | O Artifact e o offline exigem um arquivo único; a migração custa caro e não traz ganho didático |
 | 2 | `act()` como único ponto de mutação | Handlers espalhados nas cenas | Testabilidade, replay e log da SRS de graça |
 | 3 | Solver BFS por chaves abertas/fechadas, sem fluxo de potência | Fluxo de carga/impedâncias | O didático é "há caminho até uma fonte?". Correntes de curto e de arco ficam tabeladas (Anexo IV), não calculadas |
 | 4 | Regras como dados + predicados pequenos | Lógica de norma dentro das missões | Separa norma de cena; outra norma entra como outro pacote sem reescrever missões nem motor (`00_INDICE` R6). |
 | 5 | Barramento de eventos simples | Framework reativo | Zero dependências; poucos tipos de evento |
 | 6 | PRNG com semente no log | `Math.random` | Replay determinístico e testes estáveis |
-| 7 | Biblioteca mantida intacta e isolada em `lib/` | Reescrever os módulos | A campanha reusa `quiz`/`classify` dentro do debrief |
-| 8 | **Edição única:** um pacote com a NR-10 da Portaria MTE 737/2026 | Dois pacotes (2004 e 2026) com seletor global, precedência e testes por redação | (1) Duas edições multiplicam a complexidade do motor (versionamento de regras, precedência, testes duplicados). (2) Os próximos concursos cobram a redação atualizada. |
 
 ---
 
-## 12. Riscos e mitigação
+## 11. Riscos e mitigação
 
 | Risco | Mitigação |
 |---|---|
-| HTML offline grande (hoje ~975 KB) | Geometria procedural, sem modelos ou texturas externas; meta < 1,5 MB |
-| Desempenho no celular | `InstancedMesh`, ≤ 150 draw calls, sombras desligadas no celular, `dispose` ao trocar de cena |
 | Regras com número de item errado | `validateRules` + números conferidos no PDF da Portaria 737/2026 antes de entrar (`tools/conferir_itens_portaria.py`, também no CI) |
-| Escopo grande antes da prova | Sprints S1–S2 do plano primeiro; a Biblioteca continua utilizável o tempo todo |
 | Raio-x criar falsa confiança | Raio-x **só** no debrief e no modo aprendiz (com fading); nunca durante o modo jogo |
 
 ---
 
-## 13. Guia para criar uma missão nova (checklist do autor)
+## 12. Guia para criar uma missão nova (checklist do autor)
 
 1. Escolha o ambiente (`scenes/`) e desenhe o **grafo** (fontes, chaves, trafo, pontos de terra).
 2. Liste os **alvos** clicáveis e associe cada um a um nó ou aresta.
@@ -300,12 +261,3 @@ window.__sim = { load(missao, seed), act, state(no), phase(), log(), solve() };
 6. Escreva 3 perguntas de reflexão para o debrief.
 7. Adicione ao Playwright: caminho ideal e 1 fatal.
 8. Atualize a matriz de cobertura (PLANO §8).
-
----
-
-## 14. Definição de pronto (para cada sprint)
-
-- [ ] `node --check bundle.js` e `node tools/test_elec.js` sem erro.
-- [ ] Playwright verde, em claro/escuro e em 390 px.
-- [ ] Nenhum texto rotulado como norma sem conferência literal no PDF da Portaria 737/2026.
-- [ ] `prototipo/dist/` igual ao build e `STATUS` atualizado.
