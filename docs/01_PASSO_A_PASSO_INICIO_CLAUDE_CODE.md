@@ -104,7 +104,7 @@ Roteiro de cada documento (o agente segue sozinho):
 - [ ] **31.** 🤖 Blender na nuvem: instalar o módulo `bpy`, gerar e exportar um cubo `.glb`, renderizar a prévia; fixar a versão (o PyPI oferece a série 5.x para o Python da sessão; o notebook tem a 4.5.10 LTS) e registrar no `CLAUDE.md` [VERIFICAR].
 - [ ] **32.** 🤖 gdUnit4: definir como entra no projeto (o *proxy* da nuvem bloqueia páginas de repositórios de terceiros no GitHub; o CI não tem esse bloqueio) [VERIFICAR].
 - [ ] **33.** 🤖 Teste no notebook: exportar um `.exe` trivial, copiar para `C:\projetos\simulador-normas-testes`, abrir pelo controle da tela, ler o FPS e apagar o executável.
-- [ ] **34.** 🤖 GitHub pelo navegador do usuário: proteger a `main` exigindo os *checks* do CI (sem exigir revisão humana); ativar "apagar *branch* depois do *merge*"; apagar as *branches* já mescladas (`rev3`, `rev4-docs-ci`, `rev5-handoff`, `docs/estado-atual`).
+- [ ] **34.** 🤖 GitHub pelo navegador do usuário: proteger a `main` exigindo os *checks* do CI (sem exigir revisão humana); ativar "apagar *branch* depois do *merge*"; apagar todas as *branches* já mescladas (todas, exceto a `main`).
 
 ## Etapa G — Esqueleto Godot e fatia vertical (passos 65–76)
 
