@@ -70,4 +70,4 @@ Versionamento semântico `MAIOR.MENOR.CORREÇÃO`, separado para o motor e para 
 2. O pacote declara a faixa de versões do motor com que funciona; o motor recusa pacote fora da faixa.
 3. A versão do pacote é número de release dos dados, nunca edição da norma (`00_INDICE` §1.1).
 4. Toda missão gravada leva `(versão do pacote, versão do motor, semente)` (`00_INDICE` §2, princípio 5).
-5. Versões de ferramentas (Godot, Blender, gdUnit4) ficam fixadas no `CLAUDE.md` §5 e no CI.
+5. Versões de ferramentas (Godot, Blender, gdUnit4) ficam fixadas num só lugar, `tools/ambiente/versoes.env`, lido pelos instaladores e pelo CI.

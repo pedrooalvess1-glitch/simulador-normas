@@ -5,7 +5,7 @@ labels: [desempenho]
 body:
   - type: markdown
     attributes:
-      value: "Orçamento do perfil Leve: ≥ 30 FPS, ≤ 150 mil triângulos, ≤ 200 draw calls, carga ≤ 5 s (00_INDICE §3.3)."
+      value: "O limite de cada métrica (FPS, triângulos, draw calls, carga) está no [orçamento de desempenho](https://github.com/pedrooalvess1-glitch/simulador-normas/blob/main/docs/00_INDICE_E_DECISOES_INFRAESTRUTURA.md#33-orçamento-de-desempenho-critério-de-aceite)."
   - type: textarea
     id: onde
     attributes:

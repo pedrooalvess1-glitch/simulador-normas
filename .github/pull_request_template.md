@@ -8,7 +8,7 @@
 <!-- Itens citados ou alterados, ou "nenhum". -->
 
 ## Verificação
-- [ ] CI verde (build do protótipo, conferência no PDF, links internos)
+- [ ] CI verde: os 3 *checks* obrigatórios da `main` (decisão 29)
 - [ ] Conteúdo novo sobre a norma rotulado e registrado como "a validar" (`CLAUDE.md` §3, regra 6)
 - [ ] `STATUS`, `ROTEIRO` e `DECISOES` atualizados, se for o caso
 - [ ] Sem segredos, fotos ou dados pessoais
