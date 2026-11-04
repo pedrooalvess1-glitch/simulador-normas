@@ -178,7 +178,7 @@ def montar(d, hist, mis):
             'Trechos de `docs/` e do `CLAUDE.md` rotulados [INTERPRETAÇÃO]: leituras do agente sobre a NR-10 que viram regra do projeto.')
     arquivos = sorted((RAIZ / 'docs').glob('*.md')) + [RAIZ / 'CLAUDE.md']
     for arq in arquivos:
-        if arq.name in ('VALIDACAO_DO_CONTEUDO.md', 'CONFERENCIA_ITENS.md'):
+        if arq.name in ('VALIDACAO_DO_CONTEUDO.md', 'CONFERENCIA_ITENS.md') or arq.name.startswith('_'):  # gerados e modelos
             continue
         for n, linha in enumerate(arq.read_text(encoding='utf-8').splitlines(), 1):
             if '[INTERPRETAÇÃO' in linha:

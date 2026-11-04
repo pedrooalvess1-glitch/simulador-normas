@@ -13,8 +13,9 @@
 | Item | Estado |
 |---|---|
 | Repositório `pedrooalvess1-glitch/simulador-normas` | Público, MIT. O GitHub é a fonte da verdade; todo trabalho entra por *branch* + PR. |
-| CI (`.github/workflows/ci.yml`) | *Build* do protótipo, `node --check`, `prototipo/dist/` igual ao *build* e conferência dos itens citados em `docs/` e na base `REF` contra o PDF (`--estrito`). *Merge* só com CI verde. |
-| Documentos | `00_INDICE` (entrada), `ROTEIRO`, `DECISOES`, este arquivo e os documentos-base `PLANO_V3` e `ARQUITETURA`. Os documentos 01–25 da `00_INDICE` §5 ainda não existem. Gerados: `CONFERENCIA_ITENS.md` e `VALIDACAO_DO_CONTEUDO.md`. |
+| CI (`.github/workflows/ci.yml`) | *Build* do protótipo, `node --check`, `prototipo/dist/` igual ao *build*, conferência dos itens citados em `docs/` e na base `REF` contra o PDF (`--estrito`) e links internos dos `.md`. *Merge* só com CI verde. |
+| Issues | Modelos `bug`, `conteudo-norma` e `desempenho`; modelo de PR; rótulos `bug`, `conteudo-norma`, `desempenho`, `didatica`, `docs`, `ideia`, `trilha-1`, `trilha-2`, `arte`. |
+| Documentos | `00_INDICE` (entrada), `ROTEIRO`, `DECISOES`, `CONVENCOES`, `GLOSSARIO_DO_PROJETO`, `_MODELO_DOCUMENTO`, este arquivo e os documentos-base `PLANO_V3` e `ARQUITETURA`. Os documentos 01–25 da `00_INDICE` §5 ainda não existem. Gerados: `CONFERENCIA_ITENS.md` e `VALIDACAO_DO_CONTEUDO.md`. |
 | Projeto Godot | `engine/`, `packs/nr10/` e `art/` só têm a estrutura de pastas. |
 | Protótipo (Trilha 1, congelado) | `prototipo/`, documentado no `prototipo/README.md`; HTML offline em `prototipo/dist/` e Artifact no claude.ai. |
 | Validação do conteúdo | `docs/VALIDACAO_DO_CONTEUDO.md` (gerado): questões, passos, objetos, cartões, amostras do gerador e interpretações dos documentos; nenhuma entrada validada ainda. |

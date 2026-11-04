@@ -10,6 +10,15 @@ permissions:
   contents: read
 
 jobs:
+  links:
+    name: Links internos dos .md
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Links internos entre os .md existem
+        run: python3 tools/checar_links.py
+
   prototipo:
     name: Protótipo + conferência no PDF
     runs-on: ubuntu-latest
