@@ -187,7 +187,7 @@ Todos ficam em `docs/` no repositório. Formato padrão de cada um (modelo a cri
 |---|---|
 | `CLAUDE.md` (raiz) | Regras permanentes, papéis e ambientes de trabalho |
 | `00_INDICE_E_DECISOES_INFRAESTRUTURA.md` | Este arquivo: requisitos, decisões de infraestrutura, mapa dos documentos, campanha, roadmap |
-| `ROTEIRO.md` | Passos do projeto, ordem de execução e regra de autonomia |
+| `ROTEIRO.md` | Passos do projeto, ordem de execução, esforço de cada passo e regra de autonomia |
 | `STATUS_SIMULADOR_NR10.md` | Estado atual |
 | `DECISOES.md` | Índice das decisões vigentes |
 | `PLANO_V3_SIMULADOR_NR10.md` | Base de conteúdo e didática para os documentos 01, 11, 14 e 15 (absorvido e retirado no passo 64) |
@@ -232,33 +232,9 @@ Todos ficam em `docs/` no repositório. Formato padrão de cada um (modelo a cri
 | 14 | `14_PACOTE_NR10_NORMA` | Itens, glossário (Anexo I), anexos II–IV e artigos da Portaria MTE 737/2026; remissões a outras normas (§1.4); matriz de cobertura; pendências de fidelidade |
 | 15 | `15_AMBIENTES_NR10` | Inventário de cada ambiente: equipamentos, EPC, EPI, sinalização, documentos, pessoas, grafo de energia, ganchos normativos |
 
-### 5.4 Ordem de produção (foco na Campanha)
+### 5.4 Ordem de produção
 
-| Ordem | Documento | Por que nesta posição |
-|---|---|---|
-| 1 | 01 Visão e pedagogia | Define o que é "aprender NR-10 jogando"; todos os outros servem a isso |
-| 2 | 14 Pacote NR-10 (norma) | O conteúdo é o centro (R4); define quais itens precisam virar interação |
-| 3 | 04 Motor de normas | Formato em que o conteúdo do 14 é escrito |
-| 4 | 05 Energia e perigos | O que torna o mundo "calculado" |
-| 5 | 11 Campanha NR-10 | Quais missões, em que ordem, com que papel |
-| 6 | 15 Ambientes NR-10 | Onde as missões acontecem |
-| 7 | 07 Catálogo de itens | O que existe dentro dos ambientes |
-| 8 | 09 Personagens e papéis | Quem age e quem é instruído |
-| 9 | 08 Interação | Como o jogador age sobre itens e pessoas |
-| 10 | 13 Interface e documentos | Como a informação aparece |
-| 11 | 02 Arquitetura geral | Consolida os contratos definidos acima |
-| 12 | 03 Plataforma e desempenho | Fixa versões e orçamento |
-| 13 | 06 Mundo 3D | Estilo e kit de peças |
-| 14 | 18 Pipeline de arte | Como produzir as peças |
-| 15 | 16 Dados e replay | Save e log |
-| 16 | 12 Avaliação | Modelo do aluno |
-| 17 | 17 Testes e CI | Como provar que funciona |
-| 18 | 21 Roadmap | Sequência de entrega |
-| 19 | 22, 23, 24, 25 | Complementos |
-| 20 | 10 Modo Livre | Fase 2 |
-| 21 | 19 Novo pacote | Fase 3 |
-
-O fluxo de trabalho com o agente não tem documento próprio: está no `CLAUDE.md` e no `ROTEIRO`. Regra: cada documento só é considerado pronto quando suas **perguntas abertas** foram respondidas por você ou registradas como pendência explícita.
+A ordem dos documentos, o motivo de cada posição, o esforço de cada um e o critério de pronto estão no `ROTEIRO` §3 (Etapa F). O fluxo de trabalho com o agente não tem documento próprio: está no `CLAUDE.md` e no `ROTEIRO`.
 
 ---
 
@@ -331,7 +307,7 @@ Cada missão segue as fases F1–F8 (briefing → planejamento → almoxarifado 
 |---|---|---|
 | T1 | Simulador de estudo (pronto; congelado) | História, fases I–IV, Missão e Treino (simulado, revisão espaçada, gerador, cartões, painel) |
 | 0 | Repositório | Estrutura, CI mínimo, `CLAUDE.md`, convenções, glossário do projeto, modelo de documento, modelos de issue e de PR (Etapa E do roteiro) |
-| 0 | Planejamento | Documentos 01, 14, 04, 05, 11, 15, 07, 09, 08, 13, 02, 03, 06, 18, 16, 12, 17, 21 e revisão cruzada (Etapa F) |
+| 0 | Planejamento | Documentos da §5 e revisão cruzada (Etapa F do `ROTEIRO`) |
 | 0 | Ambiente de execução | Godot *headless* e exportação na nuvem e no CI, Blender (`bpy`), gdUnit4, primeiro teste no notebook pelo controle da tela (Etapa D) |
 | 1 | Fatia vertical | Motor mínimo + Capítulo 0 (residência) jogável do início ao debrief, em Godot, no perfil Leve |
 | 1 | Campanha MT | Capítulo 2 (SE abrigada) com solver elétrico, desenergização (10.13.1) e reenergização (10.13.2), aterramento, zonas |

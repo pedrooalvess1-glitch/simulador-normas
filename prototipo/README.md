@@ -42,17 +42,17 @@ Arquivos, na ordem de concatenação do `build.py` (importa para `const` globais
 | Anexo III e notas do Quadro III do Anexo IV | Só resumidos |
 | Ligações tracejadas do Mapa (`k:'t'`) | Interpretação do simulador, a validar |
 
-## 4. Melhorias registradas (só se o usuário pedir)
+## 4. Melhorias registradas (só se o usuário pedir; esforço do Opus 5.5 pelo critério do `docs/ROTEIRO.md` §2)
 
-1. Treino: explicar por que cada alternativa errada está errada, citando o item.
-2. Treino: banco no formato de banca (5 alternativas; hoje muitas questões têm 2 a 4).
-3. Exercitar os itens da tabela acima e montar a matriz item → tarefa.
-4. Glossário: os 41 termos ausentes + ATPV, EBT e ELIM, com texto literal do PDF.
-5. Novas histórias: BT/SEC (QDC de prédio), canteiro de obra (instalação temporária, 10.2.1), SEP/linha.
-6. Anexo III e notas do Quadro III do Anexo IV exercitados.
-7. Exportar e importar o progresso (JSON); hoje ele fica só no navegador.
-8. Navegação: em telas de até ~1400 px a aba "Mapa" sai da linha de fases.
-9. Remover o código morto: `DIFF` vazio (`refs.js`), `D()`/`openDiff()` (`engine.js`), o clique em `[data-diff]` (`main.js`), `.diff-chip`/`.cmp` (`style.css`).
+1. `alto` Treino: explicar por que cada alternativa errada está errada, citando o item.
+2. `alto` Treino: banco no formato de banca (5 alternativas; hoje muitas questões têm 2 a 4).
+3. `alto` Exercitar os itens da tabela acima e montar a matriz item → tarefa.
+4. `médio` Glossário: os 41 termos ausentes + ATPV, EBT e ELIM, com texto literal do PDF.
+5. `alto` Novas histórias: BT/SEC (QDC de prédio), canteiro de obra (instalação temporária, 10.2.1), SEP/linha.
+6. `alto` Anexo III e notas do Quadro III do Anexo IV exercitados.
+7. `médio` Exportar e importar o progresso (JSON); hoje ele fica só no navegador.
+8. `médio` Navegação: em telas de até ~1400 px a aba "Mapa" sai da linha de fases.
+9. `médio` Remover o código morto: `DIFF` vazio (`refs.js`), `D()`/`openDiff()` (`engine.js`), o clique em `[data-diff]` (`main.js`), `.diff-chip`/`.cmp` (`style.css`).
 
 ## 5. Armadilhas técnicas
 

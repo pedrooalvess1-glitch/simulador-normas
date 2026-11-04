@@ -23,7 +23,8 @@
 | 17 | 04/11/2026 | Conteúdo só da NR-10 (R9) | O simulador serve ao entendimento da NR-10; uma só fonte verificável | usuário | `00_INDICE` §1.4 |
 | 18 | 04/11/2026 | Só o Claude Code no projeto; sem `AGENTS.md` | Um arquivo de regras a menos para manter coerente | usuário (`AGENTS.md`: agente) | `CLAUDE.md` |
 | 19 | 04/11/2026 | Nuvem como ambiente principal; notebook como alvo de desempenho; sessão Local como reserva | O notebook tem pouca RAM e disco; só o FPS real precisa dele | agente | `CLAUDE.md` §2 |
-| 20 | 04/11/2026 | Planejamento antes das ferramentas (ordem E → F → D → G) | A configuração das ferramentas deve seguir os documentos, sem retrabalho | usuário | `ROTEIRO` §2 |
+| 20 | 04/11/2026 | Planejamento antes das ferramentas (ordem E → F → D → G) | A configuração das ferramentas deve seguir os documentos, sem retrabalho | usuário | `ROTEIRO` §3 |
 | 21 | 04/11/2026 | Menos documentos: sem documento 20; `PLANO_V3` e `ARQUITETURA` absorvidos no passo 64; passos, pendências e autonomia num só `ROTEIRO` | Cada assunto numa só fonte; dois textos sobre a mesma coisa se contradizem | agente | `00_INDICE` §5 |
 | 22 | 04/11/2026 | Campanha organizada por capítulos de papel; missões M0–M9 do `PLANO_V3` como candidatas | A progressão de papel segue a ordem em que a NR-10 atribui responsabilidades | agente | `00_INDICE` §6 |
 | 23 | 04/11/2026 | Inferência do agente é provisória; registro de validação gerado do conteúdo do software | O usuário valida os conceitos; o ID por hash faz a entrada voltar a "a validar" quando o texto muda | usuário (formato: agente) | `00_INDICE` §1.4, `tools/validacao/` |
+| 24 | 04/11/2026 | Opus 5.5 com esforço por passo (`médio`, `alto`, `extra`); a sessão faz só os passos do seu esforço e os pré-requisitos de nível menor; documento 13 depois do 02 e 19 antes do 10, para formar blocos | Gastar tokens nas partes críticas | usuário (níveis e ordem: agente) | `ROTEIRO` §2–§3 |

@@ -1,7 +1,7 @@
 # CLAUDE.md — regras permanentes do projeto `simulador-normas`
 
 > Lido no início de toda sessão do Claude Code. Todo o projeto é conduzido no Claude Code; não há outro agente.
-> Estado: `docs/STATUS_SIMULADOR_NR10.md`. Passos, ordem e regra de autonomia: `docs/ROTEIRO.md`. Planejamento: `docs/00_INDICE_E_DECISOES_INFRAESTRUTURA.md`. Decisões: `docs/DECISOES.md`.
+> Estado: `docs/STATUS_SIMULADOR_NR10.md`. Passos, ordem, esforço e regra de autonomia: `docs/ROTEIRO.md`. Planejamento: `docs/00_INDICE_E_DECISOES_INFRAESTRUTURA.md`. Decisões: `docs/DECISOES.md`.
 
 ## 1. O projeto em resumo
 1. Simulador 3D didático e gamificado de normas regulamentadoras; o primeiro pacote é a **NR-10**.
@@ -16,7 +16,7 @@
 
 ## 2. Quem faz o quê e onde
 - **O usuário faz só quatro coisas:** U1 manda fotos de objetos e aprova a prévia do modelo 3D; U2 usa o simulador e conta o que estranhou; U3 concede acesso (notebook ligado com o app Claude Desktop aberto quando avisado; aprova os pedidos de acesso); U4 responde perguntas essenciais e valida o conteúdo (`docs/VALIDACAO_DO_CONTEUDO.md`).
-- **O agente faz todo o resto**, com permissão total, e pergunta só o essencial (decisão que só o usuário pode tomar, ou irreversível). A um "continue", segue o `ROTEIRO` sem pedir aprovação a cada passo e para só nos pontos P1–P4 (`ROTEIRO` §1).
+- **O agente faz todo o resto**, com permissão total, e pergunta só o essencial (decisão que só o usuário pode tomar, ou irreversível). A um "continue", segue o `ROTEIRO` sem pedir aprovação a cada passo, só nos passos do esforço escolhido para a sessão (Opus 5.5; `médio`, `alto` ou `extra`, `ROTEIRO` §2), e para só nos pontos P1–P4 (`ROTEIRO` §1).
 
 | Ambiente | Para quê |
 |---|---|
@@ -65,7 +65,7 @@ python3 tools/validacao/gerar.py
 4. Mostra a prévia ao usuário (U1) e só então integra ao catálogo.
 
 ## 7. Laço de trabalho
-ler `STATUS` e `ROTEIRO` → pegar o próximo passo → *branch* → implementar → testar → PR → CI verde → *merge* → atualizar `STATUS`, `ROTEIRO` e `DECISOES` → próximo passo. Na Trilha 2, cada Release é testada no notebook pelo agente. Ao fim da sessão, avisar o usuário em poucas linhas.
+ler `STATUS` e `ROTEIRO` → pegar o próximo passo do esforço da sessão → *branch* → implementar → testar → PR → CI verde → *merge* → atualizar `STATUS`, `ROTEIRO` e `DECISOES` → próximo passo. Na Trilha 2, cada Release é testada no notebook pelo agente. Ao fim da sessão, avisar o usuário em poucas linhas.
 
 ## 8. Como falar com o usuário
 Português do Brasil; termos técnicos em inglês quando forem do jargão. Respostas numeradas, ponto a ponto, explicando o mecanismo de cada decisão ("use X porque é melhor" não serve). Passos bem separados, sem escrita compacta. Ele conhece LLMs; não explique IA. Ele chama o assistente de "Claudinho".
