@@ -30,7 +30,7 @@
 ┌──────────────────────────────────────────────────────────────┐
 │ L5  APLICAÇÃO   main.js · roteamento (#campanha, #biblioteca)│
 ├──────────────────────────────────────────────────────────────┤
-│ L4  APRESENTAÇÃO hud.js · debrief.js · módulos (Biblioteca) │
+│ L4  APRESENTAÇÃO hud.js · debrief.js · módulos (Biblioteca)  │
 ├──────────────────────────────────────────────────────────────┤
 │ L3  JOGO        mission.js (executor F1–F8) · srs.js · score │
 ├──────────────────────────────────────────────────────────────┤
