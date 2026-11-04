@@ -1,4 +1,4 @@
-# CI mínimo (rev4). Porteiro do merge: o app tem de compilar e o texto da norma tem de bater com o PDF.
+# CI. Porteiro do merge: o protótipo tem de compilar e o texto da norma tem de bater com o PDF.
 name: CI
 
 on:
