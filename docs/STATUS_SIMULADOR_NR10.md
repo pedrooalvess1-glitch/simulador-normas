@@ -47,7 +47,8 @@
 | Repositório `pedrooalvess1-glitch/simulador-normas` | Público, MIT. Desde 04/11/2026 a `main` tem todo o projeto (PR #1, `535094d`) e o GitHub é a fonte da verdade. Todo trabalho entra por *branch* + PR, com o CI (`.github/workflows/ci.yml`) como porteiro. |
 | `prototipo/` | Protótipo **v4** (three.js r128): 14 módulos, incluindo a fase **Treino** e o módulo **História**. |
 | `prototipo/dist/simulador-nr10-offline.html` | App autocontido (~975 KB). Abre com duplo clique, sem internet. |
-| Artifact no claude.ai | Republicado com a v4 em 04/11/2026 (passo T2b): abre no celular. |
+| Artifact no claude.ai | v4 publicada em 04/11/2026 num link novo (`https://claude.ai/artifact/DB8sPFyo8WbQEGVVdmfjxD`); o link antigo ainda mostra a v2. Atualizações futuras vão para o link novo. |
+| `docs/PROXIMA_SESSAO.md` | Arquivo de passagem: estado, backlog da versão offline e prompt para abrir a próxima sessão. |
 | `simulador-nr10-codigo-fonte*.zip` | Versões antigas do protótipo. Substituídas pelo repositório; só histórico. |
 
 Versões do protótipo:
