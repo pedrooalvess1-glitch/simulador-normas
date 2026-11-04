@@ -2,7 +2,9 @@
 
 > Descreve **só o estado atual** do projeto. O histórico de mudanças fica no Git (commits e PRs), não neste texto.
 > Próximos passos e como abrir uma sessão: `docs/PROXIMA_SESSAO.md`. Regras do agente: `CLAUDE.md`.
-> **Escopo normativo:** só a NR-10 na redação da **Portaria MTE 737/2026** (`00_INDICE` §1.1). Fonte de verdade do conteúdo: o PDF em `docs/referencias/`.
+> **Escopo normativo:** só a NR-10 na redação da **Portaria MTE 737/2026** (`00_INDICE` §1.1), e só o que a NR-10 traz (`00_INDICE` §1.4). Fonte de verdade do conteúdo: o PDF em `docs/referencias/`.
+>
+> **Fase atual:** planejamento do projeto principal (Godot), Etapas E e F do guia. Trilha 1 (protótipo de estudo) congelada.
 
 ---
 
@@ -11,7 +13,7 @@
 - **Autor:** Pedro Alves, engenheiro eletricista.
 - **Para que serve:** dominar a NR-10 para uso permanente e para concursos de Engenheiro Elétrico. Prova em vista: Prefeitura de Floresta/PE, banca FACET, data provável **13/12/2026** (Aditivo 2 do edital, de 30/10/2026). A estratégia principal de estudo dele é resolver provas passadas.
 - **Vigência:** a Portaria MTE 737/2026 entra em vigor um ano após a publicação (Art. 5º; DOU de 01/06/2026) [FONTE: PDF].
-- **Como ele trabalha:** o agente opera tudo; ele só manda fotos, testa, concede permissões e responde o essencial (`CLAUDE.md` §2).
+- **Como ele trabalha:** o Claude Code opera tudo, inclusive o notebook dele; ele só manda fotos, usa o simulador, concede acesso e responde o essencial (`CLAUDE.md` §2).
 - **Pedido original (resumo fiel):** operação em 3D de um local de trabalho flexível, com cenários variados conforme a NR-10; camadas do macro ao micro; cada ação com fundamento na norma; ambientes industriais, civis, manutenção, obra; fardamento/EPI, protocolos de entrada, sinalização, estação de trabalho, ergonomia, responsáveis, APR, habilitação, qualificação, proteção individual e coletiva, energização e desenergização, pré e pós-trabalho. Meta: entender a aplicação da NR-10 **sem ler linha por linha e sem montar fluxograma de correlações à mão**.
 
 ---
@@ -22,24 +24,26 @@
 |---|---|
 | Repositório `pedrooalvess1-glitch/simulador-normas` | Público, MIT. O GitHub é a fonte da verdade. Todo trabalho entra por *branch* + PR, com o CI como porteiro. |
 | CI (`.github/workflows/ci.yml`) | Roda o *build* do protótipo, `node --check`, confere que `prototipo/dist/` é igual ao *build* e confere os itens citados e a base `REF` contra o PDF (`--estrito`). *Merge* só com CI verde. |
-| `prototipo/` | Protótipo three.js r128: 14 módulos (§5), incluindo **História** (abre por padrão) e **Treino**. |
+| `prototipo/` | Trilha 1, **congelada**: protótipo three.js r128 com 14 módulos (§5), incluindo **História** (abre por padrão) e **Treino**. |
 | `prototipo/dist/simulador-nr10-offline.html` | App autocontido (~975 KB). Abre com duplo clique, sem internet. |
 | Artifact no claude.ai | `https://claude.ai/artifact/DB8sPFyo8WbQEGVVdmfjxD` mostra a versão atual do protótipo. Existe um segundo link (`…/YJ357CT4K7ahbnstJkS3H6`) com uma versão desatualizada: não usar; apagar só com a confirmação do usuário. |
-| Trilha 2 (Godot) | Ainda não começou em código: `engine/`, `packs/nr10/` e `art/` só têm a estrutura de pastas. Planejamento em `00_INDICE`, `PLANO_V3` e `ARQUITETURA`. |
+| Trilha 2 (Godot, projeto principal) | Em planejamento. `engine/`, `packs/nr10/` e `art/` só têm a estrutura de pastas. Planejamento em `00_INDICE` (entrada) e nos documentos-base `PLANO_V3` e `ARQUITETURA`; os documentos 01–25 da `00_INDICE` §5 ainda não existem. |
+| *Branches* no GitHub | Além da `main`, há quatro *branches* já mescladas (`rev3`, `rev4-docs-ci`, `rev5-handoff`, `docs/estado-atual`), a apagar pelo navegador no passo 34 do guia. |
 
 ### 2.1 Ambiente do usuário
 
 | Item | Estado |
 |---|---|
 | Computador de teste | Windows 10, AMD A10-9600P, Radeon R5 integrada, 7,5 GB de RAM, pouco disco livre. |
-| Godot | 4.7.2 standard em `C:\Users\Pedro Alves\Desktop\POTENCIAIS_CONCURSOS\SOFTWARE-NR10\GODOT` (`Godot_v4.7.2-stable_win64.exe` e `…_console.exe`). Renderizador Compatibility roda via ANGLE/D3D11 na R5: ~496 FPS sem sombra e ~75 FPS com sombra numa cena trivial → sem sombras em tempo real e sem texturas. |
-| Outras ferramentas | Git 2.56.0, VS Code 1.140.0 (`godot-tools`), Blender 4.5.10 LTS (caminho do executável ainda não registrado). |
-| Pasta do projeto no PC | `C:\projetos\simulador-normas` (sincronizar com `origin/main` no início de cada sessão Local). |
-| Claude | Plano Pro. Sessão na nuvem ligada ao GitHub (*push*, PR pela API REST, *merge*); a API GraphQL do GitHub é bloqueada nessa sessão. |
+| Godot no notebook | 4.7.2 standard em `C:\Users\Pedro Alves\Desktop\POTENCIAIS_CONCURSOS\SOFTWARE-NR10\GODOT` (`Godot_v4.7.2-stable_win64.exe` e `…_console.exe`); reserva. Renderizador Compatibility roda via ANGLE/D3D11 na R5: ~496 FPS sem sombra e ~75 FPS com sombra numa cena trivial → sem sombras em tempo real e sem texturas. Existe também uma pasta `C:\ferramentas\godot` de conteúdo não conferido. |
+| Outras ferramentas no notebook | Git 2.56.0, VS Code 1.140.0 (`godot-tools`), Blender 4.5.10 LTS (caminho não registrado); reserva. |
+| Pastas no notebook | `C:\projetos\simulador-normas` (clone antigo, fora de uso); `C:\projetos\simulador-normas-testes` (para os executáveis de teste, criada na Etapa D). |
+| Claude | Plano Pro; todo o projeto no Claude Code. Ambiente principal: sessão na nuvem com o repositório anexado (*push*, PR pela API REST, *merge*). O *proxy* dessa sessão bloqueia a API GraphQL do GitHub, mudanças nas configurações do repositório e a remoção de *branches*. A sessão alcança o notebook pela ponte do app Claude Desktop (arquivos) e pelo controle de aplicativos (tela), com o app aberto. |
+| Ferramentas na nuvem (verificado só o acesso) | Godot 4.7.2 para Linux e *export templates*: baixáveis do GitHub da Godot. Blender: `bpy` disponível no PyPI (série 5.x para o Python da sessão). gdUnit4: páginas do repositório bloqueadas pelo *proxy*. Nada instalado (decisão 20). |
 
 ---
 
-## 3. Arquitetura didática
+## 3. Arquitetura didática do protótipo
 
 **Ideia central:** a ordem dos capítulos da NR-10 já é a hierarquia de controle do 10.5.4: eliminação (10.5) → proteção coletiva (10.6) → medidas administrativas (10.7, que pelo 10.7.12 absorve pessoas 10.8–10.10) → proteção individual (10.11). O simulador segue essa arquitetura.
 

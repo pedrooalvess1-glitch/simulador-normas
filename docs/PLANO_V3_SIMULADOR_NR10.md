@@ -8,6 +8,8 @@
 >
 > **Conferência de itens:** os números citados são conferidos no PDF da Portaria (`docs/referencias/`) com `tools/conferir_itens_portaria.py` (relatório em `docs/CONFERENCIA_ITENS.md`). Fatos já conferidos e pendências abertas: `docs/PENDENCIAS_DE_VERIFICACAO.md`.
 >
+> **Escopo do conteúdo (R9, `00_INDICE` §1.4):** só a NR-10 é ensinada, cobrada e corrigida. Os elementos [PRÁTICA] deste plano valem só como **cenário** (aparência, realismo) e nunca viram *gate*, questão, consequência pontuada ou correção. Ao escrever os documentos 11, 14 e 15, cada *gate* precisa de um item da NR-10.
+>
 > Legenda: **[FONTE]** · **[PRÁTICA]** · **[INFERÊNCIA]** · **[INTERPRETAÇÃO]** · **[VERIFICAR]** · **[VERIFICAR NA PORTARIA]** (definições na `00_INDICE`).
 
 ---
@@ -21,8 +23,8 @@
 5. A interação é por **verbos + inventário** (inspecionar, operar, bloquear, medir, aterrar, cobrir, sinalizar, autorizar, assinar), não por checklist.
 6. A pontuação é por **severidade** (fatal, grave, leve). Erro fatal encerra a missão com replay. Não há badges nem ranking.
 7. **Edição única** (D7): não há alternância de redação; o conteúdo é o da Portaria MTE 737/2026.
-8. As missões seguem a **estatística de acidentes** (ABRACOPEL: rede aérea e construção civil lideram) e o peso de prova.
-9. Os 12 módulos do protótipo formam a **Biblioteca** (referência, Mapa da norma, treino de fatos) e alimentam o debrief e a revisão espaçada.
+8. A ordem das missões segue o peso de prova e o risco elétrico dos cenários (D8).
+9. O conteúdo dos módulos do protótipo forma a **Biblioteca** (referência, Mapa da norma, treino de fatos) e alimentam o debrief e a revisão espaçada.
 
 ---
 
@@ -37,7 +39,7 @@ Cada decisão traz o motivo.
 **D2. A norma como motor de regras.**
 - Cada item relevante vira um objeto de regra com: pré-condição, *gate* (o que bloqueia), consequência do desvio e severidade.
 - Há **um** pacote de regras, `RULES`, com o texto da Portaria MTE 737/2026.
-- Por quê: separa conteúdo normativo de cena. Outra norma (NR-12, NR-35…) entra como outro pacote, sem reescrever o motor nem as missões (`00_INDICE` R6).
+- Por quê: separa conteúdo normativo de cena. Outra norma regulamentadora entra como outro pacote, com o texto dela, sem reescrever o motor nem as missões (`00_INDICE` R6).
 
 **D3. Modelo elétrico topológico (§5).**
 - Por quê: sem ele, as armadilhas mais didáticas (backfeed, religador, FV, capacitor) são impossíveis de mostrar como consequência.
@@ -72,13 +74,9 @@ Cada decisão traz o motivo.
   - treinamentos: Quadro I (10.9.2), periódico bienal (10.9.10) e eventual (10.9.11);
   - cores de posição de manobra (verde "D", vermelho "L"): **não estão** na Portaria 737/2026 (conferido no PDF); no simulador são [PRÁTICA].
 
-**D8. Ordem das missões por dados de acidente + peso de prova; ambientação em Pernambuco.**
-- Dados ABRACOPEL 2025 [FONTE: pesquisa]:
-  - choque elétrico: 917 acidentes e 646 mortes;
-  - redes de distribuição: 379 ocorrências e 242 mortes;
-  - trabalhadores da construção: 208 mortes;
-  - Nordeste: 316 acidentes de choque e 236 mortes.
-- Ambientação: Pernambuco (concessionária Neoenergia PE, centro de operação COD).
+**D8. Ordem das missões por peso de prova e por risco elétrico; ambientação em Pernambuco.**
+- Critério de ordem [INFERÊNCIA]: primeiro o que a NR-10 mais detalha e as bancas mais cobram (desenergização, zonas, documentos, pessoas, EPI); depois os cenários de maior exposição (redes de distribuição, construção civil). É critério de projeto, não conteúdo ensinado.
+- Ambientação: Pernambuco, com concessionária e centro de operação genéricos [PRÁTICA: só cenário].
 
 ---
 
@@ -90,7 +88,7 @@ Toda missão percorre estas fases. Nem toda missão exige todas com o mesmo peso
 |---|---|---|---|
 | F1 Briefing | Lê a solicitação. Classifica tensão (faixa do glossário), SEP/SEC, rotina/não rotina, trabalho energizado ou não. | Enquadramento correto | 10.1, 10.2, Anexo I (faixas, SEP, atividades rotineiras) |
 | F2 Planejamento | Monta a análise de risco (cartas de risco; o formulário "APR" é [PRÁTICA]), escolhe procedimento ou PT, escala a equipe pelas fichas, pede o desligamento ao COD/concessionária. | Procedimento (rotineiro) ou PT aprovada por trabalhador autorizado (não rotineiro), precedidos de análise de risco | 10.3, 10.7.1, 10.7.1.1, 10.7.2, 10.7.2.1, 10.7.3 |
-| F3 Almoxarifado | Escolhe EPI, EPC e ferramentas. Inspeciona: teste de inflação da luva, autoteste do detector, validade dos ensaios, classe da luva pela cor da etiqueta ([PRÁTICA]; ver `PENDENCIAS_DE_VERIFICACAO.md`). | Kit mínimo com ensaios válidos | 10.11, Anexo IV, 10.12.6, 10.12.6.1, 10.14.4, 10.14.4.1 |
+| F3 Almoxarifado | Escolhe EPI, EPC e ferramentas. Inspeciona e testa EPI, EPC, ferramentas e instrumentos isolantes (10.12.6; o modo de testar segue o fabricante e aparece só como cenário), confere o instrumento adequado à tensão e à categoria (10.12.6.1) e a validade dos ensaios dielétricos (10.14.4.1). | Kit mínimo com ensaios válidos | 10.11, Anexo IV, 10.12.6, 10.12.6.1, 10.14.4, 10.14.4.1 |
 | F4 Chegada / caça ao risco | Identifica riscos no ambiente (rede próxima, chuva, pessoa não advertida, adorno, porta aberta, escada de alumínio). Delimita e sinaliza. | Riscos críticos tratados | 10.7.3, 10.7.7, 10.7.7.1, 10.7.8, 10.13.1 g, 10.14.1.2 |
 | F5 DDS e autorização | Faz a avaliação prévia, confere crachás e ASO, designa o supervisor. | Equipe autorizada, supervisor designado | 10.7.4, 10.7.4.1, 10.7.4.2, 10.7.5, 10.7.6, 10.8–10.10 (10.10.2.1, 10.10.4) |
 | F6 Desenergização no mundo | Executa os verbos físicos na ordem do pacote de regras. | Sequência do 10.13.1 | 10.13.1 a–g, 10.13.3 |
@@ -106,15 +104,15 @@ Prioridade: **A** = primeiro; **B** = depois.
 
 | id | Ambiente / tensão | Trama | Eventos e armadilhas | Itens exercitados (principais) | Prio |
 |---|---|---|---|---|---|
-| M0 | Residência, QDC 220/127 V | Trocar um DR defeituoso. Missão tutorial dos verbos. | Adorno (anel), escada de alumínio, morador que religa o disjuntor, neutro tratado como "não vivo". | 10.13.1 em BT; bloqueio de disjuntor (10.13.1 c); detector bipolar (10.13.1 b, 10.12.6.1); DDR (10.6.4; o valor 30 mA é de norma técnica, pendência 20); adornos (10.7.8); glossário "partes vivas" (inclui o neutro; termo do Anexo I ainda fora da `REF`) | A |
-| M3 | Cabine primária 13,8 kV (**reusa a cena `desenergizado` e a OS 0457**) | Manutenção do TR-01. | VPIS apagado por LED queimado; visitante; troca de turno; gerador do cliente. | 10.13.1, 10.13.2, 10.13.3; procedimento/PT (10.7.1, 10.7.2; troca de turno: 10.7.2.2); desligada com possibilidade de energização (10.5.2); lâmpadas verde "D" e vermelha "L" ([PRÁTICA]; não estão na NR-10/2026); seccionadora com abertura visível; aterramento do cubículo (10.4.6); tapete isolante; vara de manobra; extintor de CO₂ (NR-23; a NR-10/2026 não tem item sobre extintor) | A |
-| M2 | Rede aérea 13,8 kV (desenergizada) | Substituir uma chave fusível ou um isolador. | Religador não bloqueado; backfeed pelo gerador de um cliente através do trafo de distribuição; tensão induzida por linha paralela; chuva. | Pedido ao COD; comunicação permanente com o centro de operação (10.12.4.1); bloqueio de religamento automático (impedimento de reenergização, 10.13.1 c; em energizado na ZR, 10.14.3) [INTERPRETAÇÃO]; aterramento a montante e a jusante [PRÁTICA]; detector por aproximação no bastão; cesto aéreo isolado; aterramento do caminhão [PRÁTICA]; sinalização de via pública (10.7.7, alínea grafada "[a)]" no texto publicado); condições meteorológicas na análise de risco (10.7.3 c); NR-35 | A |
-| M1 | Canteiro de obras com rede 13,8 kV a ~2 m da fachada | O jogador é o engenheiro responsável pela obra. | Andaime, vergalhões e grua (extensões condutoras); quadro provisório aberto; extensões no chão molhado; pintor não advertido. | Anexo II (zonas: Rr 0,38 / Rc 1,38 m para ≥ 10 e < 15 kV); trabalho em proximidade (10.2.2); instalações de caráter temporário (10.2.1); instrução formal a quem faz atividade não elétrica (10.14.1.2); NR-18 18.6 [VERIFICAR: fora da NR-10] (DR, quadro com bloqueio, rede próxima só com proteção contra choque e arco); pedido de cobertura isolante ou desligamento | B+ |
+| M0 | Residência, QDC 220/127 V | Trocar um DR defeituoso. Missão tutorial dos verbos. | Adorno (anel), escada de alumínio, morador que religa o disjuntor, neutro tratado como "não vivo". | 10.13.1 em BT; bloqueio de disjuntor (10.13.1 c); detector bipolar (10.13.1 b, 10.12.6.1); DDR de alta sensibilidade (10.6.4); adornos (10.7.8); glossário "partes vivas" (inclui o neutro; termo do Anexo I ainda fora da `REF`) | A |
+| M3 | Cabine primária 13,8 kV (**reusa a cena `desenergizado` e a OS 0457**) | Manutenção do TR-01. | VPIS apagado por LED queimado; visitante; troca de turno; gerador do cliente. | 10.13.1, 10.13.2, 10.13.3; procedimento/PT (10.7.1, 10.7.2; troca de turno: 10.7.2.2); desligada com possibilidade de energização (10.5.2); lâmpadas verde "D" e vermelha "L" ([PRÁTICA]; não estão na NR-10/2026); seccionadora com abertura visível; aterramento do cubículo (10.4.6); tapete isolante; vara de manobra | A |
+| M2 | Rede aérea 13,8 kV (desenergizada) | Substituir uma chave fusível ou um isolador. | Religador não bloqueado; backfeed pelo gerador de um cliente através do trafo de distribuição; tensão induzida por linha paralela; chuva. | Pedido ao COD; comunicação permanente com o centro de operação (10.12.4.1); bloqueio de religamento automático (impedimento de reenergização, 10.13.1 c; em energizado na ZR, 10.14.3) [INTERPRETAÇÃO]; constatação de ausência de tensão (10.13.1 b) e aterramento temporário com equipotencialização (10.13.1 d); detector por aproximação no bastão; sinalização (10.7.7); condições meteorológicas na análise de risco (10.7.3 c) | A |
+| M1 | Canteiro de obras com rede 13,8 kV a ~2 m da fachada | O jogador é o engenheiro responsável pela obra. | Andaime, vergalhões e grua (extensões condutoras); quadro provisório aberto; extensões no chão molhado; pintor não advertido. | Anexo II (zonas: Rr 0,38 / Rc 1,38 m para ≥ 10 e < 15 kV); trabalho em proximidade (10.2.2); instalações de caráter temporário (10.2.1); instrução formal a quem faz atividade não elétrica (10.14.1.2); DDR (10.6.4); pedido de cobertura isolante ou desligamento | B+ |
 | M4 | Sala elétrica industrial: CCM 480 V, inversor de frequência, banco de capacitores | Medição/ajuste em gaveta energizada e manutenção de um inversor. | Barramento CC do inversor ainda carregado; capacitor sem descarga; categoria de EPI de arco errada; iluminação ruim e postura forçada. | Anexo IV (categoria, ATPV, distância de arco); seleção de EPI de arco (10.11.2); proteção coletiva contra arco (10.6.5); aterramento estático; **ergonomia 10.4.10 / NR-17 no mundo** (altura do painel, iluminação, espaço livre); inspeção da sala (10.7.11; reusa as 10 não conformidades do m5) | B |
-| M7 | Linha viva 13,8 kV (métodos ao contato e à distância) | Trocar um isolador com a rede energizada. | Começa a chover; colega sozinho; religamento ativo; luva com etiqueta de classe errada. | Trabalho energizado (capítulo 10.14): nunca sozinho em MT/AT (10.14.2); PT (10.7.2) e procedimento (10.7.1); bloqueio do religamento automático (10.14.3, 10.14.3.1); ensaio dielétrico (10.14.4); luvas classe 2 (etiqueta amarela) + mangas ([PRÁTICA], pendência 21); coberturas isolantes laranja [PRÁTICA] | B |
+| M7 | Linha viva 13,8 kV (métodos ao contato e à distância) | Trocar um isolador com a rede energizada. | Começa a chover; colega sozinho; religamento ativo; luva com ensaio dielétrico vencido. | Trabalho energizado (capítulo 10.14): nunca sozinho em MT/AT (10.14.2); PT (10.7.2) e procedimento (10.7.1); bloqueio do religamento automático (10.14.3, 10.14.3.1); ensaio dielétrico de ferramentas, luvas, mangas e EPC isolantes (10.14.4, 10.14.4.1) | B |
 | M8 | Fiscalização: auditor-fiscal visita a empresa | Defender a documentação. | Prontuário incompleto; laudo vencido; situação de GIR em curso. | Documentação (10.15.3–10.15.7; PIE 10.15.6); GIR (10.16.1); reusa o módulo `documentacao` (m8) | B |
-| M5 | FV em telhado, 1000 Vcc | Trocar o fusível da string box. | Abrir a seccionadora **não** desenergiza o lado dos módulos; arco em CC não se extingue sozinho; dupla fonte via inversor; altura. | Desligada, mas com possibilidade de energização → regras do capítulo 10.14 (10.5.2); faixas CC do glossário (BT até 1.500 Vcc; MT acima de 1.500 até 3.000 Vcc; 1.000 Vcc é BT); escolha entre lona opaca, trabalhar como energizado ou trabalhar à noite [INFERÊNCIA: opções didáticas]; NR-35 | B |
-| M6 | Posto de combustível (área classificada) | Trocar uma luminária na zona 1. | Ferramenta comum; equipamento sem marcação Ex; ausência de explosímetro; ausência de PT. | Proteção coletiva em área classificada (10.6.6.1); equipamento Ex certificado (10.6.6.1.1; no Brasil, certificação Inmetro [INTERPRETAÇÃO]); PT (10.7.2); documentação de área classificada (10.15.5); projeto (10.4.11); treinamento Complementar de Área Classificada, 16 h (10.9.7, Quadro I); explosímetro [PRÁTICA] | B |
+| M5 | FV em telhado, 1000 Vcc | Trocar o fusível da string box. | Abrir a seccionadora **não** desenergiza o lado dos módulos; arco em CC não se extingue sozinho; dupla fonte via inversor; altura. | Desligada, mas com possibilidade de energização → regras do capítulo 10.14 (10.5.2); faixas CC do glossário (BT até 1.500 Vcc; MT acima de 1.500 até 3.000 Vcc; 1.000 Vcc é BT); escolha entre lona opaca, trabalhar como energizado ou trabalhar à noite [INFERÊNCIA: opções didáticas] | B |
+| M6 | Posto de combustível (área classificada) | Trocar uma luminária na zona 1. | Ferramenta comum; equipamento sem certificação para área classificada; ausência de PT. | Proteção coletiva em área classificada (10.6.6.1); equipamento certificado conforme o estudo de classificação de áreas (10.6.6.1.1); PT, análise de risco e procedimento (10.6.6.1.2); documentação de área classificada (10.15.5); projeto (10.4.11); treinamento Complementar de Área Classificada, 16 h (10.9.7, Quadro I) | B |
 | M9 | "Obra do zero" (projeto) | Projetar a instalação de um restaurante. | Decisões de projeto têm efeito depois: sem ponto de aterramento temporário previsto, a M3 fica mais difícil; sem dispositivo bloqueável, não há onde pôr o cadeado. | Projeto (10.4): dispositivo que permita impedimento de reenergização (10.4.2), espaço seguro (10.4.3), previsão de aterramento temporário (10.4.6), memorial (10.4.9), DDR previsto em projeto (10.6.4); reusa o `projeto` (m2) | B |
 
 **Ordem recomendada de implementação** (no protótipo): motor → **M3** (reaproveita a cena e é a de maior peso de prova) → **M0** (tutorial barato) → **M2** → M1 → M4 → M7 → M8 → M5 → M6 → M9. Na arquitetura Godot, a fatia vertical começa pelo Capítulo 0 (residência), conforme o `00_INDICE` §9.
@@ -207,22 +205,21 @@ Os itens marcados com 🔤 são termos do glossário e devem abrir a **definiç�
 | Detector MT por aproximação | Caixa na ponta do bastão, LED vermelho + bip, botão de teste | acoplar ao bastão, autotestar, medir | 10.13.1 b, d; 10.12.6.1 |
 | Multímetro / alicate amperímetro | Capa amarela, "CAT III 1000 V / CAT IV 600 V" | conferir categoria, medir | 10.12.6.1 (alínea b: categoria compatível com surtos) |
 | Megôhmetro | Caixa com cabos "HV" | ensaiar (só autorizado) | 10.12.9 |
-| Luvas isolantes + luva de cobertura | **Cor da etiqueta por classe:** 00 bege, 0 vermelha, 1 branca, 2 amarela, 3 verde, 4 laranja ([PRÁTICA], pendência 21) | teste de inflação, conferir data do ensaio | 10.14.4 b; 10.14.4.1; 10.12.6 |
+| Luvas isolantes + luva de cobertura | Etiqueta com a data do último ensaio | conferir data do ensaio | 10.14.4 b; 10.14.4.1; 10.12.6 |
 | Mangas isolantes | Borracha do ombro ao punho | vestir | 10.14.4 b |
-| Capacete classe B com jugular | Sem partes metálicas | vestir | NR-6 |
+| Capacete com jugular | Sem partes metálicas | vestir | 10.11.1 (remete à NR-6) |
 | Óculos / protetor facial de arco | Visor esverdeado com etiqueta "cal/cm²" | vestir, conferir ATPV | Anexo IV (Quadro III) |
 | Balaclava / vestimenta com ATPV 🔤(indumentária) | Camisa e calça FR azul-marinho ou cáqui; Cat. 4 = macacão com capuz | vestir, conferir categoria (Cat. 1 = 4, 2 = 8, 3 = 25, 4 = 40 cal/cm²) | 10.11.2; 10.11.3; Anexo IV |
 | Botina sem metal | Biqueira composta | vestir | 10.7.8.1; Anexo IV, Quadro III (calçado sem componentes metálicos expostos) |
 | Adornos (anel, relógio, corrente) | Itens de "caça ao risco" | retirar | 10.7.8 |
-| Cinto paraquedista + talabarte | Fitas laranja/preta | vestir, ancorar | NR-35 (a NR-10/2026 não tem item sobre altura) |
 | Fita zebrada, corrente plástica, cones, placas 🔤(barreira, sinalização) | Amarelo/preto ou vermelho/branco | delimitar | 10.13.1 g; 10.7.7 c, d |
 | Prancheta com procedimento, PT e análise de risco ("OS" e "APR" são [PRÁTICA]: os termos não aparecem na NR-10/2026) | Documento físico no local | ler, preencher, assinar, encerrar | 10.7.1, 10.7.1.1, 10.7.2, 10.7.2.1, 10.7.2.3, 10.7.3 |
 | Crachá de autorização + ASO | Crachá com escopo da autorização | conferir | 10.10.4; 10.10.2.1; 10.7.5 |
 | Rádio | Portátil, no cinto ou no caminhão | chamar COD, receber liberação | 10.12.4.1 |
-| Extintor de CO₂ | Cilindro vermelho com difusor | usar | NR-23 (a NR-10/2026 não tem item sobre extintor) |
+| Extintor | Cilindro vermelho | — (só cenário) | 10.6.6 (proteção contra incêndio; remete à NR-23) |
 
 ### 7.2 Itens específicos por ambiente
-- **Residência (M0):** padrão de entrada com caixa de medição lacrada; ramal de ligação (multiplexado preto); medidor; QDC com quadro de circuitos na porta; DR "IΔn 30 mA" com botão T; DPS com janela verde/vermelha; disjuntores ("I" para cima = ligado); haste de aterramento em caixa de inspeção; BEP 🔤(equipotencialização); escada de fibra (amarela/laranja; **alumínio é armadilha**).
+- **Residência (M0):** padrão de entrada com caixa de medição lacrada; ramal de ligação (multiplexado preto); medidor; QDC com quadro de circuitos na porta; DR com botão de teste; DPS com janela verde/vermelha; disjuntores ("I" para cima = ligado); haste de aterramento em caixa de inspeção; BEP 🔤(equipotencialização); escada de fibra (amarela/laranja; **alumínio é armadilha**).
 - **Canteiro (M1):** quadro provisório em poste, com porta bloqueável, DR e placa de perigo; extensões de dupla isolação; plugues industriais (azul ≈ 220 V, vermelho ≈ 380 V); cabos suspensos; área do transformador cercada; SPDA na grua; **rede 13,8 kV a 2–4 m da fachada**; andaime, vergalhões e grua 🔤(extensão condutora); pintor 🔤(pessoa não advertida); projeto das instalações temporárias na caixa do quadro.
 - **Rede aérea (M2, M7):** poste de concreto 11–12 m com placa; cruzeta; isoladores (porcelana ou polimérico cinza); chave fusível (o cartucho cai quando o fusível abre); religador (tanque cinza + caixa de controle embaixo); trafo de distribuição (45–150 kVA); para-raios; caminhão com cesto isolado (patolas, giroflex âmbar); aterramento do veículo; **conjunto de aterramento para rede** (3 grampos em bastão + cabo ao neutro e a uma haste; aplicado a montante e a jusante); coberturas isolantes **laranja** (mangueiras, lençóis, coberturas de isolador); cones e placas de via.
 - **Cabine primária 13,8 kV (M3):** alvenaria com telas metálicas entre cubículos; porta abrindo para fora com placa "PERIGO DE MORTE – ALTA TENSÃO"; cubículos de medição, proteção e transformação; seccionadora tripolar; disjuntor (PVO alto com visor de óleo, ou vácuo compacto) com bandeirola LIGADO/DESLIGADO; TCs e TPs em epóxi; relé 50/51 com LEDs de trip; trafo a óleo (radiadores, nível de óleo, poço de contenção) ou seco; malha de aterramento com barras e **pontos de conexão para aterramento temporário**; tapete isolante; vara de manobra telescópica; extintor de CO₂; iluminação de emergência; diagrama unifilar afixado na entrada; VPIS.
@@ -257,7 +254,7 @@ A sessão do documento 14 deve expandir esta matriz para **todos os 133 itens + 
 | Trabalho energizado | 10.14 | M7, M4 |
 | Comunicação com o centro de operação | 10.12.4, 10.12.4.1 | M2, M7 · rádio como gate |
 | Sinalização | 10.7.7, 10.7.7.1, 10.13.1 f–g | F4 · delimitar; porta do painel fechada e sinalizada |
-| Emergência | 10.7.3 h (análise de risco), 10.15.6.1 (PIE) e primeiros socorros/resgate no Anexo III; não há capítulo próprio | F7 · extintor, resgate, primeiros socorros como evento |
+| Emergência | 10.7.3 h (análise de risco), 10.15.6.1 (PIE) e primeiros socorros/resgate no Anexo III; não há capítulo próprio | F7 · resgate e primeiros socorros como evento (conteúdo do Anexo III) |
 | Responsabilidades, suspensão e direito de recusa | 10.7.4.2; 10.16 (GIR: embargo e interdição); direito de recusa: Anexo III, Treinamento Básico, item 9 k | F7 · eventos de GIR; recusar é a resposta correta |
 | Documentação / prontuário | 10.15 | M8, F8 |
 
@@ -268,9 +265,7 @@ A sessão do documento 14 deve expandir esta matriz para **todos os 133 itens + 
 ### 9.1 Zonas e distâncias
 
 1. **Tabela de zonas (Anexo II):** a redação de 2026 traz as fronteiras ≥/< e a observação de que, em sistemas trifásicos, vale a tensão entre fases [FONTE: `REF` `AII`].
-2. **Distâncias que NÃO são da NR-10** (o debrief deve rotular como "prática", nunca como norma):
-   - 1,5 m de afastamento da rede (orientação de concessionária);
-   - 0,64 m em linha viva a 13,8 kV (número de fornecedor).
+2. **Distâncias que não são da NR-10** (ex.: afastamentos de orientação de concessionária, distâncias de fornecedor) **não entram no simulador** (R9). As distâncias são só as do Anexo II.
 
 ### 9.2 Fontes oficiais
 - Texto da Portaria MTE 737/2026: `gov.br/.../normas-regulamentadoras-vigentes/nr-10-atualizada-2026-1.pdf` (cópia em `docs/referencias/`).

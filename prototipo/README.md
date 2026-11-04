@@ -1,4 +1,4 @@
-# Protótipo three.js (Trilha 1)
+# Protótipo three.js (Trilha 1, congelada)
 
 **Versão offline pronta para usar: [`dist/simulador-nr10-offline.html`](dist/simulador-nr10-offline.html)** (baixar e abrir com duplo clique; funciona sem internet).
 
