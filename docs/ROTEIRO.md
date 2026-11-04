@@ -43,15 +43,9 @@ Fora desses casos, o agente decide, registra a decisão em `docs/DECISOES.md` qu
 
 **E (infraestrutura do repositório) → F (documentos) → D (ambiente de execução) → G (esqueleto Godot e fatia vertical) → H (ciclo de correção).** As ferramentas só são instaladas depois do planejamento, para que a configuração siga os documentos (decisão 20). Passos seguidos do mesmo nível formam um bloco de sessão. A Etapa I acontece quando chegar uma foto. A Trilha 1 está congelada (melhorias registradas no `prototipo/README.md` §4).
 
-Concluídas: **A** (contas: GitHub com 2FA, repositório público MIT, Claude Pro), **B** (ferramentas no notebook, `STATUS` §3; o passo 17 mediu o Compatibility na R5 e originou a decisão 4) e **C** (repositório, PDF da Portaria em `docs/referencias/`, protótipo, CI), exceto o passo 27.
+Concluídas: **A** (contas: GitHub com 2FA, repositório público MIT, Claude Pro), **B** (ferramentas no notebook, `STATUS` §3; o passo 17 mediu o Compatibility na R5 e originou a decisão 4), **C** (repositório, PDF da Portaria em `docs/referencias/`, protótipo, CI) e **E**, exceto o passo 34 (modelo de documento, convenções, glossário do projeto, modelos de issue e de PR, checagem de links no CI, rótulos).
 
-### Etapa E — infraestrutura do repositório (um PR para o conjunto), com os passos 27 e 34
-- [ ] **43.** 🤖 `médio` `docs/_MODELO_DOCUMENTO.md`: o formato da `00_INDICE` §5, com o campo obrigatório "Itens da NR-10 envolvidos".
-- [ ] **38.** 🤖 `médio` `docs/CONVENCOES.md`: nomes de arquivos e de nós; código em inglês e textos ao jogador em português; mensagens de commit; numeração de versões do motor e do pacote.
-- [ ] **39.** 🤖 `médio` `docs/GLOSSARIO_DO_PROJETO.md`: motor, pacote, missão, capítulo, fase F1–F8, verbo, *gate*, consequência, severidade, debrief, fatia vertical, trilha, remissão.
-- [ ] **40–41.** 🤖 `médio` Modelos de issue (`bug`, `conteudo-norma`, `desempenho`) e de PR em `.github/`.
-- [ ] **42b.** 🤖 `médio` CI: checar links internos quebrados entre os `.md`.
-- [ ] **27.** 🤖 `médio` Criar os rótulos `bug`, `conteudo-norma`, `desempenho`, `didatica`, `docs`, `ideia`, `trilha-1`, `trilha-2`, `arte` (API REST; se o *proxy* recusar, no passo 34).
+### Etapa E — infraestrutura do repositório
 - [ ] **34.** 🤖 `médio` GitHub pelo navegador embutido (👤 U3 faz o login uma vez): apagar as *branches* já mescladas e proteger a `main` exigindo os *checks* do CI (sem revisão humana).
 
 ### Etapa F — documentos de planejamento (um PR por documento)

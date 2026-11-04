@@ -39,20 +39,22 @@
 
 ## 4. Estrutura
 ```
-docs/            00_INDICE (entrada), ROTEIRO, STATUS, DECISOES, documentos-base; gerados: CONFERENCIA_ITENS, VALIDACAO_DO_CONTEUDO
+docs/            00_INDICE (entrada), ROTEIRO, STATUS, DECISOES, CONVENCOES, GLOSSARIO_DO_PROJETO, _MODELO_DOCUMENTO, documentos-base; gerados: CONFERENCIA_ITENS, VALIDACAO_DO_CONTEUDO
 docs/referencias/ PDF da Portaria MTE 737/2026 (fonte de verdade)
 prototipo/       Trilha 1 (congelada), documentada no próprio README
 art/             blender/ (scripts .py) · glb/ · previews/ · fotos/ (local, ignorada)
 engine/          Trilha 2: motor genérico Godot (não conhece a NR-10)
 packs/nr10/      Trilha 2: pacote de conteúdo da NR-10
-tools/           conferir_itens_portaria.py · validacao/ (gerador do registro de validação)
-.github/         CI
+tools/           conferir_itens_portaria.py · checar_links.py · validacao/ (gerador do registro de validação)
+.github/         CI · modelos de issue (bug, conteudo-norma, desempenho) e de PR
 ```
 
 ## 5. Comandos
 ```bash
 # Conferência de itens contra o PDF (também no CI)
 python3 tools/conferir_itens_portaria.py --pdf docs/referencias/portaria-mte-no-737-nova-nr-10.pdf --docs docs --refs prototipo --saida docs/CONFERENCIA_ITENS.md --estrito
+# Links internos entre os .md (também no CI)
+python3 tools/checar_links.py
 # Registro de validação do conteúdo (Node + Playwright com Chromium)
 python3 tools/validacao/gerar.py
 # Protótipo: ver prototipo/README.md · Godot e Blender: definidos na Etapa D do ROTEIRO

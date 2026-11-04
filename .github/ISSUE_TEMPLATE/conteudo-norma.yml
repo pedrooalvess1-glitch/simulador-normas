@@ -1,0 +1,33 @@
+name: Conteúdo da norma
+description: Texto, resposta, explicação ou ligação item ↔ objeto que não bate com a NR-10 (Portaria MTE 737/2026).
+title: "content(nr10): "
+labels: [conteudo-norma]
+body:
+  - type: markdown
+    attributes:
+      value: O conteúdo vem só da NR-10. Indique o item e, se possível, o ID da entrada no registro de validação (V-xxxxxx).
+  - type: input
+    id: item
+    attributes:
+      label: Item da NR-10
+      description: "Ex.: 10.13.1, Anexo II, glossário (Anexo I)."
+    validations:
+      required: true
+  - type: input
+    id: validacao
+    attributes:
+      label: ID no registro de validação
+      description: "V-xxxxxx de docs/VALIDACAO_DO_CONTEUDO.md, se houver."
+  - type: textarea
+    id: onde
+    attributes:
+      label: Onde aparece
+      description: Questão, gate, cartão, debrief, diálogo, objeto 3D...
+    validations:
+      required: true
+  - type: textarea
+    id: problema
+    attributes:
+      label: O que está errado e o que o texto da NR-10 diz
+    validations:
+      required: true

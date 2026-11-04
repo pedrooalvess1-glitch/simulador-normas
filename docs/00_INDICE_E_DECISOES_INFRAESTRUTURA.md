@@ -178,7 +178,7 @@ repo/
 
 ## 5. Mapa dos documentos de planejamento
 
-Todos ficam em `docs/` no repositório. Formato padrão de cada um (modelo a criar em `docs/_MODELO_DOCUMENTO.md`, passo 43):
+Todos ficam em `docs/` no repositório. Formato padrão de cada um (modelo em `docs/_MODELO_DOCUMENTO.md`):
 **Objetivo · Escopo e limites · Itens da NR-10 envolvidos (R9) · Dependências · Contratos/esquemas · Decisões (com motivo) · Exemplos · Casos de teste · Perguntas abertas · Critérios de pronto.**
 
 ### 5.0 Documentos que já existem
@@ -190,6 +190,9 @@ Todos ficam em `docs/` no repositório. Formato padrão de cada um (modelo a cri
 | `ROTEIRO.md` | Passos do projeto, ordem de execução, esforço de cada passo e regra de autonomia |
 | `STATUS_SIMULADOR_NR10.md` | Estado atual |
 | `DECISOES.md` | Índice das decisões vigentes |
+| `_MODELO_DOCUMENTO.md` | Modelo dos documentos 01–25 |
+| `CONVENCOES.md` | Nomes de arquivos e nós, idioma, commits, versões |
+| `GLOSSARIO_DO_PROJETO.md` | Termos do software (motor, pacote, *gate*, severidade...) |
 | `PLANO_V3_SIMULADOR_NR10.md` | Base de conteúdo e didática para os documentos 01, 11, 14 e 15 (absorvido e retirado no passo 64) |
 | `ARQUITETURA_SOFTWARE_SIMULADOR_NR10.md` | Base para os documentos 02, 05 e 16, com exemplos em JS (absorvido e retirado no passo 64) |
 | `CONFERENCIA_ITENS.md` | Gerado: itens citados × PDF |

@@ -1,0 +1,25 @@
+name: Desempenho
+description: FPS baixo, travamento, carga lenta ou memória alta.
+title: "perf: "
+labels: [desempenho]
+body:
+  - type: markdown
+    attributes:
+      value: "Orçamento do perfil Leve: ≥ 30 FPS, ≤ 150 mil triângulos, ≤ 200 draw calls, carga ≤ 5 s (00_INDICE §3.3)."
+  - type: textarea
+    id: onde
+    attributes:
+      label: Onde e quando
+      description: Ambiente, missão, fase e o que estava na tela.
+    validations:
+      required: true
+  - type: textarea
+    id: painel
+    attributes:
+      label: Painel F3
+      description: FPS, draw calls, memória de vídeo e GPU (o agente lê pelo controle da tela).
+  - type: input
+    id: perfil
+    attributes:
+      label: Perfil de qualidade e versão
+      description: "Ex.: Leve, v0.1.0"
