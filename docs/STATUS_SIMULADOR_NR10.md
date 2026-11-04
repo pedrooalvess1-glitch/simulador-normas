@@ -6,6 +6,8 @@
 
 **Planejamento do projeto principal (Godot)**: Etapa E do roteiro (infraestrutura do repositório), depois a Etapa F (documentos). Nenhuma ferramenta instalada ou configurada (decisão 20). A Trilha 1 (protótipo de estudo) está congelada.
 
+**Próximo passo:** 43 (Etapa E), Opus 5.5 com esforço `médio`; o bloco `médio` vai até o passo 34. Depois, documento 01 com esforço `alto`.
+
 ## 2. O que existe
 
 | Item | Estado |
@@ -16,7 +18,7 @@
 | Projeto Godot | `engine/`, `packs/nr10/` e `art/` só têm a estrutura de pastas. |
 | Protótipo (Trilha 1, congelado) | `prototipo/`, documentado no `prototipo/README.md`; HTML offline em `prototipo/dist/` e Artifact no claude.ai. |
 | Validação do conteúdo | `docs/VALIDACAO_DO_CONTEUDO.md` (gerado): questões, passos, objetos, cartões, amostras do gerador e interpretações dos documentos; nenhuma entrada validada ainda. |
-| *Branches* no GitHub | Além da `main`, há *branches* já mescladas que a sessão na nuvem não consegue apagar (passo 34 do roteiro). |
+| *Branches* no GitHub | Além da `main`, há *branches* já mescladas. A sessão na nuvem não as apaga pela API; o navegador embutido ainda não tem login no GitHub (passo 34 do roteiro). |
 
 ## 3. Ambiente
 
