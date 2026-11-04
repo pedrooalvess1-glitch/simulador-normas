@@ -1,16 +1,24 @@
 #!/usr/bin/env bash
-# Baixa o Godot (Linux x86_64) da Release oficial, confere a SHA-512 e deixa o binário em $DESTINO.
-# Uso: tools/ambiente/instalar_godot.sh [DESTINO] [--templates windows,linux,web]
-#   Sem --templates baixa só o editor (~78 MB). Com --templates baixa o .tpz (~1,3 GB),
-#   confere a soma e extrai só as plataformas pedidas para ~/.local/share/godot/export_templates/.
+# Baixa o Godot (Linux x86_64) da Release oficial, confere a SHA-512 e deixa o binário em DESTINO.
+# Uso: tools/ambiente/instalar_godot.sh [DESTINO] [--templates windows,linux,web]   (opções em qualquer ordem)
+#   Sem --templates baixa só o editor (~78 MB). Com --templates baixa o .tpz (~1,3 GB) só se faltar
+#   alguma plataforma pedida, confere a soma e extrai só essas plataformas para
+#   ~/.local/share/godot/export_templates/<versão>.stable/.
 # Saída: imprime o caminho do binário na última linha.
 set -euo pipefail
 AQUI="$(cd "$(dirname "$0")" && pwd)"
 # shellcheck source=/dev/null
 source "$AQUI/versoes.env"
-DESTINO="${1:-$HOME/.cache/simulador-normas/godot}"
+DESTINO="$HOME/.cache/simulador-normas/godot"
 TEMPLATES=""
-if [[ "${2:-}" == "--templates" ]]; then TEMPLATES="${3:?informe as plataformas, ex.: windows,linux}"; fi
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --templates) TEMPLATES="${2:?informe as plataformas, ex.: --templates windows,linux}"; shift 2 ;;
+    --templates=*) TEMPLATES="${1#--templates=}"; shift ;;
+    -*) echo "Opção desconhecida: $1" >&2; exit 2 ;;
+    *) DESTINO="$1"; shift ;;
+  esac
+done
 URL="https://github.com/godotengine/godot/releases/download/${GODOT_TAG}"
 ZIP="Godot_v${GODOT_TAG}_linux.x86_64.zip"
 BIN="$DESTINO/Godot_v${GODOT_TAG}_linux.x86_64"
@@ -33,20 +41,26 @@ VERSAO="$("$BIN" --headless --version | tail -1)"
 
 if [[ -n "$TEMPLATES" ]]; then
   TPZ="Godot_v${GODOT_TAG}_export_templates.tpz"
-  baixar "$TPZ" "$GODOT_TEMPLATES_TPZ_SHA512"
   T="$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
-  mkdir -p "$T"
   PADROES=(templates/version.txt)
+  FALTA=0
   IFS=',' read -ra PLATS <<< "$TEMPLATES"
   for p in "${PLATS[@]}"; do
     case "$p" in
-      windows) PADROES+=("templates/windows_*_x86_64*.exe") ;;
-      linux)   PADROES+=("templates/linux_*.x86_64") ;;
-      web)     PADROES+=("templates/web_nothreads_*.zip") ;;
-      *) echo "Plataforma desconhecida: $p" >&2; exit 1 ;;
+      windows) g="windows_*_x86_64*.exe" ;;
+      linux)   g="linux_*.x86_64" ;;
+      web)     g="web_nothreads_*.zip" ;;
+      *) echo "Plataforma desconhecida: $p" >&2; exit 2 ;;
     esac
+    PADROES+=("templates/$g")
+    compgen -G "$T/$g" > /dev/null || FALTA=1
   done
-  unzip -oqj "$DESTINO/$TPZ" "${PADROES[@]}" -d "$T"
-  rm -f "$DESTINO/$TPZ"  # 1,3 GB: só as plataformas extraídas ficam
+  [[ "$(cat "$T/version.txt" 2>/dev/null)" == "${GODOT_VERSION}.stable" ]] || FALTA=1
+  if [[ "$FALTA" == 1 ]]; then  # só baixa o .tpz se faltar alguma plataforma pedida
+    mkdir -p "$T"
+    baixar "$TPZ" "$GODOT_TEMPLATES_TPZ_SHA512"
+    unzip -oqj "$DESTINO/$TPZ" "${PADROES[@]}" -d "$T"
+    rm -f "$DESTINO/$TPZ"  # 1,3 GB: só as plataformas extraídas ficam
+  fi
 fi
 echo "$BIN"
