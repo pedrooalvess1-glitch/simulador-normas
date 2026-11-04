@@ -4,9 +4,9 @@
 
 ## 1. Fase atual
 
-**Planejamento do projeto principal (Godot)**: Etapa E do roteiro (infraestrutura do repositório), depois a Etapa F (documentos). Nenhuma ferramenta instalada ou configurada (decisão 20). A Trilha 1 (protótipo de estudo) está congelada.
+**Planejamento do projeto principal (Godot)**: Etapa E concluída, exceto o passo 34; parte na nuvem da Etapa D concluída (decisão 25). Próximo bloco: Etapa F (documentos). A Trilha 1 (protótipo de estudo) está congelada.
 
-**Próximo passo:** 43 (Etapa E), Opus 5.5 com esforço `médio`; o bloco `médio` vai até o passo 34. Depois, documento 01 com esforço `alto`.
+**Próximo passo:** documento 01 (Etapa F), Opus 5.5 com esforço `alto`. Pendentes `médio` que dependem do usuário (👤 U3): 34 (login no GitHub no navegador embutido), 29 e 33 (aprovar o acesso às pastas e à tela do notebook).
 
 ## 2. O que existe
 
@@ -27,6 +27,7 @@
 |---|---|
 | Notebook (alvo de desempenho) | Windows 10, AMD A10-9600P, Radeon R5 integrada, 7,5 GB de RAM, pouco disco livre. Compatibility via ANGLE/D3D11 na R5: ~496 FPS sem sombra e ~75 FPS com sombra numa cena trivial. |
 | Ferramentas no notebook (reserva) | Godot 4.7.2 em `C:\Users\Pedro Alves\Desktop\POTENCIAIS_CONCURSOS\SOFTWARE-NR10\GODOT` (export templates só Windows x86_64); Blender 4.5.10 LTS (caminho não registrado); Git 2.56.0; VS Code 1.140.0. Existe também `C:\ferramentas\godot`, de conteúdo não conferido. |
-| Pastas no notebook | `C:\projetos\simulador-normas` (clone antigo, fora de uso); `C:\projetos\simulador-normas-testes` (executáveis de teste, criada no passo 29). |
+| Pastas no notebook | `C:\projetos\simulador-normas` (clone antigo, fora de uso); `C:\projetos\simulador-normas-testes` ainda não existe (passo 29); há também `C:\projetos\teste-godot`, de conteúdo não conferido. |
 | Sessão na nuvem (ambiente principal) | Plano Pro. *Push*, PR pela API REST e *merge*. O *proxy* bloqueia a API GraphQL, mudanças nas configurações do repositório e a remoção de *branches*. Alcança o notebook pela ponte do app Claude Desktop (arquivos) e pelo controle de aplicativos (tela). |
-| Ferramentas na nuvem (só o acesso verificado) | Godot 4.7.2 para Linux e *export templates*: baixáveis do GitHub da Godot. Blender: `bpy` no PyPI (série 5.x para o Python da sessão). gdUnit4: páginas do repositório bloqueadas pelo *proxy*. Node e Playwright com Chromium: usados pelo gerador da validação. |
+| Ferramentas na nuvem | Instaladas por `tools/ambiente/` a cada sessão (o contêiner é descartável), com versão e soma conferidas: Godot 4.7.2 *headless* + *export templates* Windows/Linux; `bpy` 4.5.10 LTS em venv Python 3.11 (o Python 3.13 da sessão só tem a série 5.x); gdUnit4 v6.2.3 por `git clone` (o *proxy* bloqueia páginas e API de terceiros, não o Git); Xvfb + Mesa llvmpipe para captura de cena sem GPU; Node e Playwright com Chromium. |
+| CI | Também baixa o Godot e confere SHA-512 e versão (job `godot`). |

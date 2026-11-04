@@ -96,7 +96,7 @@ Onde cada ferramenta roda e o que está instalado: `CLAUDE.md` §2 e `STATUS` §
 **Por que Godot e não as alternativas** (o mecanismo de cada decisão):
 - **Unity e Unreal** saem pela regra R1: as condições de licença para uso não-jogo e acima de certos faturamentos institucionais podem exigir planos pagos [FONTE], e o Unreal usa ativos binários, que um agente de código não consegue ler nem editar.
 - **Web pura (TypeScript + three.js) empacotada em Electron/Tauri** é gratuita e leve, mas obriga a escrever à mão tudo o que um motor já entrega (gerência de cenas, interface, entrada, save, câmera, colisão). Para um desenvolvedor solo trabalhando com agente, o Godot reduz o volume de código e, por gravar cenas em texto (`.tscn`, `.tres`), continua legível para o agente [PRÁTICA].
-- **Bônus do renderizador Compatibility:** é o mesmo que o Godot usa na **exportação web**. Logo, uma versão de navegador fica possível sem retrabalho, útil para demonstração ou estudo rápido [PRÁTICA; VERIFICAR limitações da exportação web do 4.7].
+- **Bônus do renderizador Compatibility:** é o único que o Godot 4 usa na **exportação web** (WebGL 2). Logo, uma versão de navegador fica possível sem retrabalho, útil para demonstração ou estudo rápido. Limites conferidos [FONTE: documentação oficial, "Exporting for the Web"]: precisa de servidor web (não abre por `file://` com duplo clique, ao contrário do HTML do protótipo); exportação de *thread* única é a padrão (a multi-*thread* exige cabeçalhos de isolamento de origem); o save em `user://` vai para o IndexedDB e some em janela anônima ou com cookies bloqueados; a aba em segundo plano pausa o jogo; C# não exporta para web (o projeto usa GDScript).
 
 O protótipo em three.js tem dois papéis: é a ferramenta de estudo da Trilha 1 (§1.3, congelada) e é **fonte de conteúdo** para o Godot (textos da norma em `REF`, tabelas, questões, sequências), não código a ser portado.
 
@@ -111,14 +111,16 @@ Configuração padrão do projeto:
 2. **Sem texturas de imagem.** Os materiais usam **cor chapada** ou uma **paleta única** (uma imagem 256 × 256 com faixas de cor, compartilhada por todos os modelos, no estilo Kenney). Placas de sinalização e etiquetas usam `Label3D` sobre placa de cor chapada.
 3. Uma luz direcional + luz ambiente. **Sem sombras em tempo real** em nenhum perfil (medição do passo 17).
 4. Sem SSAO, SSR, glow, bloom, volumetria ou partículas em massa. O raio-x do debrief usa linhas e poucas partículas instanciadas.
-5. Antialiasing: FXAA ou nenhum. Escala de resolução 3D ajustável (75–100 %).
+5. Antialiasing: MSAA 3D 2× ou nenhum. O Compatibility não tem FXAA, SMAA nem TAA (só Forward+ e Mobile) [FONTE: documentação oficial, "3D antialiasing"; confirmado no 4.7.2]. Escala de resolução 3D ajustável (75–100 %).
 6. Texto 3D com `Label3D` (não com texturas de texto).
 7. Objetos repetidos (isoladores, cones, painéis, brita) com `MultiMeshInstance3D`.
 8. Ocultar o que está fora do ambiente atual: cada ambiente é carregado como cena separada e descarregado ao sair.
 
-Perfis de qualidade no menu: **Leve** (padrão, alvo GPU integrada), **Médio** e **Alto** (só antialiasing melhor e escala de resolução 100 %; nenhum deles liga sombras nem texturas). Se houver placa dedicada no computador de teste, o Windows permite escolher "Alto desempenho" por aplicativo em Configurações → Sistema → Tela → Gráficos [FONTE]; isso é opcional e não é requisito.
+Perfis de qualidade no menu: **Leve** (padrão, alvo GPU integrada), **Médio** e **Alto** (só MSAA 2×/4× e escala de resolução 100 %; nenhum deles liga sombras nem texturas). Se houver placa dedicada no computador de teste, o Windows permite escolher "Alto desempenho" por aplicativo em Configurações → Sistema → Tela → Gráficos [FONTE]; isso é opcional e não é requisito.
 
-**Verificação no próprio jogo:** na inicialização, gravar em log `RenderingServer.get_video_adapter_name()`, o renderizador em uso e o FPS médio do primeiro minuto. Um atalho (F3) mostra um painel com FPS, *draw calls*, memória de vídeo estimada e nome da GPU [PRÁTICA; nomes de API a VERIFICAR no 4.7].
+**Verificação no próprio jogo:** na inicialização, gravar em log `RenderingServer.get_video_adapter_name()`, o renderizador em uso e o FPS médio do primeiro minuto. Um atalho (F3) mostra um painel com FPS, *draw calls*, memória de vídeo estimada e nome da GPU. APIs conferidas no 4.7.2 (passo 30): `RenderingServer.get_video_adapter_name()`, `get_video_adapter_vendor()`, `get_video_adapter_api_version()`, `get_current_rendering_method()`; `Performance.get_monitor()` com `TIME_FPS`, `RENDER_TOTAL_DRAW_CALLS_IN_FRAME`, `RENDER_TOTAL_PRIMITIVES_IN_FRAME` e `RENDER_VIDEO_MEM_USED` [FONTE: teste na sessão na nuvem].
+
+**Requisito mínimo oficial do Compatibility:** GPU integrada com OpenGL 3.3 completo; o exemplo citado é a própria **AMD Radeon R5 (Kaveri)** [FONTE: documentação oficial, "System requirements"]. Exportar exige os *export templates* (até 1,5 GB instalados; o projeto extrai só Windows e Linux x86_64).
 
 ### 3.3 Orçamento de desempenho (critério de aceite)
 

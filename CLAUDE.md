@@ -28,7 +28,7 @@
 ## 3. Regras fixas
 1. No notebook, só as pastas `C:\projetos\simulador-normas-testes`, `C:\projetos\simulador-normas`, `C:\ferramentas` e `C:\Users\Pedro Alves\Desktop\POTENCIAIS_CONCURSOS\SOFTWARE-NR10\GODOT`, e só os aplicativos do projeto (executável de teste, Godot, navegador no GitHub).
 2. Todo trabalho em *branch* + PR; *merge* (squash) **só com CI verde**. Nunca `push --force` na `main` nem reescrita de histórico.
-3. **Planejamento antes das ferramentas:** nada de instalar ou configurar Godot, Blender, gdUnit4 ou o notebook antes de concluída a Etapa F, salvo pedido do usuário.
+3. **Planejamento antes das ferramentas:** as versões já estão fixadas e testadas na nuvem (decisão 25); nada de criar o projeto Godot, configurar o notebook ou escolher ajustes de motor antes de concluída a Etapa F, salvo pedido do usuário.
 4. Repositório **público**: nunca comitar tokens, `.env`, credenciais, fotos do usuário (`art/fotos/` fica fora do Git) ou dados pessoais.
 5. Nunca escreva ou corrija texto da NR-10 de memória. Rode `tools/conferir_itens_portaria.py` depois de mexer em documentos ou em `REF`.
 6. **Inferência é provisória:** toda resposta, explicação ou ligação item ↔ objeto escrita pelo agente é inferência até o usuário validar. Na dúvida, marque [INTERPRETAÇÃO] ou [VERIFICAR NA PORTARIA] e deixe a entrada "a validar" no registro de validação (`tools/validacao/`).
@@ -57,8 +57,18 @@ python3 tools/conferir_itens_portaria.py --pdf docs/referencias/portaria-mte-no-
 python3 tools/checar_links.py
 # Registro de validação do conteúdo (Node + Playwright com Chromium)
 python3 tools/validacao/gerar.py
-# Protótipo: ver prototipo/README.md · Godot e Blender: definidos na Etapa D do ROTEIRO
+# Protótipo: ver prototipo/README.md
+# Ferramentas na nuvem (versões e somas em tools/ambiente/versoes.env; Godot também no CI)
+GODOT=$(tools/ambiente/instalar_godot.sh | tail -1)            # + --templates windows,linux para exportar
+"$GODOT" --headless --path <projeto> --export-release "Windows Desktop" build/app.exe
+BPY=$(tools/ambiente/instalar_bpy.sh | tail -1)                # Blender 4.5.10 LTS como módulo (Python 3.11)
+"$BPY" art/blender/<objeto>.py                                  # teste do pipeline: tools/ambiente/teste_blender.py
+tools/ambiente/instalar_gdunit4.sh <projeto>                    # addon gdUnit4 v6.2.3 em addons/gdUnit4
+GODOT_BIN="$GODOT" <projeto>/addons/gdUnit4/runtest.sh --headless --ignoreHeadlessMode -a res://tests
+# Captura de cena sem GPU (renderização de software, Mesa llvmpipe)
+LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a "$GODOT" --path <projeto> --rendering-driver opengl3 -- <argumentos da cena>
 ```
+Versões fixadas: **Godot 4.7.2** (`4.7.2.stable.official.ed1daf0bf`), **Blender/bpy 4.5.10 LTS** (a mesma do notebook), **gdUnit4 v6.2.3**. O gdUnit4 recusa o modo *headless* sem `--ignoreHeadlessMode`; testes que dependem de `InputEvent` não funcionam *headless*. A prévia do Blender no Workbench usa `material.diffuse_color`; o glTF usa a *Base Color* do Principled BSDF: o script define as duas.
 
 ## 6. Pipeline foto → modelo 3D
 1. Foto chega na conversa (guardada em `art/fotos/`, fora do Git).

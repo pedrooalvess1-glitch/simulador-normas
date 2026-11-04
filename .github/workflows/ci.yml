@@ -19,6 +19,15 @@ jobs:
       - name: Links internos entre os .md existem
         run: python3 tools/checar_links.py
 
+  godot:
+    name: Godot fixado (versão e SHA-512)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Baixa o Godot da Release oficial, confere a soma e a versão headless
+        run: tools/ambiente/instalar_godot.sh "$RUNNER_TEMP/godot"
+
   prototipo:
     name: Protótipo + conferência no PDF
     runs-on: ubuntu-latest

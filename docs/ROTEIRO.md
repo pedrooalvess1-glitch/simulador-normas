@@ -41,7 +41,7 @@ Fora desses casos, o agente decide, registra a decisão em `docs/DECISOES.md` qu
 
 ## 3. Passos pendentes, na ordem de execução
 
-**E (infraestrutura do repositório) → F (documentos) → D (ambiente de execução) → G (esqueleto Godot e fatia vertical) → H (ciclo de correção).** As ferramentas só são instaladas depois do planejamento, para que a configuração siga os documentos (decisão 20). Passos seguidos do mesmo nível formam um bloco de sessão. A Etapa I acontece quando chegar uma foto. A Trilha 1 está congelada (melhorias registradas no `prototipo/README.md` §4).
+**E (infraestrutura do repositório) → F (documentos) → D (ambiente de execução; a parte na nuvem foi antecipada a pedido do usuário, decisão 25) → G (esqueleto Godot e fatia vertical) → H (ciclo de correção).** As ferramentas só são instaladas depois do planejamento, para que a configuração siga os documentos (decisão 20). Passos seguidos do mesmo nível formam um bloco de sessão. A Etapa I acontece quando chegar uma foto. A Trilha 1 está congelada (melhorias registradas no `prototipo/README.md` §4).
 
 Concluídas: **A** (contas: GitHub com 2FA, repositório público MIT, Claude Pro), **B** (ferramentas no notebook, `STATUS` §3; o passo 17 mediu o Compatibility na R5 e originou a decisão 4), **C** (repositório, PDF da Portaria em `docs/referencias/`, protótipo, CI) e **E**, exceto o passo 34 (modelo de documento, convenções, glossário do projeto, modelos de issue e de PR, checagem de links no CI, rótulos).
 
@@ -77,11 +77,9 @@ Para cada documento da `00_INDICE` §5: ler `CLAUDE.md`, a `00_INDICE`, `DECISOE
 | 22 | **64.** Revisão cruzada de `docs/` | `extra` | Contradições, lacunas, dependências circulares; o `PLANO_V3` e a `ARQUITETURA` são absorvidos pelos documentos 01, 02, 05, 11, 14, 15 e 16 e retirados do repositório |
 
 ### Etapa D — ambiente de execução
+Feito na nuvem (versões e somas em `tools/ambiente/versoes.env`, comandos no `CLAUDE.md` §5): Godot 4.7.2 *headless* com *export templates* Windows/Linux e SHA-512 no CI; `bpy` 4.5.10 LTS exportando `.glb` e prévia sem GPU; gdUnit4 v6.2.3 rodando *headless*; `.exe` Windows trivial exportado; captura de cena por renderização de software (llvmpipe). Falta o que depende do notebook:
 - [ ] **29.** 🤖 `médio` Pedir acesso (👤 U3 aprova uma vez): `C:\projetos` e a pasta do Godot pela ponte; controle da tela para o executável de teste, o Godot e o navegador. Criar `C:\projetos\simulador-normas-testes`.
-- [ ] **30.** 🤖 `médio` Godot na nuvem: baixar o 4.7.2 para Linux e os *export templates*, rodar `--headless --version`, fixar versão e soma de verificação no CI. Conferir na documentação oficial: requisitos mínimos do Compatibility, nomes das APIs de diagnóstico de GPU e de memória de vídeo (painel F3), limitações da exportação web.
-- [ ] **31.** 🤖 `médio` Blender na nuvem: instalar o `bpy`, exportar um cubo `.glb`, renderizar a prévia sem GPU; fixar a versão (o PyPI oferece a série 5.x; o notebook tem a 4.5.10 LTS) e registrar no `CLAUDE.md`.
-- [ ] **32.** 🤖 `médio` gdUnit4: definir como entra no projeto (o *proxy* da nuvem bloqueia páginas de repositórios de terceiros no GitHub; o CI não tem esse bloqueio).
-- [ ] **33.** 🤖 `médio` Teste no notebook: exportar um `.exe` trivial, copiá-lo para a pasta de testes, abrir pelo controle da tela, ler o FPS e apagar. Testar também capturas de cena na nuvem por renderização de software.
+- [ ] **33.** 🤖 `médio` Teste no notebook: copiar o `.exe` trivial (cena de fumaça com painel de FPS, *draw calls*, VRAM e GPU) para a pasta de testes, abrir pelo controle da tela, ler o FPS e apagar.
 
 ### Etapa G — esqueleto Godot e fatia vertical
 - [ ] **65–68.** 🤖 `médio` Projeto Godot (Compatibility, 4.7.2), gdUnit4, CI de testes, CI de exportação do `.exe` Windows.
