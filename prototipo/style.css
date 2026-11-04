@@ -84,8 +84,6 @@ button{cursor:pointer}
 
 .ref{border:1px solid var(--line);background:var(--surface-2);border-radius:4px;padding:1px 6px;font-family:var(--f-mono);font-size:11.5px;font-weight:500;color:var(--ink);line-height:1.6;white-space:nowrap}
 .ref:hover{border-color:var(--accent);background:var(--accent-soft)}
-.diff-chip{border:1px dashed var(--info);background:var(--info-soft);color:var(--info);border-radius:4px;padding:1px 6px;font-family:var(--f-mono);font-size:11px;font-weight:600;line-height:1.6;white-space:nowrap}
-.diff-chip:hover{border-style:solid}
 
 .tasks{display:flex;flex-wrap:wrap;gap:0 2px;border-bottom:1px solid var(--line)}
 .tasks::-webkit-scrollbar{display:none}
@@ -290,13 +288,22 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .dr-item.compact p{font-size:13px;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .dr-item.compact:hover h5{color:var(--accent-ink)}
 .search{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:8px 10px;font-size:14px;width:100%}
-.cmp{display:grid;gap:10px}
-.cmp div{border:1px solid var(--line);border-radius:6px;padding:10px 12px;font-size:13.5px;line-height:1.55}
-.cmp div b{display:block;font-family:var(--f-mono);font-size:11.5px;margin-bottom:4px;color:var(--ink-2)}
 .scrim{position:fixed;inset:0;background:rgb(10 14 18 / .35);z-index:19;opacity:0;pointer-events:none;transition:opacity .2s}
 .scrim.open{opacity:1;pointer-events:auto}
 .note{font-size:12.5px;color:var(--ink-2);border-top:1px solid var(--line);padding-top:10px}
 
+/* até ~1400 px as 8 fases não cabem ao lado da marca: a linha de fases ganha a largura toda, fica mais compacta
+   e o "Mapa" (primeira aba) fica preso à esquerda quando a linha rola */
+@media (max-width:1400px){
+  .top{grid-template-columns:1fr auto}
+  .phases{grid-column:1/-1;order:3}
+  .tools{order:2}
+  .mods{order:4}
+  .phase{padding:6px 9px 8px;gap:5px}
+  .phase .pt{font-size:16px}
+}
+.phase[data-phase="map"]{position:sticky;left:0;z-index:1;background:var(--surface)}
+.phase[data-phase="map"]::after{content:"";position:absolute;top:0;bottom:0;right:-10px;width:10px;background:linear-gradient(90deg,var(--surface),transparent);pointer-events:none}
 @media (max-width:900px){
   html,body{height:auto}
   .mods .mq{display:none}
@@ -382,3 +389,22 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .hs.found .hit{stroke:var(--ok);stroke-width:4}
 .hs.sel .hit{stroke:var(--ink);stroke-width:4}
 .sc-tiny,.sc-txt,.sc-lab,.sc-name{pointer-events:none}
+
+/* progresso (exportar/importar) */
+.prog-txt{min-height:84px;font-family:var(--f-mono);font-size:11.5px;resize:vertical;margin:6px 0 4px}
+/* treino estilo banca: por que cada alternativa errada está errada */
+.why{margin-top:8px;border-top:1px solid var(--line);padding-top:6px}
+.why summary{cursor:pointer;font-weight:600;font-size:13px;color:var(--ink-2)}
+.why ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:6px}
+.why li{display:grid;grid-template-columns:22px 1fr;gap:6px;font-size:13px;line-height:1.5;align-items:start}
+.why li .ol{font-family:var(--f-mono);font-size:11.5px;font-weight:600;color:var(--ink-2);border:1px solid var(--line);border-radius:4px;text-align:center;line-height:18px}
+.why li.mine{background:var(--bad-soft);border-radius:4px;padding:2px 4px;margin-inline:-4px}
+.why li.mine .ol{border-color:var(--bad);color:var(--bad)}
+/* cenas das histórias 2 a 4 */
+.sc-box{fill:#B88A55;stroke:#7A5A33;stroke-width:1.2}.sc-ring{fill:none;stroke:#E3A11B;stroke-width:2.5}
+.sc-wire{fill:none;stroke:var(--ink);stroke-width:2}.sc-wire2{fill:none;stroke:#7A8792;stroke-width:2.5;stroke-dasharray:7 4}
+.sc-sky{fill:var(--scene-bg)}.sc-soil{fill:#9C7B57}.sc-road{fill:#5E6770}.sc-lane{stroke:#E8E2C8;stroke-width:3;stroke-dasharray:28 18}
+.sc-tapume{fill:#C8B48A;stroke:var(--ink-2);stroke-width:1}.sc-rebar{stroke:#8E3B2C;stroke-width:4;stroke-linecap:round}
+.sc-pole{fill:#A7AFB6;stroke:var(--ink-2);stroke-width:1}.sc-iso{fill:#A9D3E5;stroke:var(--ink-2);stroke-width:1}.sc-isobad{fill:#A9D3E5;stroke:var(--bad);stroke-width:2;stroke-dasharray:3 2}
+.sc-truck{fill:#E0B63B;stroke:#7A6510;stroke-width:1}.sc-roof{fill:#8B4A3A}.sc-pv{fill:#22385A;stroke:#9CB3CF;stroke-width:1}
+.sc-cloud{fill:#6E7E8C;fill-opacity:.85}.sc-bolt{fill:#F2C230}

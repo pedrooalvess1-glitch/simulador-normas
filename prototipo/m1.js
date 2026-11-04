@@ -124,7 +124,7 @@ MODS.push((()=>{
     cam:{theta:.32,phi:1.08,r:34,t:[0,2.5,0],rMax:70},
     reset(){blades=null;},build,
     onPick(id){const p=P[id];if(!p)return false;seen.add(id);
-      fb({k:'info',t:p.t,b:p.b+`<div class="row-actions" style="margin-top:8px"><button type="button" class="btn" data-pre="${id}">Levar ao classificador</button></div>`,r:p.r,d:p.d});toast(p.t);
+      fb({k:'info',t:p.t,b:p.b+`<div class="row-actions" style="margin-top:8px"><button type="button" class="btn" data-pre="${id}">Levar ao classificador</button></div>`,r:p.r});toast(p.t);
       if(activeTask()==='a')selectTask(UI.task);return true;},
     tasks:[
       {id:'a',title:'Cadeia',render(el,api){const n=order.filter(k=>seen.has(k)).length;

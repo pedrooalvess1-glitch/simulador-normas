@@ -1,11 +1,116 @@
-/* ===== História: uma ordem de serviço contada sobre o desenho da cabine (v4) =====
-   Cena estática em SVG (sem animação): o desenho muda de estado a cada ação, e cada objeto
-   clicável está ligado aos itens da NR-10 (Portaria MTE 737/2026) que se aplicam a ele.
-   Textos normativos: só via REF (gaveta). Explicações abaixo são do simulador e citam o item. */
-(()=>{
+/* ===== Histórias: ordens de serviço contadas sobre o desenho da instalação (v5) =====
+   Motor genérico: cada história é um módulo da fase H, com cena estática em SVG (sem animação).
+   O desenho muda de estado a cada ação, e cada objeto clicável está ligado aos itens da NR-10
+   (Portaria MTE 737/2026) que se aplicam a ele. Textos normativos: só via REF (gaveta).
+   Explicações das histórias são do simulador e citam o item.
+   cfg = {id, store, name, short, scene, aria, brief, primer, base, explore, HS, S0, ST, draw(S,K)} */
+function makeStory(cfg){
   const L='ABCDE';
   const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+  const {HS,S0,ST}=cfg;const NQ=ST.length;
+  const bq=st=>typeof bancaQ==='function'?bancaQ(Object.assign({},st,{id:QB.idOf(st)})):st;
 
+  /* ---------- progresso ---------- */
+  const H={i:0,S:Object.assign({},S0),err:0,used:{},found:[],k:0,ans:null,ord:null,fim:false};
+  function load(){try{const d=Store.data[cfg.store];if(d&&typeof d.i==='number'){Object.assign(H,d);H.S=Object.assign({},S0,d.S||{});}}catch(e){}}
+  function save(){Store.data[cfg.store]={i:H.i,S:H.S,err:H.err,used:H.used,found:H.found,k:H.k,fim:H.fim};Store.save();}
+  function use(r){(r||[]).forEach(x=>{H.used[x]=(H.used[x]||0)+1;});}
+  function restart(){Object.assign(H,{i:0,S:Object.assign({},S0),err:0,used:{},found:[],k:0,ans:null,ord:null,fim:false});save();redraw();}
+  let mode='hist',sel=null,hint=false,lastFx=null;
+
+
+  /* ---------- desenho: peças comuns às cenas ---------- */
+  const tx=(x,y,s,c,a)=>`<text x="${x}" y="${y}" class="${c||'sc-txt'}"${a?` text-anchor="${a}"`:''}>${s}</text>`;
+  const rc=(x,y,w,h,c,r)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" class="${c}"${r?` rx="${r}"`:''}/>`;
+  function hs(id,box,inner){const st=[];const step=ST[H.i];
+    if(mode==='hist'&&step){if(step.ty==='hunt'&&H.found.includes(id))st.push('found');
+      if(hint&&((step.alvo||[]).includes(id)||(step.alvos&&step.alvos[id]&&!H.found.includes(id))||(step.ty==='seq'&&step.acts[H.k]&&step.acts[H.k].hs.includes(id))))st.push('hint');
+      if(H.ans!=null&&(step.foco||[]).includes(id))st.push('rel');}
+    if(sel===id)st.push('sel');
+    const [x,y,w,h]=box;
+    return `<g class="hs ${st.join(' ')}" data-hs="${id}" tabindex="0" role="button" aria-label="${HS[id].t}"><title>${HS[id].t}</title>${inner}<rect class="hit" x="${x-4}" y="${y-4}" width="${w+8}" height="${h+8}" rx="6"/></g>`;}
+  function lock(x,y){return `<g class="sc-lock"><path d="M${x+4} ${y+8} v-5 a5 5 0 0 1 10 0 v5" class="sc-shackle"/>${rc(x,y+8,18,14,'sc-lockbody',2)}</g>`;}
+  function person(id,x,name,role,color,extra){const y=600;
+    return hs(id,[x-28,y-150,56,148],`<circle cx="${x}" cy="${y-128}" r="16" class="sc-skin"/>${rc(x-10,y-146,20,9,'sc-helmet',4)}
+      <path d="M${x-22} ${y-110} h44 v62 h-44z" class="${color}"/>${rc(x-17,y-48,13,44,'sc-pants')}${rc(x+4,y-48,13,44,'sc-pants')}
+      ${rc(x-12,y-100,24,15,'sc-badge',2)}${tx(x,y-89,role,'sc-tiny','middle')}${extra||''}${tx(x,y+14,name,'sc-name','middle')}`);}
+  const K={tx,rc,hs,lock,person,H};
+  function scene(){return `<svg class="hist-svg" viewBox="${cfg.viewBox||'0 96 1000 534'}" role="img" aria-label="${cfg.aria}">${cfg.draw(H.S,K)}</svg>`;}
+
+  /* ---------- painel ---------- */
+  let panelEl=null;
+  function redraw(){drawScene();if(panelEl&&panelEl.isConnected){if(mode==='hist')drawStep(panelEl);else if(mode==='exp')drawExplore(panelEl);else drawIndex(panelEl);}}
+  function drawScene(){const v=$('#mapView');if(!v||!G.mod||G.mod.id!==cfg.id)return;v.innerHTML=`<div class="hist-wrap">${scene()}</div>`;
+    $$('[data-hs]',v).forEach(g=>{g.onclick=()=>pick(g.dataset.hs);g.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(g.dataset.hs);}};});}
+  function bar(){return `<div class="prog"><span class="num">Passo ${Math.min(H.i+1,NQ)} de ${NQ}</span><div class="bar"><i style="width:${H.i/NQ*100}%"></i></div><span class="num">erros ${H.err}</span></div>`;}
+  function next(){const st=ST[H.i];H.i++;H.ans=null;H.ord=null;H.found=[];H.k=0;hint=false;
+    if(H.i>=NQ){H.fim=true;markDone(cfg.id,'a');}else if(ST[H.i].pre)ST[H.i].pre(H.S);save();redraw();$('#panel').scrollTop=0;}
+  function wrongInfo(h,why){const i=HS[h];H.err++;miss(i.r);save();fb({k:'err',t:why||('Não é isto: '+i.t),b:i.b,r:i.r});}
+  function drawStep(el){if(H.fim||H.i>=NQ){drawEnd(el);return;}const st=ST[H.i];
+    let h=`${bar()}<div class="eyebrow">${st.f}</div><div class="hist-n">${st.n}</div>`;
+    if(st.ty==='q'){if(!H.ord)H.ord=shuffle(st.o.map((_,i)=>i));
+      h+=`<div class="q"><div class="qq">${st.q}</div>${H.ord.map((oi,j)=>`<button type="button" class="opt ${H.ans!=null?(oi===st.a?'right':(oi===H.ans?'wrong':'')):''}" data-j="${oi}" ${H.ans!=null?'disabled':''}><span class="ol">${L[j]}</span><span>${st.o[oi]}</span></button>`).join('')}</div>`;
+      if(H.ans!=null)h+=cardHTML({k:H.ans===st.a?'ok':'err',t:H.ans===st.a?'Correto':'Resposta: '+L[H.ord.indexOf(st.a)],b:st.x,r:st.r,extra:whyHTML(bq(st),H.ans,H.ord)})+`<p class="lead">Na cena, os objetos ligados a esta decisão estão destacados.</p><div class="row-actions"><button type="button" class="btn primary" data-a="go">Continuar a história</button></div>`;}
+    else if(st.ty==='find'){h+=`<p class="hist-p">${st.p}</p><div class="row-actions"><button type="button" class="btn" data-a="hint">${hint?'Esconder':'Mostrar'} pista</button></div>`;}
+    else if(st.ty==='hunt'){const n=Object.keys(st.alvos).length;h+=`<p class="hist-p">${st.p}</p><div class="row-actions"><span class="lead">Encontradas: <b class="num">${H.found.length} de ${n}</b></span><button type="button" class="btn" data-a="hint">${hint?'Esconder':'Mostrar'} pista</button></div>`;
+      if(H.found.length===n)h+=`<div class="row-actions"><button type="button" class="btn primary" data-a="go">Continuar a história</button></div>`;}
+    else if(st.ty==='seq'){const done=st.acts.slice(0,H.k);const cur=st.acts[H.k];
+      h+=`<p class="hist-p">${st.p}</p><ul class="steps">${done.map(a=>`<li class="done"><span class="sk">${a.k})</span><span>${a.t}</span></li>`).join('')}${cur?`<li class="cur"><span class="sk">${cur.k})</span><span>${hint?cur.t:'Próxima ação · qual é?'}</span></li>`:''}</ul>
+        <div class="row-actions">${cur?`<button type="button" class="btn" data-a="hint">${hint?'Esconder':'Mostrar'} próxima ação</button>`:''}${R(st.ref)}</div>`;
+      if(!cur)h+=cardHTML({k:'ok',t:st.ref==='10.13.1'?'Instalação desenergizada':'Instalação reenergizada',b:st.ref==='10.13.1'?'Só agora, com a sequência completa, a instalação é considerada desenergizada e liberada para o serviço.':'Sequência completa. O estado desenergizado foi mantido até a autorização para reenergizar.',r:[st.ref]})+`<div class="row-actions"><button type="button" class="btn primary" data-a="go">Continuar a história</button></div>`;}
+    h+=`<div class="row-actions hist-foot"><button type="button" class="btn ghost" data-a="reset">Recomeçar a história</button></div>`;
+    el.innerHTML=h;
+    $$('.opt',el).forEach(b=>b.onclick=()=>{if(H.ans!=null)return;H.ans=+b.dataset.j;const ok=H.ans===st.a;use(st.r);if(!ok){H.err++;miss(st.r);}
+      const id=QB.idOf(st);if(id)SRS.record(id,ok);STATS.rec(st,ok);save();redraw();});
+    const go=$('[data-a=go]',el);if(go)go.onclick=next;
+    const hb=$('[data-a=hint]',el);if(hb)hb.onclick=()=>{hint=!hint;redraw();};
+    const rs=$('[data-a=reset]',el);let arm=false;rs.onclick=()=>{if(!arm){arm=true;rs.textContent='Confirmar: recomeçar do passo 1';return;}restart();};}
+  function pick(h){if(!HS[h])return;
+    if(mode!=='hist'){sel=h;const i=HS[h];fb({k:'info',t:i.t,b:i.b,r:i.r});redraw();return;}
+    const st=ST[H.i];if(!st||H.fim)return;
+    if(st.ty==='q'){const i=HS[h];fb({k:'info',t:i.t,b:i.b,r:i.r});return;}
+    if(st.ty==='find'){if(st.alvo.includes(h)){use(st.ok.r);if(st.fx)st.fx(H.S);STATS.rec(st.ok,true);fb({k:'ok',t:st.ok.t,b:st.ok.b,r:st.ok.r});hint=false;next();return;}
+      STATS.rec(st.ok,false);wrongInfo(h);return;}
+    if(st.ty==='hunt'){const a=st.alvos[h];if(a&&!H.found.includes(h)){H.found.push(h);a.fx(H.S);use(a.r);STATS.rec(a,true);fb({k:'ok',t:a.t,b:a.b,r:a.r});hint=false;save();redraw();return;}
+      if(a){fb({k:'info',t:'Já encontrada',b:a.t});return;}const i=HS[h];fb({k:'info',t:'Conforme: '+i.t,b:i.b,r:i.r});return;}
+    if(st.ty==='seq'){const cur=st.acts[H.k];if(!cur)return;
+      if(cur.hs.includes(h)){if(cur.fx)cur.fx(H.S);use([st.ref]);STATS.rec({r:[st.ref]},true);fb({k:'ok',t:`(${cur.k}) ${cur.t}`,b:cur.b,r:[st.ref]});H.k++;hint=false;save();redraw();return;}
+      const e=st.esp&&st.esp(h,cur,H.S);H.err++;STATS.rec({r:[st.ref]},false);
+      if(e){miss(e.r);save();fb({k:'err',t:e.t,b:e.b,r:e.r,gir:e.gir});redraw();return;}
+      const later=st.acts.slice(H.k+1).find(a=>a.hs.includes(h));miss([st.ref]);save();
+      fb({k:'err',t:'Fora de sequência',b:later?`"${later.t}" é da alínea ${later.k}. A sequência está na alínea ${cur.k}.`:`${HS[h].t} não é a próxima ação da sequência (alínea ${cur.k}).`,r:[st.ref]});redraw();}}
+  function drawEnd(el){const refs=Object.keys(H.used).sort((a,b)=>chapOf(a).localeCompare(chapOf(b),'pt',{numeric:true}));
+    el.innerHTML=`<div class="score">História concluída · ${H.err} erro(s)</div><p class="lead">Estes são os itens da NR-10 que você aplicou nesta instalação. Abra cada um para ler o texto da Portaria.</p>
+      <div class="cr">${refs.map(r=>R(r)).join('')}</div>
+      <p class="lead">As decisões desta história também entram no Treino (simulado e revisão espaçada).</p>
+      <div class="row-actions"><button type="button" class="btn primary" data-a="again">Jogar de novo</button><button type="button" class="btn" data-a="map">Ver itens × cena</button></div>`;
+    $('[data-a=again]',el).onclick=restart;$('[data-a=map]',el).onclick=()=>gotoTask('c');}
+
+  /* ---------- explorar e índice ---------- */
+  function drawExplore(el){const i=sel&&HS[sel];
+    el.innerHTML=`<p class="lead">Clique em qualquer objeto da cena para ver o que ele é e quais itens da NR-10 se aplicam a ele. A cena mostra o estado em que a história parou.</p>
+      ${i?cardHTML({k:'info',t:i.t,b:i.b,r:i.r}):'<div class="card info"><div class="ct">Nenhum objeto selecionado</div><div class="cb">'+(cfg.explore||'Comece por qualquer objeto da cena.')+'</div></div>'}`;}
+  function drawIndex(el){const inv={};Object.entries(HS).forEach(([id,o])=>o.r.forEach(r=>{(inv[r]=inv[r]||[]).push(id);}));
+    const keys=Object.keys(inv).sort((a,b)=>a.localeCompare(b,'pt',{numeric:true}));
+    el.innerHTML=`<p class="lead">Cada item da NR-10 e o objeto da cena onde ele aparece. Clique no objeto para destacá-lo no desenho.</p>
+      <div class="cl">${keys.map(r=>`<div class="cl-row"><div class="t">${R(r)} <b>${REF[r]?REF[r].t:''}</b></div><div class="hist-objs">${inv[r].map(id=>`<button type="button" class="mlink" data-o="${id}">${HS[id].t.split(' · ')[0]}</button>`).join(' ')}</div></div>`).join('')}</div>`;
+    $$('[data-o]',el).forEach(b=>b.onclick=()=>{sel=b.dataset.o;drawScene();fb({k:'info',t:HS[sel].t,b:HS[sel].b,r:HS[sel].r});});}
+
+
+  const mod={id:cfg.id,phase:'H',name:cfg.name,short:cfg.short,scene:cfg.scene,view:'map',vpE:'História',
+    primer:cfg.primer,brief:cfg.brief,base:cfg.base,cam:{theta:.4,phi:1.1,r:10,t:[0,1,0],rMax:20},
+    reset(){},build(){},drawMap:drawScene,
+    onTask(id){mode=id==='a'?'hist':id==='b'?'exp':'idx';sel=null;hint=false;drawScene();},
+    tasks:[{id:'a',title:'História',render(el){panelEl=el;mode='hist';drawStep(el);}},
+      {id:'b',title:'Explorar a cena',free:1,render(el){panelEl=el;mode='exp';drawExplore(el);}},
+      {id:'c',title:'Itens × cena',free:1,render(el){panelEl=el;mode='idx';drawIndex(el);}}]};
+  load();
+  QB.add(cfg.id,ST.filter(s=>s.ty==='q'));
+  (window.__stories=window.__stories||[]).push({id:cfg.id,name:cfg.name,ST,HS,H});
+  MODS.push(mod);return {mod,H};}
+
+/* ===== História 1: OS 0731 na cabine primária de 13,8 kV ===== */
+(()=>{
   /* ---------- objetos da cena: o que são e quais itens da NR-10 se aplicam ---------- */
   const HS={
     porta:{t:'Porta da cabine',b:'Local de serviço elétrico: uso exclusivo, proibido guardar objetos (10.12.8). Sinalização de advertência e de restrição de acesso (10.7.7).',r:['10.12.8','10.7.7']},
@@ -125,33 +230,13 @@
       o:['É condição de grave e iminente risco: permite embargo ou interdição sem a metodologia da NR-3','É só uma não conformidade, corrigida no próximo serviço','Gera multa, mas nunca interdição','Só conta se houver acidente','Depende de a fábrica ter PIE'],a:0,
       x:'O 10.16.1 b inclui a não adoção dos procedimentos de desenergização (10.13.1) ou de reenergização (10.13.2), ou das alternativas permitidas pelo 10.13.4. Os documentos do serviço ficam no PIE, que esta fábrica mantém por atuar em média tensão (10.15.6).',
       r:['10.16.1','10.13.4','10.15.6'],foco:['docs']}];
-  const NQ=ST.length;
-
-  /* ---------- progresso ---------- */
-  const H={i:0,S:Object.assign({},S0),err:0,used:{},found:[],k:0,ans:null,ord:null,fim:false};
-  function load(){try{const d=Store.data.hist;if(d&&typeof d.i==='number'){Object.assign(H,d);H.S=Object.assign({},S0,d.S||{});}}catch(e){}}
-  function save(){Store.data.hist={i:H.i,S:H.S,err:H.err,used:H.used,found:H.found,k:H.k,fim:H.fim};Store.save();}
-  function use(r){(r||[]).forEach(x=>{H.used[x]=(H.used[x]||0)+1;});}
-  function restart(){Object.assign(H,{i:0,S:Object.assign({},S0),err:0,used:{},found:[],k:0,ans:null,ord:null,fim:false});save();redraw();}
-  let mode='hist',sel=null,hint=false,lastFx=null;
-
-  /* ---------- desenho ---------- */
-  const tx=(x,y,s,c,a)=>`<text x="${x}" y="${y}" class="${c||'sc-txt'}"${a?` text-anchor="${a}"`:''}>${s}</text>`;
-  const rc=(x,y,w,h,c,r)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" class="${c}"${r?` rx="${r}"`:''}/>`;
-  function hs(id,box,inner){const st=[];const step=ST[H.i];
-    if(mode==='hist'&&step){if(step.ty==='hunt'&&H.found.includes(id))st.push('found');
-      if(hint&&((step.alvo||[]).includes(id)||(step.alvos&&step.alvos[id]&&!H.found.includes(id))||(step.ty==='seq'&&step.acts[H.k]&&step.acts[H.k].hs.includes(id))))st.push('hint');
-      if(H.ans!=null&&(step.foco||[]).includes(id))st.push('rel');}
-    if(sel===id)st.push('sel');
-    const [x,y,w,h]=box;
-    return `<g class="hs ${st.join(' ')}" data-hs="${id}" tabindex="0" role="button" aria-label="${HS[id].t}"><title>${HS[id].t}</title>${inner}<rect class="hit" x="${x-4}" y="${y-4}" width="${w+8}" height="${h+8}" rx="6"/></g>`;}
-  function lock(x,y){return `<g class="sc-lock"><path d="M${x+4} ${y+8} v-5 a5 5 0 0 1 10 0 v5" class="sc-shackle"/>${rc(x,y+8,18,14,'sc-lockbody',2)}</g>`;}
-  function person(id,x,name,role,color,extra){const y=600;
-    return hs(id,[x-28,y-150,56,148],`<circle cx="${x}" cy="${y-128}" r="16" class="sc-skin"/>${rc(x-10,y-146,20,9,'sc-helmet',4)}
-      <path d="M${x-22} ${y-110} h44 v62 h-44z" class="${color}"/>${rc(x-17,y-48,13,44,'sc-pants')}${rc(x+4,y-48,13,44,'sc-pants')}
-      ${rc(x-12,y-100,24,15,'sc-badge',2)}${tx(x,y-89,role,'sc-tiny','middle')}${extra||''}${tx(x,y+14,name,'sc-name','middle')}`);}
-  function scene(){const S=H.S;const o=[];
-    o.push(`<svg class="hist-svg" viewBox="0 96 1000 534" role="img" aria-label="Cabine primária 13,8 kV desenhada, com objetos clicáveis">`);
+  const {H}=makeStory({id:'historia',store:'hist',name:'Uma OS na cabine primária',short:'Cabine 13,8 kV',scene:'Cabine primária 13,8 kV',
+    aria:'Cabine primária 13,8 kV desenhada, com objetos clicáveis',explore:'Comece pela porta, pelos cubículos ou pelo carrinho de ferramentas.',
+    primer:{logic:'A história percorre uma ordem de serviço real, do enquadramento à fiscalização, sobre o desenho de uma cabine primária. Cada decisão é tomada no ambiente: quem entra na equipe, que EPI serve, o que está errado na sala, em que ordem se mexe em cada dispositivo. O desenho muda a cada ação, e cada objeto mostra os itens da NR-10 que valem para ele.',
+      links:[['desenergizado','A sequência das fases F6 e F8 é a do 10.13.',['10.13.1','10.13.2']],['pessoas','A escolha da equipe usa qualificação, capacitação e autorização.',['10.8.3.3','10.10.2.1']],['individual','A vestimenta sai do Anexo IV.',['AIV-I']],['treino','As decisões da história entram no simulado e na revisão.',['10.7.2']]]},
+    brief:'Uma ordem de serviço contada passo a passo no desenho da cabine. Você decide, clica nos objetos e vê quais itens da NR-10 se aplicam a cada um.',
+    base:['10.7.2','10.13.1','10.13.2','10.16.1','AIV-I'],HS,S0,ST,
+    draw(S,K){const {tx,rc,hs,lock,person,H}=K;const o=[];
     o.push(rc(0,0,1000,430,'sc-wall'),rc(0,430,1000,210,'sc-floor'),`<line x1="0" y1="430" x2="1000" y2="430" class="sc-edge"/>`);
     // porta
     o.push(hs('porta',[15,140,80,290],rc(15,140,80,290,'sc-door',3)+rc(26,175,58,44,'sc-warnplate',3)+tx(55,193,'PERIGO','sc-plate','middle')+tx(55,208,'ALTA TENSÃO','sc-plate2','middle')+`<circle cx="84" cy="300" r="4" class="sc-dark"/>`+tx(55,128,'PORTA','sc-lab','middle')));
@@ -197,78 +282,5 @@
       ['luva','Luvas',`<path d="M-10 -6 v-20 a4 4 0 0 1 8 0 v-6 a3 3 0 0 1 6 0 v6 a3 3 0 0 1 6 0 v20z" class="sc-glove"/>${rc(-8,-14,16,7,H.S.luvaOk?'sc-green':'sc-red',1)}`],
       ['roupa','Vestim.',`<path d="M-14 -34 h28 l6 10 h-6 v20 h-22 v-20 h-6z" class="sc-arc"/>${tx(0,-14,'4','sc-tiny2','middle')}`]];
     items.forEach(([id,lab,g],i)=>{const x=402+i*45;o.push(hs(id,[x-20,488,40,82],`<g transform="translate(${x} 538)">${g}</g>`+tx(x,562,lab,'sc-tiny2','middle')));});
-    o.push(`</svg>`);return o.join('');}
-
-  /* ---------- painel ---------- */
-  let panelEl=null;
-  function redraw(){drawScene();if(panelEl&&panelEl.isConnected){if(mode==='hist')drawStep(panelEl);else if(mode==='exp')drawExplore(panelEl);else drawIndex(panelEl);}}
-  function drawScene(){const v=$('#mapView');if(!v||!G.mod||G.mod.id!=='historia')return;v.innerHTML=`<div class="hist-wrap">${scene()}</div>`;
-    $$('[data-hs]',v).forEach(g=>{g.onclick=()=>pick(g.dataset.hs);g.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(g.dataset.hs);}};});}
-  function bar(){return `<div class="prog"><span class="num">Passo ${Math.min(H.i+1,NQ)} de ${NQ}</span><div class="bar"><i style="width:${H.i/NQ*100}%"></i></div><span class="num">erros ${H.err}</span></div>`;}
-  function next(){const st=ST[H.i];H.i++;H.ans=null;H.ord=null;H.found=[];H.k=0;hint=false;
-    if(H.i>=NQ){H.fim=true;markDone('historia','a');}else if(ST[H.i].pre)ST[H.i].pre(H.S);save();redraw();$('#panel').scrollTop=0;}
-  function wrongInfo(h,why){const i=HS[h];H.err++;miss(i.r);save();fb({k:'err',t:why||('Não é isto: '+i.t),b:i.b,r:i.r});}
-  function drawStep(el){if(H.fim||H.i>=NQ){drawEnd(el);return;}const st=ST[H.i];
-    let h=`${bar()}<div class="eyebrow">${st.f}</div><div class="hist-n">${st.n}</div>`;
-    if(st.ty==='q'){if(!H.ord)H.ord=shuffle(st.o.map((_,i)=>i));
-      h+=`<div class="q"><div class="qq">${st.q}</div>${H.ord.map((oi,j)=>`<button type="button" class="opt ${H.ans!=null?(oi===st.a?'right':(oi===H.ans?'wrong':'')):''}" data-j="${oi}" ${H.ans!=null?'disabled':''}><span class="ol">${L[j]}</span><span>${st.o[oi]}</span></button>`).join('')}</div>`;
-      if(H.ans!=null)h+=cardHTML({k:H.ans===st.a?'ok':'err',t:H.ans===st.a?'Correto':'Resposta: '+L[H.ord.indexOf(st.a)],b:st.x,r:st.r})+`<p class="lead">Na cena, os objetos ligados a esta decisão estão destacados.</p><div class="row-actions"><button type="button" class="btn primary" data-a="go">Continuar a história</button></div>`;}
-    else if(st.ty==='find'){h+=`<p class="hist-p">${st.p}</p><div class="row-actions"><button type="button" class="btn" data-a="hint">${hint?'Esconder':'Mostrar'} pista</button></div>`;}
-    else if(st.ty==='hunt'){const n=Object.keys(st.alvos).length;h+=`<p class="hist-p">${st.p}</p><div class="row-actions"><span class="lead">Encontradas: <b class="num">${H.found.length} de ${n}</b></span><button type="button" class="btn" data-a="hint">${hint?'Esconder':'Mostrar'} pista</button></div>`;
-      if(H.found.length===n)h+=`<div class="row-actions"><button type="button" class="btn primary" data-a="go">Continuar a história</button></div>`;}
-    else if(st.ty==='seq'){const done=st.acts.slice(0,H.k);const cur=st.acts[H.k];
-      h+=`<p class="hist-p">${st.p}</p><ul class="steps">${done.map(a=>`<li class="done"><span class="sk">${a.k})</span><span>${a.t}</span></li>`).join('')}${cur?`<li class="cur"><span class="sk">${cur.k})</span><span>${hint?cur.t:'Próxima ação · qual é?'}</span></li>`:''}</ul>
-        <div class="row-actions">${cur?`<button type="button" class="btn" data-a="hint">${hint?'Esconder':'Mostrar'} próxima ação</button>`:''}${R(st.ref)}</div>`;
-      if(!cur)h+=cardHTML({k:'ok',t:st.ref==='10.13.1'?'Instalação desenergizada':'Instalação reenergizada',b:st.ref==='10.13.1'?'Só agora, com a sequência completa, a instalação é considerada desenergizada e liberada para o serviço.':'Sequência completa. O estado desenergizado foi mantido até a autorização para reenergizar.',r:[st.ref]})+`<div class="row-actions"><button type="button" class="btn primary" data-a="go">Continuar a história</button></div>`;}
-    h+=`<div class="row-actions hist-foot"><button type="button" class="btn ghost" data-a="reset">Recomeçar a história</button></div>`;
-    el.innerHTML=h;
-    $$('.opt',el).forEach(b=>b.onclick=()=>{if(H.ans!=null)return;H.ans=+b.dataset.j;const ok=H.ans===st.a;use(st.r);if(!ok){H.err++;miss(st.r);}
-      const id=QB.idOf(st);if(id)SRS.record(id,ok);STATS.rec(st,ok);save();redraw();});
-    const go=$('[data-a=go]',el);if(go)go.onclick=next;
-    const hb=$('[data-a=hint]',el);if(hb)hb.onclick=()=>{hint=!hint;redraw();};
-    const rs=$('[data-a=reset]',el);let arm=false;rs.onclick=()=>{if(!arm){arm=true;rs.textContent='Confirmar: recomeçar do passo 1';return;}restart();};}
-  function pick(h){if(!HS[h])return;
-    if(mode!=='hist'){sel=h;const i=HS[h];fb({k:'info',t:i.t,b:i.b,r:i.r});redraw();return;}
-    const st=ST[H.i];if(!st||H.fim)return;
-    if(st.ty==='q'){const i=HS[h];fb({k:'info',t:i.t,b:i.b,r:i.r});return;}
-    if(st.ty==='find'){if(st.alvo.includes(h)){use(st.ok.r);if(st.fx)st.fx(H.S);STATS.rec(st.ok,true);fb({k:'ok',t:st.ok.t,b:st.ok.b,r:st.ok.r});hint=false;next();return;}
-      STATS.rec(st.ok,false);wrongInfo(h);return;}
-    if(st.ty==='hunt'){const a=st.alvos[h];if(a&&!H.found.includes(h)){H.found.push(h);a.fx(H.S);use(a.r);STATS.rec(a,true);fb({k:'ok',t:a.t,b:a.b,r:a.r});hint=false;save();redraw();return;}
-      if(a){fb({k:'info',t:'Já encontrada',b:a.t});return;}const i=HS[h];fb({k:'info',t:'Conforme: '+i.t,b:i.b,r:i.r});return;}
-    if(st.ty==='seq'){const cur=st.acts[H.k];if(!cur)return;
-      if(cur.hs.includes(h)){if(cur.fx)cur.fx(H.S);use([st.ref]);STATS.rec({r:[st.ref]},true);fb({k:'ok',t:`(${cur.k}) ${cur.t}`,b:cur.b,r:[st.ref]});H.k++;hint=false;save();redraw();return;}
-      const e=st.esp&&st.esp(h,cur,H.S);H.err++;STATS.rec({r:[st.ref]},false);
-      if(e){miss(e.r);save();fb({k:'err',t:e.t,b:e.b,r:e.r,gir:e.gir});redraw();return;}
-      const later=st.acts.slice(H.k+1).find(a=>a.hs.includes(h));miss([st.ref]);save();
-      fb({k:'err',t:'Fora de sequência',b:later?`"${later.t}" é da alínea ${later.k}. A sequência está na alínea ${cur.k}.`:`${HS[h].t} não é a próxima ação da sequência (alínea ${cur.k}).`,r:[st.ref]});redraw();}}
-  function drawEnd(el){const refs=Object.keys(H.used).sort((a,b)=>chapOf(a).localeCompare(chapOf(b),'pt',{numeric:true}));
-    el.innerHTML=`<div class="score">História concluída · ${H.err} erro(s)</div><p class="lead">Estes são os itens da NR-10 que você aplicou na cabine. Abra cada um para ler o texto da Portaria.</p>
-      <div class="cr">${refs.map(r=>R(r)).join('')}</div>
-      <p class="lead">As decisões desta história também entram no Treino (simulado e revisão espaçada).</p>
-      <div class="row-actions"><button type="button" class="btn primary" data-a="again">Jogar de novo</button><button type="button" class="btn" data-a="map">Ver itens × cena</button></div>`;
-    $('[data-a=again]',el).onclick=restart;$('[data-a=map]',el).onclick=()=>gotoTask('c');}
-
-  /* ---------- explorar e índice ---------- */
-  function drawExplore(el){const i=sel&&HS[sel];
-    el.innerHTML=`<p class="lead">Clique em qualquer objeto da cabine para ver o que ele é e quais itens da NR-10 se aplicam a ele. A cena mostra o estado em que a história parou.</p>
-      ${i?cardHTML({k:'info',t:i.t,b:i.b,r:i.r}):'<div class="card info"><div class="ct">Nenhum objeto selecionado</div><div class="cb">Comece pela porta, pelos cubículos ou pelo carrinho de ferramentas.</div></div>'}`;}
-  function drawIndex(el){const inv={};Object.entries(HS).forEach(([id,o])=>o.r.forEach(r=>{(inv[r]=inv[r]||[]).push(id);}));
-    const keys=Object.keys(inv).sort((a,b)=>a.localeCompare(b,'pt',{numeric:true}));
-    el.innerHTML=`<p class="lead">Cada item da NR-10 e o objeto da cena onde ele aparece. Clique no objeto para destacá-lo no desenho.</p>
-      <div class="cl">${keys.map(r=>`<div class="cl-row"><div class="t">${R(r)} <b>${REF[r]?REF[r].t:''}</b></div><div class="hist-objs">${inv[r].map(id=>`<button type="button" class="mlink" data-o="${id}">${HS[id].t.split(' · ')[0]}</button>`).join(' ')}</div></div>`).join('')}</div>`;
-    $$('[data-o]',el).forEach(b=>b.onclick=()=>{sel=b.dataset.o;drawScene();fb({k:'info',t:HS[sel].t,b:HS[sel].b,r:HS[sel].r});});}
-
-  const mod={id:'historia',phase:'H',name:'Uma OS na cabine primária',short:'Cabine 13,8 kV',scene:'Cabine primária 13,8 kV',view:'map',vpE:'História',
-    primer:{logic:'A história percorre uma ordem de serviço real, do enquadramento à fiscalização, sobre o desenho de uma cabine primária. Cada decisão é tomada no ambiente: quem entra na equipe, que EPI serve, o que está errado na sala, em que ordem se mexe em cada dispositivo. O desenho muda a cada ação, e cada objeto mostra os itens da NR-10 que valem para ele.',
-      links:[['desenergizado','A sequência das fases F6 e F8 é a do 10.13.',['10.13.1','10.13.2']],['pessoas','A escolha da equipe usa qualificação, capacitação e autorização.',['10.8.3.3','10.10.2.1']],['individual','A vestimenta sai do Anexo IV.',['AIV-I']],['treino','As decisões da história entram no simulado e na revisão.',['10.7.2']]]},
-    brief:'Uma ordem de serviço contada passo a passo no desenho da cabine. Você decide, clica nos objetos e vê quais itens da NR-10 se aplicam a cada um.',
-    base:['10.7.2','10.13.1','10.13.2','10.16.1','AIV-I'],cam:{theta:.4,phi:1.1,r:10,t:[0,1,0],rMax:20},
-    reset(){},build(){},drawMap:drawScene,
-    onTask(id){mode=id==='a'?'hist':id==='b'?'exp':'idx';sel=null;hint=false;drawScene();},
-    tasks:[{id:'a',title:'História',render(el){panelEl=el;mode='hist';drawStep(el);}},
-      {id:'b',title:'Explorar a cena',free:1,render(el){panelEl=el;mode='exp';drawExplore(el);}},
-      {id:'c',title:'Itens × cena',free:1,render(el){panelEl=el;mode='idx';drawIndex(el);}}]};
-  load();
-  QB.add('historia',ST.filter(s=>s.ty==='q'));
-  window.__hist={ST,HS,H};
-  MODS.push(mod);})();
+    return o.join('');}});
+  window.__hist={ST,HS,H};})();

@@ -48,10 +48,10 @@ MODS.push((()=>{
   function profile(el,api){const w=W.find(x=>x.id===cur);const pr=$('#m3p',el);if(!w){pr.innerHTML='<p class="lead">Escolha um trabalhador na cena ou na lista.</p>';return;}
     const done=ans[w.id]!=null;
     pr.innerHTML=`<div class="profile"><span class="eyebrow">${w.c}</span><h4>${w.n}</h4><ul>${w.l.map(t=>`<li>${t}</li>`).join('')}</ul><div class="task"><b>Tarefa:</b> ${w.task}</div></div>
-      <div class="q"><div class="qq">${w.q}</div>${w.o.map((t,j)=>`<button type="button" class="opt ${done&&j===w.a?'right':''}" data-j="${j}" ${done?'disabled':''}><span class="ol">${'ABC'[j]}</span><span>${t}</span></button>`).join('')}<div class="qfb">${done?cardHTML({k:ans[w.id]?'ok':'err',t:ans[w.id]?'Correto':'Você errou esta',b:w.x,r:w.r,d:w.d}):''}</div></div>`;
+      <div class="q"><div class="qq">${w.q}</div>${w.o.map((t,j)=>`<button type="button" class="opt ${done&&j===w.a?'right':''}" data-j="${j}" ${done?'disabled':''}><span class="ol">${'ABC'[j]}</span><span>${t}</span></button>`).join('')}<div class="qfb">${done?cardHTML({k:ans[w.id]?'ok':'err',t:ans[w.id]?'Correto':'Você errou esta',b:w.x,r:w.r}):''}</div></div>`;
     $$('.opt',pr).forEach(b=>b.onclick=()=>{if(ans[w.id]!=null)return;const j=+b.dataset.j;ans[w.id]=j===w.a;
       $$('.opt',pr).forEach(x=>{x.disabled=true;const jj=+x.dataset.j;if(jj===w.a)x.classList.add('right');else if(jj===j)x.classList.add('wrong');});
-      pr.querySelector('.qfb').innerHTML=cardHTML({k:ans[w.id]?'ok':'err',t:ans[w.id]?'Correto':'Não é essa',b:w.x,r:w.r,d:w.d});
+      pr.querySelector('.qfb').innerHTML=cardHTML({k:ans[w.id]?'ok':'err',t:ans[w.id]?'Correto':'Não é essa',b:w.x,r:w.r});
       reloadScene();drawWho(el);if(Object.keys(ans).length===W.length)api.done();});}
   function drawWho(el){const n=Object.keys(ans).length,ok=Object.values(ans).filter(Boolean).length;
     $('#m3w',el).innerHTML=W.map(w=>`<button type="button" class="${ans[w.id]!=null?'done':''} ${cur===w.id?'sel':''}" data-w="${w.id}"><i style="background:${w.h};border:1px solid var(--line)"></i>${w.n}</button>`).join('');

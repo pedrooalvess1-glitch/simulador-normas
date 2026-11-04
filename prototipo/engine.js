@@ -5,7 +5,6 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 function refKey(id){const r=REF[id];return r&&r.k?r.k:id;}
 function R(id,label){return `<button type="button" class="ref" data-ref="${id}">${esc(label||refKey(id))}</button>`;}
 function Rs(a){return (a||[]).map(i=>R(i)).join('');}
-function D(k){return '';} // edição única: Portaria 737/2026 — seletor desativado (chip "≠ 2004" removido)
 const fmt=(n,d=2)=>Number(n).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
 
 const Store={key:'nr10sim.v1',data:{done:{}},
@@ -168,7 +167,7 @@ function bindPointer(cv){const ptr=new Map();let down=null,pinch=0;const tip=$('
     else{tip.hidden=true;cv.classList.remove('hovering');}}}
 function onPicked(o){const id=o.userData.hotId;markVisited(id);const m=G.mod;
   if(m.onPick&&m.onPick(id)!==false)return;
-  if(m.info&&m.info[id]){const i=m.info[id];fb({k:'info',t:i.t,b:i.b,r:i.r,d:i.d});toast(i.t);}}
+  if(m.info&&m.info[id]){const i=m.info[id];fb({k:'info',t:i.t,b:i.b,r:i.r});toast(i.t);}}
 
 /* ==================== interface ==================== */
 const UI={task:0,lastByPhase:{}};
@@ -186,7 +185,8 @@ const PHASES=[{k:'map',n:'',t:'Mapa',q:'Como a norma se organiza e onde cada ite
 function modsOf(k){return MODS.filter(m=>m.phase===k);}
 function cntDone(m){return m.tasks.filter(t=>!t.free&&isDone(m.id,t.id)).length;}
 function realTasks(m){return m.tasks.filter(t=>!t.free);}
-function keepVisible(box,el){if(!box||!el)return;const L=el.offsetLeft,R=L+el.offsetWidth;if(L<box.scrollLeft||R>box.scrollLeft+box.clientWidth)box.scrollLeft=Math.max(0,L-24);}
+function keepVisible(box,el){if(!box||!el)return;const pin=box.querySelector('[data-phase="map"]');const off=pin&&pin!==el?pin.offsetWidth:0;   /* desconta a aba Mapa, presa à esquerda */
+  const L=el.offsetLeft,R=L+el.offsetWidth;if(L-off<box.scrollLeft||R>box.scrollLeft+box.clientWidth)box.scrollLeft=Math.max(0,L-off-24);}
 function renderNav(){const cur=G.mod?G.mod.phase:'map';
   $('#phases').innerHTML=PHASES.map(p=>{const ms=modsOf(p.k);const tot=ms.reduce((s,m)=>s+realTasks(m).length,0),d=ms.reduce((s,m)=>s+cntDone(m),0);
     return `<button type="button" class="phase ${p.n?'':'aux'}" data-phase="${p.k}" aria-current="${p.k===cur}">${p.n?`<span class="pn">${p.n}</span>`:''}<span class="pt">${p.t}</span>${tot?`<span class="pp num">${d}/${tot}</span>`:''}</button>`;}).join('');
@@ -195,7 +195,7 @@ function renderNav(){const cur=G.mod?G.mod.phase:'map';
   keepVisible($('#phases'),$('#phases [aria-current="true"]'));keepVisible($('#mods .mrow'),$('#mods [aria-current="true"]'));}
 function miss(r){if(!r||!r.length)return;const M=Store.data.miss=Store.data.miss||{};r.forEach(x=>{M[x]=(M[x]||0)+1;});Store.save();}
 
-function cardHTML(o){return `<div class="card ${o.k||'info'}"><div class="ct">${o.gir?'<span class="gir">GIR · 10.16.1</span>':''}<span>${o.t}</span></div>${o.b?`<div class="cb">${o.b}</div>`:''}${(o.r&&o.r.length)||o.d?`<div class="cr">${Rs(o.r)}${o.d?D(o.d):''}</div>`:''}${o.extra||''}</div>`;}
+function cardHTML(o){return `<div class="card ${o.k||'info'}"><div class="ct">${o.gir?'<span class="gir">GIR · 10.16.1</span>':''}<span>${o.t}</span></div>${o.b?`<div class="cb">${o.b}</div>`:''}${o.r&&o.r.length?`<div class="cr">${Rs(o.r)}</div>`:''}${o.extra||''}</div>`;}
 function fb(o){const el=$('#fb');if(!el)return;const w=document.createElement('div');w.innerHTML=cardHTML(o);el.prepend(w.firstChild);while(el.children.length>4)el.lastChild.remove();}
 
 function primerHTML(m){if(!m.primer)return '';const seen=(Store.data.pr||{})[m.id];
@@ -203,7 +203,7 @@ function primerHTML(m){if(!m.primer)return '';const seen=(Store.data.pr||{})[m.i
     return `<div class="lk"><button type="button" class="mlink" data-mod="${to}">${t?t.short:to}</button><span>${why} ${Rs(r)}</span></div>`;}).join('')}</div>`:''}</details>`;}
 function renderPanel(){const m=G.mod;const P=PHASES.find(p=>p.k===m.phase);const ms=modsOf(m.phase),ix=ms.indexOf(m);
   $('#panel').innerHTML=`<div class="p-inner"><div class="mod-head"><div class="eyebrow">${P.n?'Fase '+P.n+' · ':''}${P.t}${ms.length>1?` · módulo ${ix+1} de ${ms.length}`:''}</div><h2>${m.name}</h2><p>${m.brief}</p>
-  <div class="base"><span class="lab">Base</span>${Rs(m.base)}${(m.diffs||[]).map(D).join('')}</div></div>${primerHTML(m)}
+  <div class="base"><span class="lab">Base</span>${Rs(m.base)}</div></div>${primerHTML(m)}
   <div class="tasks" role="tablist" id="tasks"></div><div class="tb" id="tb" role="tabpanel"></div><div class="fb" id="fb" aria-live="polite"></div></div>`;
   (Store.data.pr=Store.data.pr||{})[m.id]=1;Store.save();selectTask(0);}
 
@@ -233,7 +233,6 @@ function closeDrawer(){$('#drawer').classList.remove('open');$('#drawer').setAtt
 function refHTML(id){const r=REF[id];if(!r)return `<div class="dr-item"><span class="id">${esc(id)}</span><p>Item não incluído na base do simulador.</p></div>`;
   return `<div class="dr-item"><span class="id">${esc(refKey(id))}${r.n?' · nota do simulador':''}</span><h5>${r.t}</h5><p>${r.x}</p></div>`;}
 function openRef(id){openDrawer('Texto da norma',refHTML(id)+`<p class="note">Texto da Portaria MTE nº 737/2026 (DOU 01/06/2026). A versão oficial é a publicada no Diário Oficial.</p><button type="button" class="btn" data-index="1">Ver todos os itens</button>`);}
-function openDiff(k){} // edição única: Portaria 737/2026 — seletor desativado (comparativo 2004 × 2027 removido)
 function openIndex(q){const keys=Object.keys(REF);const f=(q||'').toLowerCase().trim();
   const list=keys.filter(k=>!f||(k+' '+refKey(k)+' '+REF[k].t+' '+REF[k].x).toLowerCase().includes(f));
   openDrawer('Consultar norma',`<input class="search" id="refSearch" type="search" placeholder="Buscar: aterramento, PT, 10.13, DDR…" value="${esc(q||'')}" aria-label="Buscar na norma">
@@ -249,7 +248,7 @@ function quiz(el,api,qs,o){o=o||{};let i=0,score=0;const L='ABCDEF';
     el.innerHTML=`<div class="q"><div class="qn">Questão ${i+1} de ${qs.length}</div><div class="qq">${q.q}</div>${q.o.map((t,j)=>`<button type="button" class="opt" data-j="${j}"><span class="ol">${L[j]}</span><span>${t}</span></button>`).join('')}<div class="qfb"></div></div>`;
     $$('.opt',el).forEach(b=>b.onclick=()=>{if(answered)return;answered=true;const j=+b.dataset.j;const ok=j===q.a;if(ok)score++;else miss(q.r);
       $$('.opt',el).forEach(x=>{x.disabled=true;const jj=+x.dataset.j;if(jj===q.a)x.classList.add('right');else if(jj===j)x.classList.add('wrong');});
-      el.querySelector('.qfb').innerHTML=cardHTML({k:ok?'ok':'err',t:ok?'Correto':'Não é essa',b:q.x,r:q.r,d:q.d,gir:q.gir})+`<div class="row-actions" style="margin-top:8px"><button type="button" class="btn primary" data-a="next">${i+1<qs.length?'Próxima':'Ver resultado'}</button></div>`;
+      el.querySelector('.qfb').innerHTML=cardHTML({k:ok?'ok':'err',t:ok?'Correto':'Não é essa',b:q.x,r:q.r,gir:q.gir,extra:typeof whyHTML==='function'?whyHTML(q,j):''})+`<div class="row-actions" style="margin-top:8px"><button type="button" class="btn primary" data-a="next">${i+1<qs.length?'Próxima':'Ver resultado'}</button></div>`;
       el.querySelector('[data-a=next]').onclick=()=>{i++;draw();};if(o.onAnswer)o.onAnswer(q,ok);});}
   draw();}
 
@@ -260,7 +259,7 @@ function classify(el,api,c){const id=c.id||('cl'+Math.random().toString(36).slic
       const good=v===it.a;if(good)ok++;else if(!missed.has(row.dataset.i)){missed.add(row.dataset.i);miss(it.r);}row.classList.toggle('good',good);row.classList.toggle('bad',!good);
       let ex=row.querySelector('.ex');if(!ex){ex=document.createElement('div');ex.className='ex';row.appendChild(ex);}
       const lab=(c.options.find(o=>o.v===it.a)||{}).l;
-      ex.innerHTML=`${good?'✓':'✗ Resposta: <b>'+lab+'</b> ·'} ${it.x||''} ${Rs(it.r)}${it.d?D(it.d):''}${it.gir?' <span class="gir">GIR</span>':''}`;});
+      ex.innerHTML=`${good?'✓':'✗ Resposta: <b>'+lab+'</b> ·'} ${it.x||''} ${Rs(it.r)}${it.gir?' <span class="gir">GIR</span>':''}`;});
     el.querySelector('.res').textContent=`${ok} de ${c.items.length} corretas`+(ok<c.items.length?' · ajuste as vermelhas e confira de novo':'');
     if(ok===c.items.length)api.done();if(c.onCheck)c.onCheck(ok);};}
 
@@ -272,5 +271,5 @@ function pickList(el,api,c){const id=c.id||('pk'+Math.random().toString(36).slic
       if(inp.checked&&it.c){lab.classList.add('good');right++;}else if(inp.checked&&!it.c){lab.classList.add('bad');wrong++;}else if(!inp.checked&&it.c){lab.classList.add('miss');miss++;}});
     const all=right===c.items.filter(x=>x.c).length&&wrong===0;if(!all&&!w.dataset.m){w.dataset.m=1;miss(c.r);}
     w.querySelector('.res').textContent=all?'Completo':`${right} certos · ${wrong} indevidos · ${miss} faltando (tracejado)`;
-    w.querySelector('.pk-fb').innerHTML=cardHTML({k:all?'ok':'err',t:all?'Conteúdo mínimo completo':'Revise',b:c.x,r:c.r,d:c.d});
+    w.querySelector('.pk-fb').innerHTML=cardHTML({k:all?'ok':'err',t:all?'Conteúdo mínimo completo':'Revise',b:c.x,r:c.r});
     if(all&&c.onDone)c.onDone();};}
