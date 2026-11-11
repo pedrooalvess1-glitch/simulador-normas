@@ -49,7 +49,7 @@
     out.push([dress.auricular,'Protetor auricular','exigido quando há risco de ruído ou explosão por arco',['AIV-III']]);
     out.push([dress.luvas!=='none','Luvas de couro espessas, luvas AR ou isolantes de borracha com cobertura','',['AIV-III']]);
     out.push([cat===1||dress.calcado==='couro','Calçado de couro, resistente ao calor, sem metal exposto',cat===1?'na Categoria 1 é "conforme necessário" (CN)':'',['AIV-III']]);
-    out.push([!dress.adornos,'Sem adornos pessoais','aliança e relógio metálico são vedados',['10.7.8','10.7.8.1']]);
+    out.push([!dress.adornos,'Sem adornos pessoais','aliança, anel, relógio e qualquer outro adorno pessoal são vedados',['10.7.8','10.7.8.1']]);
     return out;}
   const ORD=[{k:'des',l:'Desenergização',r:'10.5.1'},{k:'epc',l:'Proteção coletiva',r:'10.6.1'},{k:'adm',l:'Medidas administrativas',r:'10.7.1'},{k:'epi',l:'Proteção individual',r:'10.11.1'}];
   const MED=[
@@ -65,10 +65,10 @@
     {q:'Painel 440 V · Icc 22 kA · 0,03 s · 455 mm',o:OPC,a:1,x:'Painéis acima de 240 V até 600 V, até 25 kA → Categoria 2 (mínimo 8 cal/cm²).',r:['AIV-I']},
     {q:'CCM 480 V · Icc 40 kA · eliminação 0,30 s · 455 mm',o:OPC,a:3,x:'Cabe na linha CCM 42 kA e 0,33 s → Categoria 4. Com 0,03 s seria Categoria 2: o tempo de eliminação pesa mais que a corrente.',r:['AIV-I']},
     {q:'Cubículo metal-clad 13,8 kV · Icc 31,5 kA · 0,20 s · 910 mm',o:OPC,a:3,x:'Aparelhagem revestida de metal de 1 a 15 kV, até 35 kA e 0,24 s → Categoria 4.',r:['AIV-I']},
-    {q:'Banco de baterias 220 Vcc · Icc 4 kA · sem dispositivo de proteção conhecido',o:OPC,a:2,x:'Quadro II: de 3 a menos de 7 kA → Categoria 3. Sem dispositivo de proteção, assume-se arco de 2 s.',r:['AIV-II']},
+    {q:'Banco de baterias 220 Vcc · Icc 4 kA · sem dispositivo de proteção conhecido · trabalho a 455 mm',o:OPC,a:2,x:'Quadro II: de 3 a menos de 7 kA → Categoria 3. Sem dispositivo de proteção, assume-se arco de 2 s.',r:['AIV-II']},
     {q:'Painel 380 V · Icc 50 kA · eliminação 0,10 s · 455 mm',o:OPC,a:5,x:'Nenhuma linha cobre 50 kA com 0,10 s: painéis vão até 25 kA, quadros de distribuição até 35 kA, e as linhas de 65 kA exigem 0,03 s. Qualquer parâmetro pior impede o Anexo IV, e a organização faz estudo de energia incidente. Atenção à tradução: no Quadro I, "painéis" e "quadros de distribuição de 600 V" são linhas diferentes (a segunda leva à Categoria 4).',r:['10.11.2.2','10.11.2.3','10.6.5']},
-    {q:'Painel 220 V · Icc 20 kA · 0,03 s · protegido por fusível limitador de 160 A. Qual a menor categoria que o Anexo IV admite?',o:OPC,a:0,x:'A nota permite reduzir uma categoria quando há fusível ou disjuntor limitador de até 200 A, mas nunca abaixo da Categoria 1.',r:['AIV-I']},
-    {q:'Painel 440 V · Icc 20 kA · 0,03 s · protegido por disjuntor limitador de 100 A. Qual a menor categoria que o Anexo IV admite?',o:OPC,a:0,x:'Categoria 2 da linha; a nota permite reduzir uma categoria com limitador de corrente de até 200 A → Categoria 1.',r:['AIV-I']},
+    {q:'Painel 220 V · Icc 20 kA · 0,03 s · 455 mm · protegido por fusível limitador de corrente de 160 A. Qual a menor categoria que o Anexo IV admite?',o:OPC,a:0,x:'A nota permite reduzir uma categoria quando há fusível ou disjuntor limitador de até 200 A, mas nunca abaixo da Categoria 1.',r:['AIV-I']},
+    {q:'Painel 440 V · Icc 20 kA · 0,03 s · 455 mm · protegido por disjuntor termomagnético limitador de corrente de 100 A. Qual a menor categoria que o Anexo IV admite?',o:OPC,a:0,x:'Categoria 2 da linha; a nota permite reduzir uma categoria com limitador de corrente de até 200 A → Categoria 1.',r:['AIV-I']},
     {q:'Cubículo 13,8 kV resistente a arco · Icc 25 kA · 0,20 s · portas fechadas e travadas · dentro da classificação do equipamento',o:OPC,a:4,x:'Para equipamentos resistentes a arco nessas condições, a categoria é N/A.',r:['AIV-I','10.6.5']},
     {q:'O mesmo cubículo resistente a arco (25 kA, 0,20 s, 910 mm), mas com a porta aberta para extrair o disjuntor',o:OPC,a:3,x:'Com portas abertas vale a linha do equipamento não resistente a arco: aparelhagem revestida de metal 1–15 kV → Categoria 4.',r:['AIV-I']}];
 

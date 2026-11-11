@@ -16,23 +16,23 @@
 
 | Seção | Entradas |
 |---|---|
-| 1. Banco de questões do Treino | 129 |
-| 2. Histórias: passos interativos | 35 |
+| 1. Banco de questões do Treino | 135 |
+| 2. Histórias: passos interativos | 40 |
 | 3. Missão: passos de marcar e de ordenar (OS 0457) | 4 |
-| 4. Histórias: objetos das cenas | 88 |
+| 4. Histórias: objetos das cenas | 100 |
 | 5. Cartões de fatos do Treino | 42 |
 | 6. Gerador de questões do Treino | 43 |
 | 7. Interpretações nos documentos de planejamento | 8 |
-| **Total** | **349** |
+| **Total** | **372** |
 
-Situação: a validar: 349
+Situação: a validar: 372
 
 **Revisar primeiro** (entradas com alerta):
 
 - *outra norma ou concessionária* (1): V-aa520b
-- *mecanismo físico* (15): V-5126d4, V-be596e, V-be8240, V-cab9bf, V-3edac7, V-20dc67, V-de333a, V-3ea7d6, V-900dd4, V-59b3a3, V-d0fc5b, V-caaf28, V-3b0a0d, V-aee8c0, V-f6acf3
-- *prática de campo* (13): V-cab9bf, V-4258b5, V-9f5e1d, V-6a4e38, V-049feb, V-37be4a, V-900dd4, V-d097a9, V-e6bc3f, V-b5f01b, V-9d6caf, V-e55ee9, V-051511
-- *interpretação rotulada* (9): V-d83457, V-ed4aed, V-9d6caf, V-aee8c0, V-54c7d5, V-e55ee9, V-f6acf3, V-73a3dd, V-051511
+- *mecanismo físico* (15): V-5126d4, V-be596e, V-e6ac6d, V-cab9bf, V-3edac7, V-20dc67, V-a64feb, V-3ea7d6, V-900dd4, V-40a2aa, V-bf0616, V-ea3015, V-cf7b3f, V-aee8c0, V-f6acf3
+- *prática de campo* (13): V-cab9bf, V-4258b5, V-9f5e1d, V-6a4e38, V-554823, V-37be4a, V-900dd4, V-d097a9, V-e6bc3f, V-b5f01b, V-9d6caf, V-e55ee9, V-051511
+- *interpretação rotulada* (7): V-9d6caf, V-aee8c0, V-54c7d5, V-e55ee9, V-f6acf3, V-73a3dd, V-051511
 
 ---
 
@@ -136,7 +136,7 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
 - **Itens citados:** 10.14.2 · 10.7.3
 - **Situação:** a validar
 
-### V-365c68 · Zonas e alcance da norma
+### V-e80f22 · Zonas e alcance da norma
 - **Pergunta:** Rede de 13,8 kV. Um pintor está a 1,0 m da parte energizada.
 - **Alternativas** (✔ = resposta do simulador):
   - A) Zona livre: pode trabalhar — *por que não:* Para 10 a 15 kV a zona livre começa em Rc = 1,38 m; a 1,0 m ele está na zona controlada. (AII)
@@ -144,8 +144,8 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
   - C) Zona de risco — *por que não:* A zona de risco vai só até Rr = 0,38 m. (AII)
   - D) Zona controlada: qualquer trabalhador pode estar ali com instrução formal — *por que não:* A zona controlada só admite profissionais autorizados (glossário); a instrução formal do 10.14.1.2 é para quem fica na zona livre e na vizinhança da zona controlada. (g-zc, 10.14.1.2)
   - E) Fora das zonas do Anexo II, por estar a mais de 0,38 m — *por que não:* Passar de Rr só tira da zona de risco; até Rc = 1,38 m ainda é zona controlada. (AII)
-- **Explicação:** Faixa ≥ 10 e < 15 kV: Rr 0,38 m e Rc 1,38 m. 1,0 m está entre os dois. Pintor não autorizado ali é grave e iminente risco.
-- **Itens citados:** AII · 10.2.2 · 10.16.1
+- **Explicação:** Faixa ≥ 10 e < 15 kV: Rr 0,38 m e Rc 1,38 m. 1,0 m está entre os dois: zona controlada, cuja aproximação só é permitida a profissionais autorizados (glossário). O pintor ali está em trabalho em proximidade sem atender ao capítulo 10.10: grave e iminente risco (10.16.1 c).
+- **Itens citados:** AII · g-zc · 10.2.2 · 10.16.1
 - **Situação:** a validar
 
 ### V-82473e · Zonas e alcance da norma
@@ -172,7 +172,7 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
 - **Itens citados:** AII · g-prox
 - **Situação:** a validar
 
-### V-c9026e · Zonas e alcance da norma
+### V-03eee0 · Zonas e alcance da norma
 - **Pergunta:** Cubículo de 13,8 kV com superfície isolante adequada entre a parte viva e o trabalhador, que está a 0,30 m do outro lado.
 - **Alternativas** (✔ = resposta do simulador):
   - A) ZR — *por que não:* Sem a superfície, 0,30 m seria zona de risco (Rr = 0,38 m); com a superfície isolante adequada interposta vale a Figura 2 do Anexo II. (AII)
@@ -180,7 +180,7 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
   - **✔** C) ZL
   - D) ZC, porque a superfície isolante rebaixa a zona em um nível — *por que não:* A Figura 2 não rebaixa a zona em um nível: do outro lado da superfície isolante a região é zona livre. (AII)
   - E) Depende só da distância: a superfície isolante não muda a zona — *por que não:* A Figura 2 do Anexo II existe justamente para a interposição de superfície de separação física adequada. (AII)
-- **Explicação:** Pela Figura 2 do Anexo II, do lado oposto da superfície isolante a região é zona livre.
+- **Explicação:** Pela Figura 2 do Anexo II, do lado oposto da superfície isolante (SI) a região é zona livre. A legenda define a SI: superfície isolante construída com material resistente e dotada de todos os dispositivos de segurança.
 - **Itens citados:** AII
 - **Situação:** a validar
 
@@ -305,7 +305,7 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
 - **Itens citados:** 10.4.1
 - **Situação:** a validar
 
-### V-538824 · Projeto e obra
+### V-e8c96c · Projeto e obra
 - **Pergunta:** O projeto entregue para a obra está conforme o capítulo 10.4? “O motor trifásico da bomba é seccionado por três disjuntores monopolares independentes, sem acoplamento.”
 - **Alternativas** (✔ = resposta do simulador):
   - **✔** A) Não conforme: o projeto deve prever, na medida do possível, seccionamento de ação simultânea (10.4.2)
@@ -313,7 +313,7 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
   - C) Conforme: ação simultânea só é exigida em MT/AT — *por que não:* O 10.4.2 não tem faixa de tensão. (10.4.2)
   - D) Não conforme: o circuito do motor exige DDR pelo 10.6.4 — *por que não:* O 10.6.4 lista os circuitos com DDR obrigatório (áreas molhadas, tomadas externas etc.); o problema aqui é o seccionamento. (10.6.4, 10.4.2)
   - E) Conforme, desde que cada disjuntor tenha etiqueta própria — *por que não:* Sinalização não supre o seccionamento de ação simultânea do 10.4.2. (10.4.2)
-- **Explicação:** O projeto deve prever, na medida do possível, seccionamento de ação simultânea.
+- **Explicação:** O projeto deve prever, na medida do possível, seccionamento de ação simultânea (10.4.2). Para um motor trifásico, um dispositivo tripolar de ação simultânea é plenamente possível, então a ressalva não se aplica.
 - **Itens citados:** 10.4.2
 - **Situação:** a validar
 
@@ -570,8 +570,8 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
 - **Itens citados:** AIV-I
 - **Situação:** a validar
 
-### V-49bbe9 · Proteção individual e arco
-- **Pergunta:** Banco de baterias 220 Vcc · Icc 4 kA · sem dispositivo de proteção conhecido
+### V-5d1caf · Proteção individual e arco
+- **Pergunta:** Banco de baterias 220 Vcc · Icc 4 kA · sem dispositivo de proteção conhecido · trabalho a 455 mm
 - **Alternativas** (✔ = resposta do simulador):
   - A) Categoria 1 — *por que não:* O Quadro II (CC) começa na Categoria 2. (AIV-II)
   - B) Categoria 2 — *por que não:* No Quadro II, a Categoria 2 é para corrente abaixo de 3 kA. (AIV-II)
@@ -594,8 +594,8 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
 - **Itens citados:** 10.11.2.2 · 10.11.2.3 · 10.6.5
 - **Situação:** a validar
 
-### V-da4079 · Proteção individual e arco
-- **Pergunta:** Painel 220 V · Icc 20 kA · 0,03 s · protegido por fusível limitador de 160 A. Qual a menor categoria que o Anexo IV admite?
+### V-99fce4 · Proteção individual e arco
+- **Pergunta:** Painel 220 V · Icc 20 kA · 0,03 s · 455 mm · protegido por fusível limitador de corrente de 160 A. Qual a menor categoria que o Anexo IV admite?
 - **Alternativas** (✔ = resposta do simulador):
   - **✔** A) Categoria 1
   - B) Categoria 2 — *por que não:* A linha de até 240 V já dá Categoria 1; a nota só reduz, nunca abaixo da 1. (AIV-I)
@@ -606,8 +606,8 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
 - **Itens citados:** AIV-I
 - **Situação:** a validar
 
-### V-7bfcb7 · Proteção individual e arco
-- **Pergunta:** Painel 440 V · Icc 20 kA · 0,03 s · protegido por disjuntor limitador de 100 A. Qual a menor categoria que o Anexo IV admite?
+### V-be6969 · Proteção individual e arco
+- **Pergunta:** Painel 440 V · Icc 20 kA · 0,03 s · 455 mm · protegido por disjuntor termomagnético limitador de corrente de 100 A. Qual a menor categoria que o Anexo IV admite?
 - **Alternativas** (✔ = resposta do simulador):
   - **✔** A) Categoria 1
   - B) Categoria 2 — *por que não:* É a categoria da linha, mas a nota permite reduzir um número com fusível ou disjuntor limitador de até 200 A. (AIV-I)
@@ -726,7 +726,7 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
 - **Itens citados:** 10.16.1 · 10.13.2
 - **Situação:** a validar
 
-### V-b2e5ca · Documentação e grave e iminente risco
+### V-83c6ec · Documentação e grave e iminente risco
 - **Pergunta:** Pelo 10.16.1, como se enquadra esta situação? “Luminária queimada diante do CCM”
 - **Alternativas** (✔ = resposta do simulador):
   - A) Grave e iminente risco: alínea a do 10.16.1 (área classificada sem proteção coletiva) — *por que não:* A alínea a é só a ausência de medidas de proteção coletiva em instalações elétricas de áreas classificadas. (10.16.1)
@@ -734,8 +734,8 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
   - C) Grave e iminente risco: alínea c do 10.16.1 (trabalhador que não atende ao capítulo 10.10) — *por que não:* A alínea c é serviço em eletricidade ou trabalho em proximidade feito por quem não atende ao capítulo 10.10 (autorização). (10.16.1)
   - D) Grave e iminente risco: alínea d do 10.16.1 (falta de ensaios e testes de isolação) — *por que não:* A alínea d é a não realização de ensaios e testes de isolação em equipamentos, ferramentas, dispositivos isolantes e EPI/EPC. (10.16.1)
   - **✔** E) Não conformidade, mas fora da lista do 10.16.1
-- **Explicação:** Não conformidade com 10.4.10, fora da lista do 10.16.1.
-- **Itens citados:** 10.4.10
+- **Explicação:** A iluminação adequada vem do projeto (10.4.10), e a instalação é mantida de forma a garantir a segurança (10.12.2). É não conformidade, mas fora das quatro condições do 10.16.1.
+- **Itens citados:** 10.4.10 · 10.12.2
 - **Situação:** a validar
 
 ### V-1222cf · Organização do trabalho
@@ -1219,7 +1219,7 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
 - **Itens citados:** 10.15.6.1
 - **Situação:** a validar
 
-### V-618dbf · Missão integrada
+### V-9dfc70 · Missão integrada
 - **Pergunta:** Como esta atividade se enquadra?
 - **Alternativas** (✔ = resposta do simulador):
   - **✔** A) SEC em MT: PIE obrigatório, Básico e Complementar MT/AT-SEC, serviço energizado nunca individual
@@ -1227,8 +1227,8 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
   - C) SEC em BT: só o Básico, e PIE pela carga instalada acima de 75 kW — *por que não:* 13,8 kV não é BT, e carga instalada não é critério de PIE. (g-bt, 10.15.6)
   - D) SEP em MT: Básico e Complementar do SEP, PIE obrigatório — *por que não:* Depois da medição a instalação é do consumidor: o SEP vai até a medição, inclusive. (g-sep)
   - E) Fora da NR-10: o transformador vai estar desligado — *por que não:* A NR-10 alcança manutenção em MT (10.2.1), e desligada com possibilidade de energização segue o 10.14 (10.5.2). (10.2.1, 10.5.2)
-- **Explicação:** A cabine é do consumidor, depois da medição: SEC. 13,8 kV é MT pelo glossário. Atividade em MT obriga o PIE e o Complementar MT/AT-SEC.
-- **Itens citados:** g-mt · 10.15.6 · 10.9.6 · 10.14.2
+- **Explicação:** A cabine é do consumidor, depois da medição (o SEP vai até a medição, inclusive): SEC. 13,8 kV é MT pelo glossário. O TR-01 é parte da instalação de 13,8 kV e o serviço é feito dentro da cabine, junto a partes de MT: a organização realiza atividade em instalação com MT, o que obriga o PIE (10.15.6 b), e a equipe faz o Básico (10.9.4) e o Complementar MT/AT-SEC (10.9.6). Serviço energizado em MT nunca é individual (10.14.2).
+- **Itens citados:** g-mt · g-sep · 10.15.6 · 10.9.4 · 10.9.6 · 10.14.2
 - **Situação:** a validar
 
 ### V-ad44e1 · Missão integrada
@@ -1291,7 +1291,7 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
 - **Itens citados:** 10.7.4.1 · 10.7.4.2 · 10.12.6.1
 - **Situação:** a validar
 
-### V-be8240 · Missão integrada
+### V-e6ac6d · Missão integrada
 - **Pergunta:** O QGBT tem um gerador de emergência que pode alimentar o TR-01 pelo lado de 380 V. O que isso muda?
 - **Alternativas** (✔ = resposta do simulador):
   - A) Nada: o lado de 13,8 kV já está seccionado — *por que não:* Enquanto houver possibilidade de energização por qualquer meio, vale o 10.14 (10.5.2). (10.5.2)
@@ -1299,21 +1299,21 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
   - C) Basta avisar o operador do gerador — *por que não:* Aviso não é impedimento de reenergização (10.13.1 c, 10.13.3). (10.13.1, 10.13.3)
   - D) Só aterrar o lado de MT, que resolve as duas fontes — *por que não:* O aterramento é uma alínea; desenergizar exige seccionar e impedir a reenergização da fonte de BT também. [INTERPRETAÇÃO] (10.13.1, 10.5.2)
   - E) Tratar o lado de 380 V como extrabaixa tensão — *por que não:* 380 V é BT pelo glossário. (g-bt)
-- **Explicação:** Alimentado pela BT, o transformador eleva a tensão do gerador de volta a 13,8 kV nas buchas de MT. Desenergizar é isolar todas as fontes.
+- **Explicação:** Alimentado pela BT, o transformador eleva a tensão do gerador de volta a 13,8 kV nas buchas de MT. Instalação desligada, mas com possibilidade de energização por qualquer meio ou razão, segue o capítulo 10.14 (10.5.2), e só é considerada desenergizada depois da sequência do 10.13.1. Por isso a fonte de 380 V também passa por seccionamento, impedimento e sinalização, e a organização mantém esse estado até o fim do serviço (10.13.3).
 - **Itens citados:** 10.5.2 · 10.13.1 · 10.13.3
 - **Alertas:** mecanismo físico
 - **Situação:** a validar
 
-### V-ffad65 · Missão integrada
-- **Pergunta:** O serviço passa para o turno da noite, com dois eletricistas novos. A PT do dia vale?
+### V-ee6679 · Missão integrada
+- **Pergunta:** O serviço passa para o turno da noite, e a equipe inteira é trocada por dois eletricistas que não estavam no turno do dia. A PT do dia vale?
 - **Alternativas** (✔ = resposta do simulador):
   - A) Sim, até o fim do serviço — *por que não:* A validade é limitada à duração da atividade e restrita ao turno. (10.7.2.2)
-  - **✔** B) Não: a PT é restrita ao turno e só pode ser revalidada se não mudarem as condições nem a equipe
-  - C) Sim, se o supervisor assinar de novo — *por que não:* Não cabe revalidação com mudança na equipe. (10.7.2.2)
+  - **✔** B) Não: a PT é restrita ao turno e só pode ser revalidada se não mudarem as condições estabelecidas nem toda a equipe
+  - C) Sim, se o supervisor assinar de novo — *por que não:* Com a equipe toda trocada não cabe revalidação; e quem revalida é o responsável pela autorização da permissão, não o supervisor. (10.7.2.2)
   - D) Sim, porque a PT vale 24 horas — *por que não:* A PT é restrita ao turno de trabalho. (10.7.2.2)
-  - E) Não: a PT não pode ser revalidada em hipótese alguma — *por que não:* O 10.7.2.2 admite revalidação pelo responsável pela autorização, se não mudarem as condições nem a equipe. (10.7.2.2)
-- **Explicação:** —
-- **Itens citados:** 10.7.2.2
+  - E) Não: a PT não pode ser revalidada em hipótese alguma — *por que não:* O 10.7.2.2 admite revalidação pelo responsável pela autorização, se não mudarem as condições estabelecidas nem toda a equipe. (10.7.2.2)
+- **Explicação:** Pelo 10.7.2.2, a PT vale pela duração da atividade, restrita ao turno, e pode ser revalidada pelo responsável pela autorização da permissão quando não mudam as condições estabelecidas nem toda a equipe de trabalho. Aqui a equipe inteira mudou: é preciso nova PT, com a relação dos novos envolvidos e suas autorizações (10.7.2.1 c).
+- **Itens citados:** 10.7.2.2 · 10.7.2.1
 - **Situação:** a validar
 
 ### V-ac7c5f · Uma OS na cabine primária
@@ -1544,15 +1544,15 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
 - **Itens citados:** g-sep · 10.9.4 · 10.9.5 · 10.15.6 · 10.14.2
 - **Situação:** a validar
 
-### V-eb1bf4 · Uma OS na rede de distribuição
+### V-37b1af · Uma OS na rede de distribuição
 - **Pergunta:** O que a NR-10 exige?
 - **Alternativas** (✔ = resposta do simulador):
   - **✔** A) Medidas que impeçam outras equipes ou organizações de energizar o trecho durante todo o serviço, além do impedimento de reenergização sob controle da equipe
-  - B) Nada: com a chave aberta, o religador não importa — *por que não:* Enquanto houver possibilidade de energização, a instalação não está desenergizada (10.5.2), e o 10.13.3 exige impedir outras equipes. (10.5.2, 10.13.3)
+  - B) Nada: com a chave fusível aberta, a interligação não importa — *por que não:* Fechada a interligação, o trecho é energizado pela outra ponta: há possibilidade de energização (10.5.2), e o 10.13.3 exige impedir que outras equipes energizem o trecho. (10.5.2, 10.13.3)
   - C) Só desativar o religamento automático, como no serviço energizado — *por que não:* O 10.14.3 é do serviço energizado em MT/AT na zona de risco; aqui vale a sequência completa do 10.13.1 e o 10.13.3. (10.14.3, 10.13.1, 10.13.3)
   - D) Basta avisar o centro de operação por rádio — *por que não:* Aviso não é medida que impeça a energização. (10.13.3)
   - E) Desligar a subestação inteira durante o serviço — *por que não:* A NR-10 exige medidas que impeçam a energização do trecho, não uma medida específica como essa. [INTERPRETAÇÃO] (10.13.3)
-- **Explicação:** A organização garante o estado de desenergização durante toda a execução, impedindo que outras equipes ou organizações energizem as instalações (10.13.3). O impedimento de reenergização (10.13.1 c) fica sob controle dos trabalhadores envolvidos (glossário).
+- **Explicação:** A chave de interligação é uma segunda fonte possível do trecho. A organização garante o estado de desenergização durante toda a execução, com medidas que impeçam outras equipes ou organizações de energizar as instalações (10.13.3): aqui, o bloqueio do comando da interligação no centro de operação. O impedimento de reenergização (10.13.1 c) fica sob controle dos trabalhadores envolvidos (glossário).
 - **Itens citados:** 10.13.3 · 10.13.1
 - **Situação:** a validar
 
@@ -1568,16 +1568,16 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
 - **Itens citados:** 10.5.2 · 10.13.1 · 10.14.5
 - **Situação:** a validar
 
-### V-5c0d60 · Uma OS na rede de distribuição
+### V-936c7e · Uma OS na rede de distribuição
 - **Pergunta:** O que a equipe faz?
 - **Alternativas** (✔ = resposta do simulador):
-  - **✔** A) Interrompe o serviço: condições meteorológicas adversas entram na análise de risco e podem ser condição impeditiva
+  - **✔** A) Interrompe o serviço: é condição impeditiva prevista na PT, e condição impeditiva impede a continuidade do serviço
   - B) Continua: a rede está aterrada, então não há risco — *por que não:* O aterramento não afasta as condições meteorológicas adversas da análise de risco. (10.7.3)
   - C) Continua, com luvas isolantes — *por que não:* EPI é o último nível da hierarquia e não resolve condição impeditiva. (10.5.4, 10.7.3)
   - D) Continua, se o encarregado autorizar verbalmente — *por que não:* Condição impeditiva prevista na análise de risco e na PT não é dispensada verbalmente. (10.7.3, 10.7.2.1)
   - E) Só para se começar a chover no local — *por que não:* A análise de risco considera condições meteorológicas adversas, não só a chuva no local. (10.7.3)
-- **Explicação:** A análise de risco considera as condições meteorológicas adversas (10.7.3 c) e as condições impeditivas (10.7.3 g); a PT também traz as condições impeditivas (10.7.2.1 e). Condição impeditiva impede a realização ou a continuidade do serviço (glossário). [INTERPRETAÇÃO: a decisão concreta sai da análise de risco da equipe.]
-- **Itens citados:** 10.7.3 · 10.7.2.1
+- **Explicação:** A análise de risco considera as condições meteorológicas adversas (10.7.3 c) e as condições impeditivas (10.7.3 g), e a PT traz as condições impeditivas (10.7.2.1 e). Pelo glossário, condição impeditiva é a que impede a realização ou a continuidade do serviço: com a tempestade prevista na PT, o serviço para. Descargas atmosféricas e condições climáticas adversas estão entre os perigos do SEP no Complementar do SEP (Anexo III).
+- **Itens citados:** 10.7.3 · 10.7.2.1 · g-cimp · AIII
 - **Situação:** a validar
 
 ### V-f3dfc1 · Uma OS na rede de distribuição
@@ -1590,6 +1590,78 @@ Questões dos módulos, listas de classificação convertidas e decisões de esc
   - E) Só com a ANEEL — *por que não:* A NR-10 manda a organização manter a documentação disponível aos trabalhadores e à Inspeção do Trabalho (10.15.2). (10.15.2)
 - **Explicação:** A PT é encerrada e arquivada para rastreabilidade (10.7.2.3). Quem integra o SEP organiza a documentação do 10.15.4 na forma de PIE, sob responsabilidade de PLH (10.15.6), com procedimentos de resposta a emergências e o sistema de resgate disponível (10.15.6.1).
 - **Itens citados:** 10.15.6 · 10.15.6.1 · 10.7.2.3
+- **Situação:** a validar
+
+### V-51f771 · Uma OS em área classificada
+- **Pergunta:** Como esta atividade se enquadra na NR-10?
+- **Alternativas** (✔ = resposta do simulador):
+  - **✔** A) SEC em baixa tensão, em área classificada: Básico e Complementar de Área Classificada; documentação do 10.15.4 e do 10.15.5, sem obrigação de PIE
+  - B) SEC em baixa tensão: só o Básico, porque a tensão é baixa — *por que não:* O 10.9.7 exige o Complementar de Área Classificada para serviços em área classificada, sem faixa de tensão. (10.9.7)
+  - C) PIE obrigatório, por ter área classificada — *por que não:* Área classificada obriga a documentação do 10.15.5; o PIE é de quem integra o SEP ou atua em MT/AT (10.15.6). (10.15.5, 10.15.6)
+  - D) Complementar de Média e Alta Tensão - SEC, por ser área de risco — *por que não:* O complementar MT/AT-SEC é para quem atua em MT/AT (10.9.6); 220/127 V é BT. (10.9.6, g-bt)
+  - E) Fora da NR-10: posto de combustível tem norma própria — *por que não:* O 10.2.1 alcança o consumo em BT, e a própria NR-10 tem regras para área classificada (10.4.11, 10.6.6.1). (10.2.1, 10.6.6.1)
+- **Explicação:** Depois da medição a instalação é do consumidor (SEC), e 220/127 V é BT. Quem faz serviço em eletricidade em área classificada faz o Complementar de Área Classificada, de 16 h (10.9.7), além do Básico (10.9.4). Ter área classificada obriga a documentação do 10.15.5; o PIE é só de quem integra o SEP ou atua em MT/AT (10.15.6).
+- **Itens citados:** 10.9.7 · 10.9.4 · 10.15.5 · 10.15.6
+- **Situação:** a validar
+
+### V-f69994 · Uma OS em área classificada
+- **Pergunta:** O que libera a execução?
+- **Alternativas** (✔ = resposta do simulador):
+  - **✔** A) Permissão de trabalho precedida de análise de risco, mais o procedimento de trabalho, executados por trabalhador autorizado
+  - B) Só o procedimento de trabalho, porque a atividade é rotineira — *por que não:* Seria assim fora de área classificada (10.7.1); dentro dela, o 10.6.6.1.2 soma a PT. (10.6.6.1.2, 10.7.1)
+  - C) Permissão de trabalho só se a troca fosse não rotineira — *por que não:* O 10.6.6.1.2 exige PT em área classificada sem distinguir rotineira e não rotineira. (10.6.6.1.2)
+  - D) Ordem do gerente do posto — *por que não:* Ordem verbal não é PT nem procedimento. (10.6.6.1.2)
+  - E) Só a análise de risco, sem outro documento — *por que não:* A análise de risco precede a PT; o 10.6.6.1.2 pede PT e procedimento. (10.6.6.1.2)
+- **Explicação:** Em área classificada, o 10.6.6.1.2 exige permissão de trabalho, precedida de análise de risco, e procedimento de trabalho, com trabalhador autorizado, sem distinguir atividade rotineira e não rotineira. Fora de área classificada, este serviço rotineiro sairia só com o procedimento (10.7.1).
+- **Itens citados:** 10.6.6.1.2 · 10.7.1 · g-rot
+- **Situação:** a validar
+
+### V-ee55bd · Uma OS em área classificada
+- **Pergunta:** A NR-10 alcança esse circuito?
+- **Alternativas** (✔ = resposta do simulador):
+  - **✔** A) Só para as medidas contra explosão e incêndio do 10.6.6 e subitens: fora disso, a EBT está excluída
+  - B) Não: extrabaixa tensão está fora da NR-10, sem exceção — *por que não:* O 10.2.4 ressalva o 10.6.6 e seus subitens. (10.2.4)
+  - C) Sim, integralmente, por estar em área classificada — *por que não:* A exceção do 10.2.4 é só o 10.6.6 e subitens, não a norma inteira. (10.2.4)
+  - D) Não: 24 Vcc é baixa tensão em corrente contínua, mas fora do 10.6.6 — *por que não:* A BT em CC começa acima de 120 V: 24 Vcc é EBT. (g-ebt, g-bt)
+  - E) Sim, e exige o Complementar de Média e Alta Tensão - SEC — *por que não:* 24 Vcc não é MT/AT; o 10.9.6 não se aplica. (10.9.6, g-ebt)
+- **Explicação:** 24 Vcc não passa de 120 V em CC: é EBT. O 10.2.4 exclui a EBT da NR-10, exceto para o atendimento do 10.6.6 e subitens, que tratam da proteção contra explosão e incêndio, inclusive em área classificada (10.6.6.1). A aplicação da EBT segue o memorial descritivo do projeto (10.2.4.1).
+- **Itens citados:** 10.2.4 · g-ebt · 10.6.6 · 10.2.4.1
+- **Situação:** a validar
+
+### V-4555db · Uma OS em área classificada
+- **Pergunta:** O que a NR-10 exige dela?
+- **Alternativas** (✔ = resposta do simulador):
+  - **✔** A) Seleção e manutenção conforme o estudo de classificação de áreas e certificado de acordo com as normas técnicas oficiais ou internacionais vigentes
+  - B) Nada: o certificado de fábrica continua valendo depois do conserto — *por que não:* O 10.6.6.1.1 cita expressamente os equipamentos reparados. (10.6.6.1.1)
+  - C) Só um ensaio dielétrico depois do conserto — *por que não:* O 10.6.6.1.1 pede seleção e manutenção conforme o estudo, com certificado; um ensaio não substitui isso. (10.6.6.1.1)
+  - D) Só pode voltar se for trocada por uma nova — *por que não:* O reparado pode voltar, selecionado e mantido conforme o estudo e certificado. (10.6.6.1.1)
+  - E) Certificado só é exigido de equipamento importado — *por que não:* O 10.6.6.1.1 alcança fabricados, importados e reparados. (10.6.6.1.1)
+- **Explicação:** O 10.6.6.1.1 alcança os equipamentos, componentes, acessórios, dispositivos e sistemas fabricados, importados e os reparados destinados a área classificada: são selecionados e mantidos conforme o estudo de classificação de áreas e possuem certificado de acordo com as normas técnicas oficiais estabelecidas pelos órgãos competentes ou as normas técnicas internacionais vigentes.
+- **Itens citados:** 10.6.6.1.1 · g-eca
+- **Situação:** a validar
+
+### V-2b3fa3 · Uma OS em área classificada
+- **Pergunta:** Como a NR-10 trata essa situação?
+- **Alternativas** (✔ = resposta do simulador):
+  - **✔** A) Grave e iminente risco (10.16.1 a): permite embargo ou interdição sem a metodologia da NR-3
+  - B) Não conformidade comum, corrigida no próximo plano de manutenção — *por que não:* Está na alínea a do 10.16.1. (10.16.1)
+  - C) Grave e iminente risco, mas a interdição segue a metodologia da NR-3 — *por que não:* O 10.16.1 dispensa justamente a metodologia da NR-3. (10.16.1)
+  - D) Grave e iminente risco só se houver atmosfera explosiva no momento — *por que não:* A alínea a é a ausência das medidas coletivas, sem essa condição; e área classificada é onde a atmosfera explosiva está presente ou é prevista (glossário). (10.16.1, g-acl)
+  - E) Infração só da NR-23, porque é risco de incêndio — *por que não:* O 10.6.6 remete à NR-23, mas a falta de proteção coletiva em área classificada é grave e iminente risco da própria NR-10 (10.16.1 a). (10.6.6, 10.16.1)
+- **Explicação:** Ausência de medidas de proteção coletiva em instalações elétricas de áreas classificadas é a alínea a do 10.16.1, que dispensa a metodologia da NR-3 para embargo ou interdição. O 10.6.6.1 exige essas medidas para prevenir as possíveis fontes de ignição.
+- **Itens citados:** 10.16.1 · 10.6.6.1
+- **Situação:** a validar
+
+### V-7c0e44 · Uma OS em área classificada
+- **Pergunta:** Onde ficam os documentos deste serviço?
+- **Alternativas** (✔ = resposta do simulador):
+  - **✔** A) Na documentação de área classificada (10.15.5) e na de quem tem autorizados (10.15.4); o posto não é obrigado a ter PIE
+  - B) No PIE do posto, obrigatório por ter área classificada — *por que não:* O PIE é de quem integra o SEP ou atua em MT/AT (10.15.6); a área classificada obriga a documentação do 10.15.5. (10.15.6, 10.15.5)
+  - C) Só na documentação do 10.15.4: área classificada não tem documento próprio — *por que não:* O 10.15.5 é justamente a documentação própria de quem tem área classificada. (10.15.5)
+  - D) Em lugar nenhum: a PT é descartada no fim do serviço — *por que não:* Ao final, a PT é encerrada e arquivada para rastreabilidade. (10.7.2.3)
+  - E) Só com o fabricante da luminária — *por que não:* A documentação é da organização e fica disponível aos trabalhadores e à Inspeção do Trabalho (10.15.2). (10.15.2)
+- **Explicação:** O 10.15.5 manda manter procedimentos, análises de risco e PT do 10.6.6.1.2, a certificação dos equipamentos conforme o estudo e as inspeções de conformidade. A PT é encerrada e arquivada para rastreabilidade (10.7.2.3). O PIE é de quem integra o SEP ou atua em MT/AT (10.15.6), o que não é o caso.
+- **Itens citados:** 10.15.5 · 10.15.4 · 10.7.2.3 · 10.15.6
 - **Situação:** a validar
 
 ---
@@ -1606,11 +1678,11 @@ Passos em que o aluno clica nos objetos da cena, em cada uma das histórias. As 
 - **Itens citados:** 10.8.3.3 · 10.10.2.1
 - **Situação:** a validar
 
-### V-9f3cb8 · Uma OS na cabine primária · F3 · Almoxarifado · achar o objeto
+### V-7299a9 · Uma OS na cabine primária · F3 · Almoxarifado · achar o objeto
 - **Situação:** No carrinho: detector de tensão para MT, conjunto de aterramento temporário, cadeado, etiqueta, anteparo isolante, cones e corrente, luvas isolantes e vestimenta contra arco. A etiqueta das luvas mostra o último ensaio dielétrico há 14 meses. O fabricante e o PLH não definiram outro prazo.
 - **Tarefa:** Clique no item que não pode ser usado hoje.
 - **Resposta do simulador:** Luvas isolantes
-- **Explicação:** Luvas com ensaio vencido. Luvas e mangas isolantes passam por ensaio dielétrico (10.14.4 b). Sem prazo menor previsto, o ensaio é anual (10.14.4.1): 14 meses é ensaio vencido. Não ensaiar EPI isolante é uma das condições de grave e iminente risco (10.16.1 d). O almoxarifado troca as luvas.
+- **Explicação:** Luvas com ensaio vencido. O 10.14.4 manda submeter a ensaio dielétrico o que tem isolação para trabalho em MT/AT (alínea a) e as luvas e mangas isolantes de BT (alínea b). Sem prazo menor previsto, o ensaio é anual (10.14.4.1): 14 meses é ensaio vencido. Não ensaiar EPI isolante é uma das condições de grave e iminente risco (10.16.1 d). O almoxarifado troca as luvas.
 - **Itens citados:** 10.14.4 · 10.14.4.1 · 10.16.1
 - **Situação:** a validar
 
@@ -1628,18 +1700,18 @@ Passos em que o aluno clica nos objetos da cena, em cada uma das histórias. As 
 - **Itens citados:** 10.7.8
 - **Situação:** a validar
 
-### V-6f7f18 · Uma OS na cabine primária · F4 · Chegada · não conformidade
+### V-d1bf2a · Uma OS na cabine primária · F4 · Chegada · não conformidade
 - **Objeto:** Escada de alumínio
 - **Não conformidade:** Escada de alumínio encostada no cubículo
-- **Explicação:** É extensão condutora. Entrar na zona controlada com parte do corpo ou com extensões condutoras é trabalho em proximidade (10.2.2; glossário). A escada sai da cabine.
-- **Itens citados:** 10.2.2 · g-prox
+- **Explicação:** A cabine é local de serviço elétrico: é proibido usá-la para guardar qualquer objeto (10.12.8). Além disso, a escada é extensão condutora: quem a manuseia pode entrar com ela na zona controlada, e isso é trabalho em proximidade (10.2.2; glossário). A escada sai da cabine.
+- **Itens citados:** 10.12.8 · 10.2.2 · g-prox
 - **Situação:** a validar
 
-### V-e9326a · Uma OS na cabine primária · F4 · Chegada · não conformidade
+### V-c3f219 · Uma OS na cabine primária · F4 · Chegada · não conformidade
 - **Objeto:** Pintor terceirizado
 - **Não conformidade:** Pintor trabalhando ao lado dos cubículos
-- **Explicação:** Para quem faz atividade não elétrica na vizinhança da zona controlada, a organização faz análise de risco e dá instrução formal (10.14.1.2). Ele sai da área até ser instruído.
-- **Itens citados:** 10.14.1.2 · g-zc
+- **Explicação:** O pintor não consta na PT nem na análise de risco deste serviço: é trabalho simultâneo não previsto (10.7.3 f), exatamente o que a avaliação prévia precisa encontrar (10.7.4.1 a). Para atividade não elétrica na vizinhança da zona controlada, a organização faz análise de risco e dá instrução formal (10.14.1.2). Ele sai da cabine até isso ser resolvido.
+- **Itens citados:** 10.7.3 · 10.7.4.1 · 10.14.1.2 · g-zc
 - **Situação:** a validar
 
 ### V-cab9bf · Uma OS na cabine primária · F6 · Desenergização · sequência do 10.13.1
@@ -1677,12 +1749,12 @@ Passos em que o aluno clica nos objetos da cena, em cada uma das histórias. As 
 - **Itens citados:** 10.13.1
 - **Situação:** a validar
 
-### V-de333a · Uma OS na cabine primária · F7 · Evento · achar o objeto
+### V-a64feb · Uma OS na cabine primária · F7 · Evento · achar o objeto
 - **Situação:** Bruno vai começar o reaperto quando Ana lembra: o QGBT tem um gerador de emergência com QTA. Se faltar energia na fábrica, o gerador parte sozinho e alimenta o barramento de 380 V, ligado ao secundário do TR-01.
 - **Tarefa:** Clique onde a equipe precisa agir antes de tocar nas buchas.
 - **Resposta do simulador:** QGBT 380 V, Gerador de emergência com QTA
-- **Explicação:** Bloquear também o lado de 380 V. Alimentado pelo lado de 380 V, o transformador eleva a tensão de volta a 13,8 kV nas buchas de MT (backfeed). Enquanto a instalação puder ser energizada por qualquer meio, valem as regras do capítulo 10.14 (10.5.2), e a organização garante o estado desenergizado durante todo o serviço (10.13.3). A equipe abre e bloqueia a chave do QGBT que alimenta o TR-01. [INTERPRETAÇÃO: aplicar o 10.13.1 a todas as fontes.]
-- **Itens citados:** 10.5.2 · 10.13.3 · 10.13.1
+- **Explicação:** Bloquear também o lado de 380 V. Alimentado pelo lado de 380 V, o transformador eleva a tensão de volta a 13,8 kV nas buchas de MT (backfeed). Enquanto a instalação puder ser energizada por qualquer meio, valem as regras do capítulo 10.14 (10.5.2), e a organização garante o estado desenergizado durante todo o serviço (10.13.3). Como o 10.13.1 só considera desenergizada a instalação liberada pela sequência, e a sequência feita até aqui seccionou só a fonte de 13,8 kV, a equipe abre, bloqueia e sinaliza também a chave do QGBT que alimenta o TR-01. Essa fonte devia ter aparecido antes, na análise de risco e na avaliação prévia (10.7.3, 10.7.4.1 a). [INTERPRETAÇÃO apoiada no 10.5.2 e no 10.13.1: a norma não usa a expressão "todas as fontes".]
+- **Itens citados:** 10.5.2 · 10.13.3 · 10.13.1 · 10.7.4.1
 - **Alertas:** mecanismo físico
 - **Situação:** a validar
 
@@ -1750,12 +1822,11 @@ Passos em que o aluno clica nos objetos da cena, em cada uma das histórias. As 
 - **Itens citados:** 10.7.8
 - **Situação:** a validar
 
-### V-d83457 · Uma OS no QDC de um prédio · F3 · Chegada · não conformidade
+### V-eea4b8 · Uma OS no QDC de um prédio · F3 · Chegada · não conformidade
 - **Objeto:** Furadeira com plugue adaptado
 - **Não conformidade:** Furadeira com plugue adaptado
-- **Explicação:** Só ferramentas compatíveis com a instalação, preservando as características de proteção (10.12.5). O adaptador que tira o pino de terra anula a proteção. [INTERPRETAÇÃO]
-- **Itens citados:** 10.12.5
-- **Alertas:** interpretação rotulada
+- **Explicação:** Só podem ser usadas ferramentas compatíveis com a instalação, preservando as características de proteção e respeitando as recomendações do fabricante (10.12.5). A furadeira veio com plugue de três pinos: a carcaça depende do condutor de proteção, que é proteção supletiva (10.6.3 b). O adaptador que elimina o pino de terra tira essa proteção.
+- **Itens citados:** 10.12.5 · 10.6.3
 - **Situação:** a validar
 
 ### V-9f5e1d · Uma OS no QDC de um prédio · F4 · Desenergização · sequência do 10.13.1
@@ -1812,11 +1883,11 @@ Passos em que o aluno clica nos objetos da cena, em cada uma das histórias. As 
 - **Itens citados:** 10.4.3.1 · 10.12.10
 - **Situação:** a validar
 
-### V-cf5505 · Uma OS no canteiro de obra · F3 · Ronda no canteiro · não conformidade
+### V-8a15bb · Uma OS no canteiro de obra · F3 · Ronda no canteiro · não conformidade
 - **Objeto:** Servente erguendo vergalhões junto à rede
 - **Não conformidade:** Vergalhões erguidos junto à rede de 13,8 kV
-- **Explicação:** Um vergalhão de 6 m é extensão condutora e pode entrar na zona controlada (Rc = 1,38 m): isso é trabalho em proximidade, só para autorizados (10.2.2, 10.14.1). Para quem trabalha na vizinhança, análise de risco e instrução formal (10.14.1.2). O material passa a ser movimentado longe da rede.
-- **Itens citados:** 10.2.2 · AII · 10.14.1 · 10.14.1.2
+- **Explicação:** Um vergalhão de 6 m é extensão condutora e pode entrar na zona controlada (Rc = 1,38 m): isso é trabalho em proximidade (glossário; 10.2.2), e a zona controlada só admite a aproximação de profissionais autorizados (glossário; 10.10.2 b). Servente sem autorização nessa situação é a alínea c do 10.16.1. Quem faz atividade não elétrica sem precisar invadir a zona controlada recebe análise de risco e instrução formal (10.14.1.2). O material passa a ser movimentado longe da rede.
+- **Itens citados:** 10.2.2 · AII · g-zc · 10.10.2 · 10.16.1 · 10.14.1.2
 - **Situação:** a validar
 
 ### V-6a4e38 · Uma OS no canteiro de obra · F5 · Reenergização · sequência do 10.13.2
@@ -1852,14 +1923,14 @@ Passos em que o aluno clica nos objetos da cena, em cada uma das histórias. As 
 - **Itens citados:** 10.7.9 · 10.7.3 · 10.9.9
 - **Situação:** a validar
 
-### V-049feb · Uma OS na rede de distribuição · F4 · Desenergização · sequência do 10.13.1
+### V-554823 · Uma OS na rede de distribuição · F4 · Desenergização · sequência do 10.13.1
 - **Sequência do simulador:**
   1. (a) Abrir a chave fusível do trecho: Seccionamento com abertura visível.
   2. (b) Constatar a ausência de tensão na rede de MT: Detector adequado à tensão e testado antes [PRÁTICA].
-  3. (c) Bloquear a chave e registrar o impedimento no centro de operação: Impedimento sob controle da equipe; o centro de operação não manobra o trecho.
+  3. (c) Bloquear a chave e registrar o impedimento no centro de operação: Impedimento sob controle da equipe. O centro de operação registra o bloqueio e trava o comando remoto da chave de interligação: ninguém manobra o trecho (10.13.3).
   4. (d) Constatar de novo, nos pontos de aterramento: A constatação se repete antes de aterrar.
   5. (d) Instalar o aterramento temporário dos dois lados do ponto de trabalho: Com equipotencialização dos condutores [os dois lados: PRÁTICA].
-  6. (e) Cobrir a rede de BT, que continua energizada: Ela fica dentro da zona controlada do ponto de trabalho.
+  6. (e) Cobrir a rede de BT, tratada como energizada: A geração das casas pode mantê-la energizada, e quem trabalha no isolador entra na zona controlada dela (Rc = 0,70 m abaixo de 1 kV).
   7. (f) Sinalizar o impedimento de reenergização na chave
   8. (g) Delimitar e sinalizar a área na rua: Inclui a sinalização para veículos e pedestres.
 - **Itens citados:** 10.13.1
@@ -1878,23 +1949,59 @@ Passos em que o aluno clica nos objetos da cena, em cada uma das histórias. As 
 - **Itens citados:** 10.13.1
 - **Situação:** a validar
 
+### V-8ec25a · Uma OS em área classificada · F2 · Equipe · achar o objeto
+- **Situação:** Três eletricistas se apresentam. Rosa e Lia: autorizadas, ASO apto, Básico e Complementar de Área Classificada em dia. Marcos: autorizado para serviços em BT, ASO apto, Básico em dia; nunca fez o Complementar de Área Classificada. Vítor, frentista, vai interromper o abastecimento na ilha.
+- **Tarefa:** Clique em quem não pode executar este serviço.
+- **Resposta do simulador:** Marcos · eletricista autorizado em BT
+- **Explicação:** Marcos fica fora. A organização promove o Complementar de Área Classificada para quem faz serviço em eletricidade em área classificada (10.9.7), e a autorização exige o treinamento do capítulo 10.9 com aproveitamento (10.10.2.1 b): a abrangência da autorização de Marcos não inclui área classificada (10.10.4). Vítor não executa o serviço elétrico; como trabalha na vizinhança, recebe análise de risco e instrução formal (10.14.1.2).
+- **Itens citados:** 10.9.7 · 10.10.2.1 · 10.10.4 · 10.14.1.2
+- **Situação:** a validar
+
+### V-8b34f3 · Uma OS em área classificada · F3 · Chegada · não conformidade
+- **Objeto:** Luminária da cobertura, sobre a ilha
+- **Não conformidade:** Luminária comum sobre a ilha
+- **Explicação:** Em algum momento a luminária original foi trocada por uma comum, sem certificado. Equipamento destinado a área classificada é selecionado e mantido conforme o estudo de classificação de áreas e possui certificado (10.6.6.1.1). A reposição de hoje é uma luminária certificada.
+- **Itens citados:** 10.6.6.1.1 · g-eca
+- **Situação:** a validar
+
+### V-881dd5 · Uma OS em área classificada · F3 · Chegada · não conformidade
+- **Objeto:** Caminhão-tanque descarregando
+- **Não conformidade:** Descarga sem o cabo de aterramento
+- **Explicação:** O projeto do posto prevê o cabo de aterramento do caminhão-tanque. A descarga de combustível pode gerar e acumular eletricidade estática capaz de provocar ignição, e o processo precisa da proteção específica e dos dispositivos de descarga elétrica definidos em projeto (10.6.6.2). O cabo é ligado antes de continuar.
+- **Itens citados:** 10.6.6.2
+- **Situação:** a validar
+
+### V-02d552 · Uma OS em área classificada · F3 · Chegada · não conformidade
+- **Objeto:** Ilha de bombas · área classificada
+- **Não conformidade:** Área classificada sem delimitação nem sinalização
+- **Explicação:** A sinalização de segurança atende, entre outras situações, às restrições e impedimentos de acesso e às delimitações de áreas (10.7.7 c e d). Delimitação e sinalização das áreas é conteúdo do Complementar de Área Classificada (Anexo III).
+- **Itens citados:** 10.7.7 · AIII
+- **Situação:** a validar
+
+### V-d44331 · Uma OS em área classificada · F3 · Chegada · não conformidade
+- **Objeto:** Pasta da área classificada
+- **Não conformidade:** Pasta sem os certificados dos equipamentos
+- **Explicação:** Quem tem área classificada mantém a certificação dos equipamentos e materiais elétricos conforme o estudo de classificação de áreas (10.15.5 b), além das inspeções de conformidade (10.15.5 c).
+- **Itens citados:** 10.15.5
+- **Situação:** a validar
+
 ---
 
 ## 3. Missão: passos de marcar e de ordenar (OS 0457)
 
 As decisões de escolha única da Missão estão na seção 1.
 
-### V-fa5374 · Missão · Equipe
+### V-e299b0 · Missão · Equipe
 - **Pergunta:** Marque quem pode compor a equipe deste serviço.
 - **Marcações do simulador** (✔ = marcar):
-  - **✔** Ana · engenheira, CREA ativo, ASO apta, Básico e Complementar MT/AT-SEC em dia
-  - **✔** Bruno · técnico qualificado, ASO apto, Básico e Complementar MT/AT-SEC em dia
+  - **✔** Ana · engenheira, CREA ativo, ASO apta, Básico e Complementar MT/AT-SEC em dia, autorização registrada nos documentos funcionais
+  - **✔** Bruno · técnico qualificado, ASO apto, Básico e Complementar MT/AT-SEC em dia, autorização registrada nos documentos funcionais
   - ✘ Carla · capacitada na empresa anterior, sem convalidação nesta
   - ✘ Fábio · voltou ontem de 120 dias de afastamento, sem treinamento eventual
   - ✘ Joana · técnica qualificada, ASO apta, só com o Básico
   - ✘ Igor · pedreiro da obra vizinha
-- **Explicação:** Carla: capacitação só vale onde foi feita. Fábio: afastamento acima de 90 dias pede treinamento eventual. Joana: serviço em MT no SEC pede o Complementar MT/AT-SEC. Igor: atividade não elétrica, fora da equipe de serviço em eletricidade.
-- **Itens citados:** 10.8.3.3 · 10.9.11 · 10.9.6 · 10.10.2.1
+- **Explicação:** Ana e Bruno cumprem os requisitos da autorização (10.10.2.1) e a têm consignada nos documentos funcionais (10.10.3). Carla: a capacitação só vale para a organização que capacitou (10.8.3.3). Fábio: afastamento por mais de 90 dias exige treinamento eventual (10.9.11 a). Joana: serviço em MT, ou em sua proximidade, no SEC exige o Complementar MT/AT-SEC (10.9.6). Igor: atividade não elétrica, fora da equipe de serviço em eletricidade.
+- **Itens citados:** 10.10.2.1 · 10.10.3 · 10.8.3.3 · 10.9.11 · 10.9.6
 - **Situação:** a validar
 
 ### V-6e6d85 · Missão · Desenergização
@@ -2063,14 +2170,14 @@ O que cada objeto é e quais itens se aplicam a ele ("Explorar a cena").
 - **Itens citados:** 10.8.3.3
 - **Situação:** a validar
 
-### V-cae6fb · Uma OS na cabine primária · objeto · Pintor terceirizado
-- **Texto do simulador:** Atividade não elétrica na vizinhança da zona controlada: análise de risco e instrução formal (10.14.1.2).
-- **Itens citados:** 10.14.1.2
+### V-2e5ba9 · Uma OS na cabine primária · objeto · Pintor terceirizado
+- **Texto do simulador:** Atividade não elétrica na vizinhança da zona controlada: análise de risco e instrução formal (10.14.1.2). Trabalho simultâneo ao serviço elétrico entra na análise de risco (10.7.3 f).
+- **Itens citados:** 10.14.1.2 · 10.7.3
 - **Situação:** a validar
 
-### V-840474 · Uma OS na cabine primária · objeto · Escada de alumínio
-- **Texto do simulador:** Extensão condutora: entrar na zona controlada com ela é trabalho em proximidade (10.2.2; glossário).
-- **Itens citados:** 10.2.2 · g-prox
+### V-e32803 · Uma OS na cabine primária · objeto · Escada de alumínio
+- **Texto do simulador:** Guardada na cabine, contraria o 10.12.8: local de serviço elétrico não serve para guardar objetos. É extensão condutora: entrar com ela na zona controlada é trabalho em proximidade (10.2.2; glossário).
+- **Itens citados:** 10.12.8 · 10.2.2 · g-prox
 - **Situação:** a validar
 
 ### V-dd33c3 · Uma OS na cabine primária · objeto · Ferramentas do reaperto
@@ -2128,10 +2235,9 @@ O que cada objeto é e quais itens se aplicam a ele ("Explorar a cena").
 - **Itens citados:** 10.6.4
 - **Situação:** a validar
 
-### V-ed4aed · Uma OS no QDC de um prédio · objeto · Furadeira com plugue adaptado
-- **Texto do simulador:** Só podem ser usados equipamentos e ferramentas elétricas compatíveis com a instalação existente, preservando as características de proteção (10.12.5). O adaptador que elimina o pino de terra não preserva. [INTERPRETAÇÃO]
-- **Itens citados:** 10.12.5
-- **Alertas:** interpretação rotulada
+### V-0d593b · Uma OS no QDC de um prédio · objeto · Furadeira com plugue adaptado
+- **Texto do simulador:** Só podem ser usados equipamentos e ferramentas elétricas compatíveis com a instalação existente, preservando as características de proteção, respeitadas as recomendações do fabricante (10.12.5). O adaptador que elimina o pino de terra desliga a carcaça do condutor de proteção (proteção supletiva, 10.6.3 b).
+- **Itens citados:** 10.12.5 · 10.6.3
 - **Situação:** a validar
 
 ### V-4068b6 · Uma OS no QDC de um prédio · objeto · Projeto e procedimento de trabalho
@@ -2229,9 +2335,9 @@ O que cada objeto é e quais itens se aplicam a ele ("Explorar a cena").
 - **Itens citados:** AII · 10.2.2 · g-sep
 - **Situação:** a validar
 
-### V-c472ae · Uma OS no canteiro de obra · objeto · Servente erguendo vergalhões junto à rede
-- **Texto do simulador:** Vergalhão é extensão condutora: perto da rede, pode entrar na zona controlada (10.2.2), o que só cabe a autorizados (10.14.1).
-- **Itens citados:** 10.2.2 · 10.14.1
+### V-918711 · Uma OS no canteiro de obra · objeto · Servente erguendo vergalhões junto à rede
+- **Texto do simulador:** Vergalhão é extensão condutora: perto da rede, pode entrar na zona controlada (10.2.2), cuja aproximação só é permitida a profissionais autorizados (glossário; 10.10.2 b).
+- **Itens citados:** 10.2.2 · g-zc · 10.10.2
 - **Situação:** a validar
 
 ### V-90c44d · Uma OS no canteiro de obra · objeto · Projeto do canteiro
@@ -2304,9 +2410,9 @@ O que cada objeto é e quais itens se aplicam a ele ("Explorar a cena").
 - **Itens citados:** 10.5.2 · 10.13.1
 - **Situação:** a validar
 
-### V-378f29 · Uma OS na rede de distribuição · objeto · Rede de baixa tensão (continua energizada)
-- **Texto do simulador:** Elemento energizado dentro da zona controlada do ponto de trabalho: alínea e do 10.13.1.
-- **Itens citados:** 10.13.1 · AII
+### V-0b3152 · Uma OS na rede de distribuição · objeto · Rede de baixa tensão (tratada como energizada)
+- **Texto do simulador:** Pode ser energizada pela geração das casas mesmo com a chave do trecho aberta (10.5.2). Quem sobe até o isolador passa junto dela e entra na sua zona controlada (abaixo de 1 kV, Rc = 0,70 m): por isso ela é protegida na alínea e do 10.13.1.
+- **Itens citados:** 10.13.1 · 10.5.2 · AII
 - **Situação:** a validar
 
 ### V-ef29ae · Uma OS na rede de distribuição · objeto · Cabo de fibra óptica do provedor
@@ -2387,6 +2493,66 @@ O que cada objeto é e quais itens se aplicam a ele ("Explorar a cena").
 ### V-e46428 · Uma OS na rede de distribuição · objeto · PT e análise de risco da equipe
 - **Texto do simulador:** A PT fica disponível no local, em meio físico ou digital, e no fim é encerrada e arquivada (10.7.2.3). A documentação vai para o PIE da distribuidora (10.15.6).
 - **Itens citados:** 10.7.2.3 · 10.15.6
+- **Situação:** a validar
+
+### V-8d46f1 · Uma OS em área classificada · objeto · Ilha de bombas · área classificada
+- **Texto do simulador:** Área em que a atmosfera explosiva está presente ou é prevista (glossário). O projeto contempla os requisitos de segurança para áreas classificadas (10.4.11), e a instalação elétrica dela tem proteção coletiva que previne as fontes de ignição (10.6.6.1).
+- **Itens citados:** g-acl · 10.4.11 · 10.6.6.1
+- **Situação:** a validar
+
+### V-f3819d · Uma OS em área classificada · objeto · Luminária da cobertura, sobre a ilha
+- **Texto do simulador:** Equipamento destinado a área classificada: selecionado e mantido conforme o estudo de classificação de áreas e com certificado (10.6.6.1.1).
+- **Itens citados:** 10.6.6.1.1 · g-eca
+- **Situação:** a validar
+
+### V-f88493 · Uma OS em área classificada · objeto · Bomba de combustível
+- **Texto do simulador:** Equipamento elétrico em área classificada: selecionado e mantido conforme o estudo de classificação de áreas, com certificado; a regra vale também para os reparados (10.6.6.1.1).
+- **Itens citados:** 10.6.6.1.1
+- **Situação:** a validar
+
+### V-0c5796 · Uma OS em área classificada · objeto · Caminhão-tanque descarregando
+- **Texto do simulador:** Processo que pode gerar ou acumular eletricidade estática capaz de provocar ignição: proteção específica e dispositivos de descarga elétrica, conforme projeto (10.6.6.2).
+- **Itens citados:** 10.6.6.2
+- **Situação:** a validar
+
+### V-3f1f4d · Uma OS em área classificada · objeto · Sensores de nível do tanque · 24 Vcc
+- **Texto do simulador:** 24 Vcc é extrabaixa tensão (em CC, até 120 V). A NR-10 não se aplica à EBT, exceto para o 10.6.6 e seus subitens, que tratam de explosão e incêndio (10.2.4).
+- **Itens citados:** 10.2.4 · g-ebt · 10.6.6
+- **Situação:** a validar
+
+### V-787d4a · Uma OS em área classificada · objeto · QDC da loja · 220/127 V
+- **Texto do simulador:** Fora da área classificada. Dispositivo de desligamento com recurso para impedimento de reenergização (10.4.1); porta fechada fora de intervenção e sinalização (10.7.7.1).
+- **Itens citados:** 10.4.1 · 10.7.7.1
+- **Situação:** a validar
+
+### V-dac128 · Uma OS em área classificada · objeto · Pasta da área classificada
+- **Texto do simulador:** Quem tem área classificada mantém procedimentos, análises de risco e PT do 10.6.6.1.2, a certificação dos equipamentos conforme o estudo de classificação de áreas e as inspeções de conformidade (10.15.5).
+- **Itens citados:** 10.15.5
+- **Situação:** a validar
+
+### V-6c8ec1 · Uma OS em área classificada · objeto · Extintor
+- **Texto do simulador:** A proteção contra incêndio segue a NR-23, citada no 10.6.6. A NR-10 não tem item próprio sobre extintor.
+- **Itens citados:** 10.6.6 · NR-23
+- **Situação:** a validar
+
+### V-dd7daa · Uma OS em área classificada · objeto · Rosa · eletricista autorizada
+- **Texto do simulador:** ASO apta, Básico e Complementar de Área Classificada em dia (10.10.2.1, 10.9.4, 10.9.7).
+- **Itens citados:** 10.10.2.1 · 10.9.7
+- **Situação:** a validar
+
+### V-8af1d4 · Uma OS em área classificada · objeto · Lia · eletricista autorizada
+- **Texto do simulador:** ASO apta, Básico e Complementar de Área Classificada em dia (10.10.2.1, 10.9.7).
+- **Itens citados:** 10.10.2.1 · 10.9.7
+- **Situação:** a validar
+
+### V-056f6a · Uma OS em área classificada · objeto · Marcos · eletricista autorizado em BT
+- **Texto do simulador:** Tem o Básico, mas não o Complementar de Área Classificada (10.9.7). A abrangência da autorização fica registrada no sistema de identificação (10.10.4).
+- **Itens citados:** 10.9.7 · 10.10.4
+- **Situação:** a validar
+
+### V-2e0494 · Uma OS em área classificada · objeto · Vítor · frentista
+- **Texto do simulador:** Atividade não elétrica na vizinhança: a organização faz análise de risco e dá instrução formal (10.14.1.2).
+- **Itens citados:** 10.14.1.2
 - **Situação:** a validar
 
 ---
@@ -2653,88 +2819,52 @@ Frente e verso, como aparecem no Treino.
 
 O gerador sorteia valores a cada uso. Abaixo, até 4 amostras de cada tipo, com sorteio fixo; validar as amostras valida a regra do tipo (tabelas em `prototipo/treino.js`).
 
-### V-9a19d3 · Gerador · Faixas de tensão
-- **Pergunta:** Tensão de 110 V em corrente alternada, entre fases. Em que faixa ela está pelo glossário da NR-10?
+### V-6dffaa · Gerador · Faixas de tensão
+- **Pergunta:** Tensão de 50 V em corrente alternada, entre fases. Em que faixa ela está pelo glossário da NR-10?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) EBT — *por que não:* EBT é a tensão não superior a 50 V CA ou 120 V CC. (g-ebt)
+  - A) AT — *por que não:* AT é a tensão superior a 36.200 V CA ou 3.000 V CC. (g-at)
+  - B) BT — *por que não:* BT é a tensão superior a 50 V CA (120 V CC) e igual ou inferior a 1.000 V CA (1.500 V CC). (g-bt)
+  - C) MT — *por que não:* MT é a tensão superior a 1.000 V CA (1.500 V CC) e igual ou inferior a 36.200 V CA (3.000 V CC). (g-mt)
+  - D) Depende do tipo de instalação, não só da tensão — *por que não:* As faixas do glossário dependem só do valor da tensão, em CA ou CC, entre fases ou entre fase e terra. (g-ebt)
+  - **✔** E) EBT
+- **Explicação:** EBT: tensão não superior a 50 V CA ou 120 V CC. Repare nas fronteiras: o limite superior de cada faixa é "igual ou inferior".
+- **Itens citados:** g-ebt
+- **Situação:** a validar
+
+### V-541cdc · Gerador · Faixas de tensão
+- **Pergunta:** Tensão de 1,5 kV em corrente contínua, entre fases. Em que faixa ela está pelo glossário da NR-10?
+- **Alternativas** (✔ = resposta do simulador):
+  - **✔** A) BT
   - B) AT — *por que não:* AT é a tensão superior a 36.200 V CA ou 3.000 V CC. (g-at)
   - C) MT — *por que não:* MT é a tensão superior a 1.000 V CA (1.500 V CC) e igual ou inferior a 36.200 V CA (3.000 V CC). (g-mt)
-  - **✔** D) BT
+  - D) EBT — *por que não:* EBT é a tensão não superior a 50 V CA ou 120 V CC. (g-ebt)
   - E) Depende do tipo de instalação, não só da tensão — *por que não:* As faixas do glossário dependem só do valor da tensão, em CA ou CC, entre fases ou entre fase e terra. (g-bt)
 - **Explicação:** BT: tensão superior a 50 V CA (120 V CC) e igual ou inferior a 1.000 V CA (1.500 V CC). Repare nas fronteiras: o limite superior de cada faixa é "igual ou inferior".
 - **Itens citados:** g-bt
 - **Situação:** a validar
 
-### V-27d9ae · Gerador · Faixas de tensão
-- **Pergunta:** Tensão de 220 V em corrente alternada, entre fases. Em que faixa ela está pelo glossário da NR-10?
-- **Alternativas** (✔ = resposta do simulador):
-  - A) EBT — *por que não:* EBT é a tensão não superior a 50 V CA ou 120 V CC. (g-ebt)
-  - B) MT — *por que não:* MT é a tensão superior a 1.000 V CA (1.500 V CC) e igual ou inferior a 36.200 V CA (3.000 V CC). (g-mt)
-  - C) AT — *por que não:* AT é a tensão superior a 36.200 V CA ou 3.000 V CC. (g-at)
-  - **✔** D) BT
-  - E) Depende do tipo de instalação, não só da tensão — *por que não:* As faixas do glossário dependem só do valor da tensão, em CA ou CC, entre fases ou entre fase e terra. (g-bt)
-- **Explicação:** BT: tensão superior a 50 V CA (120 V CC) e igual ou inferior a 1.000 V CA (1.500 V CC). Repare nas fronteiras: o limite superior de cada faixa é "igual ou inferior".
-- **Itens citados:** g-bt
-- **Situação:** a validar
-
-### V-64aa8b · Gerador · Faixas de tensão
-- **Pergunta:** Tensão de 2,3 kV em corrente alternada, entre fases. Em que faixa ela está pelo glossário da NR-10?
+### V-bc8b88 · Gerador · Faixas de tensão
+- **Pergunta:** Tensão de 36,2 kV em corrente alternada, entre fases. Em que faixa ela está pelo glossário da NR-10?
 - **Alternativas** (✔ = resposta do simulador):
   - **✔** A) MT
-  - B) EBT — *por que não:* EBT é a tensão não superior a 50 V CA ou 120 V CC. (g-ebt)
-  - C) Depende do tipo de instalação, não só da tensão — *por que não:* As faixas do glossário dependem só do valor da tensão, em CA ou CC, entre fases ou entre fase e terra. (g-mt)
+  - B) Depende do tipo de instalação, não só da tensão — *por que não:* As faixas do glossário dependem só do valor da tensão, em CA ou CC, entre fases ou entre fase e terra. (g-mt)
+  - C) EBT — *por que não:* EBT é a tensão não superior a 50 V CA ou 120 V CC. (g-ebt)
   - D) BT — *por que não:* BT é a tensão superior a 50 V CA (120 V CC) e igual ou inferior a 1.000 V CA (1.500 V CC). (g-bt)
   - E) AT — *por que não:* AT é a tensão superior a 36.200 V CA ou 3.000 V CC. (g-at)
 - **Explicação:** MT: tensão superior a 1.000 V CA (1.500 V CC) e igual ou inferior a 36.200 V CA (3.000 V CC). Repare nas fronteiras: o limite superior de cada faixa é "igual ou inferior".
 - **Itens citados:** g-mt
 - **Situação:** a validar
 
-### V-915f36 · Gerador · Faixas de tensão
-- **Pergunta:** Tensão de 440 V em corrente alternada, entre fases. Em que faixa ela está pelo glossário da NR-10?
+### V-9aa11f · Gerador · Faixas de tensão
+- **Pergunta:** Tensão de 230 kV em corrente alternada, entre fases. Em que faixa ela está pelo glossário da NR-10?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) Depende do tipo de instalação, não só da tensão — *por que não:* As faixas do glossário dependem só do valor da tensão, em CA ou CC, entre fases ou entre fase e terra. (g-bt)
-  - B) EBT — *por que não:* EBT é a tensão não superior a 50 V CA ou 120 V CC. (g-ebt)
-  - **✔** C) BT
-  - D) AT — *por que não:* AT é a tensão superior a 36.200 V CA ou 3.000 V CC. (g-at)
-  - E) MT — *por que não:* MT é a tensão superior a 1.000 V CA (1.500 V CC) e igual ou inferior a 36.200 V CA (3.000 V CC). (g-mt)
-- **Explicação:** BT: tensão superior a 50 V CA (120 V CC) e igual ou inferior a 1.000 V CA (1.500 V CC). Repare nas fronteiras: o limite superior de cada faixa é "igual ou inferior".
-- **Itens citados:** g-bt
-- **Situação:** a validar
-
-### V-eddd3a · Gerador · Zonas (Anexo II)
-- **Pergunta:** Instalação de 88 kV (tensão nominal entre fases). Quais são os raios da zona de risco e da zona controlada pelo Anexo II?
-- **Alternativas** (✔ = resposta do simulador):
-  - **✔** A) Rr = 1,00 m · Rc = 2,00 m
-  - B) Rr = 1,20 m · Rc = 3,20 m — *por que não:* São os raios da linha ≥ 132 e < 150 kV do Anexo II, outra faixa de tensão. (AII)
-  - C) Rr = 0,83 m · Rc = 1,83 m — *por que não:* São os raios da linha ≥ 45 e < 60 kV do Anexo II, outra faixa de tensão. (AII)
-  - D) Rr = 1,10 m · Rc = 3,10 m — *por que não:* São os raios da linha ≥ 110 e < 132 kV do Anexo II, outra faixa de tensão. (AII)
-  - E) Rr = 0,90 m · Rc = 1,90 m — *por que não:* São os raios da linha ≥ 60 e < 70 kV do Anexo II, outra faixa de tensão. (AII)
-- **Explicação:** Linha ≥ 70 e < 110 kV do Anexo II. Fronteira: o limite inferior entra na faixa (≥) e o superior não (<).
-- **Itens citados:** AII
-- **Situação:** a validar
-
-### V-cb8883 · Gerador · Zonas (Anexo II)
-- **Pergunta:** Instalação de 13,8 kV (tensão nominal entre fases). Quais são os raios da zona de risco e da zona controlada pelo Anexo II?
-- **Alternativas** (✔ = resposta do simulador):
-  - A) Rr = 0,56 m · Rc = 1,56 m — *por que não:* São os raios da linha ≥ 20 e < 30 kV do Anexo II, outra faixa de tensão. (AII)
-  - B) Rr = 0,25 m · Rc = 1,25 m — *por que não:* São os raios da linha ≥ 3 e < 6 kV do Anexo II, outra faixa de tensão. (AII)
-  - **✔** C) Rr = 0,38 m · Rc = 1,38 m
-  - D) Rr = 0,40 m · Rc = 1,40 m — *por que não:* São os raios da linha ≥ 15 e < 20 kV do Anexo II, outra faixa de tensão. (AII)
-  - E) Rr = 0,35 m · Rc = 1,35 m — *por que não:* São os raios da linha ≥ 6 e < 10 kV do Anexo II, outra faixa de tensão. (AII)
-- **Explicação:** Linha ≥ 10 e < 15 kV do Anexo II. Fronteira: o limite inferior entra na faixa (≥) e o superior não (<).
-- **Itens citados:** AII
-- **Situação:** a validar
-
-### V-532205 · Gerador · Zonas (Anexo II)
-- **Pergunta:** Instalação de 23 kV (tensão nominal entre fases). Quais são os raios da zona de risco e da zona controlada pelo Anexo II?
-- **Alternativas** (✔ = resposta do simulador):
-  - A) Rr = 0,40 m · Rc = 1,40 m — *por que não:* São os raios da linha ≥ 15 e < 20 kV do Anexo II, outra faixa de tensão. (AII)
-  - B) Rr = 0,58 m · Rc = 1,58 m — *por que não:* São os raios da linha ≥ 30 e < 36 kV do Anexo II, outra faixa de tensão. (AII)
-  - C) Rr = 0,38 m · Rc = 1,38 m — *por que não:* São os raios da linha ≥ 10 e < 15 kV do Anexo II, outra faixa de tensão. (AII)
-  - D) Rr = 0,63 m · Rc = 1,63 m — *por que não:* São os raios da linha ≥ 36 e < 45 kV do Anexo II, outra faixa de tensão. (AII)
-  - **✔** E) Rr = 0,56 m · Rc = 1,56 m
-- **Explicação:** Linha ≥ 20 e < 30 kV do Anexo II. Fronteira: o limite inferior entra na faixa (≥) e o superior não (<).
-- **Itens citados:** AII
+  - A) EBT — *por que não:* EBT é a tensão não superior a 50 V CA ou 120 V CC. (g-ebt)
+  - B) MT — *por que não:* MT é a tensão superior a 1.000 V CA (1.500 V CC) e igual ou inferior a 36.200 V CA (3.000 V CC). (g-mt)
+  - **✔** C) AT
+  - D) Depende do tipo de instalação, não só da tensão — *por que não:* As faixas do glossário dependem só do valor da tensão, em CA ou CC, entre fases ou entre fase e terra. (g-at)
+  - E) BT — *por que não:* BT é a tensão superior a 50 V CA (120 V CC) e igual ou inferior a 1.000 V CA (1.500 V CC). (g-bt)
+- **Explicação:** AT: tensão superior a 36.200 V CA ou 3.000 V CC. Repare nas fronteiras: o limite superior de cada faixa é "igual ou inferior".
+- **Itens citados:** g-at
 - **Situação:** a validar
 
 ### V-c8ed81 · Gerador · Zonas (Anexo II)
@@ -2747,426 +2877,462 @@ O gerador sorteia valores a cada uso. Abaixo, até 4 amostras de cada tipo, com 
 - **Itens citados:** AII
 - **Situação:** a validar
 
-### V-77f31b · Gerador · Treinamentos (Quadro I)
-- **Pergunta:** Eletricista autorizado de uma distribuidora (SEP) que também atua em área classificada. Qual é a carga horária mínima total dos treinamentos iniciais?
+### V-67f1e3 · Gerador · Zonas (Anexo II)
+- **Pergunta:** Instalação de 15 kV (tensão nominal entre fases). Quais são os raios da zona de risco e da zona controlada pelo Anexo II?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) 72 h — *por que não:* 72 h é o Básico mais dois complementares de 16 h. (10.9.2)
-  - B) 16 h — *por que não:* 16 h é um complementar isolado (MT/AT-SEC ou Área Classificada) ou o periódico bienal; nenhum deles substitui o Básico do autorizado. (10.9.2, 10.9.4)
-  - C) 120 h — *por que não:* 120 h não corresponde a uma soma de treinamentos do Quadro I exigida para um só trabalhador. (10.9.2)
-  - **✔** D) 96 h
-  - E) 56 h — *por que não:* 56 h é o Básico mais um complementar de 16 h. (10.9.2)
-- **Explicação:** Básico 40 h + Complementar do SEP 40 h + Complementar de Área Classificada 16 h. Cargas do Quadro I do 10.9.2.
-- **Itens citados:** 10.9.2 · 10.9.4 · 10.9.5 · 10.9.7
+  - A) Rr = 0,35 m · Rc = 1,35 m — *por que não:* São os raios da linha ≥ 6 e < 10 kV do Anexo II, outra faixa de tensão. (AII)
+  - B) Rr = 0,58 m · Rc = 1,58 m — *por que não:* São os raios da linha ≥ 30 e < 36 kV do Anexo II, outra faixa de tensão. (AII)
+  - C) Rr = 0,38 m · Rc = 1,38 m — *por que não:* São os raios da linha ≥ 10 e < 15 kV do Anexo II, outra faixa de tensão. (AII)
+  - **✔** D) Rr = 0,40 m · Rc = 1,40 m
+  - E) Rr = 0,56 m · Rc = 1,56 m — *por que não:* São os raios da linha ≥ 20 e < 30 kV do Anexo II, outra faixa de tensão. (AII)
+- **Explicação:** Linha ≥ 15 e < 20 kV do Anexo II. Fronteira: o limite inferior entra na faixa (≥) e o superior não (<).
+- **Itens citados:** AII
 - **Situação:** a validar
 
-### V-1d1f8f · Gerador · Treinamentos (Quadro I)
-- **Pergunta:** Eletricista autorizado de uma indústria (SEC) que só trabalha em baixa tensão. Qual é a carga horária mínima total dos treinamentos iniciais?
+### V-26729c · Gerador · Zonas (Anexo II)
+- **Pergunta:** Instalação de 4,16 kV (tensão nominal entre fases). Quais são os raios da zona de risco e da zona controlada pelo Anexo II?
+- **Alternativas** (✔ = resposta do simulador):
+  - A) Rr = 0,20 m · Rc = 0,70 m — *por que não:* São os raios da linha < 1 kV do Anexo II, outra faixa de tensão. (AII)
+  - **✔** B) Rr = 0,25 m · Rc = 1,25 m
+  - C) Rr = 0,22 m · Rc = 1,22 m — *por que não:* São os raios da linha ≥ 1 e < 3 kV do Anexo II, outra faixa de tensão. (AII)
+  - D) Rr = 0,35 m · Rc = 1,35 m — *por que não:* São os raios da linha ≥ 6 e < 10 kV do Anexo II, outra faixa de tensão. (AII)
+  - E) Rr = 0,38 m · Rc = 1,38 m — *por que não:* São os raios da linha ≥ 10 e < 15 kV do Anexo II, outra faixa de tensão. (AII)
+- **Explicação:** Linha ≥ 3 e < 6 kV do Anexo II. Fronteira: o limite inferior entra na faixa (≥) e o superior não (<).
+- **Itens citados:** AII
+- **Situação:** a validar
+
+### V-0d20ac · Gerador · Zonas (Anexo II)
+- **Pergunta:** Instalação de 20 kV (tensão nominal entre fases). Quais são os raios da zona de risco e da zona controlada pelo Anexo II?
+- **Alternativas** (✔ = resposta do simulador):
+  - **✔** A) Rr = 0,56 m · Rc = 1,56 m
+  - B) Rr = 0,40 m · Rc = 1,40 m — *por que não:* São os raios da linha ≥ 15 e < 20 kV do Anexo II, outra faixa de tensão. (AII)
+  - C) Rr = 0,38 m · Rc = 1,38 m — *por que não:* São os raios da linha ≥ 10 e < 15 kV do Anexo II, outra faixa de tensão. (AII)
+  - D) Rr = 0,63 m · Rc = 1,63 m — *por que não:* São os raios da linha ≥ 36 e < 45 kV do Anexo II, outra faixa de tensão. (AII)
+  - E) Rr = 0,58 m · Rc = 1,58 m — *por que não:* São os raios da linha ≥ 30 e < 36 kV do Anexo II, outra faixa de tensão. (AII)
+- **Explicação:** Linha ≥ 20 e < 30 kV do Anexo II. Fronteira: o limite inferior entra na faixa (≥) e o superior não (<).
+- **Itens citados:** AII
+- **Situação:** a validar
+
+### V-0be2bb · Gerador · Treinamentos (Quadro I)
+- **Pergunta:** Técnico de provedor que instala fibra óptica em postes da distribuidora (compartilhamento de infraestrutura do SEP). Qual é a carga horária mínima total dos treinamentos iniciais?
 - **Alternativas** (✔ = resposta do simulador):
   - A) 80 h — *por que não:* 80 h é o Básico mais o Complementar do SEP. (10.9.2, 10.9.5)
-  - B) 120 h — *por que não:* 120 h não corresponde a uma soma de treinamentos do Quadro I exigida para um só trabalhador. (10.9.2)
+  - B) 16 h — *por que não:* 16 h é um complementar isolado (MT/AT-SEC ou Área Classificada) ou o periódico bienal; nenhum deles substitui o Básico do autorizado. (10.9.2, 10.9.4)
   - **✔** C) 40 h
+  - D) 8 h — *por que não:* 8 h é o Específico e pontual, para estrangeiros ou não residentes em serviço pontual (10.9.8). (10.9.8)
+  - E) 120 h — *por que não:* 120 h não corresponde a uma soma de treinamentos do Quadro I exigida para um só trabalhador. (10.9.2)
+- **Explicação:** Só o Específico de compartilhamento de infraestrutura do SEP, 40 h: ele dispensa o Básico e o Complementar do SEP. Cargas do Quadro I do 10.9.2.
+- **Itens citados:** 10.9.2 · 10.9.9 · 10.9.4 · 10.9.5
+- **Situação:** a validar
+
+### V-a096b5 · Gerador · Treinamentos (Quadro I)
+- **Pergunta:** Eletricista autorizado (SEC, baixa tensão) que faz manutenção em área classificada de um posto. Qual é a carga horária mínima total dos treinamentos iniciais?
+- **Alternativas** (✔ = resposta do simulador):
+  - A) 120 h — *por que não:* 120 h não corresponde a uma soma de treinamentos do Quadro I exigida para um só trabalhador. (10.9.2)
+  - B) 72 h — *por que não:* 72 h é o Básico mais dois complementares de 16 h. (10.9.2)
+  - C) 16 h — *por que não:* 16 h é um complementar isolado (MT/AT-SEC ou Área Classificada) ou o periódico bienal; nenhum deles substitui o Básico do autorizado. (10.9.2, 10.9.4)
+  - **✔** D) 56 h
+  - E) 96 h — *por que não:* 96 h é o Básico, o Complementar do SEP e um complementar de 16 h. (10.9.2)
+- **Explicação:** Básico 40 h + Complementar de Área Classificada 16 h. Cargas do Quadro I do 10.9.2.
+- **Itens citados:** 10.9.2 · 10.9.4 · 10.9.7
+- **Situação:** a validar
+
+### V-f96ded · Gerador · Treinamentos (Quadro I)
+- **Pergunta:** Eletricista autorizado de uma indústria (SEC) que só trabalha em baixa tensão. Qual é a carga horária mínima total dos treinamentos iniciais?
+- **Alternativas** (✔ = resposta do simulador):
+  - A) 8 h — *por que não:* 8 h é o Específico e pontual, para estrangeiros ou não residentes em serviço pontual (10.9.8). (10.9.8)
+  - **✔** B) 40 h
+  - C) 56 h — *por que não:* 56 h é o Básico mais um complementar de 16 h. (10.9.2)
   - D) 96 h — *por que não:* 96 h é o Básico, o Complementar do SEP e um complementar de 16 h. (10.9.2)
-  - E) 8 h — *por que não:* 8 h é o Específico e pontual, para estrangeiros ou não residentes em serviço pontual (10.9.8). (10.9.8)
+  - E) 72 h — *por que não:* 72 h é o Básico mais dois complementares de 16 h. (10.9.2)
 - **Explicação:** Básico 40 h. Cargas do Quadro I do 10.9.2.
 - **Itens citados:** 10.9.2 · 10.9.4
 - **Situação:** a validar
 
-### V-3f45a5 · Gerador · Treinamentos (Quadro I)
-- **Pergunta:** Eletricista autorizado de uma distribuidora (SEP). Qual é a carga horária mínima total dos treinamentos iniciais?
-- **Alternativas** (✔ = resposta do simulador):
-  - A) 16 h — *por que não:* 16 h é um complementar isolado (MT/AT-SEC ou Área Classificada) ou o periódico bienal; nenhum deles substitui o Básico do autorizado. (10.9.2, 10.9.4)
-  - B) 72 h — *por que não:* 72 h é o Básico mais dois complementares de 16 h. (10.9.2)
-  - C) 120 h — *por que não:* 120 h não corresponde a uma soma de treinamentos do Quadro I exigida para um só trabalhador. (10.9.2)
-  - **✔** D) 80 h
-  - E) 40 h — *por que não:* 40 h é só o Básico (ou só o Específico de compartilhamento). (10.9.2)
-- **Explicação:** Básico 40 h + Complementar do SEP 40 h. Cargas do Quadro I do 10.9.2.
-- **Itens citados:** 10.9.2 · 10.9.4 · 10.9.5
-- **Situação:** a validar
-
-### V-b80f0a · Gerador · Treinamentos (Quadro I)
+### V-ceed3d · Gerador · Treinamentos (Quadro I)
 - **Pergunta:** Eletricista autorizado de uma indústria (SEC) que opera a cabine primária de 13,8 kV. Qual é a carga horária mínima total dos treinamentos iniciais?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) 72 h — *por que não:* 72 h é o Básico mais dois complementares de 16 h. (10.9.2)
-  - **✔** B) 56 h
-  - C) 16 h — *por que não:* 16 h é um complementar isolado (MT/AT-SEC ou Área Classificada) ou o periódico bienal; nenhum deles substitui o Básico do autorizado. (10.9.2, 10.9.4)
-  - D) 80 h — *por que não:* 80 h é o Básico mais o Complementar do SEP. (10.9.2, 10.9.5)
-  - E) 120 h — *por que não:* 120 h não corresponde a uma soma de treinamentos do Quadro I exigida para um só trabalhador. (10.9.2)
+  - A) 120 h — *por que não:* 120 h não corresponde a uma soma de treinamentos do Quadro I exigida para um só trabalhador. (10.9.2)
+  - B) 40 h — *por que não:* 40 h é só o Básico (ou só o Específico de compartilhamento). (10.9.2)
+  - C) 8 h — *por que não:* 8 h é o Específico e pontual, para estrangeiros ou não residentes em serviço pontual (10.9.8). (10.9.8)
+  - **✔** D) 56 h
+  - E) 72 h — *por que não:* 72 h é o Básico mais dois complementares de 16 h. (10.9.2)
 - **Explicação:** Básico 40 h + Complementar de Média e Alta Tensão - SEC 16 h. Cargas do Quadro I do 10.9.2.
 - **Itens citados:** 10.9.2 · 10.9.4 · 10.9.6
 - **Situação:** a validar
 
-### V-613229 · Gerador · Categoria de arco (CA)
-- **Pergunta:** Aparelhagem de distribuição de 600 V (com disjuntores de potência ou interruptores com fusível) e quadros de distribuição de 600 V: corrente de falha disponível de 35 kA, tempo de eliminação de 0,50 s, distância de trabalho de 455 mm. Qual é a categoria de EPI?
+### V-c3331b · Gerador · Categoria de arco (CA)
+- **Pergunta:** Partida de motor NEMA E2 (contator com fusível), 2,3 kV a 7,2 kV: corrente de falha disponível de 28 kA, tempo de eliminação de 0,24 s, distância de trabalho de 1060 mm. Qual é a categoria de EPI?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) Categoria 2 — *por que não:* Abaixo da categoria do Anexo IV: categoria menor só com estudo de energia incidente. (10.11.2.3)
-  - B) Fora do Anexo IV: fazer estudo de energia incidente — *por que não:* Corrente, tempo e distância cabem na linha do equipamento: o Anexo IV se aplica. (10.11.2.1)
-  - **✔** C) Categoria 4
-  - D) Categoria 1 — *por que não:* Abaixo da categoria do Anexo IV: categoria menor só com estudo de energia incidente. (10.11.2.3)
-  - E) Categoria 3 — *por que não:* O Quadro I (CA) não tem nenhuma linha de Categoria 3; ela só aparece no Quadro II (CC). (AIV-I)
-- **Explicação:** Dentro da linha do Quadro I (até 35 kA, até 0,50 s, a partir de 455 mm): Categoria 4. Valores menores de corrente e tempo, ou distância maior, continuam dentro da linha.
-- **Itens citados:** AIV-I · 10.11.2.1
-- **Situação:** a validar
-
-### V-0d90e2 · Gerador · Categoria de arco (CA)
-- **Pergunta:** Outro equipamento de 1 kV a 15 kV: corrente de falha disponível de 28 kA, tempo de eliminação de 0,24 s, distância de trabalho de 1060 mm. Qual é a categoria de EPI?
-- **Alternativas** (✔ = resposta do simulador):
-  - **✔** A) Categoria 4
-  - B) Categoria 1 — *por que não:* Abaixo da categoria do Anexo IV: categoria menor só com estudo de energia incidente. (10.11.2.3)
-  - C) Categoria 3 — *por que não:* O Quadro I (CA) não tem nenhuma linha de Categoria 3; ela só aparece no Quadro II (CC). (AIV-I)
+  - A) Categoria 3 — *por que não:* O Quadro I (CA) não tem nenhuma linha de Categoria 3; ela só aparece no Quadro II (CC). (AIV-I)
+  - **✔** B) Categoria 4
+  - C) Categoria 2 — *por que não:* Abaixo da categoria do Anexo IV: categoria menor só com estudo de energia incidente. (10.11.2.3)
   - D) Fora do Anexo IV: fazer estudo de energia incidente — *por que não:* Corrente, tempo e distância cabem na linha do equipamento: o Anexo IV se aplica. (10.11.2.1)
-  - E) Categoria 2 — *por que não:* Abaixo da categoria do Anexo IV: categoria menor só com estudo de energia incidente. (10.11.2.3)
+  - E) Categoria 1 — *por que não:* Abaixo da categoria do Anexo IV: categoria menor só com estudo de energia incidente. (10.11.2.3)
 - **Explicação:** Dentro da linha do Quadro I (até 35 kA, até 0,24 s, a partir de 910 mm): Categoria 4. Valores menores de corrente e tempo, ou distância maior, continuam dentro da linha.
 - **Itens citados:** AIV-I · 10.11.2.1
 - **Situação:** a validar
 
-### V-8254f6 · Gerador · Categoria de arco (CA)
-- **Pergunta:** Painel ou outro equipamento com classificação superior a 240 V e até 600 V: corrente de falha disponível de 25 kA, tempo de eliminação de 0,06 s, distância de trabalho de 455 mm. Qual é a categoria de EPI?
+### V-d73311 · Gerador · Categoria de arco (CA)
+- **Pergunta:** Centro de controle de motores (CCM) de classe de 600 V: corrente de falha disponível de 65 kA, tempo de eliminação de 0,06 s, distância de trabalho de 455 mm. Qual é a categoria de EPI?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) Categoria 3 — *por que não:* O Quadro I (CA) não tem nenhuma linha de Categoria 3; ela só aparece no Quadro II (CC). (AIV-I)
+  - A) Categoria 2 — *por que não:* Algum parâmetro saiu da linha do Quadro I, e isso impede o Anexo IV. (10.11.2.2)
   - **✔** B) Fora do Anexo IV: fazer estudo de energia incidente
   - C) Categoria 1 — *por que não:* Algum parâmetro saiu da linha do Quadro I, e isso impede o Anexo IV. (10.11.2.2)
-  - D) Categoria 2 — *por que não:* Algum parâmetro saiu da linha do Quadro I, e isso impede o Anexo IV. (10.11.2.2)
-  - E) Categoria 4 — *por que não:* Algum parâmetro saiu da linha do Quadro I, e isso impede o Anexo IV. (10.11.2.2)
+  - D) Categoria 4 — *por que não:* Algum parâmetro saiu da linha do Quadro I, e isso impede o Anexo IV. (10.11.2.2)
+  - E) Categoria 3 — *por que não:* O Quadro I (CA) não tem nenhuma linha de Categoria 3; ela só aparece no Quadro II (CC). (AIV-I)
 - **Explicação:** O parâmetro de tempo saiu da linha do Quadro I. Corrente maior, tempo maior ou distância menor impede o Anexo IV; vale o estudo de energia incidente.
 - **Itens citados:** 10.11.2.2 · 10.11.2.3 · AIV-I
 - **Situação:** a validar
 
-### V-8e6325 · Gerador · Categoria de arco (CA)
-- **Pergunta:** Partida de motor NEMA E2 (contator com fusível), 2,3 kV a 7,2 kV: corrente de falha disponível de 35 kA, tempo de eliminação de 0,24 s, distância de trabalho de 910 mm. Qual é a categoria de EPI?
+### V-ec98d8 · Gerador · Categoria de arco (CA)
+- **Pergunta:** Centro de controle de motores (CCM) de classe de 600 V: corrente de falha disponível de 85 kA, tempo de eliminação de 0,03 s, distância de trabalho de 455 mm. Qual é a categoria de EPI?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) Categoria 3 — *por que não:* O Quadro I (CA) não tem nenhuma linha de Categoria 3; ela só aparece no Quadro II (CC). (AIV-I)
-  - B) Categoria 2 — *por que não:* Abaixo da categoria do Anexo IV: categoria menor só com estudo de energia incidente. (10.11.2.3)
-  - C) Categoria 1 — *por que não:* Abaixo da categoria do Anexo IV: categoria menor só com estudo de energia incidente. (10.11.2.3)
-  - **✔** D) Categoria 4
-  - E) Fora do Anexo IV: fazer estudo de energia incidente — *por que não:* Corrente, tempo e distância cabem na linha do equipamento: o Anexo IV se aplica. (10.11.2.1)
-- **Explicação:** Dentro da linha do Quadro I (até 35 kA, até 0,24 s, a partir de 910 mm): Categoria 4. Valores menores de corrente e tempo, ou distância maior, continuam dentro da linha.
+  - A) Categoria 1 — *por que não:* Algum parâmetro saiu da linha do Quadro I, e isso impede o Anexo IV. (10.11.2.2)
+  - B) Categoria 4 — *por que não:* Algum parâmetro saiu da linha do Quadro I, e isso impede o Anexo IV. (10.11.2.2)
+  - **✔** C) Fora do Anexo IV: fazer estudo de energia incidente
+  - D) Categoria 3 — *por que não:* O Quadro I (CA) não tem nenhuma linha de Categoria 3; ela só aparece no Quadro II (CC). (AIV-I)
+  - E) Categoria 2 — *por que não:* Algum parâmetro saiu da linha do Quadro I, e isso impede o Anexo IV. (10.11.2.2)
+- **Explicação:** O parâmetro de corrente saiu da linha do Quadro I. Corrente maior, tempo maior ou distância menor impede o Anexo IV; vale o estudo de energia incidente.
+- **Itens citados:** 10.11.2.2 · 10.11.2.3 · AIV-I
+- **Situação:** a validar
+
+### V-e8ec86 · Gerador · Categoria de arco (CA)
+- **Pergunta:** Painel ou outro equipamento com classificação superior a 240 V e até 600 V: corrente de falha disponível de 25 kA, tempo de eliminação de 0,03 s, distância de trabalho de 455 mm. Qual é a categoria de EPI?
+- **Alternativas** (✔ = resposta do simulador):
+  - A) Categoria 1 — *por que não:* Abaixo da categoria do Anexo IV: categoria menor só com estudo de energia incidente. (10.11.2.3)
+  - B) Fora do Anexo IV: fazer estudo de energia incidente — *por que não:* Corrente, tempo e distância cabem na linha do equipamento: o Anexo IV se aplica. (10.11.2.1)
+  - **✔** C) Categoria 2
+  - D) Categoria 4 — *por que não:* Acima da categoria que a linha do Quadro I dá para estes parâmetros. (AIV-I)
+  - E) Categoria 3 — *por que não:* O Quadro I (CA) não tem nenhuma linha de Categoria 3; ela só aparece no Quadro II (CC). (AIV-I)
+- **Explicação:** Dentro da linha do Quadro I (até 25 kA, até 0,03 s, a partir de 455 mm): Categoria 2. Valores menores de corrente e tempo, ou distância maior, continuam dentro da linha.
 - **Itens citados:** AIV-I · 10.11.2.1
 - **Situação:** a validar
 
-### V-59b3a3 · Gerador · Categoria de arco (CC)
-- **Pergunta:** Banco de baterias de 220 V CC, corrente de curto-circuito disponível de 2,7 kA, arco de até 2 s a 455 mm. Qual é a categoria de EPI pelo Quadro II do Anexo IV?
+### V-40a2aa · Gerador · Categoria de arco (CC)
+- **Pergunta:** Banco de baterias de 480 V CC, corrente de curto-circuito disponível de 6,7 kA, arco de até 2 s a 455 mm. Qual é a categoria de EPI pelo Quadro II do Anexo IV?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) Categoria 4 — *por que não:* Categoria 4 é de 7 a menos de 10 kA. (AIV-II)
-  - B) Fora do Anexo IV: estudo de energia incidente — *por que não:* 220 V está entre 150 e 600 V, e 2,7 kA está abaixo de 10 kA: cabe no Quadro II. (AIV-II)
-  - C) Categoria 1 — *por que não:* O Quadro II (CC) começa na Categoria 2. (AIV-II)
-  - **✔** D) Categoria 2
-  - E) Categoria 3 — *por que não:* Categoria 3 é de 3 a menos de 7 kA. (AIV-II)
-- **Explicação:** Quadro II (CC, acima de 150 V e até 600 V): abaixo de 3 kA → Cat. 2; de 3 a menos de 7 kA → Cat. 3; de 7 a menos de 10 kA → Cat. 4.
-- **Itens citados:** AIV-II
-- **Alertas:** mecanismo físico
-- **Situação:** a validar
-
-### V-d0fc5b · Gerador · Categoria de arco (CC)
-- **Pergunta:** Banco de baterias de 480 V CC, corrente de curto-circuito disponível de 7,7 kA, arco de até 2 s a 455 mm. Qual é a categoria de EPI pelo Quadro II do Anexo IV?
-- **Alternativas** (✔ = resposta do simulador):
-  - **✔** A) Categoria 4
+  - A) Categoria 1 — *por que não:* O Quadro II (CC) começa na Categoria 2. (AIV-II)
   - B) Categoria 2 — *por que não:* Categoria 2 é para corrente abaixo de 3 kA. (AIV-II)
-  - C) Categoria 1 — *por que não:* O Quadro II (CC) começa na Categoria 2. (AIV-II)
-  - D) Fora do Anexo IV: estudo de energia incidente — *por que não:* 480 V está entre 150 e 600 V, e 7,7 kA está abaixo de 10 kA: cabe no Quadro II. (AIV-II)
-  - E) Categoria 3 — *por que não:* Categoria 3 é de 3 a menos de 7 kA. (AIV-II)
+  - C) Fora do Anexo IV: estudo de energia incidente — *por que não:* 480 V está entre 150 e 600 V, e 6,7 kA está abaixo de 10 kA: cabe no Quadro II. (AIV-II)
+  - **✔** D) Categoria 3
+  - E) Categoria 4 — *por que não:* Categoria 4 é de 7 a menos de 10 kA. (AIV-II)
 - **Explicação:** Quadro II (CC, acima de 150 V e até 600 V): abaixo de 3 kA → Cat. 2; de 3 a menos de 7 kA → Cat. 3; de 7 a menos de 10 kA → Cat. 4.
 - **Itens citados:** AIV-II
 - **Alertas:** mecanismo físico
 - **Situação:** a validar
 
-### V-caaf28 · Gerador · Categoria de arco (CC)
-- **Pergunta:** Banco de baterias de 250 V CC, corrente de curto-circuito disponível de 1,0 kA, arco de até 2 s a 455 mm. Qual é a categoria de EPI pelo Quadro II do Anexo IV?
+### V-bf0616 · Gerador · Categoria de arco (CC)
+- **Pergunta:** Banco de baterias de 250 V CC, corrente de curto-circuito disponível de 1,1 kA, arco de até 2 s a 455 mm. Qual é a categoria de EPI pelo Quadro II do Anexo IV?
+- **Alternativas** (✔ = resposta do simulador):
+  - A) Categoria 1 — *por que não:* O Quadro II (CC) começa na Categoria 2. (AIV-II)
+  - B) Categoria 3 — *por que não:* Categoria 3 é de 3 a menos de 7 kA. (AIV-II)
+  - C) Fora do Anexo IV: estudo de energia incidente — *por que não:* 250 V está entre 150 e 600 V, e 1,1 kA está abaixo de 10 kA: cabe no Quadro II. (AIV-II)
+  - D) Categoria 4 — *por que não:* Categoria 4 é de 7 a menos de 10 kA. (AIV-II)
+  - **✔** E) Categoria 2
+- **Explicação:** Quadro II (CC, acima de 150 V e até 600 V): abaixo de 3 kA → Cat. 2; de 3 a menos de 7 kA → Cat. 3; de 7 a menos de 10 kA → Cat. 4.
+- **Itens citados:** AIV-II
+- **Alertas:** mecanismo físico
+- **Situação:** a validar
+
+### V-ea3015 · Gerador · Categoria de arco (CC)
+- **Pergunta:** Banco de baterias de 250 V CC, corrente de curto-circuito disponível de 8,9 kA, arco de até 2 s a 455 mm. Qual é a categoria de EPI pelo Quadro II do Anexo IV?
 - **Alternativas** (✔ = resposta do simulador):
   - A) Categoria 3 — *por que não:* Categoria 3 é de 3 a menos de 7 kA. (AIV-II)
-  - B) Categoria 4 — *por que não:* Categoria 4 é de 7 a menos de 10 kA. (AIV-II)
-  - C) Categoria 1 — *por que não:* O Quadro II (CC) começa na Categoria 2. (AIV-II)
-  - **✔** D) Categoria 2
-  - E) Fora do Anexo IV: estudo de energia incidente — *por que não:* 250 V está entre 150 e 600 V, e 1,0 kA está abaixo de 10 kA: cabe no Quadro II. (AIV-II)
+  - B) Fora do Anexo IV: estudo de energia incidente — *por que não:* 250 V está entre 150 e 600 V, e 8,9 kA está abaixo de 10 kA: cabe no Quadro II. (AIV-II)
+  - **✔** C) Categoria 4
+  - D) Categoria 2 — *por que não:* Categoria 2 é para corrente abaixo de 3 kA. (AIV-II)
+  - E) Categoria 1 — *por que não:* O Quadro II (CC) começa na Categoria 2. (AIV-II)
 - **Explicação:** Quadro II (CC, acima de 150 V e até 600 V): abaixo de 3 kA → Cat. 2; de 3 a menos de 7 kA → Cat. 3; de 7 a menos de 10 kA → Cat. 4.
 - **Itens citados:** AIV-II
 - **Alertas:** mecanismo físico
 - **Situação:** a validar
 
-### V-3b0a0d · Gerador · Categoria de arco (CC)
-- **Pergunta:** Banco de baterias de 250 V CC, corrente de curto-circuito disponível de 8,4 kA, arco de até 2 s a 455 mm. Qual é a categoria de EPI pelo Quadro II do Anexo IV?
+### V-cf7b3f · Gerador · Categoria de arco (CC)
+- **Pergunta:** Banco de baterias de 600 V CC, corrente de curto-circuito disponível de 0,6 kA, arco de até 2 s a 455 mm. Qual é a categoria de EPI pelo Quadro II do Anexo IV?
 - **Alternativas** (✔ = resposta do simulador):
   - A) Categoria 3 — *por que não:* Categoria 3 é de 3 a menos de 7 kA. (AIV-II)
-  - **✔** B) Categoria 4
-  - C) Categoria 1 — *por que não:* O Quadro II (CC) começa na Categoria 2. (AIV-II)
-  - D) Fora do Anexo IV: estudo de energia incidente — *por que não:* 250 V está entre 150 e 600 V, e 8,4 kA está abaixo de 10 kA: cabe no Quadro II. (AIV-II)
-  - E) Categoria 2 — *por que não:* Categoria 2 é para corrente abaixo de 3 kA. (AIV-II)
+  - B) Categoria 1 — *por que não:* O Quadro II (CC) começa na Categoria 2. (AIV-II)
+  - **✔** C) Categoria 2
+  - D) Fora do Anexo IV: estudo de energia incidente — *por que não:* 600 V está entre 150 e 600 V, e 0,6 kA está abaixo de 10 kA: cabe no Quadro II. (AIV-II)
+  - E) Categoria 4 — *por que não:* Categoria 4 é de 7 a menos de 10 kA. (AIV-II)
 - **Explicação:** Quadro II (CC, acima de 150 V e até 600 V): abaixo de 3 kA → Cat. 2; de 3 a menos de 7 kA → Cat. 3; de 7 a menos de 10 kA → Cat. 4.
 - **Itens citados:** AIV-II
 - **Alertas:** mecanismo físico
 - **Situação:** a validar
 
-### V-b70486 · Gerador · Vestimenta (cal/cm²)
-- **Pergunta:** Qual é a resistência mínima ao arco (ATPV ou EBT) da vestimenta da Categoria 1 de EPI?
-- **Alternativas** (✔ = resposta do simulador):
-  - A) 25 cal/cm² — *por que não:* É o mínimo da Categoria 3. (AIV-III)
-  - B) 12 cal/cm² — *por que não:* 12 cal/cm² não é mínimo de nenhuma categoria do Quadro III. (AIV-III)
-  - C) 40 cal/cm² — *por que não:* É o mínimo da Categoria 4. (AIV-III)
-  - D) 8 cal/cm² — *por que não:* É o mínimo da Categoria 2. (AIV-III)
-  - **✔** E) 4 cal/cm²
-- **Explicação:** Quadro III do Anexo IV: Cat. 1 = 4; Cat. 2 = 8; Cat. 3 = 25; Cat. 4 = 40 cal/cm².
-- **Itens citados:** AIV-III
-- **Situação:** a validar
-
-### V-799dbb · Gerador · Vestimenta (cal/cm²)
-- **Pergunta:** Qual é a resistência mínima ao arco (ATPV ou EBT) da vestimenta da Categoria 3 de EPI?
-- **Alternativas** (✔ = resposta do simulador):
-  - A) 8 cal/cm² — *por que não:* É o mínimo da Categoria 2. (AIV-III)
-  - B) 4 cal/cm² — *por que não:* É o mínimo da Categoria 1. (AIV-III)
-  - C) 40 cal/cm² — *por que não:* É o mínimo da Categoria 4. (AIV-III)
-  - **✔** D) 25 cal/cm²
-  - E) 12 cal/cm² — *por que não:* 12 cal/cm² não é mínimo de nenhuma categoria do Quadro III. (AIV-III)
-- **Explicação:** Quadro III do Anexo IV: Cat. 1 = 4; Cat. 2 = 8; Cat. 3 = 25; Cat. 4 = 40 cal/cm².
-- **Itens citados:** AIV-III
-- **Situação:** a validar
-
-### V-1a4f98 · Gerador · Vestimenta (cal/cm²)
+### V-f8211a · Gerador · Vestimenta (cal/cm²)
 - **Pergunta:** Qual é a resistência mínima ao arco (ATPV ou EBT) da vestimenta da Categoria 4 de EPI?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) 8 cal/cm² — *por que não:* É o mínimo da Categoria 2. (AIV-III)
-  - B) 4 cal/cm² — *por que não:* É o mínimo da Categoria 1. (AIV-III)
-  - C) 12 cal/cm² — *por que não:* 12 cal/cm² não é mínimo de nenhuma categoria do Quadro III. (AIV-III)
-  - **✔** D) 40 cal/cm²
-  - E) 25 cal/cm² — *por que não:* É o mínimo da Categoria 3. (AIV-III)
+  - A) 25 cal/cm² — *por que não:* É o mínimo da Categoria 3. (AIV-III)
+  - **✔** B) 40 cal/cm²
+  - C) 4 cal/cm² — *por que não:* É o mínimo da Categoria 1. (AIV-III)
+  - D) 12 cal/cm² — *por que não:* 12 cal/cm² não é mínimo de nenhuma categoria do Quadro III. (AIV-III)
+  - E) 8 cal/cm² — *por que não:* É o mínimo da Categoria 2. (AIV-III)
 - **Explicação:** Quadro III do Anexo IV: Cat. 1 = 4; Cat. 2 = 8; Cat. 3 = 25; Cat. 4 = 40 cal/cm².
 - **Itens citados:** AIV-III
 - **Situação:** a validar
 
-### V-4b872e · Gerador · Vestimenta (cal/cm²)
-- **Pergunta:** Qual é a resistência mínima ao arco (ATPV ou EBT) da vestimenta da Categoria 2 de EPI?
+### V-0c5866 · Gerador · Vestimenta (cal/cm²)
+- **Pergunta:** Qual é a resistência mínima ao arco (ATPV ou EBT) da vestimenta da Categoria 3 de EPI?
 - **Alternativas** (✔ = resposta do simulador):
-  - **✔** A) 8 cal/cm²
-  - B) 40 cal/cm² — *por que não:* É o mínimo da Categoria 4. (AIV-III)
-  - C) 25 cal/cm² — *por que não:* É o mínimo da Categoria 3. (AIV-III)
-  - D) 4 cal/cm² — *por que não:* É o mínimo da Categoria 1. (AIV-III)
+  - **✔** A) 25 cal/cm²
+  - B) 4 cal/cm² — *por que não:* É o mínimo da Categoria 1. (AIV-III)
+  - C) 40 cal/cm² — *por que não:* É o mínimo da Categoria 4. (AIV-III)
+  - D) 8 cal/cm² — *por que não:* É o mínimo da Categoria 2. (AIV-III)
   - E) 12 cal/cm² — *por que não:* 12 cal/cm² não é mínimo de nenhuma categoria do Quadro III. (AIV-III)
 - **Explicação:** Quadro III do Anexo IV: Cat. 1 = 4; Cat. 2 = 8; Cat. 3 = 25; Cat. 4 = 40 cal/cm².
 - **Itens citados:** AIV-III
 - **Situação:** a validar
 
-### V-f86f40 · Gerador · Sequências (10.13)
-- **Pergunta:** Na sequência de reenergização do 10.13.2, qual etapa vem logo depois de “retirada das proteções dos elementos energizados nas imediações”?
+### V-f49384 · Gerador · Vestimenta (cal/cm²)
+- **Pergunta:** Qual é a resistência mínima ao arco (ATPV ou EBT) da vestimenta da Categoria 2 de EPI?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) desbloqueio, se houver, e religamento dos dispositivos de seccionamento — *por que não:* É a alínea g do 10.13.2. (10.13.2)
-  - B) retirada dos obstáculos de delimitação e sinalização do espaço seguro de trabalho — *por que não:* É a alínea a do 10.13.2. (10.13.2)
-  - C) remoção do aterramento temporário e da equipotencialização — *por que não:* É a alínea d do 10.13.2. (10.13.2)
-  - **✔** D) remoção da sinalização de impedimento de reenergização
-  - E) retirada das imediações de todos os trabalhadores não envolvidos no processo de reenergização — *por que não:* É a alínea c do 10.13.2. (10.13.2)
-- **Explicação:** Alínea e → alínea f do 10.13.2.
+  - A) 12 cal/cm² — *por que não:* 12 cal/cm² não é mínimo de nenhuma categoria do Quadro III. (AIV-III)
+  - **✔** B) 8 cal/cm²
+  - C) 25 cal/cm² — *por que não:* É o mínimo da Categoria 3. (AIV-III)
+  - D) 4 cal/cm² — *por que não:* É o mínimo da Categoria 1. (AIV-III)
+  - E) 40 cal/cm² — *por que não:* É o mínimo da Categoria 4. (AIV-III)
+- **Explicação:** Quadro III do Anexo IV: Cat. 1 = 4; Cat. 2 = 8; Cat. 3 = 25; Cat. 4 = 40 cal/cm².
+- **Itens citados:** AIV-III
+- **Situação:** a validar
+
+### V-bb92ca · Gerador · Vestimenta (cal/cm²)
+- **Pergunta:** Qual é a resistência mínima ao arco (ATPV ou EBT) da vestimenta da Categoria 1 de EPI?
+- **Alternativas** (✔ = resposta do simulador):
+  - A) 8 cal/cm² — *por que não:* É o mínimo da Categoria 2. (AIV-III)
+  - **✔** B) 4 cal/cm²
+  - C) 40 cal/cm² — *por que não:* É o mínimo da Categoria 4. (AIV-III)
+  - D) 25 cal/cm² — *por que não:* É o mínimo da Categoria 3. (AIV-III)
+  - E) 12 cal/cm² — *por que não:* 12 cal/cm² não é mínimo de nenhuma categoria do Quadro III. (AIV-III)
+- **Explicação:** Quadro III do Anexo IV: Cat. 1 = 4; Cat. 2 = 8; Cat. 3 = 25; Cat. 4 = 40 cal/cm².
+- **Itens citados:** AIV-III
+- **Situação:** a validar
+
+### V-ff5d57 · Gerador · Sequências (10.13)
+- **Pergunta:** Na sequência de reenergização do 10.13.2, qual etapa vem logo depois de “remoção da sinalização de impedimento de reenergização”?
+- **Alternativas** (✔ = resposta do simulador):
+  - A) retirada das ferramentas, utensílios e equipamentos — *por que não:* É a alínea b do 10.13.2. (10.13.2)
+  - B) remoção do aterramento temporário e da equipotencialização — *por que não:* É a alínea d do 10.13.2. (10.13.2)
+  - C) retirada dos obstáculos de delimitação e sinalização do espaço seguro de trabalho — *por que não:* É a alínea a do 10.13.2. (10.13.2)
+  - **✔** D) desbloqueio, se houver, e religamento dos dispositivos de seccionamento
+  - E) retirada das proteções dos elementos energizados nas imediações — *por que não:* É a alínea e do 10.13.2. (10.13.2)
+- **Explicação:** Alínea f → alínea g do 10.13.2.
 - **Itens citados:** 10.13.2
 - **Situação:** a validar
 
-### V-61579d · Gerador · Sequências (10.13)
-- **Pergunta:** Na sequência de desenergização do 10.13.1, qual etapa vem logo depois de “proteção dos elementos energizados existentes na zona controlada (Anexo II desta NR) e proteção dos trabalhadores para os efeitos do arco elétrico”?
+### V-ee4b56 · Gerador · Sequências (10.13)
+- **Pergunta:** Qual é a alínea “b” da sequência de reenergização do 10.13.2?
+- **Alternativas** (✔ = resposta do simulador):
+  - A) retirada das proteções dos elementos energizados nas imediações — *por que não:* É a alínea e do 10.13.2. (10.13.2)
+  - B) remoção da sinalização de impedimento de reenergização — *por que não:* É a alínea f do 10.13.2. (10.13.2)
+  - C) retirada das imediações de todos os trabalhadores não envolvidos no processo de reenergização — *por que não:* É a alínea c do 10.13.2. (10.13.2)
+  - **✔** D) retirada das ferramentas, utensílios e equipamentos
+  - E) retirada dos obstáculos de delimitação e sinalização do espaço seguro de trabalho — *por que não:* É a alínea a do 10.13.2. (10.13.2)
+- **Explicação:** 10.13.2, alínea b.
+- **Itens citados:** 10.13.2
+- **Situação:** a validar
+
+### V-1c8b81 · Gerador · Sequências (10.13)
+- **Pergunta:** Qual é a alínea “b” da sequência de desenergização do 10.13.1?
 - **Alternativas** (✔ = resposta do simulador):
   - A) delimitação e sinalização da área de trabalho — *por que não:* É a alínea g do 10.13.1. (10.13.1)
-  - B) constatação de ausência de tensão para a instalação de aterramento temporário com equipotencialização dos condutores dos circuitos — *por que não:* É a alínea d do 10.13.1. (10.13.1)
-  - C) constatação da ausência de tensão — *por que não:* É a alínea b do 10.13.1. (10.13.1)
-  - D) impedimento de reenergização — *por que não:* É a alínea c do 10.13.1. (10.13.1)
-  - **✔** E) instalação da sinalização de impedimento de reenergização
-- **Explicação:** Alínea e → alínea f do 10.13.1.
+  - B) proteção dos elementos energizados existentes na zona controlada (Anexo II desta NR) e proteção dos trabalhadores para os efeitos do arco elétrico — *por que não:* É a alínea e do 10.13.1. (10.13.1)
+  - C) seccionamento ou desligamento — *por que não:* É a alínea a do 10.13.1. (10.13.1)
+  - **✔** D) constatação da ausência de tensão
+  - E) instalação da sinalização de impedimento de reenergização — *por que não:* É a alínea f do 10.13.1. (10.13.1)
+- **Explicação:** 10.13.1, alínea b.
 - **Itens citados:** 10.13.1
 - **Situação:** a validar
 
-### V-b33559 · Gerador · Sequências (10.13)
-- **Pergunta:** Qual é a primeira etapa da sequência de reenergização do 10.13.2?
+### V-a2da45 · Gerador · Sequências (10.13)
+- **Pergunta:** Na sequência de reenergização do 10.13.2, qual etapa vem logo depois de “retirada das imediações de todos os trabalhadores não envolvidos no processo de reenergização”?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) remoção da sinalização de impedimento de reenergização — *por que não:* É a alínea f do 10.13.2. (10.13.2)
-  - **✔** B) retirada dos obstáculos de delimitação e sinalização do espaço seguro de trabalho
-  - C) retirada das imediações de todos os trabalhadores não envolvidos no processo de reenergização — *por que não:* É a alínea c do 10.13.2. (10.13.2)
-  - D) retirada das proteções dos elementos energizados nas imediações — *por que não:* É a alínea e do 10.13.2. (10.13.2)
-  - E) retirada das ferramentas, utensílios e equipamentos — *por que não:* É a alínea b do 10.13.2. (10.13.2)
-- **Explicação:** 10.13.2, alínea a.
+  - A) desbloqueio, se houver, e religamento dos dispositivos de seccionamento — *por que não:* É a alínea g do 10.13.2. (10.13.2)
+  - B) retirada das ferramentas, utensílios e equipamentos — *por que não:* É a alínea b do 10.13.2. (10.13.2)
+  - C) retirada dos obstáculos de delimitação e sinalização do espaço seguro de trabalho — *por que não:* É a alínea a do 10.13.2. (10.13.2)
+  - D) remoção da sinalização de impedimento de reenergização — *por que não:* É a alínea f do 10.13.2. (10.13.2)
+  - **✔** E) remoção do aterramento temporário e da equipotencialização
+- **Explicação:** Alínea c → alínea d do 10.13.2.
 - **Itens citados:** 10.13.2
 - **Situação:** a validar
 
-### V-07c9bb · Gerador · Sequências (10.13)
-- **Pergunta:** Qual é a alínea “g” da sequência de desenergização do 10.13.1?
+### V-ca1771 · Gerador · PIE (10.15.6)
+- **Pergunta:** Usina solar conectada à rede da distribuidora (geração). A organização é obrigada a manter o PIE?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) seccionamento ou desligamento — *por que não:* É a alínea a do 10.13.1. (10.13.1)
-  - B) instalação da sinalização de impedimento de reenergização — *por que não:* É a alínea f do 10.13.1. (10.13.1)
-  - C) impedimento de reenergização — *por que não:* É a alínea c do 10.13.1. (10.13.1)
-  - D) constatação de ausência de tensão para a instalação de aterramento temporário com equipotencialização dos condutores dos circuitos — *por que não:* É a alínea d do 10.13.1. (10.13.1)
-  - **✔** E) delimitação e sinalização da área de trabalho
-- **Explicação:** 10.13.1, alínea g.
-- **Itens citados:** 10.13.1
-- **Situação:** a validar
-
-### V-1ca730 · Gerador · PIE (10.15.6)
-- **Pergunta:** Supermercado com 2500 kW instalados, alimentado em 380 V, sem atividade em média tensão. A organização é obrigada a manter o PIE?
-- **Alternativas** (✔ = resposta do simulador):
-  - A) Sim: toda organização com trabalhadores autorizados mantém PIE — *por que não:* Ter autorizados obriga a documentação do 10.15.4; organizá-la como PIE depende de integrar o SEP ou atuar em MT/AT. (10.15.4, 10.15.6)
+  - A) Não: não integra o SEP nem realiza atividades em média ou alta tensão — *por que não:* Esta organização integra o SEP ou realiza atividades em MT/AT. (10.15.6)
   - B) Não: só concessionárias de distribuição mantêm PIE — *por que não:* O 10.15.6 alcança quem integra o SEP (geração e transmissão também) ou realiza atividades em MT/AT, não só distribuidoras. (10.15.6, g-sep)
-  - C) Sim: integra o SEP ou realiza atividades em média ou alta tensão — *por que não:* Esta organização não integra o SEP nem realiza atividades em MT/AT. (10.15.6)
-  - **✔** D) Não: não integra o SEP nem realiza atividades em média ou alta tensão
+  - **✔** C) Sim: integra o SEP ou realiza atividades em média ou alta tensão
+  - D) Sim: toda organização com trabalhadores autorizados mantém PIE — *por que não:* Ter autorizados obriga a documentação do 10.15.4; organizá-la como PIE depende de integrar o SEP ou atuar em MT/AT. (10.15.4, 10.15.6)
   - E) Sim: por causa da carga instalada — *por que não:* Carga instalada não é critério do 10.15.6. (10.15.6)
-- **Explicação:** O 10.15.6 exige o PIE de quem integra o SEP ou realiza atividades em instalações com média e alta tensão. Carga instalada não é critério. Quem tem autorizados mantém a documentação do 10.15.4 mesmo sem PIE.
+- **Explicação:** O 10.15.6 exige o PIE de quem integra o SEP ou realiza atividades em instalações com média e alta tensão. Carga instalada não é critério.
 - **Itens citados:** 10.15.6
 - **Situação:** a validar
 
-### V-61d295 · Gerador · PIE (10.15.6)
+### V-2f40db · Gerador · PIE (10.15.6)
 - **Pergunta:** Distribuidora de energia elétrica. A organização é obrigada a manter o PIE?
 - **Alternativas** (✔ = resposta do simulador):
-  - **✔** A) Sim: integra o SEP ou realiza atividades em média ou alta tensão
+  - A) Sim: toda organização com trabalhadores autorizados mantém PIE — *por que não:* Ter autorizados obriga a documentação do 10.15.4; organizá-la como PIE depende de integrar o SEP ou atuar em MT/AT. (10.15.4, 10.15.6)
   - B) Sim: por causa da carga instalada — *por que não:* Carga instalada não é critério do 10.15.6. (10.15.6)
-  - C) Sim: toda organização com trabalhadores autorizados mantém PIE — *por que não:* Ter autorizados obriga a documentação do 10.15.4; organizá-la como PIE depende de integrar o SEP ou atuar em MT/AT. (10.15.4, 10.15.6)
-  - D) Não: só concessionárias de distribuição mantêm PIE — *por que não:* O 10.15.6 alcança quem integra o SEP (geração e transmissão também) ou realiza atividades em MT/AT, não só distribuidoras. (10.15.6, g-sep)
+  - C) Não: só concessionárias de distribuição mantêm PIE — *por que não:* O 10.15.6 alcança quem integra o SEP (geração e transmissão também) ou realiza atividades em MT/AT, não só distribuidoras. (10.15.6, g-sep)
+  - **✔** D) Sim: integra o SEP ou realiza atividades em média ou alta tensão
   - E) Não: não integra o SEP nem realiza atividades em média ou alta tensão — *por que não:* Esta organização integra o SEP ou realiza atividades em MT/AT. (10.15.6)
 - **Explicação:** O 10.15.6 exige o PIE de quem integra o SEP ou realiza atividades em instalações com média e alta tensão. Carga instalada não é critério.
 - **Itens citados:** 10.15.6
 - **Situação:** a validar
 
-### V-ed2eb5 · Gerador · PIE (10.15.6)
+### V-e4e011 · Gerador · PIE (10.15.6)
 - **Pergunta:** Indústria com cabine primária de 13,8 kV operada pelos próprios eletricistas. A organização é obrigada a manter o PIE?
 - **Alternativas** (✔ = resposta do simulador):
-  - **✔** A) Sim: integra o SEP ou realiza atividades em média ou alta tensão
+  - A) Sim: toda organização com trabalhadores autorizados mantém PIE — *por que não:* Ter autorizados obriga a documentação do 10.15.4; organizá-la como PIE depende de integrar o SEP ou atuar em MT/AT. (10.15.4, 10.15.6)
   - B) Não: não integra o SEP nem realiza atividades em média ou alta tensão — *por que não:* Esta organização integra o SEP ou realiza atividades em MT/AT. (10.15.6)
-  - C) Sim: toda organização com trabalhadores autorizados mantém PIE — *por que não:* Ter autorizados obriga a documentação do 10.15.4; organizá-la como PIE depende de integrar o SEP ou atuar em MT/AT. (10.15.4, 10.15.6)
-  - D) Não: só concessionárias de distribuição mantêm PIE — *por que não:* O 10.15.6 alcança quem integra o SEP (geração e transmissão também) ou realiza atividades em MT/AT, não só distribuidoras. (10.15.6, g-sep)
+  - C) Não: só concessionárias de distribuição mantêm PIE — *por que não:* O 10.15.6 alcança quem integra o SEP (geração e transmissão também) ou realiza atividades em MT/AT, não só distribuidoras. (10.15.6, g-sep)
+  - **✔** D) Sim: integra o SEP ou realiza atividades em média ou alta tensão
   - E) Sim: por causa da carga instalada — *por que não:* Carga instalada não é critério do 10.15.6. (10.15.6)
 - **Explicação:** O 10.15.6 exige o PIE de quem integra o SEP ou realiza atividades em instalações com média e alta tensão. Carga instalada não é critério.
 - **Itens citados:** 10.15.6
 - **Situação:** a validar
 
-### V-a64831 · Gerador · PIE (10.15.6)
-- **Pergunta:** Supermercado com 750 kW instalados, alimentado em 380 V, sem atividade em média tensão. A organização é obrigada a manter o PIE?
+### V-fb30be · Gerador · PIE (10.15.6)
+- **Pergunta:** Supermercado com 120 kW instalados, alimentado em 380 V, sem atividade em média tensão. A organização é obrigada a manter o PIE?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) Sim: toda organização com trabalhadores autorizados mantém PIE — *por que não:* Ter autorizados obriga a documentação do 10.15.4; organizá-la como PIE depende de integrar o SEP ou atuar em MT/AT. (10.15.4, 10.15.6)
-  - B) Sim: integra o SEP ou realiza atividades em média ou alta tensão — *por que não:* Esta organização não integra o SEP nem realiza atividades em MT/AT. (10.15.6)
-  - C) Não: só concessionárias de distribuição mantêm PIE — *por que não:* O 10.15.6 alcança quem integra o SEP (geração e transmissão também) ou realiza atividades em MT/AT, não só distribuidoras. (10.15.6, g-sep)
-  - D) Sim: por causa da carga instalada — *por que não:* Carga instalada não é critério do 10.15.6. (10.15.6)
-  - **✔** E) Não: não integra o SEP nem realiza atividades em média ou alta tensão
+  - A) Sim: por causa da carga instalada — *por que não:* Carga instalada não é critério do 10.15.6. (10.15.6)
+  - **✔** B) Não: não integra o SEP nem realiza atividades em média ou alta tensão
+  - C) Sim: integra o SEP ou realiza atividades em média ou alta tensão — *por que não:* Esta organização não integra o SEP nem realiza atividades em MT/AT. (10.15.6)
+  - D) Sim: toda organização com trabalhadores autorizados mantém PIE — *por que não:* Ter autorizados obriga a documentação do 10.15.4; organizá-la como PIE depende de integrar o SEP ou atuar em MT/AT. (10.15.4, 10.15.6)
+  - E) Não: só concessionárias de distribuição mantêm PIE — *por que não:* O 10.15.6 alcança quem integra o SEP (geração e transmissão também) ou realiza atividades em MT/AT, não só distribuidoras. (10.15.6, g-sep)
 - **Explicação:** O 10.15.6 exige o PIE de quem integra o SEP ou realiza atividades em instalações com média e alta tensão. Carga instalada não é critério. Quem tem autorizados mantém a documentação do 10.15.4 mesmo sem PIE.
 - **Itens citados:** 10.15.6
 - **Situação:** a validar
 
-### V-fbfe9e · Gerador · Trabalho individual (10.14.2)
-- **Pergunta:** Manobra numa subestação de 69 kV da distribuidora (SEP). Um trabalhador pode fazer o serviço sozinho?
+### V-b88d50 · Gerador · Trabalho individual (10.14.2)
+- **Pergunta:** Troca de lâmpada num circuito de 220 V desligado e bloqueado de um escritório. Um trabalhador pode fazer o serviço sozinho?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) Pode, desde que use a vestimenta de arco adequada — *por que não:* EPI não muda o 10.14.2; fora dele, a decisão vem da análise de risco. (10.14.2, 10.5.4)
-  - B) O 10.14.2 não proíbe; a análise de risco decide — *por que não:* É serviço energizado em MT/AT ou serviço no SEP: o 10.14.2 veda o trabalho individual. (10.14.2)
-  - C) Pode, se a permissão de trabalho autorizar — *por que não:* A PT não afasta o 10.14.2; fora dele, a decisão vem da análise de risco. (10.14.2, 10.7.3)
-  - **✔** D) Não pode ser feito individualmente
-  - E) Pode, se o trabalhador for PLH — *por que não:* A habilitação não muda o 10.14.2; fora dele, quem decide é a análise de risco. (10.14.2, 10.7.3)
-- **Explicação:** O 10.14.2 veda o trabalho individual em serviços em instalações energizadas em média e alta tensão e em todos os serviços executados no SEP. Fora disso, a decisão sai da análise de risco.
-- **Itens citados:** 10.14.2 · 10.7.3
-- **Situação:** a validar
-
-### V-b7e3f3 · Gerador · Trabalho individual (10.14.2)
-- **Pergunta:** Medição num QGBT de 380 V energizado de uma indústria (SEC). Um trabalhador pode fazer o serviço sozinho?
-- **Alternativas** (✔ = resposta do simulador):
-  - A) Pode, se a permissão de trabalho autorizar — *por que não:* A PT não afasta o 10.14.2; fora dele, a decisão vem da análise de risco. (10.14.2, 10.7.3)
+  - A) Não pode ser feito individualmente — *por que não:* O 10.14.2 só veda o trabalho individual em serviços energizados em MT/AT e em serviços no SEP; aqui não é nenhum dos dois. (10.14.2)
   - B) Pode, se o trabalhador for PLH — *por que não:* A habilitação não muda o 10.14.2; fora dele, quem decide é a análise de risco. (10.14.2, 10.7.3)
   - **✔** C) O 10.14.2 não proíbe; a análise de risco decide
   - D) Pode, desde que use a vestimenta de arco adequada — *por que não:* EPI não muda o 10.14.2; fora dele, a decisão vem da análise de risco. (10.14.2, 10.5.4)
-  - E) Não pode ser feito individualmente — *por que não:* O 10.14.2 só veda o trabalho individual em serviços energizados em MT/AT e em serviços no SEP; aqui não é nenhum dos dois. (10.14.2)
-- **Explicação:** O 10.14.2 veda o trabalho individual em serviços em instalações energizadas em média e alta tensão e em todos os serviços executados no SEP. Fora disso, a decisão sai da análise de risco.
-- **Itens citados:** 10.14.2 · 10.7.3
-- **Situação:** a validar
-
-### V-250e44 · Gerador · Trabalho individual (10.14.2)
-- **Pergunta:** Medição num painel de 440 V energizado de um hospital (SEC). Um trabalhador pode fazer o serviço sozinho?
-- **Alternativas** (✔ = resposta do simulador):
-  - A) Pode, desde que use a vestimenta de arco adequada — *por que não:* EPI não muda o 10.14.2; fora dele, a decisão vem da análise de risco. (10.14.2, 10.5.4)
-  - B) Pode, se o trabalhador for PLH — *por que não:* A habilitação não muda o 10.14.2; fora dele, quem decide é a análise de risco. (10.14.2, 10.7.3)
-  - C) Não pode ser feito individualmente — *por que não:* O 10.14.2 só veda o trabalho individual em serviços energizados em MT/AT e em serviços no SEP; aqui não é nenhum dos dois. (10.14.2)
-  - **✔** D) O 10.14.2 não proíbe; a análise de risco decide
   - E) Pode, se a permissão de trabalho autorizar — *por que não:* A PT não afasta o 10.14.2; fora dele, a decisão vem da análise de risco. (10.14.2, 10.7.3)
 - **Explicação:** O 10.14.2 veda o trabalho individual em serviços em instalações energizadas em média e alta tensão e em todos os serviços executados no SEP. Fora disso, a decisão sai da análise de risco.
 - **Itens citados:** 10.14.2 · 10.7.3
 - **Situação:** a validar
 
-### V-a4f658 · Gerador · Trabalho individual (10.14.2)
-- **Pergunta:** Troca de isolador numa rede de distribuição de 13,8 kV energizada. Um trabalhador pode fazer o serviço sozinho?
+### V-18a65f · Gerador · Trabalho individual (10.14.2)
+- **Pergunta:** Medição num painel de 440 V energizado de um hospital (SEC). Um trabalhador pode fazer o serviço sozinho?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) O 10.14.2 não proíbe; a análise de risco decide — *por que não:* É serviço energizado em MT/AT ou serviço no SEP: o 10.14.2 veda o trabalho individual. (10.14.2)
+  - **✔** A) O 10.14.2 não proíbe; a análise de risco decide
   - B) Pode, se a permissão de trabalho autorizar — *por que não:* A PT não afasta o 10.14.2; fora dele, a decisão vem da análise de risco. (10.14.2, 10.7.3)
-  - **✔** C) Não pode ser feito individualmente
-  - D) Pode, se o trabalhador for PLH — *por que não:* A habilitação não muda o 10.14.2; fora dele, quem decide é a análise de risco. (10.14.2, 10.7.3)
+  - C) Pode, se o trabalhador for PLH — *por que não:* A habilitação não muda o 10.14.2; fora dele, quem decide é a análise de risco. (10.14.2, 10.7.3)
+  - D) Não pode ser feito individualmente — *por que não:* O 10.14.2 só veda o trabalho individual em serviços energizados em MT/AT e em serviços no SEP; aqui não é nenhum dos dois. (10.14.2)
   - E) Pode, desde que use a vestimenta de arco adequada — *por que não:* EPI não muda o 10.14.2; fora dele, a decisão vem da análise de risco. (10.14.2, 10.5.4)
 - **Explicação:** O 10.14.2 veda o trabalho individual em serviços em instalações energizadas em média e alta tensão e em todos os serviços executados no SEP. Fora disso, a decisão sai da análise de risco.
 - **Itens citados:** 10.14.2 · 10.7.3
 - **Situação:** a validar
 
-### V-daf8ec · Gerador · Treinamento eventual
-- **Pergunta:** Eletricista autorizado volta ao trabalho depois de 60 dias de afastamento. O periódico bienal está em dia. Ele precisa de treinamento eventual?
+### V-7a1886 · Gerador · Trabalho individual (10.14.2)
+- **Pergunta:** Ajuste dentro de um cubículo de 13,8 kV energizado de uma indústria (SEC). Um trabalhador pode fazer o serviço sozinho?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) Sim, treinamento eventual — *por que não:* 60 dias não passa de 90: o 10.9.11 a não se aplica. (10.9.11)
-  - B) Só se a organização quiser: o eventual é opcional — *por que não:* O 10.9.11 diz que a organização deve realizar o eventual nas situações listadas. (10.9.11)
-  - **✔** C) Não
+  - **✔** A) Não pode ser feito individualmente
+  - B) Pode, se o trabalhador for PLH — *por que não:* A habilitação não muda o 10.14.2; fora dele, quem decide é a análise de risco. (10.14.2, 10.7.3)
+  - C) Pode, desde que use a vestimenta de arco adequada — *por que não:* EPI não muda o 10.14.2; fora dele, a decisão vem da análise de risco. (10.14.2, 10.5.4)
+  - D) O 10.14.2 não proíbe; a análise de risco decide — *por que não:* É serviço energizado em MT/AT ou serviço no SEP: o 10.14.2 veda o trabalho individual. (10.14.2)
+  - E) Pode, se a permissão de trabalho autorizar — *por que não:* A PT não afasta o 10.14.2; fora dele, a decisão vem da análise de risco. (10.14.2, 10.7.3)
+- **Explicação:** O 10.14.2 veda o trabalho individual em serviços em instalações energizadas em média e alta tensão e em todos os serviços executados no SEP. Fora disso, a decisão sai da análise de risco.
+- **Itens citados:** 10.14.2 · 10.7.3
+- **Situação:** a validar
+
+### V-c6ee2f · Gerador · Trabalho individual (10.14.2)
+- **Pergunta:** Troca de isolador numa rede de distribuição de 13,8 kV energizada. Um trabalhador pode fazer o serviço sozinho?
+- **Alternativas** (✔ = resposta do simulador):
+  - A) Pode, desde que use a vestimenta de arco adequada — *por que não:* EPI não muda o 10.14.2; fora dele, a decisão vem da análise de risco. (10.14.2, 10.5.4)
+  - **✔** B) Não pode ser feito individualmente
+  - C) Pode, se a permissão de trabalho autorizar — *por que não:* A PT não afasta o 10.14.2; fora dele, a decisão vem da análise de risco. (10.14.2, 10.7.3)
+  - D) O 10.14.2 não proíbe; a análise de risco decide — *por que não:* É serviço energizado em MT/AT ou serviço no SEP: o 10.14.2 veda o trabalho individual. (10.14.2)
+  - E) Pode, se o trabalhador for PLH — *por que não:* A habilitação não muda o 10.14.2; fora dele, quem decide é a análise de risco. (10.14.2, 10.7.3)
+- **Explicação:** O 10.14.2 veda o trabalho individual em serviços em instalações energizadas em média e alta tensão e em todos os serviços executados no SEP. Fora disso, a decisão sai da análise de risco.
+- **Itens citados:** 10.14.2 · 10.7.3
+- **Situação:** a validar
+
+### V-94dc41 · Gerador · Treinamento eventual
+- **Pergunta:** Eletricista autorizado volta ao trabalho depois de 45 dias de afastamento. O periódico bienal está em dia. Ele precisa de treinamento eventual?
+- **Alternativas** (✔ = resposta do simulador):
+  - **✔** A) Não
+  - B) Só se o periódico bienal estiver vencido — *por que não:* O eventual vale independentemente de já ter feito o periódico. (10.9.11)
+  - C) Só se a organização quiser: o eventual é opcional — *por que não:* O 10.9.11 diz que a organização deve realizar o eventual nas situações listadas. (10.9.11)
   - D) Sim, sempre, depois de qualquer afastamento — *por que não:* O 10.9.11 a fala em afastamento ou inatividade por período superior a 90 dias, não em qualquer afastamento. (10.9.11)
-  - E) Só se o periódico bienal estiver vencido — *por que não:* O eventual vale independentemente de já ter feito o periódico. (10.9.11)
-- **Explicação:** O 10.9.11 a exige treinamento eventual após afastamento ou inatividade por período superior a 90 dias, independentemente do periódico. 60 dias não passa do limite.
+  - E) Sim, treinamento eventual — *por que não:* 45 dias não passa de 90: o 10.9.11 a não se aplica. (10.9.11)
+- **Explicação:** O 10.9.11 a exige treinamento eventual após afastamento ou inatividade por período superior a 90 dias, independentemente do periódico. 45 dias não passa do limite.
 - **Itens citados:** 10.9.11
 - **Situação:** a validar
 
-### V-ba9704 · Gerador · Treinamento eventual
+### V-8a756b · Gerador · Treinamento eventual
 - **Pergunta:** Eletricista autorizado volta ao trabalho depois de 90 dias de afastamento. O periódico bienal está em dia. Ele precisa de treinamento eventual?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) Sim, treinamento eventual — *por que não:* 90 dias não passa de 90: o 10.9.11 a não se aplica. (10.9.11)
-  - B) Só se a organização quiser: o eventual é opcional — *por que não:* O 10.9.11 diz que a organização deve realizar o eventual nas situações listadas. (10.9.11)
-  - C) Sim, sempre, depois de qualquer afastamento — *por que não:* O 10.9.11 a fala em afastamento ou inatividade por período superior a 90 dias, não em qualquer afastamento. (10.9.11)
-  - D) Só se o periódico bienal estiver vencido — *por que não:* O eventual vale independentemente de já ter feito o periódico. (10.9.11)
-  - **✔** E) Não
+  - A) Só se o periódico bienal estiver vencido — *por que não:* O eventual vale independentemente de já ter feito o periódico. (10.9.11)
+  - B) Sim, sempre, depois de qualquer afastamento — *por que não:* O 10.9.11 a fala em afastamento ou inatividade por período superior a 90 dias, não em qualquer afastamento. (10.9.11)
+  - C) Sim, treinamento eventual — *por que não:* 90 dias não passa de 90: o 10.9.11 a não se aplica. (10.9.11)
+  - **✔** D) Não
+  - E) Só se a organização quiser: o eventual é opcional — *por que não:* O 10.9.11 diz que a organização deve realizar o eventual nas situações listadas. (10.9.11)
 - **Explicação:** O 10.9.11 a exige treinamento eventual após afastamento ou inatividade por período superior a 90 dias, independentemente do periódico. 90 dias não passa do limite.
 - **Itens citados:** 10.9.11
 - **Situação:** a validar
 
-### V-5c8bd6 · Gerador · Treinamento eventual
-- **Pergunta:** Eletricista autorizado volta ao trabalho depois de 100 dias de afastamento. O periódico bienal está em dia. Ele precisa de treinamento eventual?
+### V-6f1e1b · Gerador · Treinamento eventual
+- **Pergunta:** Eletricista autorizado volta ao trabalho depois de 120 dias de afastamento. O periódico bienal está em dia. Ele precisa de treinamento eventual?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) Não — *por que não:* 100 dias passa de 90: o 10.9.11 a exige o eventual. (10.9.11)
-  - B) Só se o periódico bienal estiver vencido — *por que não:* O eventual vale independentemente de já ter feito o periódico. (10.9.11)
-  - C) Sim, sempre, depois de qualquer afastamento — *por que não:* O 10.9.11 a fala em afastamento ou inatividade por período superior a 90 dias, não em qualquer afastamento. (10.9.11)
-  - D) Só se a organização quiser: o eventual é opcional — *por que não:* O 10.9.11 diz que a organização deve realizar o eventual nas situações listadas. (10.9.11)
-  - **✔** E) Sim, treinamento eventual
-- **Explicação:** O 10.9.11 a exige treinamento eventual após afastamento ou inatividade por período superior a 90 dias, independentemente do periódico. 100 dias passa do limite.
+  - A) Não — *por que não:* 120 dias passa de 90: o 10.9.11 a exige o eventual. (10.9.11)
+  - B) Só se a organização quiser: o eventual é opcional — *por que não:* O 10.9.11 diz que a organização deve realizar o eventual nas situações listadas. (10.9.11)
+  - **✔** C) Sim, treinamento eventual
+  - D) Só se o periódico bienal estiver vencido — *por que não:* O eventual vale independentemente de já ter feito o periódico. (10.9.11)
+  - E) Sim, sempre, depois de qualquer afastamento — *por que não:* O 10.9.11 a fala em afastamento ou inatividade por período superior a 90 dias, não em qualquer afastamento. (10.9.11)
+- **Explicação:** O 10.9.11 a exige treinamento eventual após afastamento ou inatividade por período superior a 90 dias, independentemente do periódico. 120 dias passa do limite.
 - **Itens citados:** 10.9.11
 - **Situação:** a validar
 
-### V-e9c82d · Gerador · Treinamento eventual
+### V-618a5e · Gerador · Treinamento eventual
 - **Pergunta:** Eletricista autorizado volta ao trabalho depois de 89 dias de afastamento. O periódico bienal está em dia. Ele precisa de treinamento eventual?
 - **Alternativas** (✔ = resposta do simulador):
   - A) Só se a organização quiser: o eventual é opcional — *por que não:* O 10.9.11 diz que a organização deve realizar o eventual nas situações listadas. (10.9.11)
   - B) Sim, sempre, depois de qualquer afastamento — *por que não:* O 10.9.11 a fala em afastamento ou inatividade por período superior a 90 dias, não em qualquer afastamento. (10.9.11)
-  - C) Sim, treinamento eventual — *por que não:* 89 dias não passa de 90: o 10.9.11 a não se aplica. (10.9.11)
+  - C) Só se o periódico bienal estiver vencido — *por que não:* O eventual vale independentemente de já ter feito o periódico. (10.9.11)
   - **✔** D) Não
-  - E) Só se o periódico bienal estiver vencido — *por que não:* O eventual vale independentemente de já ter feito o periódico. (10.9.11)
+  - E) Sim, treinamento eventual — *por que não:* 89 dias não passa de 90: o 10.9.11 a não se aplica. (10.9.11)
 - **Explicação:** O 10.9.11 a exige treinamento eventual após afastamento ou inatividade por período superior a 90 dias, independentemente do periódico. 89 dias não passa do limite.
 - **Itens citados:** 10.9.11
 - **Situação:** a validar
 
-### V-b1f43f · Gerador · Validade da PT
+### V-96a807 · Gerador · Validade da PT
+- **Pergunta:** Um serviço não rotineiro com PT vai continuar no turno seguinte, depois que as condições estabelecidas na PT mudaram. O que a NR-10 prevê?
+- **Alternativas** (✔ = resposta do simulador):
+  - A) Vale 24 horas a partir da emissão, sem revalidação — *por que não:* A PT é restrita ao turno de trabalho, não a 24 horas. (10.7.2.2)
+  - B) Continua válida até o fim do serviço, sem revalidação — *por que não:* A PT é restrita ao turno de trabalho. (10.7.2.2)
+  - C) Pode ser revalidada pelo próprio executante, por escrito — *por que não:* Quem revalida é o responsável pela autorização da permissão. (10.7.2.2)
+  - D) Pode ser revalidada pelo responsável pela autorização da PT — *por que não:* Houve mudança nas condições ou em toda a equipe: não cabe revalidação. (10.7.2.2)
+  - **✔** E) Exige nova permissão de trabalho: a revalidação não é admitida
+- **Explicação:** Pelo 10.7.2.2, a PT vale pela duração da atividade, restrita ao turno, e pode ser revalidada quando não houver mudança nas condições estabelecidas nem em toda a equipe.
+- **Itens citados:** 10.7.2.2
+- **Situação:** a validar
+
+### V-8a41d9 · Gerador · Validade da PT
 - **Pergunta:** Um serviço não rotineiro com PT vai continuar no turno seguinte, com a mesma equipe e sem mudança nas condições. O que a NR-10 prevê?
 - **Alternativas** (✔ = resposta do simulador):
   - A) Pode ser revalidada pelo próprio executante, por escrito — *por que não:* Quem revalida é o responsável pela autorização da permissão. (10.7.2.2)
-  - B) Vale 24 horas a partir da emissão, sem revalidação — *por que não:* A PT é restrita ao turno de trabalho, não a 24 horas. (10.7.2.2)
-  - C) Continua válida até o fim do serviço, sem revalidação — *por que não:* A PT é restrita ao turno de trabalho. (10.7.2.2)
-  - D) Precisa de nova permissão de trabalho — *por que não:* Sem mudança nas condições nem na equipe, a PT pode ser revalidada. (10.7.2.2)
-  - **✔** E) Pode ser revalidada pelo responsável pela autorização da PT
+  - **✔** B) Pode ser revalidada pelo responsável pela autorização da PT
+  - C) Exige nova permissão de trabalho: a revalidação não é admitida — *por que não:* Sem mudança nas condições estabelecidas nem em toda a equipe, a PT pode ser revalidada pelo responsável pela autorização. (10.7.2.2)
+  - D) Vale 24 horas a partir da emissão, sem revalidação — *por que não:* A PT é restrita ao turno de trabalho, não a 24 horas. (10.7.2.2)
+  - E) Continua válida até o fim do serviço, sem revalidação — *por que não:* A PT é restrita ao turno de trabalho. (10.7.2.2)
 - **Explicação:** Pelo 10.7.2.2, a PT vale pela duração da atividade, restrita ao turno, e pode ser revalidada quando não houver mudança nas condições estabelecidas nem em toda a equipe.
 - **Itens citados:** 10.7.2.2
 - **Situação:** a validar
 
-### V-379429 · Gerador · Validade da PT
+### V-f121da · Gerador · Validade da PT
 - **Pergunta:** Um serviço não rotineiro com PT vai continuar no turno seguinte, com toda a equipe trocada. O que a NR-10 prevê?
 - **Alternativas** (✔ = resposta do simulador):
-  - A) Pode ser revalidada pelo responsável pela autorização da PT — *por que não:* Houve mudança nas condições ou em toda a equipe: não cabe revalidação. (10.7.2.2)
-  - B) Vale 24 horas a partir da emissão, sem revalidação — *por que não:* A PT é restrita ao turno de trabalho, não a 24 horas. (10.7.2.2)
-  - C) Continua válida até o fim do serviço, sem revalidação — *por que não:* A PT é restrita ao turno de trabalho. (10.7.2.2)
-  - **✔** D) Precisa de nova permissão de trabalho
-  - E) Pode ser revalidada pelo próprio executante, por escrito — *por que não:* Quem revalida é o responsável pela autorização da permissão. (10.7.2.2)
-- **Explicação:** Pelo 10.7.2.2, a PT vale pela duração da atividade, restrita ao turno, e pode ser revalidada quando não houver mudança nas condições estabelecidas nem em toda a equipe.
-- **Itens citados:** 10.7.2.2
-- **Situação:** a validar
-
-### V-d7582a · Gerador · Validade da PT
-- **Pergunta:** Um serviço não rotineiro com PT vai continuar no turno seguinte, depois que as condições estabelecidas na PT mudaram. O que a NR-10 prevê?
-- **Alternativas** (✔ = resposta do simulador):
-  - A) Pode ser revalidada pelo próprio executante, por escrito — *por que não:* Quem revalida é o responsável pela autorização da permissão. (10.7.2.2)
-  - B) Pode ser revalidada pelo responsável pela autorização da PT — *por que não:* Houve mudança nas condições ou em toda a equipe: não cabe revalidação. (10.7.2.2)
-  - C) Vale 24 horas a partir da emissão, sem revalidação — *por que não:* A PT é restrita ao turno de trabalho, não a 24 horas. (10.7.2.2)
-  - D) Continua válida até o fim do serviço, sem revalidação — *por que não:* A PT é restrita ao turno de trabalho. (10.7.2.2)
-  - **✔** E) Precisa de nova permissão de trabalho
+  - A) Vale 24 horas a partir da emissão, sem revalidação — *por que não:* A PT é restrita ao turno de trabalho, não a 24 horas. (10.7.2.2)
+  - B) Continua válida até o fim do serviço, sem revalidação — *por que não:* A PT é restrita ao turno de trabalho. (10.7.2.2)
+  - C) Pode ser revalidada pelo próprio executante, por escrito — *por que não:* Quem revalida é o responsável pela autorização da permissão. (10.7.2.2)
+  - **✔** D) Exige nova permissão de trabalho: a revalidação não é admitida
+  - E) Pode ser revalidada pelo responsável pela autorização da PT — *por que não:* Houve mudança nas condições ou em toda a equipe: não cabe revalidação. (10.7.2.2)
 - **Explicação:** Pelo 10.7.2.2, a PT vale pela duração da atividade, restrita ao turno, e pode ser revalidada quando não houver mudança nas condições estabelecidas nem em toda a equipe.
 - **Itens citados:** 10.7.2.2
 - **Situação:** a validar

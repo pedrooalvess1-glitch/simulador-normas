@@ -6,15 +6,15 @@ MODS.push((()=>{
     placa:{nc:1,t:'QGBT sem sinalização',b:'Falta indicar o nível de tensão, advertir sobre choque e arco e restringir o acesso a pessoas não autorizadas.',r:['10.7.7.1','10.7.7']},
     luvas:{nc:1,gir:1,t:'Luvas isolantes com ensaio vencido há 16 meses',b:'Luvas isolantes de BT passam por ensaio dielétrico no menor intervalo previsto e, sem outra previsão, anualmente. Usar EPI isolante sem o ensaio é grave e iminente risco.',r:['10.14.4','10.14.4.1','10.16.1']},
     adornos:{nc:1,t:'Eletricista de aliança e relógio metálico',b:'Adornos pessoais são vedados nos serviços em eletricidade e nos trabalhos em proximidade.',r:['10.7.8']},
-    multimetro:{nc:1,t:'Multímetro CAT II 300 V para medir no QGBT de 380 V',b:'O instrumento precisa servir à tensão de trabalho e ter categoria compatível com os surtos do ponto de medição. CAT II 300 V não atende a um QGBT de 380 V entre fases.',r:['10.12.6.1']},
+    multimetro:{nc:1,t:'Multímetro CAT II 300 V para medir no QGBT de 380 V',b:'300 V é menos que os 380 V entre fases: o instrumento não é adequado à tensão de trabalho (10.12.6.1 a). Ele também precisa ter categoria compatível com os surtos do ponto de medição (10.12.6.1 b), conforme regulamentação ou fabricante.',r:['10.12.6.1']},
     diagrama:{nc:1,t:'Diagrama unifilar de 2015 numa sala reformada em 2024',b:'O projeto corresponde ao executado e a documentação fica atualizada e disponível.',r:['10.4.13','10.15.2']},
-    luminaria:{nc:1,t:'Luminária queimada em frente ao CCM',b:'A instalação precisa oferecer iluminação adequada para a posição de trabalho, conforme NR-17.',r:['10.4.10']},
-    tomada:{nc:1,t:'Tomada da área de lavagem de peças sem DDR',b:'Edificação não residencial, ponto de tomada em área molhada ou sujeita a lavagem: DDR obrigatório. Para instalação existente, a alínea e passa a valer um ano após a vigência.',r:['10.6.4','art3']},
+    luminaria:{nc:1,t:'Luminária queimada em frente ao CCM',b:'O projeto assegura iluminação adequada e posição de trabalho segura, conforme a NR-17 (10.4.10), e a instalação é mantida de forma a garantir a segurança (10.12.2).',r:['10.4.10','10.12.2']},
+    tomada:{nc:1,t:'Tomada nova da área de lavagem de peças, sem DDR',b:'Edificação não residencial, ponto de tomada em área sujeita a lavagem: DDR obrigatório (10.6.4 e). O prazo extra do art. 3º vale só para as instalações que já existiam na data de vigência; um circuito novo não tem esse prazo.',r:['10.6.4','art3']},
     aterr:{nc:1,t:'Conjunto de aterramento temporário com grampo quebrado e cabo descascado',b:'Dispositivos de proteção coletiva com isolação ou função de segurança são inspecionados e testados. Este conjunto não pode ser usado.',r:['10.12.6','10.13.1']},
     extintor:{nc:0,t:'Extintor de CO₂ na validade, junto à porta',b:'Conforme. Proteção contra incêndio segue a NR-23.',r:['10.6.6']},
     tapete:{nc:0,t:'Tapete isolante diante do QGBT',b:'Conforme. É proteção coletiva isolante, sujeita a ensaio dielétrico periódico.',r:['10.14.4']},
     acesso:{nc:0,t:'Porta da sala com placa de acesso restrito',b:'Conforme. Sinalização de restrição e impedimento de acesso.',r:['10.7.7']},
-    armario:{nc:0,t:'Armário de EPI com vestimentas identificadas por trabalhador',b:'Conforme. O EPI é de uso pessoal; o uso compartilhado é proibido.',r:['10.11.1']}};
+    armario:{nc:0,t:'Armário de EPI com vestimentas identificadas por trabalhador',b:'Conforme. O EPI é de uso estritamente pessoal; a proibição do uso compartilhado é conteúdo do Treinamento Básico (Anexo III, item 10 b).',r:['10.11.1','AIII']}};
   const NCK=Object.keys(H).filter(k=>H[k].nc);let found=new Set(),falseHits=new Set();
   function build(){
     const fl=boxB(11,.04,8,'#b9bfc4',0,0,0);fl.castShadow=false;
@@ -63,7 +63,7 @@ MODS.push((()=>{
     {t:'Painel com circuitos sem identificação',a:'N',x:'Não conformidade com 10.7.7, mas fora da lista do 10.16.1.',r:['10.7.7']},
     {t:'Diagrama unifilar desatualizado',a:'N',x:'Não conformidade com 10.4.13, mas fora da lista do 10.16.1.',r:['10.4.13']},
     {t:'Religaram o disjuntor com o aterramento temporário ainda instalado',a:'G',x:'Falha na sequência de reenergização.',r:['10.16.1','10.13.2']},
-    {t:'Luminária queimada diante do CCM',a:'N',x:'Não conformidade com 10.4.10, fora da lista do 10.16.1.',r:['10.4.10']}];
+    {t:'Luminária queimada diante do CCM',a:'N',x:'A iluminação adequada vem do projeto (10.4.10), e a instalação é mantida de forma a garantir a segurança (10.12.2). É não conformidade, mas fora das quatro condições do 10.16.1.',r:['10.4.10','10.12.2']}];
   window.GIR_ITEMS=GIR;
   QB.cls('documentacao',GIR,[{v:'G',l:'Grave e iminente risco (10.16.1)'},{v:'N',l:'Não conformidade, não é GIR'}],'Esta situação está na lista do 10.16.1?');
   const ROT=[
@@ -79,7 +79,7 @@ MODS.push((()=>{
     {t:'Seleção, inspeção, uso e limites dos sistemas de proteção coletiva e individual',c:1},{t:'Riscos adicionais e externos',c:1},{t:'Trabalhos simultâneos',c:1},{t:'Horas extras previstas no mês',c:0},
     {t:'Condições impeditivas',c:1},{t:'Emergências, resgate e primeiros socorros',c:1},{t:'Necessidade de sistema de comunicação',c:1},{t:'Forma de supervisão',c:1},{t:'Avaliação de desempenho anual da equipe',c:0}];
   const QD=[
-    {q:'Por quanto tempo vale uma permissão de trabalho?',o:['Uma semana','Pela duração da atividade, restrita ao turno; pode ser revalidada se nada mudar nas condições ou na equipe','Até o fim do contrato'],a:1,r:['10.7.2.2']},
+    {q:'Por quanto tempo vale uma permissão de trabalho?',o:['Uma semana','Pela duração da atividade, restrita ao turno; pode ser revalidada se não mudarem as condições estabelecidas nem toda a equipe','Até o fim do contrato'],a:1,r:['10.7.2.2']},
     {q:'Quem aprova a PT e quem aprova o procedimento de trabalho?',o:['PT: trabalhador autorizado · procedimento: PLH','Ambos: técnico de segurança','PT: PLH · procedimento: supervisor'],a:0,r:['10.7.2','10.7.1.1']},
     {q:'Na avaliação prévia, você vê que a chuva molhou o piso do cubículo. O que a norma manda?',o:['Iniciar com cuidado redobrado','Não iniciar a operação e comunicar o superior hierárquico','Estender a PT para o próximo turno'],a:1,r:['10.7.4.1','10.7.4.2']},
     {q:'Terminado o serviço, a PT…',o:['é descartada','é encerrada e arquivada para rastreabilidade','fica com o executante'],a:1,r:['10.7.2.3']}];

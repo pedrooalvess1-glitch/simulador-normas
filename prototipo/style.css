@@ -403,6 +403,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 /* cenas das histórias 2 a 4 */
 .sc-box{fill:#B88A55;stroke:#7A5A33;stroke-width:1.2}.sc-ring{fill:none;stroke:#E3A11B;stroke-width:2.5}
 .sc-wire{fill:none;stroke:var(--ink);stroke-width:2}.sc-wire2{fill:none;stroke:#7A8792;stroke-width:2.5;stroke-dasharray:7 4}
+.sc-exzone{fill:#E3A11B;fill-opacity:.12;stroke:#B87A0A;stroke-width:2.5;stroke-dasharray:10 6}
 .sc-sky{fill:var(--scene-bg)}.sc-soil{fill:#9C7B57}.sc-road{fill:#5E6770}.sc-lane{stroke:#E8E2C8;stroke-width:3;stroke-dasharray:28 18}
 .sc-tapume{fill:#C8B48A;stroke:var(--ink-2);stroke-width:1}.sc-rebar{stroke:#8E3B2C;stroke-width:4;stroke-linecap:round}
 .sc-pole{fill:#A7AFB6;stroke:var(--ink-2);stroke-width:1}.sc-iso{fill:#A9D3E5;stroke:var(--ink-2);stroke-width:1}.sc-isobad{fill:#A9D3E5;stroke:var(--bad);stroke-width:2;stroke-dasharray:3 2}

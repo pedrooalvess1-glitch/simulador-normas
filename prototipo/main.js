@@ -1,5 +1,5 @@
 /* ==================== inicialização ==================== */
-const ORDER=['mapa','historia','hist_qdc','hist_obra','hist_sep','enq','zonas','projeto','coletiva','organizacao','pessoas','individual','desenergizado','energizado','documentacao','missao','treino'];
+const ORDER=['mapa','historia','hist_qdc','hist_obra','hist_sep','hist_ex','enq','zonas','projeto','coletiva','organizacao','pessoas','individual','desenergizado','energizado','documentacao','missao','treino'];
 function migrate(){const d=Store.data.done;const mp={c1:'enq',c2:'projeto',c3:'pessoas',c6:'desenergizado'};
   Object.entries(mp).forEach(([o,n])=>{if(d[o]&&!d[n])d[n]=d[o];});['c1','c2','c3','c4','c5','c6','c7'].forEach(k=>delete d[k]);Store.save();}
 function boot(){MODS.sort((a,b)=>ORDER.indexOf(a.id)-ORDER.indexOf(b.id));Store.load();migrate();initGL();renderNav();
