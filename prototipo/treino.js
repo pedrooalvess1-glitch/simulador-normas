@@ -78,7 +78,7 @@
       return mk(`${p[0]}. Qual é a carga horária mínima total dos treinamentos iniciais?`,p[1]+' h',shuffle(opts),`${p[2]} Cargas do Quadro I do 10.9.2.`,['10.9.2'].concat(p[3]),'trein',HW);}},
     arco:{n:'Categoria de arco (CA)',f(){const t=pick(AIV);let [eq,kA,s,mm,cat,bt]=t;const mode=Math.random();
       const FORA='Fora do Anexo IV: fazer estudo de energia incidente';let right='Categoria '+cat,x,r=['AIV-I','10.11.2.1'];
-      if(mode<.22){const k=rnd(3);if(k===0)kA=Math.round(kA*1.3);else if(k===1)s=+(s*2).toFixed(2);else mm=mm-150;right=FORA;
+      if(mode<.22){const k=rnd(3);if(k===0)kA=t===AIV[1]?70:Math.round(kA*1.3);else if(k===1)s=+(s*2).toFixed(2);else mm=mm-150;right=FORA;
         x=`O parâmetro ${['de corrente','de tempo','de distância'][k]} saiu da linha do Quadro I. Corrente maior, tempo maior ou distância menor impede o Anexo IV; vale o estudo de energia incidente.`;r=['10.11.2.2','10.11.2.3','AIV-I'];}
       else if(mode<.40&&bt&&cat>1){right='Categoria '+(cat-1);
         x=`Linha do Quadro I: Categoria ${cat}. Pela nota do quadro, equipamento de 600 V ou menos protegido por fusível ou disjuntor limitador de até 200 A pode descer um número, nunca abaixo da Categoria 1.`;}
@@ -132,9 +132,9 @@
       return mk(`Eletricista autorizado volta ao trabalho depois de ${d} dias de afastamento. O periódico bienal está em dia. Ele precisa de treinamento eventual?`,d>90?S:N,[S,N,P,Q,O],
         `O 10.9.11 a exige treinamento eventual após afastamento ou inatividade por período superior a 90 dias, independentemente do periódico. ${d} dias ${d>90?'passa':'não passa'} do limite.`,['10.9.11'],'eventual',ew);}},
     pt:{n:'Validade da PT',f(){const P=[['no turno seguinte, com a mesma equipe e sem mudança nas condições',0],['no turno seguinte, com toda a equipe trocada',1],['no turno seguinte, depois que as condições estabelecidas na PT mudaram',1]];const p=pick(P);
-      const RV='Pode ser revalidada pelo responsável pela autorização da PT',NV='Precisa de nova permissão de trabalho',CV='Continua válida até o fim do serviço, sem revalidação',
+      const RV='Pode ser revalidada pelo responsável pela autorização da PT',NV='Exige nova permissão de trabalho: a revalidação não é admitida',CV='Continua válida até o fim do serviço, sem revalidação',
         EV='Pode ser revalidada pelo próprio executante, por escrito',HV='Vale 24 horas a partir da emissão, sem revalidação';
-      const tw={[RV]:'Houve mudança nas condições ou em toda a equipe: não cabe revalidação.|10.7.2.2',[NV]:'Sem mudança nas condições nem na equipe, a PT pode ser revalidada.|10.7.2.2',
+      const tw={[RV]:'Houve mudança nas condições ou em toda a equipe: não cabe revalidação.|10.7.2.2',[NV]:'Sem mudança nas condições estabelecidas nem em toda a equipe, a PT pode ser revalidada pelo responsável pela autorização.|10.7.2.2',
         [CV]:'A PT é restrita ao turno de trabalho.|10.7.2.2',[EV]:'Quem revalida é o responsável pela autorização da permissão.|10.7.2.2',[HV]:'A PT é restrita ao turno de trabalho, não a 24 horas.|10.7.2.2'};
       return mk(`Um serviço não rotineiro com PT vai continuar ${p[0]}. O que a NR-10 prevê?`,p[1]?NV:RV,[RV,NV,CV,EV,HV],'Pelo 10.7.2.2, a PT vale pela duração da atividade, restrita ao turno, e pode ser revalidada quando não houver mudança nas condições estabelecidas nem em toda a equipe.',['10.7.2.2'],'pt',tw);}}};
   const GKEYS=Object.keys(GEN);

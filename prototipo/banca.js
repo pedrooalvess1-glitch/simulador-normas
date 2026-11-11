@@ -506,9 +506,9 @@ const BANCA=(()=>{
     'Tratar o lado de 380 V como extrabaixa tensão':'380 V é BT pelo glossário.|g-bt'}},
   'missao:7':{e:['Sim, porque a PT vale 24 horas','Não: a PT não pode ser revalidada em hipótese alguma'],w:{
     'Sim, até o fim do serviço':'A validade é limitada à duração da atividade e restrita ao turno.|10.7.2.2',
-    'Sim, se o supervisor assinar de novo':'Não cabe revalidação com mudança na equipe.|10.7.2.2',
+    'Sim, se o supervisor assinar de novo':'Com a equipe toda trocada não cabe revalidação; e quem revalida é o responsável pela autorização da permissão, não o supervisor.|10.7.2.2',
     'Sim, porque a PT vale 24 horas':'A PT é restrita ao turno de trabalho.|10.7.2.2',
-    'Não: a PT não pode ser revalidada em hipótese alguma':'O 10.7.2.2 admite revalidação pelo responsável pela autorização, se não mudarem as condições nem a equipe.|10.7.2.2'}},
+    'Não: a PT não pode ser revalidada em hipótese alguma':'O 10.7.2.2 admite revalidação pelo responsável pela autorização, se não mudarem as condições estabelecidas nem toda a equipe.|10.7.2.2'}},
 
   /* ===== História (OS 0731): já tinham 5 alternativas ===== */
   'historia:0':{w:{'SEP em alta tensão: Básico e Complementar do SEP':'13,8 kV é MT, e depois da medição a instalação é do consumidor.|g-mt,g-sep',

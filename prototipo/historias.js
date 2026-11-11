@@ -29,7 +29,7 @@ const SCX={
     circ:{t:'Disjuntores dos circuitos',b:'Circuitos identificados (10.7.7 a), com o sistema de identificação descrito no memorial do projeto (10.4.9 b).',r:['10.7.7','10.4.9']},
     dr:{t:'DR do circuito da copa-cozinha',b:'Proteção adicional obrigatória nos circuitos de tomada de copas-cozinhas em edificação não residencial (10.6.4 e). Para instalação existente, essa alínea vale um ano depois da vigência da Portaria (art. 3º).',r:['10.6.4','art3']},
     copa:{t:'Copa-cozinha do escritório',b:'Ponto de tomada em copa-cozinha de edificação não residencial: alínea e do 10.6.4.',r:['10.6.4']},
-    furad:{t:'Furadeira com plugue adaptado',b:'Só podem ser usados equipamentos e ferramentas elétricas compatíveis com a instalação existente, preservando as características de proteção (10.12.5). O adaptador que elimina o pino de terra não preserva. [INTERPRETAÇÃO]',r:['10.12.5']},
+    furad:{t:'Furadeira com plugue adaptado',b:'Só podem ser usados equipamentos e ferramentas elétricas compatíveis com a instalação existente, preservando as características de proteção, respeitadas as recomendações do fabricante (10.12.5). O adaptador que elimina o pino de terra desliga a carcaça do condutor de proteção (proteção supletiva, 10.6.3 b).',r:['10.12.5','10.6.3']},
     docs:{t:'Projeto e procedimento de trabalho',b:'O procedimento é aprovado por PLH (10.7.1.1). O projeto fica disponível aos autorizados e atualizado conforme o executado (10.4.7, 10.4.13).',r:['10.7.1.1','10.4.7','10.4.13']},
     rita:{t:'Rita · eletricista predial',b:'Autorizada: ASO apto e treinamento com aproveitamento (10.10.2.1). É vedado o uso de adornos pessoais no serviço (10.7.8).',r:['10.10.2.1','10.7.8']},
     leo:{t:'Léo · técnico em eletrotécnica',b:'Voltou de 120 dias de afastamento: antes de voltar ao serviço, treinamento eventual (10.9.11 a).',r:['10.9.11']},
@@ -70,7 +70,7 @@ const SCX={
       alvos:{caixas:{t:'Caixas guardadas no shaft',b:'O shaft é local de serviços elétricos: é proibido usá-lo para guardar objetos (10.12.8). As caixas saem.',r:['10.12.8'],fx:S=>{S.caixas=false;}},
         circ:{t:'Circuitos sem identificação',b:'A sinalização identifica os circuitos elétricos (10.7.7 a), como o memorial do projeto define (10.4.9 b). Rita identifica o circuito da copa-cozinha antes de mexer.',r:['10.7.7','10.4.9'],fx:S=>{S.semId=false;}},
         rita:{t:'Rita está de anel',b:'É vedado o uso de adornos pessoais nos serviços em eletricidade (10.7.8). O anel fica guardado fora do shaft.',r:['10.7.8'],fx:S=>{S.anel=false;}},
-        furad:{t:'Furadeira com plugue adaptado',b:'Só ferramentas compatíveis com a instalação, preservando as características de proteção (10.12.5). O adaptador que tira o pino de terra anula a proteção. [INTERPRETAÇÃO]',r:['10.12.5'],fx:S=>{S.furad=false;}}}},
+        furad:{t:'Furadeira com plugue adaptado',b:'Só podem ser usadas ferramentas compatíveis com a instalação, preservando as características de proteção e respeitando as recomendações do fabricante (10.12.5). A furadeira veio com plugue de três pinos: a carcaça depende do condutor de proteção, que é proteção supletiva (10.6.3 b). O adaptador que elimina o pino de terra tira essa proteção.',r:['10.12.5','10.6.3'],fx:S=>{S.furad=false;}}}},
     {f:'F3 · Projeto',ty:'q',n:'O projeto de adequação prevê DR para o circuito de tomadas da copa-cozinha do escritório. O prédio já existia quando a Portaria 737/2026 entrou em vigor.',q:'Como a NR-10 trata o DR desse circuito?',
       o:['É exigido pela alínea e do 10.6.4 (copa-cozinha em edificação não residencial), mas, para instalação existente, essa alínea só vale um ano depois da vigência da Portaria (art. 3º)',
         'Não é exigido: a lista do 10.6.4 só vale para residências','É exigido desde a publicação da Portaria, sem prazo nenhum',
@@ -114,7 +114,7 @@ const SCX={
         'Vai para o PIE do prédio':'Sem SEP nem MT/AT, o condomínio não é obrigado a ter PIE (10.15.6).|10.15.6',
         'Fica guardado só com o síndico':'O projeto fica disponível aos autorizados e às autoridades (10.4.7).|10.4.7'}}];
 
-  makeStory({id:'hist_qdc',store:'hist_qdc',name:'Uma OS no QDC de um prédio',short:'QDC 380/220 V',scene:'Prédio comercial · QDC de BT',
+  makeStory({id:'hist_qdc',build3d:H3S.hist_qdc,cam:H3S.cams.hist_qdc,store:'hist_qdc',name:'Uma OS no QDC de um prédio',short:'QDC 380/220 V',scene:'Prédio comercial · QDC de BT',
     aria:'Shaft elétrico com o QDC de 380/220 V de um prédio comercial, com objetos clicáveis',explore:'Comece pelo shaft, pelo QDC ou pelo carrinho.',
     primer:{logic:'Uma OS rotineira em baixa tensão, num prédio comercial: procedimento em vez de PT, treinamento eventual, adornos e ferramentas, DR em copa-cozinha com a regra de transição do art. 3º e a sequência de desenergização num quadro de BT, onde o lado da fonte continua vivo a centímetros da mão.',
       links:[['desenergizado','A sequência da fase F4 é a do 10.13.1.',['10.13.1']],['projeto','DR e identificação de circuitos vêm do projeto.',['10.6.4','10.4.9']],['organizacao','Procedimento × PT.',['10.7.1','10.7.2']]]},
@@ -167,7 +167,7 @@ const SCX={
     tomext:{t:'Tomadas novas no pátio',b:'Tomadas em áreas externas à edificação: DDR de alta sensibilidade obrigatório (10.6.4 b).',r:['10.6.4']},
     betoneira:{t:'Betoneira nova',b:'Equipamento compatível com a instalação existente, preservando as características de proteção (10.12.5).',r:['10.12.5']},
     rede:{t:'Rede de distribuição 13,8 kV na calçada',b:'Pertence à distribuidora (SEP). Para 13,8 kV, Rr = 0,38 m e Rc = 1,38 m (Anexo II). Chegar à zona controlada com o corpo ou com extensões condutoras é trabalho em proximidade (10.2.2).',r:['AII','10.2.2','g-sep']},
-    vergalhao:{t:'Servente erguendo vergalhões junto à rede',b:'Vergalhão é extensão condutora: perto da rede, pode entrar na zona controlada (10.2.2), o que só cabe a autorizados (10.14.1).',r:['10.2.2','10.14.1']},
+    vergalhao:{t:'Servente erguendo vergalhões junto à rede',b:'Vergalhão é extensão condutora: perto da rede, pode entrar na zona controlada (10.2.2), cuja aproximação só é permitida a profissionais autorizados (glossário; 10.10.2 b).',r:['10.2.2','g-zc','10.10.2']},
     proj:{t:'Projeto do canteiro',b:'Sob responsabilidade de PLH (10.4.8), disponível aos autorizados e atualizado conforme o executado (10.4.7, 10.4.13).',r:['10.4.8','10.4.7','10.4.13']},
     marta:{t:'Marta · engenheira residente (PLH)',b:'Qualificada e com registro no conselho de classe (10.8.2). Responde pelo projeto e pelo acompanhamento do técnico estrangeiro.',r:['10.8.2','10.9.8']},
     tiago:{t:'Tiago · eletricista autorizado',b:'ASO apto e treinamento com aproveitamento (10.10.2.1).',r:['10.10.2.1']},
@@ -214,7 +214,7 @@ const SCX={
         sacos:{t:'Sacos de cimento dentro do QDP',b:'Invólucro de equipamento elétrico não é depósito (10.12.8).',r:['10.12.8'],fx:S=>{S.sacos=false;}},
         drq:{t:'DR nunca testado',b:'Os sistemas de proteção são inspecionados, testados e controlados periodicamente (10.12.7). O teste entra na rotina do canteiro.',r:['10.12.7'],fx:S=>{S.drOk=true;}},
         interf:{t:'Interfone no eletroduto de força',b:'Circuitos de finalidades distintas são identificados e instalados separadamente, salvo compartilhamento definido em projeto (10.4.3.1, 10.12.10).',r:['10.4.3.1','10.12.10'],fx:S=>{S.interf=false;}},
-        vergalhao:{t:'Vergalhões erguidos junto à rede de 13,8 kV',b:'Um vergalhão de 6 m é extensão condutora e pode entrar na zona controlada (Rc = 1,38 m): isso é trabalho em proximidade, só para autorizados (10.2.2, 10.14.1). Para quem trabalha na vizinhança, análise de risco e instrução formal (10.14.1.2). O material passa a ser movimentado longe da rede.',r:['10.2.2','AII','10.14.1','10.14.1.2'],fx:S=>{S.verg=false;}}}},
+        vergalhao:{t:'Vergalhões erguidos junto à rede de 13,8 kV',b:'Um vergalhão de 6 m é extensão condutora e pode entrar na zona controlada (Rc = 1,38 m): isso é trabalho em proximidade (glossário; 10.2.2), e a zona controlada só admite a aproximação de profissionais autorizados (glossário; 10.10.2 b). Servente sem autorização nessa situação é a alínea c do 10.16.1. Quem faz atividade não elétrica sem precisar invadir a zona controlada recebe análise de risco e instrução formal (10.14.1.2). O material passa a ser movimentado longe da rede.',r:['10.2.2','AII','g-zc','10.10.2','10.16.1','10.14.1.2'],fx:S=>{S.verg=false;}}}},
     {f:'F4 · Estrangeiro',ty:'q',n:'Klaus, técnico alemão do fabricante do elevador de obra, chega para 12 dias de montagem e ajustes elétricos no quadro do elevador, dentro da zona controlada.',q:'O que a NR-10 exige para ele?',
       o:['Treinamento Específico e pontual (8 h), com acompanhamento presencial e permanente de trabalhador autorizado, sob responsabilidade de PLH','Básico de 40 h, como qualquer autorizado',
         'Nada: o treinamento feito na Alemanha vale aqui','Específico e pontual (8 h), e depois ele pode trabalhar sozinho','Específico e pontual, válido para permanência de até 90 dias'],a:0,
@@ -247,7 +247,7 @@ const SCX={
         'Infração da construtora, mas sem possibilidade de interdição':'O 10.16.1 permite embargo ou interdição.|10.16.1',
         'Grave e iminente risco pela alínea a, por ser canteiro de obra':'A alínea a é a área classificada sem proteção coletiva; aqui é a alínea c.|10.16.1'}}];
 
-  makeStory({id:'hist_obra',store:'hist_obra',name:'Uma OS no canteiro de obra',short:'Canteiro 380 V',scene:'Canteiro de obra · QDP provisório',
+  makeStory({id:'hist_obra',build3d:H3S.hist_obra,cam:H3S.cams.hist_obra,store:'hist_obra',name:'Uma OS no canteiro de obra',short:'Canteiro 380 V',scene:'Canteiro de obra · QDP provisório',
     aria:'Canteiro de obra com quadro provisório, betoneira e rede de 13,8 kV na calçada, com objetos clicáveis',explore:'Comece pelo QDP, pela rede da calçada ou pelo carrinho.',
     primer:{logic:'Uma instalação temporária também é instalação: projeto com PLH, DR nas tomadas externas, proteção testada e invólucro sem entulho. O canteiro ainda traz o estrangeiro do 10.9.8, a rede de média tensão vizinha (extensões condutoras) e a sequência de reenergização do 10.13.2.',
       links:[['zonas','Vergalhão perto da rede: zona controlada e extensões condutoras.',['10.2.2','AII']],['desenergizado','A fase F5 é a sequência do 10.13.2.',['10.13.2']],['pessoas','O técnico estrangeiro usa o 10.9.8.',['10.9.8']]]},
@@ -297,7 +297,7 @@ const SCX={
     poste:{t:'Poste com rede de MT, rede de BT e fibra',b:'Infraestrutura do SEP compartilhada com um provedor de telecomunicações (glossário: compartilhamento de infraestrutura).',r:['g-comp','g-sep']},
     isol:{t:'Isolador quebrado · ponto de trabalho',b:'Rede de 13,8 kV: MT. Rr = 0,38 m e Rc = 1,38 m (Anexo II).',r:['g-mt','AII']},
     mt:{t:'Rede de média tensão 13,8 kV',b:'Desligada não é desenergizada: enquanto puder ser energizada por qualquer meio, valem as regras do 10.14 (10.5.2).',r:['10.5.2','10.13.1']},
-    bt:{t:'Rede de baixa tensão (continua energizada)',b:'Elemento energizado dentro da zona controlada do ponto de trabalho: alínea e do 10.13.1.',r:['10.13.1','AII']},
+    bt:{t:'Rede de baixa tensão (tratada como energizada)',b:'Pode ser energizada pela geração das casas mesmo com a chave do trecho aberta (10.5.2). Quem sobe até o isolador passa junto dela e entra na sua zona controlada (abaixo de 1 kV, Rc = 0,70 m): por isso ela é protegida na alínea e do 10.13.1.',r:['10.13.1','10.5.2','AII']},
     fibra:{t:'Cabo de fibra óptica do provedor',b:'Compartilhamento de infraestrutura do SEP (glossário).',r:['g-comp']},
     tecprov:{t:'Técnico do provedor de internet',b:'Trabalho em proximidade com compartilhamento de infraestrutura do SEP: treinamento Específico de 40 h (10.9.9) e autorização (10.14.1). As organizações executam ações integradas quando a atuação independente é tecnicamente inviável (10.7.9).',r:['10.9.9','10.14.1','10.7.9']},
     chave:{t:'Chave fusível do trecho',b:'Seccionamento (10.13.1 a). Com recurso para impedimento de reenergização e sinalização (10.4.1).',r:['10.13.1','10.4.1']},
@@ -330,13 +330,13 @@ const SCX={
       p:'Clique em quem precisa entrar no planejamento antes de começar.',alvo:['tecprov'],
       ok:{t:'Ações integradas com o provedor',b:'Quando a atuação independente é tecnicamente inviável, as organizações do compartilhamento executam ações integradas (10.7.9). Trabalhos simultâneos entram na análise de risco (10.7.3 f). O técnico do provedor faz o Específico de compartilhamento de 40 h (10.9.9).',r:['10.7.9','10.7.3','10.9.9']},
       fx:S=>{S.prov=false;}},
-    {f:'F2 · Planejamento',ty:'q',n:'A chave fusível do trecho será aberta pela equipe, mas o centro de operação pode fechar remotamente o religador do alimentador, a montante.',q:'O que a NR-10 exige?',
+    {f:'F2 · Planejamento',ty:'q',n:'A chave fusível do trecho será aberta pela equipe. Na outra ponta, o trecho tem uma chave de interligação com outro alimentador, normalmente aberta, que o centro de operação pode fechar a distância para remanejar carga.',q:'O que a NR-10 exige?',
       o:['Medidas que impeçam outras equipes ou organizações de energizar o trecho durante todo o serviço, além do impedimento de reenergização sob controle da equipe',
-        'Nada: com a chave aberta, o religador não importa','Só desativar o religamento automático, como no serviço energizado','Basta avisar o centro de operação por rádio',
+        'Nada: com a chave fusível aberta, a interligação não importa','Só desativar o religamento automático, como no serviço energizado','Basta avisar o centro de operação por rádio',
         'Desligar a subestação inteira durante o serviço'],a:0,
-      x:'A organização garante o estado de desenergização durante toda a execução, impedindo que outras equipes ou organizações energizem as instalações (10.13.3). O impedimento de reenergização (10.13.1 c) fica sob controle dos trabalhadores envolvidos (glossário).',
+      x:'A chave de interligação é uma segunda fonte possível do trecho. A organização garante o estado de desenergização durante toda a execução, com medidas que impeçam outras equipes ou organizações de energizar as instalações (10.13.3): aqui, o bloqueio do comando da interligação no centro de operação. O impedimento de reenergização (10.13.1 c) fica sob controle dos trabalhadores envolvidos (glossário).',
       r:['10.13.3','10.13.1'],foco:['chave','cod'],
-      w:{'Nada: com a chave aberta, o religador não importa':'Enquanto houver possibilidade de energização, a instalação não está desenergizada (10.5.2), e o 10.13.3 exige impedir outras equipes.|10.5.2,10.13.3',
+      w:{'Nada: com a chave fusível aberta, a interligação não importa':'Fechada a interligação, o trecho é energizado pela outra ponta: há possibilidade de energização (10.5.2), e o 10.13.3 exige impedir que outras equipes energizem o trecho.|10.5.2,10.13.3',
         'Só desativar o religamento automático, como no serviço energizado':'O 10.14.3 é do serviço energizado em MT/AT na zona de risco; aqui vale a sequência completa do 10.13.1 e o 10.13.3.|10.14.3,10.13.1,10.13.3',
         'Basta avisar o centro de operação por rádio':'Aviso não é medida que impeça a energização.|10.13.3',
         'Desligar a subestação inteira durante o serviço':'A NR-10 exige medidas que impeçam a energização do trecho, não uma medida específica como essa. [INTERPRETAÇÃO]|10.13.3'}},
@@ -354,21 +354,21 @@ const SCX={
       p:'Clique nos objetos na ordem da sequência.',
       acts:[{hs:['chave'],k:'a',t:'Abrir a chave fusível do trecho',b:'Seccionamento com abertura visível.',fx:S=>{S.open=true;}},
         {hs:['det','mt'],k:'b',t:'Constatar a ausência de tensão na rede de MT',b:'Detector adequado à tensão e testado antes [PRÁTICA].'},
-        {hs:['chave','cod'],k:'c',t:'Bloquear a chave e registrar o impedimento no centro de operação',b:'Impedimento sob controle da equipe; o centro de operação não manobra o trecho.',fx:S=>{S.lock=true;}},
+        {hs:['chave','cod'],k:'c',t:'Bloquear a chave e registrar o impedimento no centro de operação',b:'Impedimento sob controle da equipe. O centro de operação registra o bloqueio e trava o comando remoto da chave de interligação: ninguém manobra o trecho (10.13.3).',fx:S=>{S.lock=true;}},
         {hs:['det','isol'],k:'d',t:'Constatar de novo, nos pontos de aterramento',b:'A constatação se repete antes de aterrar.'},
         {hs:['atr'],k:'d',t:'Instalar o aterramento temporário dos dois lados do ponto de trabalho',b:'Com equipotencialização dos condutores [os dois lados: PRÁTICA].',fx:S=>{S.ground=true;}},
-        {hs:['cobert','bt'],k:'e',t:'Cobrir a rede de BT, que continua energizada',b:'Ela fica dentro da zona controlada do ponto de trabalho.',fx:S=>{S.cobert=true;}},
+        {hs:['cobert','bt'],k:'e',t:'Cobrir a rede de BT, tratada como energizada',b:'A geração das casas pode mantê-la energizada, e quem trabalha no isolador entra na zona controlada dela (Rc = 0,70 m abaixo de 1 kV).',fx:S=>{S.cobert=true;}},
         {hs:['eti','chave'],k:'f',t:'Sinalizar o impedimento de reenergização na chave',b:'',fx:S=>{S.tag=true;}},
         {hs:['cone'],k:'g',t:'Delimitar e sinalizar a área na rua',b:'Inclui a sinalização para veículos e pedestres.',fx:S=>{S.cones=true;}}],
       esp:(h,cur,S)=>{
         if(h==='atr'&&!S.ground&&cur.hs[0]!=='atr')return {t:'Aterramento sem constatação',b:'A alínea d manda constatar a ausência de tensão para instalar o aterramento. Pular a constatação é grave e iminente risco (10.16.1 b).',r:['10.13.1','10.16.1'],gir:1};
         if((h==='chave'||h==='cod')&&cur.k==='b')return {t:'Impedimento antes da constatação',b:'No 10.13.1, a constatação da ausência de tensão (alínea b) vem antes do impedimento de reenergização (alínea c).',r:['10.13.1']};
         return null;}},
-    {f:'F5 · Tempo',ty:'q',n:'Com o serviço pela metade, nuvens carregadas chegam, e há raios a poucos quilômetros.',q:'O que a equipe faz?',pre:S=>{S.nuvem=true;},
-      o:['Interrompe o serviço: condições meteorológicas adversas entram na análise de risco e podem ser condição impeditiva','Continua: a rede está aterrada, então não há risco',
+    {f:'F5 · Tempo',ty:'q',n:'Com o serviço pela metade, nuvens carregadas chegam, e há raios a poucos quilômetros. A PT da equipe lista, entre as condições impeditivas, tempestade com descargas atmosféricas na região.',q:'O que a equipe faz?',pre:S=>{S.nuvem=true;},
+      o:['Interrompe o serviço: é condição impeditiva prevista na PT, e condição impeditiva impede a continuidade do serviço','Continua: a rede está aterrada, então não há risco',
         'Continua, com luvas isolantes','Continua, se o encarregado autorizar verbalmente','Só para se começar a chover no local'],a:0,
-      x:'A análise de risco considera as condições meteorológicas adversas (10.7.3 c) e as condições impeditivas (10.7.3 g); a PT também traz as condições impeditivas (10.7.2.1 e). Condição impeditiva impede a realização ou a continuidade do serviço (glossário). [INTERPRETAÇÃO: a decisão concreta sai da análise de risco da equipe.]',
-      r:['10.7.3','10.7.2.1'],foco:['nuvem','edu'],
+      x:'A análise de risco considera as condições meteorológicas adversas (10.7.3 c) e as condições impeditivas (10.7.3 g), e a PT traz as condições impeditivas (10.7.2.1 e). Pelo glossário, condição impeditiva é a que impede a realização ou a continuidade do serviço: com a tempestade prevista na PT, o serviço para. Descargas atmosféricas e condições climáticas adversas estão entre os perigos do SEP no Complementar do SEP (Anexo III).',
+      r:['10.7.3','10.7.2.1','g-cimp','AIII'],foco:['nuvem','edu'],
       w:{'Continua: a rede está aterrada, então não há risco':'O aterramento não afasta as condições meteorológicas adversas da análise de risco.|10.7.3',
         'Continua, com luvas isolantes':'EPI é o último nível da hierarquia e não resolve condição impeditiva.|10.5.4,10.7.3',
         'Continua, se o encarregado autorizar verbalmente':'Condição impeditiva prevista na análise de risco e na PT não é dispensada verbalmente.|10.7.3,10.7.2.1',
@@ -383,7 +383,7 @@ const SCX={
         'Em lugar nenhum: serviço desenergizado não gera documento':'O serviço não rotineiro tem PT (10.7.2), e o 10.15.4 exige procedimentos, análises de risco e PT.|10.7.2,10.15.4',
         'Só com a ANEEL':'A NR-10 manda a organização manter a documentação disponível aos trabalhadores e à Inspeção do Trabalho (10.15.2).|10.15.2'}}];
 
-  makeStory({id:'hist_sep',store:'hist_sep',name:'Uma OS na rede de distribuição',short:'Rede 13,8 kV (SEP)',scene:'Rede aérea de distribuição · SEP',
+  makeStory({id:'hist_sep',build3d:H3S.hist_sep,cam:H3S.cams.hist_sep,store:'hist_sep',name:'Uma OS na rede de distribuição',short:'Rede 13,8 kV (SEP)',scene:'Rede aérea de distribuição · SEP',
     aria:'Rua com poste de rede de 13,8 kV, rede de BT, fibra óptica e caminhão com cesto aéreo, com objetos clicáveis',explore:'Comece pelo poste, pela chave fusível ou pelo caminhão.',
     primer:{logic:'Uma OS no SEP: treinamentos de 80 h, PIE e equipe sempre com mais de uma pessoa. O poste é compartilhado com um provedor de fibra (ações integradas), o centro de operação pode religar o trecho (10.13.3), a microgeração da rua é outra fonte (10.5.2) e o tempo pode virar condição impeditiva.',
       links:[['desenergizado','A fase F4 é a sequência do 10.13.1 no SEP.',['10.13.1','10.13.3']],['enq','Enquadramento SEP × SEC.',['g-sep']],['energizado','Geração própria e trabalho individual.',['10.14.5','10.14.2']]]},
@@ -418,5 +418,130 @@ const SCX={
       if(S.cones)o.push(hs('cone',[300,452,420,30],`<line x1="306" y1="466" x2="716" y2="466" class="sc-chain"/>`+[0,1,2,3,4].map(i=>`<path d="M${300+i*100} 480 l10 -24 l10 24z" class="sc-cone"/>`).join('')));
       o.push(person('edu',80,'Edu','encarr.','sc-coat1'),person('fabio',160,'Fábio','linha','sc-coat2'),person('gil',240,'Gil','linha','sc-coat2'));
       o.push(SCX.cart(K,[['det','Detector',SCX.det(K)],['atr','Aterram.',S.ground?'':SCX.atr(K)],['cobert','Cobert.',S.cobert?'':SCX.ant(K)],['eti','Etiqueta',S.tag?'':SCX.eti(K)],['cone','Cones',S.cones?'':SCX.cone()]],560,488));
+      return o.join('');}});
+})();
+
+/* ======================================================================================
+   História 5 · OS 1530 · Posto de combustível (área classificada, BT, SEC)
+   Mesmo motor das histórias anteriores (makeStory): cena 3D, com o SVG como reserva sem WebGL.
+   Cada objeto liga a itens da NR-10 (Portaria MTE 737/2026); textos normativos só via REF.
+   ====================================================================================== */
+(()=>{
+  const HS={
+    pista:{t:'Ilha de bombas · área classificada',b:'Área em que a atmosfera explosiva está presente ou é prevista (glossário). O projeto contempla os requisitos de segurança para áreas classificadas (10.4.11), e a instalação elétrica dela tem proteção coletiva que previne as fontes de ignição (10.6.6.1).',r:['g-acl','10.4.11','10.6.6.1']},
+    lum:{t:'Luminária da cobertura, sobre a ilha',b:'Equipamento destinado a área classificada: selecionado e mantido conforme o estudo de classificação de áreas e com certificado (10.6.6.1.1).',r:['10.6.6.1.1','g-eca']},
+    bomba:{t:'Bomba de combustível',b:'Equipamento elétrico em área classificada: selecionado e mantido conforme o estudo de classificação de áreas, com certificado; a regra vale também para os reparados (10.6.6.1.1).',r:['10.6.6.1.1']},
+    caminhao:{t:'Caminhão-tanque descarregando',b:'Processo que pode gerar ou acumular eletricidade estática capaz de provocar ignição: proteção específica e dispositivos de descarga elétrica, conforme projeto (10.6.6.2).',r:['10.6.6.2']},
+    sensor:{t:'Sensores de nível do tanque · 24 Vcc',b:'24 Vcc é extrabaixa tensão (em CC, até 120 V). A NR-10 não se aplica à EBT, exceto para o 10.6.6 e seus subitens, que tratam de explosão e incêndio (10.2.4).',r:['10.2.4','g-ebt','10.6.6']},
+    qdc:{t:'QDC da loja · 220/127 V',b:'Fora da área classificada. Dispositivo de desligamento com recurso para impedimento de reenergização (10.4.1); porta fechada fora de intervenção e sinalização (10.7.7.1).',r:['10.4.1','10.7.7.1']},
+    docs:{t:'Pasta da área classificada',b:'Quem tem área classificada mantém procedimentos, análises de risco e PT do 10.6.6.1.2, a certificação dos equipamentos conforme o estudo de classificação de áreas e as inspeções de conformidade (10.15.5).',r:['10.15.5']},
+    ext:{t:'Extintor',b:'A proteção contra incêndio segue a NR-23, citada no 10.6.6. A NR-10 não tem item próprio sobre extintor.',r:['10.6.6','NR-23']},
+    rosa:{t:'Rosa · eletricista autorizada',b:'ASO apta, Básico e Complementar de Área Classificada em dia (10.10.2.1, 10.9.4, 10.9.7).',r:['10.10.2.1','10.9.7']},
+    lia:{t:'Lia · eletricista autorizada',b:'ASO apta, Básico e Complementar de Área Classificada em dia (10.10.2.1, 10.9.7).',r:['10.10.2.1','10.9.7']},
+    marcos:{t:'Marcos · eletricista autorizado em BT',b:'Tem o Básico, mas não o Complementar de Área Classificada (10.9.7). A abrangência da autorização fica registrada no sistema de identificação (10.10.4).',r:['10.9.7','10.10.4']},
+    vitor:{t:'Vítor · frentista',b:'Atividade não elétrica na vizinhança: a organização faz análise de risco e dá instrução formal (10.14.1.2).',r:['10.14.1.2']}};
+  const S0={lumComum:true,terra:false,sinal:false,certs:false,marcos:true};
+  const OS='<b>OS 1530 · Auto Posto Litoral.</b> O posto recebe 220/127 V da distribuidora, depois da medição. A ilha de bombas e o entorno estão classificados no estudo de classificação de áreas. Serviço: trocar a luminária queimada da cobertura, que fica sobre a ilha. Equipe própria de manutenção.';
+  const ST=[
+    {f:'F1 · Briefing',ty:'q',n:OS,q:'Como esta atividade se enquadra na NR-10?',
+      o:['SEC em baixa tensão, em área classificada: Básico e Complementar de Área Classificada; documentação do 10.15.4 e do 10.15.5, sem obrigação de PIE',
+        'SEC em baixa tensão: só o Básico, porque a tensão é baixa','PIE obrigatório, por ter área classificada',
+        'Complementar de Média e Alta Tensão - SEC, por ser área de risco','Fora da NR-10: posto de combustível tem norma própria'],a:0,
+      x:'Depois da medição a instalação é do consumidor (SEC), e 220/127 V é BT. Quem faz serviço em eletricidade em área classificada faz o Complementar de Área Classificada, de 16 h (10.9.7), além do Básico (10.9.4). Ter área classificada obriga a documentação do 10.15.5; o PIE é só de quem integra o SEP ou atua em MT/AT (10.15.6).',
+      r:['10.9.7','10.9.4','10.15.5','10.15.6'],foco:['pista','lum'],
+      w:{'SEC em baixa tensão: só o Básico, porque a tensão é baixa':'O 10.9.7 exige o Complementar de Área Classificada para serviços em área classificada, sem faixa de tensão.|10.9.7',
+        'PIE obrigatório, por ter área classificada':'Área classificada obriga a documentação do 10.15.5; o PIE é de quem integra o SEP ou atua em MT/AT (10.15.6).|10.15.5,10.15.6',
+        'Complementar de Média e Alta Tensão - SEC, por ser área de risco':'O complementar MT/AT-SEC é para quem atua em MT/AT (10.9.6); 220/127 V é BT.|10.9.6,g-bt',
+        'Fora da NR-10: posto de combustível tem norma própria':'O 10.2.1 alcança o consumo em BT, e a própria NR-10 tem regras para área classificada (10.4.11, 10.6.6.1).|10.2.1,10.6.6.1'}},
+    {f:'F2 · Planejamento',ty:'q',n:'Trocar luminária é serviço habitual da manutenção do posto, previsto no plano, com procedimento escrito aprovado pelo engenheiro responsável. Desta vez, a luminária fica dentro da área classificada.',q:'O que libera a execução?',
+      o:['Permissão de trabalho precedida de análise de risco, mais o procedimento de trabalho, executados por trabalhador autorizado','Só o procedimento de trabalho, porque a atividade é rotineira',
+        'Permissão de trabalho só se a troca fosse não rotineira','Ordem do gerente do posto','Só a análise de risco, sem outro documento'],a:0,
+      x:'Em área classificada, o 10.6.6.1.2 exige permissão de trabalho, precedida de análise de risco, e procedimento de trabalho, com trabalhador autorizado, sem distinguir atividade rotineira e não rotineira. Fora de área classificada, este serviço rotineiro sairia só com o procedimento (10.7.1).',
+      r:['10.6.6.1.2','10.7.1','g-rot'],foco:['docs'],
+      w:{'Só o procedimento de trabalho, porque a atividade é rotineira':'Seria assim fora de área classificada (10.7.1); dentro dela, o 10.6.6.1.2 soma a PT.|10.6.6.1.2,10.7.1',
+        'Permissão de trabalho só se a troca fosse não rotineira':'O 10.6.6.1.2 exige PT em área classificada sem distinguir rotineira e não rotineira.|10.6.6.1.2',
+        'Ordem do gerente do posto':'Ordem verbal não é PT nem procedimento.|10.6.6.1.2',
+        'Só a análise de risco, sem outro documento':'A análise de risco precede a PT; o 10.6.6.1.2 pede PT e procedimento.|10.6.6.1.2'}},
+    {f:'F2 · Equipe',ty:'find',n:'Três eletricistas se apresentam. <b>Rosa</b> e <b>Lia:</b> autorizadas, ASO apto, Básico e Complementar de Área Classificada em dia. <b>Marcos:</b> autorizado para serviços em BT, ASO apto, Básico em dia; nunca fez o Complementar de Área Classificada. <b>Vítor</b>, frentista, vai interromper o abastecimento na ilha.',
+      p:'Clique em quem não pode executar este serviço.',alvo:['marcos'],
+      ok:{t:'Marcos fica fora',b:'A organização promove o Complementar de Área Classificada para quem faz serviço em eletricidade em área classificada (10.9.7), e a autorização exige o treinamento do capítulo 10.9 com aproveitamento (10.10.2.1 b): a abrangência da autorização de Marcos não inclui área classificada (10.10.4). Vítor não executa o serviço elétrico; como trabalha na vizinhança, recebe análise de risco e instrução formal (10.14.1.2).',r:['10.9.7','10.10.2.1','10.10.4','10.14.1.2']},
+      fx:S=>{S.marcos=false;}},
+    {f:'F3 · Chegada',ty:'hunt',n:'A equipe chega à pista. Antes de tocar na luminária, olhe o ambiente.',p:'Encontre as 4 situações que contrariam a NR-10.',
+      alvos:{lum:{t:'Luminária comum sobre a ilha',b:'Em algum momento a luminária original foi trocada por uma comum, sem certificado. Equipamento destinado a área classificada é selecionado e mantido conforme o estudo de classificação de áreas e possui certificado (10.6.6.1.1). A reposição de hoje é uma luminária certificada.',r:['10.6.6.1.1','g-eca'],fx:S=>{S.lumComum=false;}},
+        caminhao:{t:'Descarga sem o cabo de aterramento',b:'O projeto do posto prevê o cabo de aterramento do caminhão-tanque. A descarga de combustível pode gerar e acumular eletricidade estática capaz de provocar ignição, e o processo precisa da proteção específica e dos dispositivos de descarga elétrica definidos em projeto (10.6.6.2). O cabo é ligado antes de continuar.',r:['10.6.6.2'],fx:S=>{S.terra=true;}},
+        pista:{t:'Área classificada sem delimitação nem sinalização',b:'A sinalização de segurança atende, entre outras situações, às restrições e impedimentos de acesso e às delimitações de áreas (10.7.7 c e d). Delimitação e sinalização das áreas é conteúdo do Complementar de Área Classificada (Anexo III).',r:['10.7.7','AIII'],fx:S=>{S.sinal=true;}},
+        docs:{t:'Pasta sem os certificados dos equipamentos',b:'Quem tem área classificada mantém a certificação dos equipamentos e materiais elétricos conforme o estudo de classificação de áreas (10.15.5 b), além das inspeções de conformidade (10.15.5 c).',r:['10.15.5'],fx:S=>{S.certs=true;}}}},
+    {f:'F4 · Extrabaixa tensão',ty:'q',n:'Lia nota uma caixa de sensores de nível do tanque, alimentada em 24 Vcc, dentro da área classificada.',q:'A NR-10 alcança esse circuito?',
+      o:['Só para as medidas contra explosão e incêndio do 10.6.6 e subitens: fora disso, a EBT está excluída','Não: extrabaixa tensão está fora da NR-10, sem exceção',
+        'Sim, integralmente, por estar em área classificada','Não: 24 Vcc é baixa tensão em corrente contínua, mas fora do 10.6.6','Sim, e exige o Complementar de Média e Alta Tensão - SEC'],a:0,
+      x:'24 Vcc não passa de 120 V em CC: é EBT. O 10.2.4 exclui a EBT da NR-10, exceto para o atendimento do 10.6.6 e subitens, que tratam da proteção contra explosão e incêndio, inclusive em área classificada (10.6.6.1). A aplicação da EBT segue o memorial descritivo do projeto (10.2.4.1).',
+      r:['10.2.4','g-ebt','10.6.6','10.2.4.1'],foco:['sensor'],
+      w:{'Não: extrabaixa tensão está fora da NR-10, sem exceção':'O 10.2.4 ressalva o 10.6.6 e seus subitens.|10.2.4',
+        'Sim, integralmente, por estar em área classificada':'A exceção do 10.2.4 é só o 10.6.6 e subitens, não a norma inteira.|10.2.4',
+        'Não: 24 Vcc é baixa tensão em corrente contínua, mas fora do 10.6.6':'A BT em CC começa acima de 120 V: 24 Vcc é EBT.|g-ebt,g-bt',
+        'Sim, e exige o Complementar de Média e Alta Tensão - SEC':'24 Vcc não é MT/AT; o 10.9.6 não se aplica.|10.9.6,g-ebt'}},
+    {f:'F5 · Equipamento reparado',ty:'q',n:'A luminária certificada que vai ser instalada é a original, consertada numa oficina.',q:'O que a NR-10 exige dela?',
+      o:['Seleção e manutenção conforme o estudo de classificação de áreas e certificado de acordo com as normas técnicas oficiais ou internacionais vigentes',
+        'Nada: o certificado de fábrica continua valendo depois do conserto','Só um ensaio dielétrico depois do conserto',
+        'Só pode voltar se for trocada por uma nova','Certificado só é exigido de equipamento importado'],a:0,
+      x:'O 10.6.6.1.1 alcança os equipamentos, componentes, acessórios, dispositivos e sistemas fabricados, importados e os reparados destinados a área classificada: são selecionados e mantidos conforme o estudo de classificação de áreas e possuem certificado de acordo com as normas técnicas oficiais estabelecidas pelos órgãos competentes ou as normas técnicas internacionais vigentes.',
+      r:['10.6.6.1.1','g-eca'],foco:['lum'],
+      w:{'Nada: o certificado de fábrica continua valendo depois do conserto':'O 10.6.6.1.1 cita expressamente os equipamentos reparados.|10.6.6.1.1',
+        'Só um ensaio dielétrico depois do conserto':'O 10.6.6.1.1 pede seleção e manutenção conforme o estudo, com certificado; um ensaio não substitui isso.|10.6.6.1.1',
+        'Só pode voltar se for trocada por uma nova':'O reparado pode voltar, selecionado e mantido conforme o estudo e certificado.|10.6.6.1.1',
+        'Certificado só é exigido de equipamento importado':'O 10.6.6.1.1 alcança fabricados, importados e reparados.|10.6.6.1.1'}},
+    {f:'Fiscalização',ty:'q',n:'Semanas depois, um auditor-fiscal do trabalho visita o posto. Na outra ilha, a instalação elétrica não tem nenhuma medida de proteção coletiva contra fontes de ignição.',q:'Como a NR-10 trata essa situação?',
+      o:['Grave e iminente risco (10.16.1 a): permite embargo ou interdição sem a metodologia da NR-3','Não conformidade comum, corrigida no próximo plano de manutenção',
+        'Grave e iminente risco, mas a interdição segue a metodologia da NR-3','Grave e iminente risco só se houver atmosfera explosiva no momento','Infração só da NR-23, porque é risco de incêndio'],a:0,
+      x:'Ausência de medidas de proteção coletiva em instalações elétricas de áreas classificadas é a alínea a do 10.16.1, que dispensa a metodologia da NR-3 para embargo ou interdição. O 10.6.6.1 exige essas medidas para prevenir as possíveis fontes de ignição.',
+      r:['10.16.1','10.6.6.1'],foco:['pista'],
+      w:{'Não conformidade comum, corrigida no próximo plano de manutenção':'Está na alínea a do 10.16.1.|10.16.1',
+        'Grave e iminente risco, mas a interdição segue a metodologia da NR-3':'O 10.16.1 dispensa justamente a metodologia da NR-3.|10.16.1',
+        'Grave e iminente risco só se houver atmosfera explosiva no momento':'A alínea a é a ausência das medidas coletivas, sem essa condição; e área classificada é onde a atmosfera explosiva está presente ou é prevista (glossário).|10.16.1,g-acl',
+        'Infração só da NR-23, porque é risco de incêndio':'O 10.6.6 remete à NR-23, mas a falta de proteção coletiva em área classificada é grave e iminente risco da própria NR-10 (10.16.1 a).|10.6.6,10.16.1'}},
+    {f:'Encerramento',ty:'q',n:'Luminária certificada instalada, área liberada e abastecimento retomado.',q:'Onde ficam os documentos deste serviço?',
+      o:['Na documentação de área classificada (10.15.5) e na de quem tem autorizados (10.15.4); o posto não é obrigado a ter PIE','No PIE do posto, obrigatório por ter área classificada',
+        'Só na documentação do 10.15.4: área classificada não tem documento próprio','Em lugar nenhum: a PT é descartada no fim do serviço','Só com o fabricante da luminária'],a:0,
+      x:'O 10.15.5 manda manter procedimentos, análises de risco e PT do 10.6.6.1.2, a certificação dos equipamentos conforme o estudo e as inspeções de conformidade. A PT é encerrada e arquivada para rastreabilidade (10.7.2.3). O PIE é de quem integra o SEP ou atua em MT/AT (10.15.6), o que não é o caso.',
+      r:['10.15.5','10.15.4','10.7.2.3','10.15.6'],foco:['docs'],
+      w:{'No PIE do posto, obrigatório por ter área classificada':'O PIE é de quem integra o SEP ou atua em MT/AT (10.15.6); a área classificada obriga a documentação do 10.15.5.|10.15.6,10.15.5',
+        'Só na documentação do 10.15.4: área classificada não tem documento próprio':'O 10.15.5 é justamente a documentação própria de quem tem área classificada.|10.15.5',
+        'Em lugar nenhum: a PT é descartada no fim do serviço':'Ao final, a PT é encerrada e arquivada para rastreabilidade.|10.7.2.3',
+        'Só com o fabricante da luminária':'A documentação é da organização e fica disponível aos trabalhadores e à Inspeção do Trabalho (10.15.2).|10.15.2'}}];
+
+  makeStory({id:'hist_ex',build3d:H3S.hist_ex,cam:H3S.cams.hist_ex,store:'hist_ex',name:'Uma OS em área classificada',short:'Posto · área classificada',scene:'Posto de combustível · área classificada',
+    aria:'Posto de combustível com loja, ilha de bombas sob a cobertura, caminhão-tanque e tanque subterrâneo, com objetos clicáveis',explore:'Comece pela ilha de bombas, pela luminária ou pelo caminhão-tanque.',
+    primer:{logic:'Área classificada muda três coisas: o documento (PT sempre, mesmo na rotina, pelo 10.6.6.1.2), o treinamento (Complementar de Área Classificada, 16 h) e o equipamento (selecionado pelo estudo de classificação de áreas e certificado, inclusive o reparado). Ela também traz a única exceção da EBT (10.2.4), a eletricidade estática (10.6.6.2), a documentação própria (10.15.5) e a alínea a do grave e iminente risco.',
+      links:[['coletiva','Explosão, estática e equipamentos para área classificada.',['10.6.6.1','10.6.6.2']],['organizacao','PT em área classificada mesmo na rotina.',['10.6.6.1.2']],['documentacao','Documentação do 10.15.5 e GIR da alínea a.',['10.15.5','10.16.1']]]},
+    brief:'Uma ordem de serviço num posto de combustível: área classificada, PT obrigatória mesmo na rotina, equipamento certificado, eletricidade estática e a exceção da EBT.',
+    base:['10.6.6.1','10.6.6.1.1','10.6.6.1.2','10.9.7','10.15.5','10.16.1'],HS,S0,ST,
+    draw(S,K){const {tx,rc,hs,person}=K;const o=[];
+      o.push(rc(0,96,1000,300,'sc-sky'),rc(0,396,1000,234,'sc-floor'),`<line x1="0" y1="396" x2="1000" y2="396" class="sc-edge"/>`);
+      // loja, QDC e pasta
+      o.push(rc(20,200,180,196,'sc-cub',3),tx(110,228,'LOJA','sc-lab','middle'));
+      o.push(hs('qdc',[132,262,52,80],rc(132,262,52,80,'sc-panel',3)+SCX.breakers(K,138,272,3,3,12,14)+tx(158,356,'QDC','sc-tiny','middle')));
+      o.push(hs('docs',[214,296,58,76],rc(214,296,58,76,'sc-paper',3)+tx(243,316,'PT','sc-lab','middle')+`<line x1="222" y1="328" x2="264" y2="328" class="sc-rule"/>`+(S.certs?tx(243,348,'certif.','sc-tiny','middle'):`<line x1="222" y1="342" x2="256" y2="342" class="sc-rule"/>`)));
+      // área classificada: delimitada e sinalizada só depois da ronda
+      o.push(hs('pista',[322,226,336,168],S.sinal?`<rect x="322" y="226" width="336" height="168" rx="10" class="sc-exzone"/>`+rc(420,232,140,20,'sc-warnplate',3)+tx(490,247,'ÁREA CLASSIFICADA','sc-plate','middle'):''));
+      // cobertura e luminárias
+      o.push(rc(290,150,400,22,'sc-cub',3),rc(306,172,10,224,'sc-pole',2),rc(664,172,10,224,'sc-pole',2));
+      o.push(hs('lum',[372,172,60,44],rc(376,174,52,14,S.lumComum?'sc-paper':'sc-dark',3)+rc(384,188,36,6,S.lumComum?'sc-ledoff':'sc-bolt',2)+tx(402,210,S.lumComum?'comum':'Ex','sc-tiny','middle')));
+      o.push(rc(552,174,52,14,'sc-dark',3),rc(560,188,36,6,'sc-bolt',2),tx(578,210,'Ex','sc-tiny','middle'));
+      // ilha e bombas
+      o.push(rc(360,332,260,20,'sc-cub',4));
+      o.push(hs('bomba',[396,256,56,76],rc(396,256,56,76,'sc-truck',4)+rc(404,266,40,22,'sc-panel',2)+tx(424,312,'BOMBA','sc-tiny','middle')));
+      o.push(rc(528,256,56,76,'sc-truck',4),rc(536,266,40,22,'sc-panel',2),tx(556,312,'BOMBA','sc-tiny','middle'));
+      o.push(hs('ext',[684,340,22,56],rc(684,350,22,46,'sc-red',6)+rc(689,340,12,12,'sc-dark',2)));
+      // caminhão-tanque, mangueira e cabo de aterramento
+      o.push(hs('caminhao',[730,290,262,128],rc(740,300,180,62,'sc-truck',26)+rc(924,316,58,48,'sc-truck',5)+rc(934,324,36,18,'sc-paper',2)
+        +`<circle cx="780" cy="382" r="14" class="sc-dark"/><circle cx="880" cy="382" r="14" class="sc-dark"/><circle cx="954" cy="382" r="14" class="sc-dark"/>`+tx(830,336,'COMBUSTÍVEL','sc-tiny','middle')
+        +`<path d="M760 360 C 740 400, 770 420, 760 456" class="sc-wire"/>`+(S.terra?`<path d="M800 366 C 790 400, 760 404, 744 416" class="sc-gcable"/>`+rc(734,414,16,10,'sc-cu',2):'')));
+      // tanque subterrâneo e sensores de nível
+      o.push(rc(600,456,240,56,'sc-cub',24),tx(720,490,'TANQUE','sc-txt','middle'));
+      o.push(hs('sensor',[630,424,52,28],rc(632,428,48,20,'sc-panel',3)+tx(656,442,'24 Vcc','sc-tiny','middle')));
+      // pessoas
+      o.push(person('rosa',70,'Rosa','eletr.','sc-coat1'),person('lia',150,'Lia','eletr.','sc-coat1'));
+      if(S.marcos)o.push(person('marcos',230,'Marcos','BT','sc-coat2'));
+      o.push(person('vitor',480,'Vítor','frent.','sc-coat3'));
       return o.join('');}});
 })();

@@ -40,7 +40,7 @@ MODS.push((()=>{
     const cub=(x,w)=>{const g=grp(x,0,-1.7);boxB(w,2.7,.05,'#aeb8c0',0,0,-.53,g);boxB(.05,2.7,1.1,'#aeb8c0',-w/2,0,0,g);boxB(.05,2.7,1.1,'#aeb8c0',w/2,0,0,g);boxB(w,.05,1.1,'#aeb8c0',0,2.65,0,g);
       boxB(w,1.35,.04,'#b9c2c9',0,0,.53,g);const f=box(w-.06,1.2,.02,'#8e979e',0,2.0,.54,g,{transparent:true,opacity:.18,wireframe:false});f.castShadow=false;return g;};
     const c1=cub(-2.8,1.2);const c2=cub(-1.2,1.4);
-    plate(['ENTRADA 13,8 kV'],.9,.16,{bg:'#20313f',fg:'#fff'},0,1.2,.565,c1);plate(['PERIGO','ALTA TENSÃO'],.5,.32,{bg:'#f2c200',fg:'#111',border:'#111'},0,.7,.565,c1);
+    plate(['ENTRADA 13,8 kV'],.9,.16,{bg:'#20313f',fg:'#fff'},0,1.2,.565,c1);plate(['PERIGO','13,8 kV'],.5,.32,{bg:'#f2c200',fg:'#111',border:'#111'},0,.7,.565,c1);
     plate(['89-1 · 52-1'],.8,.16,{bg:'#20313f',fg:'#fff'},0,1.2,.565,c2);
     hot(c1,'c1','Cubículo de entrada (barramento energizado)');
     // barramento, cabos de chegada (lado da fonte: sempre energizado)

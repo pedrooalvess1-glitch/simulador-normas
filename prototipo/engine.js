@@ -175,7 +175,7 @@ function toast(t,kind){const el=$('#toast');el.textContent=t;el.className='vp-to
 function banner(t,kind){const el=$('#banner');if(!t){el.hidden=true;return;}el.textContent=t;el.className='vp-banner'+(kind?' '+kind:'');el.hidden=false;}
 
 const PHASES=[{k:'map',n:'',t:'Mapa',q:'Como a norma se organiza e onde cada item se liga a outro'},
-  {k:'H',n:'',t:'História',q:'Uma ordem de serviço contada no desenho da instalação: cada objeto liga a itens da NR-10'},
+  {k:'H',n:'',t:'História',q:'Uma ordem de serviço contada na instalação em 3D: cada objeto liga a itens da NR-10'},
   {k:'I',n:'I',t:'Aplicação',q:'A NR-10 me alcança? Com que intensidade?'},
   {k:'II',n:'II',t:'Controle',q:'Como o risco é controlado, na ordem da hierarquia do 10.5.4'},
   {k:'III',n:'III',t:'Execução',q:'Como se trabalha: desenergizado ou energizado'},

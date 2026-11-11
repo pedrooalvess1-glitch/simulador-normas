@@ -11,9 +11,9 @@ MODS.push((()=>{
     {id:'cozinha',r:[-5,-1.5,.5,3.5],res:'Cozinha',nres:'Cozinha industrial',need:{res:'d',nres:'e'},c:'#d9c9a3'},
     {id:'lavanderia',r:[-1.5,.8,.5,3.5],res:'Lavanderia',nres:'Lavanderia',need:{res:'d',nres:'e'},c:'#b9d3c4'},
     {id:'garagem',r:[.8,5,.5,3.5],res:'Garagem',nres:'Garagem / doca',need:{res:'d',nres:'e'},c:'#c3c6c9'},
-    {id:'sala',r:[-5,-.5,-3.5,.5],res:'Sala · tomada junto à porta da varanda',nres:'Salão · tomada que serve o pátio',need:{res:'c',nres:'c'},c:'#d8c0b0'},
+    {id:'sala',r:[-5,-.5,-3.5,.5],res:'Sala · tomada de até 32 A usada para equipamentos no quintal',nres:'Salão · tomada de até 32 A que alimenta equipamentos no pátio',need:{res:'c',nres:'c'},c:'#d8c0b0'},
     {id:'quarto',r:[-.5,3,-3.5,.5],res:'Quarto',nres:'Escritório',need:{res:'n',nres:'n'},c:'#c9bfd6'},
-    {id:'varanda',r:[-5,-.5,-5.6,-3.5],res:'Varanda · área externa',nres:'Pátio · área externa',need:{res:'b',nres:'b'},c:'#b8a98e',ext:true},
+    {id:'varanda',r:[-5,-.5,-5.6,-3.5],res:'Quintal · área externa à edificação',nres:'Pátio · área externa à edificação',need:{res:'b',nres:'b'},c:'#b8a98e',ext:true},
     {id:'bomba',res:'Bomba de incêndio',nres:'Bomba de incêndio',need:{res:'x',nres:'x'}}];
   let mode='res',sel=new Set(),floors={};
   const INFO={
@@ -53,7 +53,7 @@ MODS.push((()=>{
     $$('[data-room]',L).forEach(i=>i.onchange=()=>{toggle(i.dataset.room);});}
   const AUD=[
     {t:'O QDC tem disjuntor geral com dispositivo para cadeado e etiqueta que indica se o circuito está ligado ou desligado.',a:'C',x:'Atende ao desligamento com impedimento de reenergização e indicação da condição operativa.',r:['10.4.1']},
-    {t:'O motor trifásico da bomba é seccionado por três disjuntores monopolares independentes, sem acoplamento.',a:'N',x:'O projeto deve prever, na medida do possível, seccionamento de ação simultânea.',r:['10.4.2']},
+    {t:'O motor trifásico da bomba é seccionado por três disjuntores monopolares independentes, sem acoplamento.',a:'N',x:'O projeto deve prever, na medida do possível, seccionamento de ação simultânea (10.4.2). Para um motor trifásico, um dispositivo tripolar de ação simultânea é plenamente possível, então a ressalva não se aplica.',r:['10.4.2']},
     {t:'Cabos de CFTV e de força passam no mesmo eletroduto, sem definição no projeto.',a:'N',x:'Circuitos de finalidades distintas são identificados e instalados separadamente, salvo compartilhamento definido em projeto.',r:['10.4.3.1','10.12.10']},
     {t:'O projeto não especifica o esquema de aterramento nem se neutro e PE são interligados.',a:'N',x:'Esses dois pontos são conteúdo obrigatório do projeto.',r:['10.4.4']},
     {t:'Não há ponto previsto para conectar aterramento temporário no QGBT.',a:'N',x:'Todo projeto prevê condições para aterramento temporário.',r:['10.4.6']},
